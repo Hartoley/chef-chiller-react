@@ -7,6 +7,7 @@ import img2 from "../Images/rice-removebg-preview.png";
 import img3 from "../Images/swallow-removebg-preview.png";
 import img4 from "../Images/asun-removebg-preview.png";
 import Footer from "./Footer";
+import AllProduct from "./Allproduct";
 
 const slides = [
   {
@@ -102,6 +103,24 @@ const LandingPage = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+  };
+
+  const products = [
+    { name: "Steak Deluxe", price: 12.89, oldPrice: 14.99, image: "steak.jpg" },
+    { name: "Pasta Primavera", price: 12.89, image: "pasta.jpg" },
+    { name: "Grilled Chicken", price: 12.89, image: "chicken.jpg" },
+    { name: "Cheesy Burger", price: 12.89, image: "burger.jpg" },
+    { name: "Crunchy Tenders", price: 12.89, image: "tenders.jpg" },
+  ];
 
   const slideVariants = {
     enter: (direction) => ({
@@ -316,12 +335,56 @@ const LandingPage = () => {
               </div>
             </div>
             <div
-              className="bg-[rgb(5,17,31)] rounded-tl-[50px] rounded-br-[50px] w-[60%] h-[30%]"
-              id="miniBox1"
-            ></div>
+              id="coloredBox"
+              className="bg-[rgb(5,17,31)] rounded-tl-[50px] flex items-center justify-evenly rounded-br-[50px] w-[60%] h-[30%]"
+            >
+              <div
+                className="w-[32%] rounded-lg bg-[rgb(234,1,41)] h-[90%] flex items-center p-3"
+                id="miniBox3"
+              >
+                <div className="w-[50%] h-full">
+                  <h1 className="text-[0.8rem] w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
+                    Nigerian Jollof Special
+                  </h1>
+                  <p className="text-[0.8rem] text-white w-[90%] cursor-pointer hover:text-[rgb(175,16,60)] ">
+                    A flavorful and spicy rice dish that’s a Nigerian favorite.
+                  </p>
+                </div>
+                <img className="w-[50%] h-[75%]" src={img1} alt="" />
+              </div>
+              <div
+                className="w-[32%] rounded-lg bg-[rgb(248,159,54)] h-[90%] flex items-center  p-3"
+                id="miniBox3"
+              >
+                <div className="w-[50%] h-full">
+                  <h1 className="text-[0.8rem] w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
+                    Swallow Delight
+                  </h1>
+                  <p className="text-[0.8rem] text-white w-[95%] cursor-pointer hover:text-[rgb(175,16,60)] ">
+                    Soft and satisfying, perfect for pairing with rich soups.
+                  </p>
+                </div>
+                <img className="w-[50%] h-[75%]" src={img3} alt="" />
+              </div>
+              <div
+                id="miniBox3"
+                className="w-[32%] rounded-lg bg-[rgb(33,148,80)] h-[90%] flex items-center  p-3"
+              >
+                <div className="w-[50%] h-full">
+                  <h1 className="text-[0.8rem] w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
+                    Spaghetti Magic
+                  </h1>
+                  <p className="text-[0.8rem] text-white w-[90%] cursor-pointer hover:text-[rgb(175,16,60)] ">
+                    Twirls of pasta coated in savory goodness.
+                  </p>
+                </div>
+                <img className="w-[50%] h-[75%]" src={img4} alt="" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <AllProduct />
       <Footer />
     </>
   );

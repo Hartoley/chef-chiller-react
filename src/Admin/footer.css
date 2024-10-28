@@ -9,7 +9,13 @@
     gap: 1.5rem;
     width: 100%;
     position: absolute;
-    top: 177vh;
+    top: 317vh;
+}
+
+#AllProduct{
+    position: absolute;
+    top: 178vh;
+    width: 100%;
 }
 
 .footer-container {
@@ -157,7 +163,13 @@
         justify-content: center;
     }
 
-    .footer{
+    #AllProduct{
         top: 137vh;
     }
+
+        .footer {
+            top: 227vh;
+        }
+
+    
 }

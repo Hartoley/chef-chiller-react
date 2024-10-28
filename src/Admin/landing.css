@@ -211,10 +211,38 @@ nav {
 
   }
 
+ 
+   #miniBox1 h2, p {
+       font-size: 10px;
+       font-weight: 400;
+
+   }
+
+          #miniBox2 p {
+              font-size: 8px;
+              font-weight: 200;
+    
+          }
+
+          #coloredBox{
+            width: 80% !important;
+          }
+
+   #miniBox3 p{
+    display: none !important;
+   }  
+   
+         #miniBox3  {
+             flex-direction: column;
+             justify-content: space-evenly;
+         }
+
   #listFood{
    top: 49.9vh;
    overflow-x: scroll !important;
    padding: 0 20px !important;
+   justify-content: space-evenly;
+   
   }
 
   #menuIntro h1, p{
