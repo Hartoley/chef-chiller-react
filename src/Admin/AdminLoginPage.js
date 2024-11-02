@@ -1,11 +1,95 @@
-import React from "react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Admin from "./Admin";
+import "../Admin/login.css";
 
-const AdminLoginPage = () => {
+const SignupForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <>
-      <h1>Login Here</h1>
+      <div className="w-full h-screen bg-black relative">
+        <img
+          className="absolute w-full h-full inset-0"
+          src="https://i.pinimg.com/474x/88/50/ea/8850ea685cf18e8ad48758a6164269a1.jpg"
+          alt=""
+        />
+        <div className="absolute inset-0 bg-[rgb(4,14,25)] bg-opacity-30 z-10 flex items-center justify-center ">
+          <div
+            className="w-full bg-black lg:w-[60%] flex items-center h-[60%] rounded-lg bg-[rgb(4,14,25)] bg-opacity-50"
+            id="loginContainer"
+          >
+            <div
+              id="images1"
+              className="lg:flex w-[55%] relative inset-0 h-full rounded-l-lg"
+            >
+              <img
+                src="https://i.pinimg.com/474x/20/0e/12/200e124b9116fff354ec08cc2b5317b0.jpg"
+                className="w-full z-1 h-full absolute rounded-l-lg"
+                alt=""
+              />
+              <div className="w-full absolute inset-0 flex flex-col items-center h-full text-[#f65553] justify-center z-10 bg-[rgb(4,14,25)] bg-opacity-30">
+                <div className="w-full items-center justify-center flex">
+                  <img
+                    class="logo"
+                    src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
+                    alt=""
+                  />
+                </div>
+                <h5>Sign up? </h5>
+              </div>
+            </div>
+            <div className="w-[45%] h-full p-5 flex flex-col gap-1 " id="main2">
+              <h6
+                style={{
+                  fontFamily: "Roboto Condensed, sans-serif",
+                  fontWeight: "200",
+                }}
+                className="text-[#f65553]"
+              >
+                Your Path To A Happy Eating
+              </h6>
+
+              <div className="w-8/9 text-white text-sm" id="inputs">
+                <p>Email</p>
+                <input
+                  type="text"
+                  className="w-full h-[3vw] px-3 text-gray-900"
+                  placeholder="email@gmail.com"
+                />
+              </div>
+
+              <div className="w-8/9 text-white text-sm relative" id="inputs">
+                <p>Password</p>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="w-full h-[3vw] px-3 text-gray-900"
+                  placeholder="*****"
+                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-3 top-1 text-[#f65553] hover:text-white focus:outline-none"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
+              <button
+                className="w-8/9 h-10 border-2 border-[#f65553] text-white mt-2"
+                id="inputs1"
+              >
+                Log In
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
 
-export default AdminLoginPage;
+export default SignupForm;

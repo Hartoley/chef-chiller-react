@@ -1,0 +1,35 @@
+@media (max-width: 740px) {
+  #loginContainer {
+    width: 80% !important;
+    flex-direction: column;
+    justify-content: start !important;
+    gap: 0;
+  }
+
+  #main2 {
+    height: 85%;
+    width: 100%;
+    justify-content: space-evenly;
+  }
+
+  #main2 input {
+    height: 4vh;
+    font-size: 14px;
+  }
+  #images1 img {
+    display: none;
+  }
+
+  #inputs {
+    width: 90%;
+  }
+
+  #inputs1 {
+    width: 90% !important;
+  }
+
+  #images1 {
+    width: 50%;
+    height: 5vh;
+  }
+}
