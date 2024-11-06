@@ -2,7 +2,7 @@ import "../Admin/landing.css";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import logo from "../Images/logo_chef_chiller-removebg-preview.png";
 
-const Admin = () => {
+const Admin = ({ signup, signin }) => {
   const [isLoggedIn, etisLoggedIn] = useState(false);
   return (
     <>
@@ -16,7 +16,9 @@ const Admin = () => {
             />
           </div>
           <div className="contentMain">
-            <button className="buttonSignup">Join us</button>
+            <button onClick={signup} className="buttonSignup">
+              Join us
+            </button>
             <div className="content1">
               <p>
                 Our Menu
@@ -45,7 +47,9 @@ const Admin = () => {
               <p>Contact Us</p>
             </div>
             <div className="buttonBox">
-              <button className="buttonLogin">Login</button>
+              <button onClick={signin} className="buttonLogin">
+                Login
+              </button>
             </div>
           </div>
           <div className="buttonBox1">

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -14,6 +14,8 @@ const SignupForm = () => {
   const [students, setStudents] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false); // New state
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,6 +29,10 @@ const SignupForm = () => {
 
     fetchData();
   }, []);
+
+  const signin = () => {
+    navigate("/user/signin");
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -59,6 +65,10 @@ const SignupForm = () => {
         try {
           await axios.post(`${endpoint}user/register`, values);
           toast.success("Students signed up successfully");
+          setIsRegistered(true);
+          setTimeout(() => {
+            navigate("/user/signin");
+          }, 5000);
         } catch (error) {
           console.log(error);
           toast.error(error?.response?.data?.message);
@@ -78,7 +88,7 @@ const SignupForm = () => {
         src="https://i.pinimg.com/474x/d9/a7/67/d9a7674a942f55c1f76705d4406cac3b.jpg"
         alt=""
       />
-      <div className="absolute inset-0 bg-[rgb(4,14,25)] bg-opacity-30 z-10 flex items-center justify-center ">
+      <div className="absolute inset-0 bg-[rgb(4,14,25)] bg-opacity-30 z-10 flex items-center justify-center">
         <div
           className="w-full bg-black lg:w-[70%] flex items-center h-[80%] bg-[rgb(4,14,25)] bg-opacity-50"
           id="loginContainer"
@@ -104,12 +114,12 @@ const SignupForm = () => {
                 name="username"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.name}
+                value={formik.values.username}
                 className="w-full h-[3vw] px-3 text-gray-900"
                 placeholder="Your full name"
               />
-              {formik.touched.name && formik.errors.name ? (
-                <div className="text-red-500">{formik.errors.name}</div>
+              {formik.touched.username && formik.errors.username ? (
+                <div className="text-red-500">{formik.errors.username}</div>
               ) : null}
             </div>
             <div className="w-3/4 text-white text-sm" id="inputs">
@@ -138,9 +148,7 @@ const SignupForm = () => {
                 className="w-full h-[3vw] px-3 text-gray-900"
                 placeholder="Phone Number"
               />
-              {formik.touched.phoneNumber && (
-                <formik className="errors phoneN"></formik>
-              ) ? (
+              {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
                 <div className="text-red-500">{formik.errors.phoneNumber}</div>
               ) : null}
             </div>
@@ -170,7 +178,7 @@ const SignupForm = () => {
               type="submit"
               className="w-3/4 h-10 border-2 border-[#f65553] text-white mt-2"
               id="inputs1"
-              disabled={loading} // Disable button while loading
+              disabled={loading || isRegistered}
             >
               {loading ? (
                 <span>
@@ -201,15 +209,23 @@ const SignupForm = () => {
                   alt=""
                 />
               </div>
-              {loading && (
-                <div className="w-[80%] h-10 flex items-center gap-3 m-auto bg-white">
-                  <p>Saving user...</p>
-                  <div className="spinner-border text-primary" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
+              {isRegistered ? (
+                <div className="w-[80%] h-20 flex items-center p-5 gap-3 m-auto bg-white">
+                  <p>Registration successful! Redirecting...</p>
                 </div>
+              ) : (
+                loading && (
+                  <div className="w-[80%] h-10 flex items-center gap-3 m-auto bg-white">
+                    <p>Saving user...</p>
+                    <div className="spinner-border text-primary" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                )
               )}
-              <h5>Log in? </h5>
+              <h5 className="cursor-pointer text-white" onClick={signin}>
+                Log in?{" "}
+              </h5>
             </div>
           </div>
         </div>

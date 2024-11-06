@@ -5,10 +5,14 @@ import * as yup from "yup";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 import "../Admin/login.css";
 
-const SignupForm = () => {
+const LoginForm = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -32,18 +36,35 @@ const SignupForm = () => {
         .required("Password is required"),
     }),
     onSubmit: (values) => {
+      setLoading(true);
       axios
-        .post(`${endpoint}/userlogin`, values)
+        .post(`${endpoint}/user/login`, values)
         .then((res) => {
-          toast.success("Successfully signed up!");
+          toast.success("Successfully signed in!");
+
+          const { role, id } = res.data;
+
+          setLoginSuccess(true);
+          setTimeout(() => {
+            if (role === "Admin") {
+              navigate(`/admin/dashboard/${id}`);
+            } else if (role === "User") {
+              navigate(`/user/dashboard/${id}`);
+            }
+          }, 5000);
         })
         .catch((err) => {
           toast.error(
-            "Error: " + err.response?.data?.message || "Sign up failed"
+            "Error: " + (err.response?.data?.message || "Login failed")
           );
-        });
+        })
+        .finally(() => setLoading(false));
     },
   });
+
+  const signup = () => {
+    navigate("/user/signup");
+  };
 
   return (
     <>
@@ -75,7 +96,9 @@ const SignupForm = () => {
                     alt=""
                   />
                 </div>
-                <h5>Sign up? </h5>
+                <h5 className="cursor-pointer text-white" onClick={signup}>
+                  Sign up?{" "}
+                </h5>
               </div>
             </div>
             <form
@@ -132,8 +155,25 @@ const SignupForm = () => {
                 type="submit"
                 className="w-8/9 h-10 border-2 border-[#f65553] text-white mt-2"
                 id="inputs1"
+                disabled={loading}
               >
-                Sign Up
+                {loading ? (
+                  loginSuccess ? (
+                    <div className="text-green-500">Login Successful!</div>
+                  ) : (
+                    <span>
+                      <div
+                        className="spinner-border spinner-border-sm text-primary"
+                        role="status"
+                      >
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                      Signing in...
+                    </span>
+                  )
+                ) : (
+                  "Sign In"
+                )}
               </button>
             </form>
           </div>
@@ -144,4 +184,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default LoginForm;

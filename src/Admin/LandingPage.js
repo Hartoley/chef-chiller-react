@@ -7,6 +7,7 @@ import img2 from "../Images/rice-removebg-preview.png";
 import img3 from "../Images/swallow-removebg-preview.png";
 import img4 from "../Images/asun-removebg-preview.png";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
 import AllProduct from "./Allproduct";
 
 const slides = [
@@ -88,10 +89,18 @@ const slides = [
     image: img4,
   },
 ];
-
 const LandingPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate();
   const [direction, setDirection] = useState(1);
+
+  const signin = () => {
+    navigate("/user/signin");
+  };
+
+  const signup = () => {
+    navigate("/user/signup");
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -136,7 +145,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <Admin />
+      <Admin signin={signin} signup={signup} />
 
       <div id="bigBox" className="relative h-[70vh] w-full">
         <img
