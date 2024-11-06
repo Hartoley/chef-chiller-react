@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import Admin from "./Admin";
+import Footer from "./Footer";
+import AdminSideNav from "./AdminSideNav";
 
 const AdminDashboard = () => {
-  return <div>AdminDashboard</div>;
+  const [isLoggedIn, setisLoggedIn] = useState(true);
+
+  return (
+    <>
+      <AdminSideNav />
+    </>
+  );
 };
 
 export default AdminDashboard;

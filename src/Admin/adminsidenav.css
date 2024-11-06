@@ -1,0 +1,17 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+
+#sidenav{
+
+    height: 100vh;
+    position: fixed;
+}
+
+@media (max-width:760px) {
+    #sidenav{
+        display: none;
+    }
+}

@@ -12,6 +12,13 @@
     top: 317vh;
 }
 
+.footer.noTop {
+    position: relative;
+  
+    top: unset;
+ 
+}
+
 #AllProduct{
     position: absolute;
     top: 178vh;

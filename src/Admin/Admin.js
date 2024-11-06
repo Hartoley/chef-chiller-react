@@ -1,9 +1,6 @@
-import "../Admin/landing.css";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import logo from "../Images/logo_chef_chiller-removebg-preview.png";
+import React, { useState } from "react";
 
-const Admin = ({ signup, signin }) => {
-  const [isLoggedIn, etisLoggedIn] = useState(false);
+const Admin = ({ signup, signin, isLoggedIn, isDashboard }) => {
   return (
     <>
       <nav>
@@ -16,9 +13,16 @@ const Admin = ({ signup, signin }) => {
             />
           </div>
           <div className="contentMain">
-            <button onClick={signup} className="buttonSignup">
-              Join us
-            </button>
+            {!isDashboard && !isLoggedIn && (
+              <>
+                <button onClick={signup} className="buttonSignup">
+                  Join us
+                </button>
+                <button onClick={signin} className="buttonLogin">
+                  Login
+                </button>
+              </>
+            )}
             <div className="content1">
               <p>
                 Our Menu
@@ -47,9 +51,11 @@ const Admin = ({ signup, signin }) => {
               <p>Contact Us</p>
             </div>
             <div className="buttonBox">
-              <button onClick={signin} className="buttonLogin">
-                Login
-              </button>
+              {isLoggedIn && (
+                <button onClick={signin} className="buttonLogin">
+                  Log out
+                </button>
+              )}
             </div>
           </div>
           <div className="buttonBox1">
