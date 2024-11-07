@@ -1,6 +1,16 @@
 import React, { useState } from "react";
+import "../Admin/adminsidenav.css";
 
 const Admin = ({ signup, signin, isLoggedIn, isDashboard }) => {
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [showMenu, setshowMenu] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuVisible((prev) => !prev);
+    setshowMenu((prev) => !prev);
+  };
+  const logout = () => {};
+
   return (
     <>
       <nav>
@@ -59,7 +69,91 @@ const Admin = ({ signup, signin, isLoggedIn, isDashboard }) => {
             </div>
           </div>
           <div className="buttonBox1">
-            <span class="material-symbols-outlined">menu</span>
+            <span onClick={toggleMenu} class="material-symbols-outlined">
+              menu
+            </span>
+            {showMenu && (
+              <div
+                id="overrideZIndex"
+                style={{
+                  position: "absolute",
+                  backgroundColor: "white",
+                  left: "60vw",
+                  width: "40vw",
+                  height: "auto",
+                  fontSize: "14px",
+                  lineHeight: "20px",
+                  padding: "10px 15px",
+                  border: "solid 0.5px rgb(135, 137, 138)",
+                  top: "10vh",
+                  zIndex: "10",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                  transition: "all 0.3s ease",
+                }}
+              >
+                <div
+                  onClick={signup}
+                  style={{
+                    marginTop: "15px",
+                    cursor: "pointer",
+                    transition: "color 0.3s, transform 0.3s",
+                    fontSize: "12px",
+                    display: "flex",
+                    gap: "5px",
+                    alignItems: "center",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.color = "#ff4d4d";
+                    e.target.style.transform = "scale(1.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = "";
+                    e.target.style.transform = "scale(1)";
+                  }}
+                >
+                  Join us
+                  <span
+                    style={{
+                      fontSize: "10px",
+                    }}
+                    className="material-symbols-outlined"
+                  >
+                    face
+                  </span>
+                </div>
+
+                <div
+                  onClick={signin}
+                  style={{
+                    marginTop: "15px",
+                    cursor: "pointer",
+                    transition: "color 0.3s, transform 0.3s",
+                    fontSize: "12px",
+                    display: "flex",
+                    gap: "5px",
+                    alignItems: "center",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.color = "#ff4d4d";
+                    e.target.style.transform = "scale(1.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.color = "";
+                    e.target.style.transform = "scale(1)";
+                  }}
+                >
+                  Log in
+                  <span
+                    style={{
+                      fontSize: "10px",
+                    }}
+                    className="material-symbols-outlined"
+                  >
+                    passkey
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </nav>

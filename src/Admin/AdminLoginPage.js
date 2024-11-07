@@ -18,7 +18,7 @@ const LoginForm = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const endpoint = "http://localhost:5010";
+  const endpoint = "https://chef-chiller-node.onrender.com";
 
   const formik = useFormik({
     initialValues: {
@@ -96,7 +96,8 @@ const LoginForm = () => {
                     alt=""
                   />
                 </div>
-                <h5 className="cursor-pointer text-white" onClick={signup}>
+
+                <h5 className="cursor-pointer mt-5 text-white" onClick={signup}>
                   Sign up?{" "}
                 </h5>
               </div>
@@ -175,6 +176,11 @@ const LoginForm = () => {
                   "Sign In"
                 )}
               </button>
+              <img
+                className="logoSm"
+                src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
+                alt=""
+              />
             </form>
           </div>
         </div>

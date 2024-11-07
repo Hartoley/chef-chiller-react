@@ -10,6 +10,24 @@
     position: fixed;
 }
 
+#overrideZIndex {
+    z-index: 1000 !important;
+    
+}
+
+#logoBg{
+    width: 50% !important;
+}
+
+#product{
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    
+}
+
+
+
 @media (max-width:760px) {
     #sidenav{
         display: none;

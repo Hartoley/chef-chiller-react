@@ -9,7 +9,7 @@ import "../Admin/login.css";
 import logo from "../Images/logo_chef_chiller-removebg-preview.png";
 
 const SignupForm = () => {
-  const endpoint = "http://localhost:5010/";
+  const endpoint = "https://chef-chiller-node.onrender.com";
   const navigate = useNavigate();
   const [students, setStudents] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +19,7 @@ const SignupForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${endpoint}user/getdata`);
+        const res = await axios.get(`${endpoint}/user/getdata`);
         console.log("students data from API:", res.data);
         setStudents(res.data);
       } catch (err) {
@@ -63,7 +63,7 @@ const SignupForm = () => {
         toast.error("User already exists");
       } else {
         try {
-          await axios.post(`${endpoint}user/register`, values);
+          await axios.post(`${endpoint}/user/register`, values);
           toast.success("Students signed up successfully");
           setIsRegistered(true);
           setTimeout(() => {
@@ -228,6 +228,11 @@ const SignupForm = () => {
               </h5>
             </div>
           </div>
+          <img
+            className="logoSm"
+            src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
+            alt=""
+          />
         </div>
       </div>
       <ToastContainer />
