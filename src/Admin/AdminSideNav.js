@@ -13,7 +13,7 @@ const AdminSideNav = () => {
   return (
     <>
       <div className="mainBody w-full">
-        <div className="buttonBox1">
+        <div className="buttonBox2">
           <span onClick={toggleMenu} className="material-symbols-outlined">
             menu
           </span>
@@ -25,7 +25,7 @@ const AdminSideNav = () => {
           }`}
         >
           <div className="flex gap-3 mb-3 items-center w-[90%] h-[10vh]">
-            <div className="buttonBox1">
+            <div className="buttonBox2">
               <span onClick={toggleMenu} className="material-symbols-outlined">
                 menu
               </span>
@@ -40,7 +40,7 @@ const AdminSideNav = () => {
             </div>
           </div>
 
-          <div className="otherContents w-[80%] h-[80%]">
+          <div className="otherContents w-full h-[80%]">
             <div
               className={`w-full h-8 rounded-3xl flex justify-center items-center text-white cursor-pointer ${
                 activeSection === "product" ? "bg-[#cc0f31]" : "bg-[#239551]"
@@ -83,38 +83,58 @@ const AdminSideNav = () => {
         </nav>
 
         {/* Main Content Area */}
-        <div className="contentArea w-[87%] h-[100vh] relative left-[13%] bg-[#A0ADB8] p-4">
+        <div className="contentArea w-[87%] h-[100vh] relative left-[13%] bg-[#040e19] pl-7 p-4 ">
           {activeSection === "product" && (
-            <div className="product w-full h-full bg-[#50606C] flex items-center justify-center text-white text-2xl">
+            <div className="product w-full h-full bg-[#50606C] rounded-lg flex items-center justify-center text-white text-2xl">
               Product Content
             </div>
           )}
           {activeSection === "order" && (
-            <div className="order w-[95%] ml-auto mr-auto h-full flex flex-col bg-[#F7F9FA] rounded-lg p-4 shadow-lg">
+            <div className="order w-full h-full rounded-lg ml-auto mr-auto h-full flex flex-col bg-[#F7F9FA] rounded-lg p-4 shadow-lg">
               <h2 className="text-xl font-bold text-gray-800 mb-4">
                 Order List
               </h2>
 
-              {/* Example Task Item */}
-              <div className="task-item bg-white p-4 mb-4 rounded-lg shadow-sm flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600">Task #00350</p>
-                  <p className="text-lg font-semibold text-gray-800">€120.21</p>
+              <div className="w-full h-[60%] gap-4 flex flex-col overflow-y-auto">
+                {/* Example Task Item */}
+                <div className="task-item w-full bg-white p-4 mb-4 rounded-lg shadow-sm flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600">Task #00350</p>
+                    <p className="text-lg font-semibold text-gray-800">
+                      €120.21
+                    </p>
+                  </div>
+                  <button className="text-white bg-[#ff7a00] py-1 px-3 rounded-full">
+                    Accept Order
+                  </button>
                 </div>
-                <button className="text-white bg-[#ff7a00] py-1 px-3 rounded-full">
-                  Accept Order
-                </button>
-              </div>
 
-              {/* Repeat Task Item as Needed */}
-              <div className="task-item bg-white p-4 mb-4 rounded-lg shadow-sm flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600">Task #00349</p>
-                  <p className="text-lg font-semibold text-gray-800">€99.60</p>
+                {/* Repeat Task Item */}
+                <div className="task-item w-full bg-white p-4 mb-4 rounded-lg shadow-sm flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600">Task #00349</p>
+                    <p className="text-lg font-semibold text-gray-800">
+                      €99.60
+                    </p>
+                  </div>
+                  <button className="text-white bg-[#ff7a00] py-1 px-3 rounded-full">
+                    Accept Order
+                  </button>
                 </div>
-                <button className="text-white bg-[#ff7a00] py-1 px-3 rounded-full">
-                  Accept Order
-                </button>
+
+                {/* Additional Task Items */}
+                {/* Repeat Task Item */}
+                <div className="task-item w-full bg-white p-4 mb-4 rounded-lg shadow-sm flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600">Task #00349</p>
+                    <p className="text-lg font-semibold text-gray-800">
+                      €99.60
+                    </p>
+                  </div>
+                  <button className="text-white bg-[#ff7a00] py-1 px-3 rounded-full">
+                    Accept Order
+                  </button>
+                </div>
               </div>
 
               {/* Additional Content */}
@@ -131,12 +151,12 @@ const AdminSideNav = () => {
             </div>
           )}
           {activeSection === "notification" && (
-            <div className="notifications w-full h-full bg-[#A0ADB8] flex items-center justify-center text-white text-2xl">
+            <div className="notifications w-full h-full rounded-lg bg-[#A0ADB8] flex items-center justify-center text-white text-2xl">
               Notification Content
             </div>
           )}
           {activeSection === "chat" && (
-            <div className="chat w-full h-full bg-[#C2CDD5] flex items-center justify-center text-white text-2xl">
+            <div className="chat w-full h-full rounded-lg bg-[#C2CDD5] flex items-center justify-center text-white text-2xl">
               Chat Content
             </div>
           )}

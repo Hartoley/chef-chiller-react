@@ -36,9 +36,8 @@
     z-index: 1000;
 }
 
-.buttonBox1 {
-
-    justify-content: space-evenly;
+.buttonBox2 {
+    
     display: none;
     color: beige !important;
     z-index: 10;
@@ -58,13 +57,13 @@
         height: 95%;
     }
 
-          .buttonBox1 {
+          .buttonBox2 {
               display: flex;
               align-items: center;
               justify-content: flex-start !important;
               background-color: #040e19;
-              padding-left: 20px;
-              height: 5%;
+              padding: 20px;
+              height: 10%;
           }
 
           .chef{
