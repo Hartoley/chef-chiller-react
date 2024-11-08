@@ -46,10 +46,10 @@ const AllProduct = () => {
   return (
     <div className="bg-[rgb(4,14,25)] p-10" id="AllProduct">
       {/* Specials Section */}
-      <div className="max-w-6xl mx-auto mb-12 overflow-x-scroll">
+      <div className="custom-scrollbar max-w-6xl mx-auto mb-12 ">
         <h2 className="text-4xl font-bold mb-6 text-[#E0E0E0]">Specials</h2>
         <div className="relative">
-          <div className="flex space-x-4 overflow-x-auto">
+          <div className="flex space-x-4">
             {specialProducts.map((product, index) => (
               <div
                 key={index}
@@ -85,10 +85,10 @@ const AllProduct = () => {
       </div>
 
       {/* New Products Section */}
-      <div className="max-w-6xl mx-auto mb-12 overflow-x-scroll">
+      <div className="custom-scrollbar max-w-6xl mx-auto mb-12 ">
         <h2 className="text-4xl font-bold mb-6 text-[#E0E0E0]">New Products</h2>
         <div className="relative">
-          <div className="flex space-x-4 overflow-x-auto">
+          <div className="flex space-x-4 ">
             {newProducts.map((product, index) => (
               <div
                 key={index}

@@ -68,7 +68,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <div className="w-full h-screen bg-black relative">
+      <div className="body w-full h-screen bg-black relative">
         <img
           className="absolute w-full h-full inset-0"
           src="https://i.pinimg.com/474x/88/50/ea/8850ea685cf18e8ad48758a6164269a1.jpg"

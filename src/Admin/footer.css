@@ -9,7 +9,7 @@
     gap: 1.5rem;
     width: 100%;
     position: absolute;
-    top: 317vh;
+    top: 317vh !important;
 }
 
 .footer.noTop {
@@ -66,6 +66,20 @@
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.3s;
+}
+.custom-scrollbar{
+    overflow-x: scroll;
+}
+.custom-scrollbar::-webkit-scrollbar {
+    display: none !important;
+    /* Chrome, Safari, Opera */
+}
+
+.custom-scrollbar {
+    -ms-overflow-style: none !important;
+    /* IE and Edge */
+    scrollbar-width: none !important;
+    /* Firefox */
 }
 
 .footer-links a:hover {
@@ -153,19 +167,18 @@
     width: 100%;
 }
 
+@media (max-width: 380px) {
 
-   @media (min-width: 300px) {
-    #AllProduct {
-            /* background-color: #e63950 !important; */
-            top: 137vh !important;
-        }
-       .footer {
-            top: 257vh !important;
-                /* background-color: #ff416c !important; */
-       }
-   }
 
-@media (min-width: 380px) {
+    .footer {
+        top: 257vh !important;
+       
+        /* background-color: #ff416c !important; */
+
+    }
+}
+
+@media (max-width: 700px) {
     .footer-container {
         flex-direction: column;
         align-items: center;
@@ -191,5 +204,8 @@
 
     
 }
+
+
+
 
      
