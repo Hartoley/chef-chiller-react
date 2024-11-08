@@ -4,21 +4,37 @@ import "../Admin/adminsidenav.css";
 
 const AdminSideNav = () => {
   const [activeSection, setActiveSection] = useState("product");
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuVisible((prev) => !prev);
+  };
 
   return (
     <>
       <div className="mainBody w-full">
-        {/* Sidebar */}
+        <div className="buttonBox1">
+          <span onClick={toggleMenu} className="material-symbols-outlined">
+            menu
+          </span>
+        </div>
         <nav
           id="sidenav"
-          className="bg-[#040e19] z-10 rounded-tr-3xl flex flex-col px-1 py-3 items-center rounded-br-3xl w-[15%]"
+          className={`bg-[#040e19] z-10 rounded-tr-3xl flex flex-col px-1 py-3 items-center rounded-br-3xl w-[15%] ${
+            isMenuVisible ? "visibleNav" : ""
+          }`}
         >
-          <div className="flex gap-3 mb-3 items-center justify-center w-[90%] h-[10vh]">
+          <div className="flex gap-3 mb-3 items-center w-[90%] h-[10vh]">
+            <div className="buttonBox1">
+              <span onClick={toggleMenu} className="material-symbols-outlined">
+                menu
+              </span>
+            </div>
             <div className="h-[80%] w-[30%] flex items-center rounded-full justify-center">
               <img src={logo} id="logoBg" className="h-[80%]" alt="Logo" />
             </div>
-            <div className="h-[80%] flex items-center justify-center">
-              <p className="text-[12px] mb-0 p-0 text-white font-medium">
+            <div className="chef h-[80%] flex items-center justify-center">
+              <p className="text-[12px] mb-0 w-full flex items-center p-0 text-white font-medium">
                 Chef Chiller
               </p>
             </div>
@@ -67,7 +83,7 @@ const AdminSideNav = () => {
         </nav>
 
         {/* Main Content Area */}
-        <div className="w-[87%] h-[100vh] relative left-[13%] bg-[#A0ADB8] p-4">
+        <div className="contentArea w-[87%] h-[100vh] relative left-[13%] bg-[#A0ADB8] p-4">
           {activeSection === "product" && (
             <div className="product w-full h-full bg-[#50606C] flex items-center justify-center text-white text-2xl">
               Product Content

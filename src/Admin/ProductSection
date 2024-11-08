@@ -1,0 +1,96 @@
+// ProductSection.js
+import React from "react";
+import { FaPlus, FaMinus } from "react-icons/fa";
+
+const products = [
+  {
+    id: 1,
+    title: "Vegetable Salad",
+    price: "$17.99",
+    image: "/salad.jpg",
+    isVeg: true,
+    discount: "20%",
+  },
+  {
+    id: 2,
+    title: "Cheese Burger",
+    price: "$23.99",
+    image: "/burger.jpg",
+    isVeg: false,
+  },
+  {
+    id: 3,
+    title: "Tacos With Chicken",
+    price: "$14.99",
+    image: "/tacos.jpg",
+    isVeg: false,
+  },
+  {
+    id: 4,
+    title: "Meat Sushi Platter",
+    price: "$99.99",
+    image: "/sushi.jpg",
+    isVeg: false,
+  },
+  {
+    id: 5,
+    title: "Orange Juice",
+    price: "$12.99",
+    image: "/juice.jpg",
+    isVeg: true,
+  },
+  {
+    id: 6,
+    title: "Burger with Fries",
+    price: "$10.59",
+    image: "/burger2.jpg",
+    isVeg: false,
+    discount: "20%",
+  },
+];
+
+const ProductCard = ({ product }) => (
+  <div className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col items-center text-center overflow-hidden relative">
+    {product.discount && (
+      <span className="bg-yellow-400 text-xs text-white px-2 py-1 rounded-full absolute top-2 left-2">
+        {product.discount} OFF
+      </span>
+    )}
+    <img
+      src={product.image}
+      alt={product.title}
+      className="h-24 w-24 rounded-full mb-3 object-cover"
+    />
+    <p className="text-gray-700 text-sm font-normal">{product.title}</p>
+    <p
+      className={`text-xs ${product.isVeg ? "text-green-600" : "text-red-600"}`}
+    >
+      {product.isVeg ? "Veg" : "Non-Veg"}
+    </p>
+    <p className="text-lg text-[#00897b] font-semibold">{product.price}</p>
+    <div className="flex items-center mt-2 space-x-2">
+      <button className="bg-[#004d40] text-white px-2 py-1 rounded-md">
+        <FaMinus size={12} />
+      </button>
+      <span className="text-gray-600">1</span>
+      <button className="bg-[#004d40] text-white px-2 py-1 rounded-md">
+        <FaPlus size={12} />
+      </button>
+    </div>
+    <button className="bg-[#00897b] text-white mt-4 py-1 px-3 rounded-md text-sm hover:bg-[#00695c] transition">
+      Add to Dish
+    </button>
+  </div>
+);
+
+const ProductSection = () => (
+  <div className="w-3/4 p-6 overflow-y-auto max-h-[80vh]">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  </div>
+);
+
+export default ProductSection;
