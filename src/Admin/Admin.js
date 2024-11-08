@@ -74,6 +74,7 @@ const Admin = ({ signup, signin, isLoggedIn, isDashboard }) => {
             </span>
             {showMenu && (
               <div
+                className="text-black"
                 id="overrideZIndex"
                 style={{
                   position: "absolute",
