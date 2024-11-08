@@ -91,7 +91,7 @@ const SignupForm = () => {
       <div className="absolute inset-0 bg-[rgb(4,14,25)] bg-opacity-30 z-10 flex items-center justify-center">
         <div
           className="w-full bg-black lg:w-[70%] flex items-center h-[80%] bg-[rgb(4,14,25)] bg-opacity-50"
-          id="loginContainer"
+          id="loginContainer2"
         >
           <form
             className="w-[60%] h-full px-5 py-3 flex flex-col gap-1"
