@@ -4,6 +4,7 @@ import "../Admin/adminsidenav.css";
 
 const AdminSideNav = () => {
   const [activeSection, setActiveSection] = useState("product");
+  const [activeSection2, setActiveSection2] = useState("uploadMenu");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   const toggleMenu = () => {
@@ -85,8 +86,61 @@ const AdminSideNav = () => {
         {/* Main Content Area */}
         <div className="contentArea w-[87%] h-[100vh] relative left-[13%] bg-[#040e19] pl-7 p-4 ">
           {activeSection === "product" && (
-            <div className="product w-full h-full bg-[#50606C] rounded-lg flex items-center justify-center text-white text-2xl">
-              Product Content
+            <div className="product w-full h-full p-[10px] gap-4 bg-[#50606C] rounded-lg flex flex-col items-center text-white">
+              <div className="w-full  flex gap-2 p-[10px] rounded-lg bg-[#040e19]   h-[15vh]">
+                <div
+                  onClick={() => setActiveSection2("uploadMenu")}
+                  className="w-1/6 h-full bg-[#50606C] rounded-lg p-2 flex flex-col gap-1"
+                >
+                  <span class="material-symbols-outlined">flatware</span>
+
+                  <p className="p-0 m-0">Upload menu</p>
+                </div>
+                <div
+                  onClick={() => setActiveSection2("allMenu")}
+                  className="w-1/6 h-full bg-[#50606C] rounded-lg p-2 flex flex-col gap-1"
+                >
+                  <span class="material-symbols-outlined">flatware</span>
+
+                  <p className="p-0 m-0">All Products</p>
+                </div>
+                <div
+                  onClick={() => setActiveSection2("uploadMenu1")}
+                  className="w-1/6 h-full bg-[#50606C] rounded-lg p-2 flex flex-col gap-1"
+                >
+                  <span class="material-symbols-outlined">flatware</span>
+
+                  <p className="p-0 m-0">Upload menu</p>
+                </div>
+                <div
+                  onClick={() => setActiveSection2("uploadMenu2")}
+                  className="w-1/6 h-full bg-[#50606C] rounded-lg p-2 flex flex-col gap-1"
+                >
+                  <span class="material-symbols-outlined">flatware</span>
+
+                  <p className="p-0 m-0">Upload menu</p>
+                </div>
+              </div>
+              <div className="w-full overflow-hidden h-[65vh] bg-[#040e19]  rounded-lg">
+                {activeSection2 === "uploadMenu" && (
+                  <div className="chat w-full h-[100vh] rounded-lg flex items-center justify-center text-white text-2xl"></div>
+                )}
+                {activeSection2 === "allMenu" && (
+                  <div className="chat w-full h-full rounded-lg bg-[#4e748e] flex items-center justify-center text-white text-2xl">
+                    All products Content
+                  </div>
+                )}
+                {activeSection2 === "uploadMenu1" && (
+                  <div className="chat w-full h-full rounded-lg bg-[#4185b5] flex items-center justify-center text-white text-2xl">
+                    Upload menu Content
+                  </div>
+                )}
+                {activeSection2 === "uploadMenu2" && (
+                  <div className="chat w-full h-full rounded-lg bg-[#80bbe5] flex items-center justify-center text-white text-2xl">
+                    Upload menu Content
+                  </div>
+                )}
+              </div>
             </div>
           )}
           {activeSection === "order" && (

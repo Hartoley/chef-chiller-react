@@ -8,8 +8,8 @@
     align-items: center;
     gap: 1.5rem;
     width: 100%;
-    position: absolute;
-    top: 317vh !important;
+    /* position: absolute; */
+   
 }
 
 .footer.noTop {
@@ -19,7 +19,6 @@
 }
 
 #AllProduct{
-    position: absolute;
     top: 178vh;
     width: 100%;
 }
@@ -167,18 +166,9 @@
     width: 100%;
 }
 
-@media (max-width: 380px) {
 
 
-    .footer {
-        top: 257vh !important;
-       
-        /* background-color: #ff416c !important; */
-
-    }
-}
-
-@media (max-width: 760px) {
+@media (max-width: 700px) {
     .footer-container {
         flex-direction: column;
         align-items: center;
@@ -204,6 +194,20 @@
         }
 
     
+}
+
+@media (max-width: 760px) {
+.plain{
+    height: 76vh !important;
+    /* background-color: #e63950 !important; */
+}
+
+    .footer {
+        top: 257vh !important;
+
+        /* background-color: #ff416c !important; */
+
+    }
 }
 
 

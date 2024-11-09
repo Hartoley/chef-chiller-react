@@ -89,7 +89,7 @@ const slides = [
     image: img4,
   },
 ];
-const LandingPage = () => {
+const Body = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
   const [direction, setDirection] = useState(1);
@@ -145,7 +145,6 @@ const LandingPage = () => {
 
   return (
     <>
-      <Admin signin={signin} signup={signup} />
       <div>
         <div id="bigBox" className="relative h-[70vh] w-full">
           <img
@@ -395,11 +394,8 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-      <div className="plain h-[98vh] w-full bg-[rgb(4,14,25)]"></div>
-      <AllProduct />
-      <Footer />
     </>
   );
 };
 
-export default LandingPage;
+export default Body;
