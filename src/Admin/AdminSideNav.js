@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 const AdminSideNav = () => {
   const [activeSection, setActiveSection] = useState("product");
@@ -12,6 +13,36 @@ const AdminSideNav = () => {
   const [activeSection3, setActiveSection3] = useState("mainMenu");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [products, setProducts] = useState([]);
+  const [selectedChat, setSelectedChat] = useState(null);
+  const [chats, setChats] = useState([
+    {
+      id: 1,
+      name: "Customer 1",
+      messages: [
+        { sender: "customer", text: "Hello, I need help with my order." },
+        { sender: "admin", text: "Sure, how can I assist you?" },
+      ],
+    },
+    {
+      id: 2,
+      name: "Customer 2",
+      messages: [
+        { sender: "customer", text: "Can I change my reservation?" },
+        {
+          sender: "admin",
+          text: "Of course, when would you like to reschedule?",
+        },
+      ],
+    },
+  ]);
+
+  const handleChatClick = (chat) => {
+    setSelectedChat(chat);
+  };
+
+  const handleBackClick = () => {
+    setSelectedChat(null);
+  };
 
   useEffect(() => {
     if (activeSection3 === "mainMenu") {
@@ -413,18 +444,195 @@ const AdminSideNav = () => {
                   )}
 
                   {activeSection3 === "allMenu" && (
-                    <div className="chat w-full h-full rounded-lg bg-[#4e748e] flex items-center justify-center text-white text-2xl">
-                      All products Content
+                    <div className="chat w-full h-full rounded-lg p-3 flex flex-col text-white overflow-y-auto">
+                      <h2 className="text-lg font-semibold mb-2 text-center">
+                        Our Menu
+                      </h2>
+                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 overflow-y-auto">
+                        {products.map((product) => (
+                          <div
+                            key={product._id}
+                            className="bg-[#0f263d] p-2 rounded-md shadow-md flex flex-col items-center text-sm"
+                            // style={{ maxWidth: "100px" }}
+                          >
+                            {/* Product Image */}
+                            <div className="w-full h-20 overflow-hidden rounded-md mb-2">
+                              <img
+                                src={product.image}
+                                alt={product.name}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            {/* Product Details */}
+                            <h3 className="text-sm font-semibold mb-1 text-center">
+                              {product.name}
+                            </h3>
+                            <p className="text-xs text-gray-300 mb-2 text-center truncate w-full">
+                              {product.description}
+                            </p>
+                            <p className="text-sm font-bold text-[#f65553]">
+                              ${product.price}
+                            </p>
+                            {/* Edit and Delete Buttons */}
+                            <div className="flex mt-2 space-x-1 w-full">
+                              <button
+                                onClick={() => console.log("Edit", product._id)}
+                                className="flex-1 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded py-1 text-xs"
+                              >
+                                <FiEdit className="mr-1" /> Edit
+                              </button>
+                              <button
+                                onClick={() =>
+                                  console.log("Delete", product._id)
+                                }
+                                className="flex-1 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded py-1 text-xs"
+                              >
+                                <FiTrash2 className="mr-1" /> Delete
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
                   {activeSection3 === "uploadMenu1" && (
-                    <div className="chat w-full h-full rounded-lg bg-[#4185b5] flex items-center justify-center text-white text-2xl">
-                      Upload menu Content
+                    <div className="chat w-full h-full rounded-lg p-3 flex flex-col text-white overflow-y-auto">
+                      <h2 className="text-lg font-semibold mb-2 text-center">
+                        Our Specials Menu
+                      </h2>
+                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 overflow-y-auto">
+                        {/* Filter products that include "Specials" in their category array */}
+                        {products.filter((product) =>
+                          product.category.includes("Specials")
+                        ).length === 0 ? (
+                          <p className="text-center text-gray-400 w-full col-span-4">
+                            No specials at the moment
+                          </p>
+                        ) : (
+                          products
+                            .filter((product) =>
+                              product.category.includes("Specials")
+                            )
+                            .map((product) => (
+                              <div
+                                key={product._id}
+                                className="bg-[#0f263d] p-2 rounded-md shadow-md flex flex-col items-center text-sm"
+                              >
+                                {/* Product Image */}
+                                <div className="w-full h-20 overflow-hidden rounded-md mb-2">
+                                  <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                                {/* Product Details */}
+                                <h3 className="text-sm font-semibold mb-1 text-center">
+                                  {product.name}
+                                </h3>
+                                <p className="text-xs text-gray-300 mb-2 text-center truncate w-full">
+                                  {product.description}
+                                </p>
+                                <p className="text-sm font-bold text-[#f65553]">
+                                  ${product.price}
+                                </p>
+                                {/* Edit and Delete Buttons */}
+                                <div className="flex mt-2 space-x-1 w-full">
+                                  <button
+                                    onClick={() =>
+                                      console.log("Edit", product._id)
+                                    }
+                                    className="flex-1 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded py-1 text-xs"
+                                  >
+                                    <FiEdit className="mr-1" /> Edit
+                                  </button>
+                                  <button
+                                    onClick={() =>
+                                      console.log("Delete", product._id)
+                                    }
+                                    className="flex-1 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded py-1 text-xs"
+                                  >
+                                    <FiTrash2 className="mr-1" /> Delete
+                                  </button>
+                                </div>
+                              </div>
+                            ))
+                        )}
+                      </div>
                     </div>
                   )}
                   {activeSection3 === "uploadMenu2" && (
-                    <div className="chat w-full h-full rounded-lg bg-[#80bbe5] flex items-center justify-center text-white text-2xl">
-                      Upload menu Content
+                    <div className="chat w-full h-full rounded-lg p-3 flex flex-col text-white overflow-y-auto">
+                      <h2 className="text-lg font-semibold mb-2 text-center">
+                        Our Menu
+                      </h2>
+                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 overflow-y-auto">
+                        {/* Filter products created within the last 48 hours */}
+                        {products.filter((product) => {
+                          const productDate = new Date(product.createdAt);
+                          const currentDate = new Date();
+                          const hoursDifference =
+                            (currentDate - productDate) / (1000 * 60 * 60);
+                          return hoursDifference <= 48;
+                        }).length === 0 ? (
+                          <p className="text-center text-gray-400 w-full col-span-4">
+                            No specials at the moment
+                          </p>
+                        ) : (
+                          products
+                            .filter((product) => {
+                              const productDate = new Date(product.createdAt);
+                              const currentDate = new Date();
+                              const hoursDifference =
+                                (currentDate - productDate) / (1000 * 60 * 60);
+                              return hoursDifference <= 48;
+                            })
+                            .map((product) => (
+                              <div
+                                key={product._id}
+                                className="bg-[#0f263d] p-2 rounded-md shadow-md flex flex-col items-center text-sm"
+                              >
+                                {/* Product Image */}
+                                <div className="w-full h-20 overflow-hidden rounded-md mb-2">
+                                  <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                                {/* Product Details */}
+                                <h3 className="text-sm font-semibold mb-1 text-center">
+                                  {product.name}
+                                </h3>
+                                <p className="text-xs text-gray-300 mb-2 text-center truncate w-full">
+                                  {product.description}
+                                </p>
+                                <p className="text-sm font-bold text-[#f65553]">
+                                  ${product.price}
+                                </p>
+                                {/* Edit and Delete Buttons */}
+                                <div className="flex mt-2 space-x-1 w-full">
+                                  <button
+                                    onClick={() =>
+                                      console.log("Edit", product._id)
+                                    }
+                                    className="flex-1 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded py-1 text-xs"
+                                  >
+                                    <FiEdit className="mr-1" /> Edit
+                                  </button>
+                                  <button
+                                    onClick={() =>
+                                      console.log("Delete", product._id)
+                                    }
+                                    className="flex-1 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded py-1 text-xs"
+                                  >
+                                    <FiTrash2 className="mr-1" /> Delete
+                                  </button>
+                                </div>
+                              </div>
+                            ))
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -494,13 +702,115 @@ const AdminSideNav = () => {
             </div>
           )}
           {activeSection === "notification" && (
-            <div className="notifications w-full h-full rounded-lg bg-[#A0ADB8] flex items-center justify-center text-white text-2xl">
-              Notification Content
+            <div className="notifications w-full h-full rounded-lg bg-[#A0ADB8] p-4 flex flex-col items-center justify-center text-gray-800 overflow-y-auto">
+              <h2 className="text-lg font-medium mb-4 text-center">
+                Notifications
+              </h2>
+              <div className="w-full flex flex-col gap-4">
+                <div className="bg-white p-4 rounded-lg shadow-sm">
+                  <p className="text-sm text-gray-700">
+                    Your first notification content goes here. This is a neat
+                    and professional notification example.
+                  </p>
+                </div>
+                <div className="bg-white p-4 rounded-lg shadow-sm">
+                  <p className="text-sm text-gray-700">
+                    Here’s another notification, keeping the design clean and
+                    simple for a professional look.
+                  </p>
+                </div>
+                <div className="bg-white p-4 rounded-lg shadow-sm">
+                  <p className="text-sm text-gray-700">
+                    Notifications will be neatly aligned and easy to read with
+                    this template. No clutter, just clean content.
+                  </p>
+                </div>
+                {/* More notifications can be added here */}
+              </div>
             </div>
           )}
           {activeSection === "chat" && (
-            <div className="chat w-full h-full rounded-lg bg-[#C2CDD5] flex items-center justify-center text-white text-2xl">
-              Chat Content
+            <div className="chat w-full h-full rounded-lg bg-[#C2CDD5] p-4 flex flex-col">
+              {selectedChat === null ? (
+                // Chat List
+                <>
+                  <h2 className="text-lg font-semibold text-center mb-4">
+                    Customer Support Chat
+                  </h2>
+                  <div className="chat-container flex flex-col gap-4 overflow-y-auto p-2 bg-white rounded-lg shadow-sm max-h-[400px]">
+                    {chats.map((chat) => (
+                      <div
+                        key={chat.id}
+                        className="chat-item bg-[#0f263d] p-3 rounded-lg shadow-md flex items-center justify-between cursor-pointer hover:bg-[#4185b5] transition"
+                        onClick={() => handleChatClick(chat)}
+                      >
+                        <div className="chat-name text-sm text-white">
+                          {chat.name}
+                        </div>
+                        <div className="chat-preview text-xs text-white">
+                          {chat.messages[chat.messages.length - 1].text}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                // Individual Chat Box
+                <>
+                  <div className="flex justify-between items-center mb-4">
+                    <button
+                      onClick={handleBackClick}
+                      className="bg-[#4185b5] text-white px-4 py-2 rounded-md hover:bg-[#35658e]"
+                    >
+                      Back
+                    </button>
+                    <h2 className="text-lg font-semibold text-center flex-grow">
+                      Chat with {selectedChat.name}
+                    </h2>
+                  </div>
+                  <div className="chat-box bg-white p-4 rounded-lg shadow-md flex flex-col gap-4 overflow-y-auto max-h-[400px]">
+                    {selectedChat.messages.map((msg, index) => (
+                      <div
+                        key={index}
+                        className={`message flex items-start gap-2 ${
+                          msg.sender === "customer"
+                            ? "justify-start"
+                            : "justify-end"
+                        }`}
+                      >
+                        <div
+                          className={`avatar w-8 h-8 rounded-full ${
+                            msg.sender === "customer"
+                              ? "bg-blue-500"
+                              : "bg-green-500"
+                          } flex items-center justify-center text-white`}
+                        >
+                          {msg.sender === "customer" ? "C" : "A"}
+                        </div>
+                        <div
+                          className={`message-content p-3 rounded-md max-w-[70%] ${
+                            msg.sender === "customer"
+                              ? "bg-gray-200 text-gray-700"
+                              : "bg-[#4185b5] text-white"
+                          }`}
+                        >
+                          <p className="text-sm">{msg.text}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="chat-input mt-4 flex items-center gap-2">
+                    <input
+                      type="text"
+                      className="w-full p-2 rounded-lg text-gray-700 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#4185b5]"
+                      placeholder="Type your message..."
+                    />
+                    <button className="bg-[#4185b5] text-white p-2 rounded-lg hover:bg-[#35658e] focus:outline-none">
+                      Send
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           )}
         </div>
