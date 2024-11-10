@@ -11,7 +11,7 @@ const AllProduct = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5010/chefchiller/user/getproducts"
+          "https://chef-chiller-node.onrender.com/chefchiller/user/getproducts"
         );
         const allProducts = res.data;
         const now = new Date();

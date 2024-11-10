@@ -26,7 +26,7 @@ const AdminSideNav = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5010/chefchiller/user/getproducts"
+          "https://chef-chiller-node.onrender.com/chefchiller/user/getproducts"
         );
         console.log("students data from API:", res.data);
         setProducts(res.data);
