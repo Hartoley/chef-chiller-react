@@ -148,9 +148,9 @@ nav {
   color: #388e3c;
 }
 
-@media (max-width: 360px) {}
 
-@media (max-width: 720px) {
+
+@media (max-width: 760px) {
   .contentMain {
     display: none;
   }

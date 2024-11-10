@@ -1,80 +1,103 @@
 * {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
-
 #sidenav {
-
-    height: 100vh;
-    position: fixed;
+  height: 100vh;
+  position: fixed;
 }
 
 #overrideZIndex {
-    z-index: 1000 !important;
-
+  z-index: 1000 !important;
 }
 
 #logoBg {
-    width: 50% !important;
+  width: 50% !important;
 }
 
 #product {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .visibleNav {
-    display: flex !important;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 80%;
-    height: 100vh;
-    z-index: 1000;
+  display: flex !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80%;
+  height: 100vh;
+  z-index: 1000;
 }
 
 .buttonBox2 {
-    
-    display: none;
-    color: beige !important;
-    z-index: 10;
+  display: none;
+  color: beige !important;
+  z-index: 10;
+}
+
+.uploadProductContainer {
+  padding: 1.5rem;
 }
 
 
+@media (max-width: 720px) {
+  #sidenav {
+    width: 50%;
+    display: none;
+  }
 
-@media (max-width:760px) {
-    #sidenav {
-        width: 50%;
-        display: none;
-    }
+  .contentArea {
+    left: 0 !important;
+    width: 100%;
+    height: 92.8vh!important;
+    padding: 0 !important;
+    /* background-color: blue !important; */
+  }
 
-    .contentArea {
-        left: 0 !important;
-        width: 100%;
-        height: 95%;
-    }
+  .buttonBox2 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start !important;
+    background-color: #040e19;
+    padding: 20px;
+    height: 10%;
+  }
 
-          .buttonBox2 {
-              display: flex;
-              align-items: center;
-              justify-content: flex-start !important;
-              background-color: #040e19;
-              padding: 20px;
-              height: 10%;
-          }
+  .chef {
+    /* background-color: aqua; */
+    width: 25vw !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 
-          .chef{
-            /* background-color: aqua; */
-            width: 25vw !important;
-            padding: 0 !important;
-            margin:0 !important;
-          }
+  .chef p {
+    font-size: 10px !important;
+    font-weight: 500;
+  }
 
-          .chef p{
-            font-size: 10px !important;
-            font-weight: 500;
-          }
+  /* .h2 {
+    margin-bottom: 0 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+  } */
+
+  .uploadProductContainer {
+    height: 99% !important;
+    padding: 15px 5px !important;
+    /* background-color: blueviolet !important; */
+  }
+
+
+
+
+  .formGroup{
+    width: 47% !important;
+    gap: 3% !important;
+  }
+
+
+ 
 }
