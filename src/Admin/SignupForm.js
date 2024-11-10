@@ -7,6 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import "../Admin/login.css";
 import logo from "../Images/logo_chef_chiller-removebg-preview.png";
+import Admin from "./Admin";
+import Footer from "./Footer";
 
 const SignupForm = () => {
   const endpoint = "https://chef-chiller-node.onrender.com";
@@ -82,161 +84,173 @@ const SignupForm = () => {
   });
 
   return (
-    <div className="body w-full h-screen bg-black relative">
-      <img
-        className="absolute w-full h-full inset-0"
-        src="https://i.pinimg.com/474x/d9/a7/67/d9a7674a942f55c1f76705d4406cac3b.jpg"
-        alt=""
-      />
-      <div className="absolute inset-0 bg-[rgb(4,14,25)] bg-opacity-30 z-10 flex items-center justify-center">
-        <div
-          className="w-full bg-black lg:w-[70%] flex items-center h-[80%] bg-[rgb(4,14,25)] bg-opacity-50"
-          id="loginContainer2"
-        >
-          <form
-            className="w-[60%] h-full px-5 py-3 flex flex-col gap-1"
-            id="main2"
-            onSubmit={formik.handleSubmit}
+    <>
+      <Admin />
+      <div className="body w-full h-screen bg-black relative">
+        <img
+          className="absolute w-full h-full inset-0"
+          src="https://i.pinimg.com/474x/d9/a7/67/d9a7674a942f55c1f76705d4406cac3b.jpg"
+          alt=""
+        />
+        <div className="absolute inset-0 bg-[rgb(4,14,25)] bg-opacity-30 z-10 flex items-center justify-center">
+          <div
+            className="w-full bg-black lg:w-[70%] flex items-center h-[80%] bg-[rgb(4,14,25)] bg-opacity-50"
+            id="loginContainer2"
           >
-            <h6
-              className="text-[#f65553]"
-              style={{
-                fontFamily: "Roboto Condensed, sans-serif",
-                fontWeight: "200",
-              }}
+            <form
+              className="w-[60%] h-full px-5 py-3 flex flex-col gap-1"
+              id="main2"
+              onSubmit={formik.handleSubmit}
             >
-              Your Path To A Happy Eating
-            </h6>
-            <div className="w-3/4 text-white text-sm" id="inputs">
-              <p>Your Name</p>
-              <input
-                type="text"
-                name="username"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.username}
-                className="w-full h-[3vw] px-3 text-gray-900"
-                placeholder="Your full name"
-              />
-              {formik.touched.username && formik.errors.username ? (
-                <div className="text-red-500">{formik.errors.username}</div>
-              ) : null}
-            </div>
-            <div className="w-3/4 text-white text-sm" id="inputs">
-              <p>Email</p>
-              <input
-                type="email"
-                name="email"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.email}
-                className="w-full h-[3vw] px-3 text-gray-900"
-                placeholder="email@gmail.com"
-              />
-              {formik.touched.email && formik.errors.email ? (
-                <div className="text-red-500">{formik.errors.email}</div>
-              ) : null}
-            </div>
-            <div className="w-3/4 text-white text-sm" id="inputs">
-              <p>Phone Number</p>
-              <input
-                type="text"
-                name="phoneNumber"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.phoneNumber}
-                className="w-full h-[3vw] px-3 text-gray-900"
-                placeholder="Phone Number"
-              />
-              {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-                <div className="text-red-500">{formik.errors.phoneNumber}</div>
-              ) : null}
-            </div>
-            <div className="w-3/4 text-white text-sm relative" id="inputs">
-              <p>Password</p>
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.password}
-                className="w-full h-[3vw] px-3 text-gray-900"
-                placeholder="*****"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1 text-[#f65553] hover:text-white focus:outline-none"
+              <h6
+                className="text-[#f65553]"
+                style={{
+                  fontFamily: "Roboto Condensed, sans-serif",
+                  fontWeight: "200",
+                }}
               >
-                {showPassword ? "Hide" : "Show"}
-              </button>
-              {formik.touched.password && formik.errors.password ? (
-                <div className="text-red-500">{formik.errors.password}</div>
-              ) : null}
-            </div>
-            <button
-              type="submit"
-              className="w-3/4 h-10 border-2 border-[#f65553] text-white mt-2"
-              id="inputs1"
-              disabled={loading || isRegistered}
-            >
-              {loading ? (
-                <span>
-                  <div
-                    className="spinner-border spinner-border-sm text-primary"
-                    role="status"
-                  >
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
-                  Signing up...
-                </span>
-              ) : (
-                "Sign up"
-              )}
-            </button>
-          </form>
-          <div id="images1" className="lg:flex w-[40%] relative inset-0 h-full">
-            <img
-              src="https://i.pinimg.com/474x/88/f7/19/88f719e00706ba3d59c6aa1052fa96ba.jpg"
-              className="w-full z-1 h-full absolute"
-              alt=""
-            />
-            <div className="w-full absolute inset-0 flex flex-col items-center h-full text-[#f65553] justify-center z-10 bg-[rgb(4,14,25)] bg-opacity-30">
-              <div className="w-full items-center justify-center flex">
-                <img
-                  className="logo"
-                  src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
-                  alt=""
+                Your Path To A Happy Eating
+              </h6>
+              <div className="w-3/4 text-white text-sm" id="inputs">
+                <p>Your Name</p>
+                <input
+                  type="text"
+                  name="username"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.username}
+                  className="w-full h-[3vw] px-3 text-gray-900"
+                  placeholder="Your full name"
                 />
+                {formik.touched.username && formik.errors.username ? (
+                  <div className="text-red-500">{formik.errors.username}</div>
+                ) : null}
               </div>
-              {isRegistered ? (
-                <div className="w-[80%] h-20 flex items-center p-5 gap-3 m-auto bg-white">
-                  <p>Registration successful! Redirecting...</p>
-                </div>
-              ) : (
-                loading && (
-                  <div className="w-[80%] h-10 flex items-center gap-3 m-auto bg-white">
-                    <p>Saving user...</p>
-                    <div className="spinner-border text-primary" role="status">
+              <div className="w-3/4 text-white text-sm" id="inputs">
+                <p>Email</p>
+                <input
+                  type="email"
+                  name="email"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
+                  className="w-full h-[3vw] px-3 text-gray-900"
+                  placeholder="email@gmail.com"
+                />
+                {formik.touched.email && formik.errors.email ? (
+                  <div className="text-red-500">{formik.errors.email}</div>
+                ) : null}
+              </div>
+              <div className="w-3/4 text-white text-sm" id="inputs">
+                <p>Phone Number</p>
+                <input
+                  type="text"
+                  name="phoneNumber"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.phoneNumber}
+                  className="w-full h-[3vw] px-3 text-gray-900"
+                  placeholder="Phone Number"
+                />
+                {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
+                  <div className="text-red-500">
+                    {formik.errors.phoneNumber}
+                  </div>
+                ) : null}
+              </div>
+              <div className="w-3/4 text-white text-sm relative" id="inputs">
+                <p>Password</p>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password}
+                  className="w-full h-[3vw] px-3 text-gray-900"
+                  placeholder="*****"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1 text-[#f65553] hover:text-white focus:outline-none"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+                {formik.touched.password && formik.errors.password ? (
+                  <div className="text-red-500">{formik.errors.password}</div>
+                ) : null}
+              </div>
+              <button
+                type="submit"
+                className="w-3/4 h-10 border-2 border-[#f65553] text-white mt-2"
+                id="inputs1"
+                disabled={loading || isRegistered}
+              >
+                {loading ? (
+                  <span>
+                    <div
+                      className="spinner-border spinner-border-sm text-primary"
+                      role="status"
+                    >
                       <span className="visually-hidden">Loading...</span>
                     </div>
+                    Signing up...
+                  </span>
+                ) : (
+                  "Sign up"
+                )}
+              </button>
+            </form>
+            <div
+              id="images1"
+              className="lg:flex w-[40%] relative inset-0 h-full"
+            >
+              <img
+                src="https://i.pinimg.com/474x/88/f7/19/88f719e00706ba3d59c6aa1052fa96ba.jpg"
+                className="w-full z-1 h-full absolute"
+                alt=""
+              />
+              <div className="w-full absolute inset-0 flex flex-col items-center h-full text-[#f65553] justify-center z-10 bg-[rgb(4,14,25)] bg-opacity-30">
+                <div className="w-full items-center justify-center flex">
+                  <img
+                    className="logo"
+                    src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
+                    alt=""
+                  />
+                </div>
+                {isRegistered ? (
+                  <div className="w-[80%] h-20 flex items-center p-5 gap-3 m-auto bg-white">
+                    <p>Registration successful! Redirecting...</p>
                   </div>
-                )
-              )}
-              <h5 className="cursor-pointer text-white" onClick={signin}>
-                Log in?{" "}
-              </h5>
+                ) : (
+                  loading && (
+                    <div className="w-[80%] h-10 flex items-center gap-3 m-auto bg-white">
+                      <p>Saving user...</p>
+                      <div
+                        className="spinner-border text-primary"
+                        role="status"
+                      >
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                    </div>
+                  )
+                )}
+                <h5 className="cursor-pointer text-white" onClick={signin}>
+                  Log in?{" "}
+                </h5>
+              </div>
             </div>
+            <img
+              className="logoSm"
+              src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
+              alt=""
+            />
           </div>
-          <img
-            className="logoSm"
-            src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
-            alt=""
-          />
         </div>
+        <ToastContainer />
       </div>
-      <ToastContainer />
-    </div>
+      <Footer />
+    </>
   );
 };
 

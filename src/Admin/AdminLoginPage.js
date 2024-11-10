@@ -7,6 +7,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import "../Admin/login.css";
+import Admin from "./Admin";
+import Footer from "./Footer";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -68,6 +70,7 @@ const LoginForm = () => {
 
   return (
     <>
+      <Admin />
       <div className="body w-full h-screen bg-black relative">
         <img
           className="absolute w-full h-full inset-0"
@@ -186,6 +189,7 @@ const LoginForm = () => {
         </div>
       </div>
       <ToastContainer />
+      <Footer />
     </>
   );
 };
