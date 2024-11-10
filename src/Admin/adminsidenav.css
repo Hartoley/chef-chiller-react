@@ -98,6 +98,9 @@
     gap: 3% !important;
   }
 
-
+  .uploadMenus{
+    /* background-color: red !important; */
+    width: 28% !important;
+  }
  
 }

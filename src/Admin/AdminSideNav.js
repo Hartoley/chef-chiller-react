@@ -200,7 +200,7 @@ const AdminSideNav = () => {
               <div className="w-full  flex gap-2 p-[10px] rounded-lg bg-[#040e19]   h-[15vh]">
                 <div
                   onClick={() => setActiveSection3("mainMenu")}
-                  className="w-1/6 h-full bg-[#50606C] rounded-lg p-2 flex flex-col gap-1"
+                  className="uploadMenus w-1/6 h-full bg-[#50606C] rounded-lg p-2 flex flex-col gap-1"
                 >
                   <span class="material-symbols-outlined">flatware</span>
 
@@ -208,27 +208,27 @@ const AdminSideNav = () => {
                 </div>
                 <div
                   onClick={() => setActiveSection3("allMenu")}
-                  className="w-1/6 h-full bg-[#50606C] rounded-lg p-2 flex flex-col gap-1"
+                  className="uploadMenus w-1/6 h-full bg-[#50606C] rounded-lg p-2 flex flex-col gap-1"
                 >
-                  <span class="material-symbols-outlined">flatware</span>
+                  <span class="material-symbols-outlined">select_all</span>
 
                   <p className="p-0 m-0">All Products</p>
                 </div>
                 <div
                   onClick={() => setActiveSection3("uploadMenu1")}
-                  className="w-1/6 h-full bg-[#50606C] rounded-lg p-2 flex flex-col gap-1"
+                  className="uploadMenus w-1/6 h-full bg-[#50606C] rounded-lg p-2 flex flex-col gap-1"
                 >
-                  <span class="material-symbols-outlined">flatware</span>
+                  <span class="material-symbols-outlined">star_rate</span>
 
-                  <p className="p-0 m-0">Upload menu</p>
+                  <p className="p-0 m-0">Specials</p>
                 </div>
                 <div
                   onClick={() => setActiveSection3("uploadMenu2")}
-                  className="w-1/6 h-full bg-[#50606C] rounded-lg p-2 flex flex-col gap-1"
+                  className="uploadMenus w-1/6 h-full bg-[#50606C] rounded-lg p-2 flex flex-col gap-1"
                 >
-                  <span class="material-symbols-outlined">flatware</span>
+                  <span class="material-symbols-outlined">new_releases</span>
 
-                  <p className="p-0 m-0">Upload menu</p>
+                  <p className="p-0 m-0">New menu</p>
                 </div>
               </div>
               <div className="w-full p-1 h-[65vh] bg-[#040e19]  rounded-lg">
@@ -316,6 +316,7 @@ const AdminSideNav = () => {
                             <option value="Beverages" label="Beverages" />
                             <option value="Appetizers" label="Appetizers" />
                             <option value="Snacks" label="Snacks" />
+                            <option value="Specials" label="Specials" />
                             <option value="Extras" label="Extras" />
                             {/* Add more categories as needed */}
                           </select>
