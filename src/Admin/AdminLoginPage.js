@@ -20,6 +20,10 @@ const LoginForm = () => {
     setShowPassword((prev) => !prev);
   };
 
+  const signin = () => {
+    navigate("/user/signin");
+  };
+
   const endpoint = "https://chef-chiller-node.onrender.com";
 
   const formik = useFormik({
@@ -70,7 +74,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <Admin />
+      <Admin signin={signin} signup={signup} />
       <div className="body w-full h-screen bg-black relative">
         <img
           className="absolute w-full h-full inset-0"

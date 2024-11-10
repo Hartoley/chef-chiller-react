@@ -36,6 +36,10 @@ const SignupForm = () => {
     navigate("/user/signin");
   };
 
+  const signup = () => {
+    navigate("/user/signup");
+  };
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -85,7 +89,7 @@ const SignupForm = () => {
 
   return (
     <>
-      <Admin />
+      <Admin signin={signin} signup={signup} />
       <div className="body w-full h-screen bg-black relative">
         <img
           className="absolute w-full h-full inset-0"
