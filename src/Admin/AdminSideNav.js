@@ -231,10 +231,10 @@ const AdminSideNav = () => {
                   <p className="p-0 m-0">New menu</p>
                 </div>
               </div>
-              <div className="w-full p-1 h-[65vh] bg-[#040e19]  rounded-lg">
+              <div className="w-full p-1 h-[75vh] bg-[#040e19]  rounded-lg">
                 <div className="w-full h-full  flex items-center justify-center text-white bg-gray-900">
                   {activeSection3 === "mainMenu" && (
-                    <div className="uploadProductContainer flex flex-col w-full bg-gray-800 rounded-lg shadow-lg">
+                    <div className="uploadProductContainer h-full flex flex-col w-full bg-gray-800 rounded-lg shadow-lg">
                       <h2 className="h2 text-center text-lg md:text-2xl font-semibold mb-6 text-white">
                         Upload Product
                       </h2>
@@ -242,7 +242,7 @@ const AdminSideNav = () => {
                       <form
                         onSubmit={formik.handleSubmit}
                         encType="multipart/form-data"
-                        className="boxForm w-full p-3 flex items-center gap-2 flex-wrap"
+                        className="boxForm w-full h-[95%]  p-3 flex items-center gap-2 flex-wrap"
                       >
                         {/* Product Image */}
                         <div className="formGroup flex flex-col">
