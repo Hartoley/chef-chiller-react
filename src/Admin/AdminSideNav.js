@@ -11,9 +11,13 @@ const AdminSideNav = () => {
   const [activeSection, setActiveSection] = useState("product");
   const [activeSection2, setActiveSection2] = useState("uploadMenu");
   const [activeSection3, setActiveSection3] = useState("mainMenu");
+  const [editingId, seteditingId] = useState("");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [isEdited, setIsEdited] = useState(false);
   const [products, setProducts] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
+  const [isEditing, setisEditing] = useState(false);
+
   const [chats, setChats] = useState([
     {
       id: 1,
@@ -30,7 +34,7 @@ const AdminSideNav = () => {
         { sender: "customer", text: "Can I change my reservation?" },
         {
           sender: "admin",
-          text: "Of course, when would you like to reschedule?",
+          text: "Of product, when would you like to reschedule?",
         },
       ],
     },
@@ -54,20 +58,20 @@ const AdminSideNav = () => {
   }, [activeSection3]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          "https://chef-chiller-node.onrender.com/chefchiller/user/getproducts"
-        );
-        console.log("students data from API:", res.data);
-        setProducts(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const res = await axios.get(
+        "https://chef-chiller-node.onrender.com/chefchiller/user/getproducts"
+      );
+      console.log("students data from API:", res.data);
+      setProducts(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -134,6 +138,7 @@ const AdminSideNav = () => {
         if (response.status === 200) {
           toast.dismiss(loadingToast);
           toast.success(result.message);
+          setisEditing(false);
           formik.resetForm();
         } else {
           toast.dismiss(loadingToast);
@@ -149,8 +154,114 @@ const AdminSideNav = () => {
     },
   });
 
+  const onEdit = async (productId, values) => {
+    console.log(productId);
+
+    if (!values.image) {
+      toast.error("Please upload an image.");
+      return;
+    }
+
+    if (
+      !values.name ||
+      !values.category ||
+      !values.prepTime ||
+      !values.description ||
+      !values.price ||
+      !values.image
+    ) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    const formData = new FormData();
+    Object.keys(values).forEach((key) => {
+      formData.append(key, values[key]);
+    });
+
+    for (let pair of formData.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
+    }
+    const loadingToast = toast.loading("Updating product...");
+    try {
+      const response = await axios.post(
+        `http://localhost:5010/chefchiller/edit/${productId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const result = response.data;
+
+      if (response.status === 200) {
+        toast.dismiss(loadingToast);
+        toast.success(result.message);
+        setisEditing(false);
+        formik.resetForm();
+      } else {
+        toast.dismiss(loadingToast);
+        toast.error(result.data.error || "Unexpected error updating product.");
+      }
+    } catch (error) {
+      console.error("Error updating product:", error);
+      toast.dismiss(loadingToast);
+      toast.error(error.response.data.error);
+    }
+  };
+
   const toggleMenu = () => {
     setIsMenuVisible((prev) => !prev);
+  };
+
+  const Edit = async (productId) => {
+    setActiveSection3("mainMenu");
+    setisEditing(true);
+    seteditingId(productId);
+
+    axios
+      .get(`http://localhost:5010/chefchiller/product/${productId}`)
+      .then((res) => {
+        const productData = res.data;
+        formik.setValues({
+          name: productData.name || "",
+          category: productData.category || "",
+          prepTime: productData.prepTime || "",
+          description: productData.description || "",
+          price: productData.price || "",
+          image: productData.image,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const Delete = async (productId) => {
+    toast.loading("Deleting product...");
+    try {
+      const response = await axios.delete(
+        `http://localhost:5010/chefchiller/delete/${productId}`
+      );
+
+      if (response.status === 200) {
+        console.log();
+        toast.dismiss();
+        toast.success(response.data.message);
+        fetchData();
+      } else {
+        toast.dismiss();
+        toast.message(response.data.message);
+        fetchData();
+
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      toast.dismiss();
+      console.error("Error deleting the product:", error.message);
+      fetchData();
+    }
   };
 
   return (
@@ -271,7 +382,12 @@ const AdminSideNav = () => {
                       </h2>
 
                       <form
-                        onSubmit={formik.handleSubmit}
+                        onSubmit={(event) => {
+                          if (!isEditing) {
+                            event.preventDefault();
+                            formik.handleSubmit();
+                          }
+                        }}
                         encType="multipart/form-data"
                         className="boxForm w-full h-[95%]  p-3 flex items-center gap-2 flex-wrap"
                       >
@@ -343,7 +459,7 @@ const AdminSideNav = () => {
                             className="text-sm md:text-base mt-1 p-2 border border-gray-700 rounded bg-gray-900 text-gray-200"
                           >
                             <option value="" label="Select category" />
-                            <option value="Main course" label="Main course" />
+                            <option value="Main product" label="Main product" />
                             <option value="Beverages" label="Beverages" />
                             <option value="Appetizers" label="Appetizers" />
                             <option value="Snacks" label="Snacks" />
@@ -432,12 +548,22 @@ const AdminSideNav = () => {
                         </div>
 
                         <div className="uploadButton flex justify-center mt-4">
-                          <button
-                            type="submit"
-                            className="text-sm md:text-base px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-all shadow -md"
-                          >
-                            Upload
-                          </button>
+                          {!isEditing ? (
+                            <button
+                              type="submit"
+                              className="text-sm md:text-base px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-all shadow-md"
+                            >
+                              Upload
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              onClick={() => onEdit(editingId, formik.values)}
+                              className="text-sm md:text-base px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded transition-all shadow-md"
+                            >
+                              Update
+                            </button>
+                          )}
                         </div>
                       </form>
                     </div>
@@ -473,18 +599,16 @@ const AdminSideNav = () => {
                             <p className="text-sm font-bold text-[#f65553]">
                               ${product.price}
                             </p>
-                            {/* Edit and Delete Buttons */}
+
                             <div className="flex mt-2 space-x-1 w-full">
                               <button
-                                onClick={() => console.log("Edit", product._id)}
+                                onClick={() => Edit(product._id)}
                                 className="flex-1 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded py-1 text-xs"
                               >
                                 <FiEdit className="mr-1" /> Edit
                               </button>
                               <button
-                                onClick={() =>
-                                  console.log("Delete", product._id)
-                                }
+                                onClick={() => Delete(product._id)}
                                 className="flex-1 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded py-1 text-xs"
                               >
                                 <FiTrash2 className="mr-1" /> Delete
@@ -539,17 +663,13 @@ const AdminSideNav = () => {
                                 {/* Edit and Delete Buttons */}
                                 <div className="flex mt-2 space-x-1 w-full">
                                   <button
-                                    onClick={() =>
-                                      console.log("Edit", product._id)
-                                    }
+                                    onClick={() => Edit(product._id)}
                                     className="flex-1 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded py-1 text-xs"
                                   >
                                     <FiEdit className="mr-1" /> Edit
                                   </button>
                                   <button
-                                    onClick={() =>
-                                      console.log("Delete", product._id)
-                                    }
+                                    onClick={() => Delete(product._id)}
                                     className="flex-1 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded py-1 text-xs"
                                   >
                                     <FiTrash2 className="mr-1" /> Delete
@@ -613,17 +733,13 @@ const AdminSideNav = () => {
                                 {/* Edit and Delete Buttons */}
                                 <div className="flex mt-2 space-x-1 w-full">
                                   <button
-                                    onClick={() =>
-                                      console.log("Edit", product._id)
-                                    }
+                                    onClick={() => Edit(product._id)}
                                     className="flex-1 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded py-1 text-xs"
                                   >
                                     <FiEdit className="mr-1" /> Edit
                                   </button>
                                   <button
-                                    onClick={() =>
-                                      console.log("Delete", product._id)
-                                    }
+                                    onClick={() => Delete(product._id)}
                                     className="flex-1 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded py-1 text-xs"
                                   >
                                     <FiTrash2 className="mr-1" /> Delete
