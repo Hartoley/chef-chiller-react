@@ -584,21 +584,21 @@ const AdminSideNav = () => {
                             // style={{ maxWidth: "100px" }}
                           >
                             {/* Product Image */}
-                            <div className="w-full h-20 overflow-hidden rounded-md mb-2">
+                            <div className="w-full h-40 overflow-hidden rounded-md mb-2">
                               <img
                                 src={product.image}
                                 alt={product.name}
                                 className="w-full h-full object-cover"
                               />
                             </div>
-                            {/* Product Details */}
-                            <h3 className="text-sm font-semibold mb-1 text-center">
+
+                            <h3 className="text-sm h-10 font-semibold mb-1 text-center">
                               {product.name}
                             </h3>
-                            <p className="text-xs text-gray-300 mb-2 text-center truncate w-full">
+                            <p className="text-xs h-5 text-gray-300 mb-2 text-center truncate w-full">
                               {product.description}
                             </p>
-                            <p className="text-sm font-bold text-[#f65553]">
+                            <p className="text-sm h-5 font-bold text-[#f65553]">
                               ${product.price}
                             </p>
 
@@ -645,7 +645,7 @@ const AdminSideNav = () => {
                                 className="bg-[#0f263d] p-2 rounded-md shadow-md flex flex-col items-center text-sm"
                               >
                                 {/* Product Image */}
-                                <div className="w-full h-20 overflow-hidden rounded-md mb-2">
+                                <div className="w-full h-40 overflow-hidden rounded-md mb-2">
                                   <img
                                     src={product.image}
                                     alt={product.name}
@@ -653,13 +653,13 @@ const AdminSideNav = () => {
                                   />
                                 </div>
                                 {/* Product Details */}
-                                <h3 className="text-sm font-semibold mb-1 text-center">
+                                <h3 className="text-sm h-10 font-semibold mb-1 text-center">
                                   {product.name}
                                 </h3>
-                                <p className="text-xs text-gray-300 mb-2 text-center truncate w-full">
+                                <p className="text-xs h-5 text-gray-300 mb-2 text-center truncate w-full">
                                   {product.description}
                                 </p>
-                                <p className="text-sm font-bold text-[#f65553]">
+                                <p className="text-sm h-5 font-bold text-[#f65553]">
                                   ${product.price}
                                 </p>
                                 {/* Edit and Delete Buttons */}
@@ -715,7 +715,7 @@ const AdminSideNav = () => {
                                 className="bg-[#0f263d] p-2 rounded-md shadow-md flex flex-col items-center text-sm"
                               >
                                 {/* Product Image */}
-                                <div className="w-full h-20 overflow-hidden rounded-md mb-2">
+                                <div className="w-full h-40 overflow-hidden rounded-md mb-2">
                                   <img
                                     src={product.image}
                                     alt={product.name}
@@ -723,13 +723,13 @@ const AdminSideNav = () => {
                                   />
                                 </div>
                                 {/* Product Details */}
-                                <h3 className="text-sm font-semibold mb-1 text-center">
+                                <h3 className="text-sm h-10 font-semibold mb-1 text-center">
                                   {product.name}
                                 </h3>
-                                <p className="text-xs text-gray-300 mb-2 text-center truncate w-full">
+                                <p className="text-xs h-5 text-gray-300 mb-2 text-center truncate w-full">
                                   {product.description}
                                 </p>
-                                <p className="text-sm font-bold text-[#f65553]">
+                                <p className="text-sm h-5 font-bold text-[#f65553]">
                                   ${product.price}
                                 </p>
                                 {/* Edit and Delete Buttons */}
