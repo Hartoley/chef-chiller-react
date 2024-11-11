@@ -130,7 +130,7 @@ const AdminSideNav = () => {
       const loadingToast = toast.loading("Uploading product...");
       try {
         const response = await axios.post(
-          "http://localhost:5010/chefchiller/upload",
+          "https://chef-chiller-node.onrender.com/chefchiller/upload",
           formData
         );
         const result = response.data;
@@ -185,7 +185,7 @@ const AdminSideNav = () => {
     const loadingToast = toast.loading("Updating product...");
     try {
       const response = await axios.post(
-        `http://localhost:5010/chefchiller/edit/${productId}`,
+        `https://chef-chiller-node.onrender.com/chefchiller/edit/${productId}`,
         formData,
         {
           headers: {
@@ -221,7 +221,9 @@ const AdminSideNav = () => {
     seteditingId(productId);
 
     axios
-      .get(`http://localhost:5010/chefchiller/product/${productId}`)
+      .get(
+        `https://chef-chiller-node.onrender.com/chefchiller/product/${productId}`
+      )
       .then((res) => {
         const productData = res.data;
         formik.setValues({
@@ -242,7 +244,7 @@ const AdminSideNav = () => {
     toast.loading("Deleting product...");
     try {
       const response = await axios.delete(
-        `http://localhost:5010/chefchiller/delete/${productId}`
+        `https://chef-chiller-node.onrender.com/chefchiller/delete/${productId}`
       );
 
       if (response.status === 200) {
