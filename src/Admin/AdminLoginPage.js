@@ -183,11 +183,11 @@ const LoginForm = () => {
                   "Sign In"
                 )}
               </button>
-              <img
+              {/* <img
                 className="logoSm"
                 src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
                 alt=""
-              />
+              /> */}
             </form>
           </div>
         </div>

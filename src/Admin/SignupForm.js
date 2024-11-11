@@ -244,11 +244,11 @@ const SignupForm = () => {
                 </h5>
               </div>
             </div>
-            <img
+            {/* <img
               className="logoSm"
               src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
               alt=""
-            />
+            /> */}
           </div>
         </div>
         <ToastContainer />

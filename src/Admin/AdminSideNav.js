@@ -481,7 +481,7 @@ const AdminSideNav = () => {
                             htmlFor="productPrice"
                             className="text-sm md:text-base font-medium"
                           >
-                            Price (€)
+                            Price (₦)
                           </label>
                           <input
                             type="number"
@@ -592,14 +592,14 @@ const AdminSideNav = () => {
                               />
                             </div>
 
-                            <h3 className="text-sm h-10 font-semibold mb-1 text-center">
+                            <h3 className="text-sm h-20 font-semibold mb-1 text-center">
                               {product.name}
                             </h3>
                             <p className="text-xs h-5 text-gray-300 mb-2 text-center truncate w-full">
                               {product.description}
                             </p>
                             <p className="text-sm h-5 font-bold text-[#f65553]">
-                              ${product.price}
+                              ₦{product.price}
                             </p>
 
                             <div className="flex mt-2 space-x-1 w-full">
@@ -653,14 +653,14 @@ const AdminSideNav = () => {
                                   />
                                 </div>
                                 {/* Product Details */}
-                                <h3 className="text-sm h-10 font-semibold mb-1 text-center">
+                                <h3 className="text-sm h-20 font-semibold mb-1 text-center">
                                   {product.name}
                                 </h3>
                                 <p className="text-xs h-5 text-gray-300 mb-2 text-center truncate w-full">
                                   {product.description}
                                 </p>
                                 <p className="text-sm h-5 font-bold text-[#f65553]">
-                                  ${product.price}
+                                  ₦{product.price}
                                 </p>
                                 {/* Edit and Delete Buttons */}
                                 <div className="flex mt-2 space-x-1 w-full">
@@ -689,7 +689,6 @@ const AdminSideNav = () => {
                         Our Menu
                       </h2>
                       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 overflow-y-auto">
-                        {/* Filter products created within the last 48 hours */}
                         {products.filter((product) => {
                           const productDate = new Date(product.createdAt);
                           const currentDate = new Date();
@@ -723,14 +722,14 @@ const AdminSideNav = () => {
                                   />
                                 </div>
                                 {/* Product Details */}
-                                <h3 className="text-sm h-10 font-semibold mb-1 text-center">
+                                <h3 className="text-sm h-20 font-semibold mb-1 text-center">
                                   {product.name}
                                 </h3>
                                 <p className="text-xs h-5 text-gray-300 mb-2 text-center truncate w-full">
                                   {product.description}
                                 </p>
                                 <p className="text-sm h-5 font-bold text-[#f65553]">
-                                  ${product.price}
+                                  ₦{product.price}
                                 </p>
                                 {/* Edit and Delete Buttons */}
                                 <div className="flex mt-2 space-x-1 w-full">
@@ -770,7 +769,7 @@ const AdminSideNav = () => {
                   <div>
                     <p className="text-sm text-gray-600">Task #00350</p>
                     <p className="text-lg font-semibold text-gray-800">
-                      €120.21
+                      ₦120.21
                     </p>
                   </div>
                   <button className="text-white bg-[#ff7a00] py-1 px-3 rounded-full">
@@ -783,7 +782,7 @@ const AdminSideNav = () => {
                   <div>
                     <p className="text-sm text-gray-600">Task #00349</p>
                     <p className="text-lg font-semibold text-gray-800">
-                      €99.60
+                      ₦99.60
                     </p>
                   </div>
                   <button className="text-white bg-[#ff7a00] py-1 px-3 rounded-full">
@@ -797,7 +796,7 @@ const AdminSideNav = () => {
                   <div>
                     <p className="text-sm text-gray-600">Task #00349</p>
                     <p className="text-lg font-semibold text-gray-800">
-                      €99.60
+                      ₦99.60
                     </p>
                   </div>
                   <button className="text-white bg-[#ff7a00] py-1 px-3 rounded-full">

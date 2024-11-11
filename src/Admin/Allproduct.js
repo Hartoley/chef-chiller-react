@@ -48,7 +48,7 @@ const AllProduct = () => {
       </h3>
       <div className="flex items-center justify-between mt-2">
         <span className="text-xl font-bold text-[#f65553]">
-          ${product.price.toFixed(2)}
+          ₦{product.price.toFixed(2)}
         </span>
       </div>
     </div>
@@ -66,7 +66,6 @@ const AllProduct = () => {
         </div>
       </div>
 
-      {/* New Products Section - only displayed if newProducts array is not empty */}
       {newProducts.length > 0 && (
         <div className="custom-scrollbar max-w-6xl mx-auto mb-12">
           <h2 className="text-4xl font-bold mb-6 text-[#E0E0E0]">
