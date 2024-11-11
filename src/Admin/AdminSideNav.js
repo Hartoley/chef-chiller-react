@@ -641,7 +641,7 @@ const AdminSideNav = () => {
           )}
 
           {activeSection === "order" && (
-            <div className="order w-full h-full rounded-lg ml-auto mr-auto h-full flex flex-col bg-[#F7F9FA] rounded-lg p-4 shadow-lg">
+            <div className="order w-full h-full rounded-lg ml-auto mr-auto h-full flex flex-col bg-[#50606C]  rounded-lg p-4 shadow-lg">
               <h2 className="text-xl font-bold text-gray-800 mb-4">
                 Order List
               </h2>
@@ -702,7 +702,7 @@ const AdminSideNav = () => {
             </div>
           )}
           {activeSection === "notification" && (
-            <div className="notifications w-full h-full rounded-lg bg-[#A0ADB8] p-4 flex flex-col items-center justify-center text-gray-800 overflow-y-auto">
+            <div className="notifications w-full h-full rounded-lg bg-[#50606C] p-4 flex flex-col items-center justify-center text-gray-800 overflow-y-auto">
               <h2 className="text-lg font-medium mb-4 text-center">
                 Notifications
               </h2>
@@ -730,7 +730,7 @@ const AdminSideNav = () => {
             </div>
           )}
           {activeSection === "chat" && (
-            <div className="chat w-full h-full rounded-lg bg-[#C2CDD5] p-4 flex flex-col">
+            <div className="chat w-full h-full rounded-lg bg-[#50606C] p-4 flex flex-col">
               {selectedChat === null ? (
                 // Chat List
                 <>
