@@ -9,7 +9,6 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 const AdminSideNav = () => {
   const [activeSection, setActiveSection] = useState("product");
-  const [activeSection2, setActiveSection2] = useState("uploadMenu");
   const [activeSection3, setActiveSection3] = useState("mainMenu");
   const [editingId, seteditingId] = useState("");
   const [isMenuVisible, setIsMenuVisible] = useState(false);

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
+import "./user.css";
 
 const UserDashboard = () => {
+  const [activeSection2, setActiveSection2] = useState("topMenu");
   const [products, setProducts] = useState([]);
   const [orderItems, setOrderItems] = useState([
     { name: "Ukrainian borscht", price: 5.0 },
@@ -30,47 +32,28 @@ const UserDashboard = () => {
 
   return (
     <div className="flex h-screen font-sans text-gray-800 bg-gray-100">
-      {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 text-white flex flex-col justify-between p-6">
+      <aside className="w-[15vw] bg-gray-900 text-white flex flex-col justify-between py-4 px-2">
         <div>
           <h1 className="text-2xl font-bold mb-8 text-center">FoodWish!</h1>
-          <nav className="space-y-4 flex flex-col items-center">
-            <a
-              href="#"
-              className="flex items-center text-lg hover:text-gray-300"
-            >
+          <nav className="flex bg-gray-900 items-start gap-2 flex-col">
+            <p className="flex items-center text-[14px] hover:text-gray-300">
               <span className="mr-3">🏠</span> Dashboard
-            </a>
-            <a
-              href="#"
-              className="flex items-center text-lg hover:text-gray-300"
-            >
+            </p>
+            <p className="flex items-center text-[14px] hover:text-gray-300">
               <span className="mr-3">🍲</span> Food & Drinks
-            </a>
-            <a
-              href="#"
-              className="flex items-center text-lg hover:text-gray-300"
-            >
+            </p>
+            <p className="flex items-center text-[14px] hover:text-gray-300">
               <span className="mr-3">💬</span> Messages
-            </a>
-            <a
-              href="#"
-              className="flex items-center text-lg hover:text-gray-300"
-            >
+            </p>
+            <p className="flex items-center text-[14px] hover:text-gray-300">
               <span className="mr-3">💸</span> Bills
-            </a>
-            <a
-              href="#"
-              className="flex items-center text-lg hover:text-gray-300"
-            >
+            </p>
+            <p className="flex items-center text-[14px] hover:text-gray-300">
               <span className="mr-3">⚙️</span> Settings
-            </a>
-            <a
-              href="#"
-              className="flex items-center text-lg hover:text-gray-300"
-            >
+            </p>
+            <p className="flex items-center text-[14px] hover:text-gray-300">
               <span className="mr-3">🔔</span> Notifications
-            </a>
+            </p>
           </nav>
         </div>
         <footer className="text-sm text-gray-500 mt-8">
@@ -79,59 +62,358 @@ const UserDashboard = () => {
         </footer>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 p-6 bg-gray-100 overflow-y-auto">
-        {/* Category Selection */}
+      <main className="flex-1 p-6 bg-gray-100">
         <section className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold">Food & Drinks</h2>
+          <h3 className="text-2xl font-[12px]">Food & Drinks</h3>
           <div className="flex space-x-2">
-            <button className="px-4 py-2 bg-gray-800 text-white rounded-full">
+            <button
+              onClick={() => setActiveSection2("mainMenu")}
+              className="px-3 py-1 bg-gray-800 text-white rounded-full"
+            >
               All
             </button>
-            <button className="px-4 py-2 bg-gray-200 rounded-full">
-              Soups
+            <button
+              onClick={() => setActiveSection2("topMenu")}
+              className="px-3 py-1 bg-gray-200 rounded-full"
+            >
+              Top Menu
             </button>
-            <button className="px-4 py-2 bg-gray-200 rounded-full">
-              Salads
+            <button
+              onClick={() => setActiveSection2("mainCourse")}
+              className="px-3 py-1 bg-gray-200 rounded-full"
+            >
+              Main Course
             </button>
-            <button className="px-4 py-2 bg-gray-200 rounded-full">
-              Pasta
+            <button
+              onClick={() => setActiveSection2("sideMenu")}
+              className="px-3 py-1 bg-gray-200 rounded-full"
+            >
+              Side dishes
             </button>
-            <button className="px-4 py-2 bg-gray-200 rounded-full">
+            <button
+              onClick={() => setActiveSection2("bakedMenu")}
+              className="px-3 py-1 bg-gray-200 rounded-full"
+            >
               Bakery Products
             </button>
           </div>
         </section>
 
-        {/* Product Items */}
-        <section>
-          <h3 className="text-xl font-semibold mb-4">Soups</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {products.map((product, index) => (
-              <div
-                key={index}
-                className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col items-center"
-              >
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="h-24 w-24 object-cover rounded-full mb-2"
-                />
-                <h4 className="text-lg font-bold text-center">
-                  {product.name}
-                </h4>
-                <p className="text-gray-600 text-center">
-                  ${product.price.toFixed(2)}
-                </p>
-                <div className="flex justify-center items-center mt-2">
-                  <button className="px-2 py-1 bg-gray-300 rounded">-</button>
-                  <span className="mx-3 text-lg font-semibold">1</span>
-                  <button className="px-2 py-1 bg-gray-300 rounded">+</button>
-                </div>
+        {activeSection2 === "mainMenu" && (
+          <div className="w-full flex flex-col  h-[80vh] overflow-y-auto no-scrollbar">
+            <section className="flex w-full flex-col">
+              <h3 className="text-xl font-semibold mb-1">Top Menu</h3>
+              <div className="py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+                {products.map((product, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      // backgroundColor: "rgb(204, 15, 49)",
+                      height: "100%",
+                      gap: "2vw",
+                    }}
+                    className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                  >
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-[40%] h-full object-cover "
+                    />
+                    <div className="flex h-full  w-[60%] flex-col items-start ">
+                      <h4 className="text-lg font-bold">{product.name}</h4>
+                      <p className="text-gray-600 text-center">
+                        ₦{product.price.toFixed(2)}
+                      </p>
+                      <div className="flex justify-center items-center mt-2">
+                        <button className="px-2 py-1 bg-gray-300 rounded">
+                          -
+                        </button>
+                        <span className="mx-3 text-lg font-semibold">1</span>
+                        <button className="px-2 py-1 bg-gray-300 rounded">
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </section>
+            <section className="flex w-full flex-col">
+              <h3 className="text-xl font-semibold mb-1">Main Course</h3>
+              <div className="py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+                {products
+                  .filter(
+                    (product) =>
+                      product.category.toLowerCase() === "main course"
+                  ) // Filter for 'Main Course' category
+                  .map((product, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        // backgroundColor: "rgb(204, 15, 49)",
+                        height: "100%",
+                        gap: "2vw",
+                      }}
+                      className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                    >
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-[40%] h-full object-cover"
+                      />
+                      <div className="flex h-full w-[60%] flex-col items-start">
+                        <h4 className="text-lg font-bold">{product.name}</h4>
+                        <p className="text-gray-600 text-center">
+                          ₦{product.price.toFixed(2)}
+                        </p>
+                        <div className="flex justify-center items-center mt-2">
+                          <button className="px-2 py-1 bg-gray-300 rounded">
+                            -
+                          </button>
+                          <span className="mx-3 text-lg font-semibold">1</span>
+                          <button className="px-2 py-1 bg-gray-300 rounded">
+                            +
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </section>
+            <section className="flex w-[60vw] flex-col">
+              <h3 className="text-xl font-semibold mb-1">New Menu</h3>
+              <div className="py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+                {products
+                  .filter((product) => {
+                    const createdAt = new Date(product.createdAt);
+                    const now = new Date();
+                    const differenceInMs = now - createdAt;
+                    return differenceInMs < 48 * 60 * 60 * 1000;
+                  })
+                  .map((product, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        // backgroundColor: "rgb(204, 15, 49)",
+                        height: "100%",
+                        gap: "2vw",
+                      }}
+                      className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                    >
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-[40%] h-full object-cover"
+                      />
+                      <div className="flex h-full w-[60%] flex-col items-start">
+                        <h4 className="text-lg font-bold">{product.name}</h4>
+                        <p className="text-gray-600 text-center">
+                          ₦{product.price.toFixed(2)}
+                        </p>
+                        <div className="flex justify-center items-center mt-2">
+                          <button className="px-2 py-1 bg-gray-300 rounded">
+                            -
+                          </button>
+                          <span className="mx-3 text-lg font-semibold">1</span>
+                          <button className="px-2 py-1 bg-gray-300 rounded">
+                            +
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </section>
           </div>
-        </section>
+        )}
+
+        {activeSection2 === "topMenu" && (
+          <div className="w-full flex flex-col  h-[80vh] overflow-y-auto no-scrollbar">
+            <section className="flex w-full flex-col">
+              <h3 className="text-xl font-semibold mb-1">Main Course</h3>
+              <div className="py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+                {products
+                  .filter(
+                    (product) =>
+                      product.category.toLowerCase() === "main course"
+                  ) // Filter for 'Main Course' category
+                  .map((product, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        // backgroundColor: "rgb(204, 15, 49)",
+                        height: "100%",
+                        gap: "2vw",
+                      }}
+                      className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                    >
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-[40%] h-full object-cover"
+                      />
+                      <div className="flex h-full w-[60%] flex-col items-start">
+                        <h4 className="text-lg font-bold">{product.name}</h4>
+                        <p className="text-gray-600 text-center">
+                          ₦{product.price.toFixed(2)}
+                        </p>
+                        <div className="flex justify-center items-center mt-2">
+                          <button className="px-2 py-1 bg-gray-300 rounded">
+                            -
+                          </button>
+                          <span className="mx-3 text-lg font-semibold">1</span>
+                          <button className="px-2 py-1 bg-gray-300 rounded">
+                            +
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </section>
+          </div>
+        )}
+
+        {activeSection2 === "mainCourse" && (
+          <div className="w-full flex flex-col  h-[80vh] overflow-y-auto no-scrollbar">
+            <section className="flex w-[60vw] flex-col">
+              <h3 className="text-xl font-semibold mb-1">New Menu</h3>
+              <div className="py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+                {products
+                  .filter((product) => {
+                    const createdAt = new Date(product.createdAt);
+                    const now = new Date();
+                    const differenceInMs = now - createdAt;
+                    return differenceInMs < 48 * 60 * 60 * 1000;
+                  })
+                  .map((product, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        // backgroundColor: "rgb(204, 15, 49)",
+                        height: "100%",
+                        gap: "2vw",
+                      }}
+                      className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                    >
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-[40%] h-full object-cover"
+                      />
+                      <div className="flex h-full w-[60%] flex-col items-start">
+                        <h4 className="text-lg font-bold">{product.name}</h4>
+                        <p className="text-gray-600 text-center">
+                          ₦{product.price.toFixed(2)}
+                        </p>
+                        <div className="flex justify-center items-center mt-2">
+                          <button className="px-2 py-1 bg-gray-300 rounded">
+                            -
+                          </button>
+                          <span className="mx-3 text-lg font-semibold">1</span>
+                          <button className="px-2 py-1 bg-gray-300 rounded">
+                            +
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </section>
+          </div>
+        )}
+
+        {activeSection2 === "sideMenu" && (
+          <div className="w-full flex flex-col  h-[80vh] overflow-y-auto no-scrollbar">
+            <section className="flex w-full flex-col">
+              <h3 className="text-xl font-semibold mb-1">Main Course</h3>
+              <div className="py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+                {products
+                  .filter(
+                    (product) => product.category.toLowerCase() === "beverages"
+                  ) // Filter for 'Main Course' category
+                  .map((product, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        // backgroundColor: "rgb(204, 15, 49)",
+                        height: "100%",
+                        gap: "2vw",
+                      }}
+                      className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                    >
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-[40%] h-full object-cover"
+                      />
+                      <div className="flex h-full w-[60%] flex-col items-start">
+                        <h4 className="text-lg font-bold">{product.name}</h4>
+                        <p className="text-gray-600 text-center">
+                          ₦{product.price.toFixed(2)}
+                        </p>
+                        <div className="flex justify-center items-center mt-2">
+                          <button className="px-2 py-1 bg-gray-300 rounded">
+                            -
+                          </button>
+                          <span className="mx-3 text-lg font-semibold">1</span>
+                          <button className="px-2 py-1 bg-gray-300 rounded">
+                            +
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </section>
+          </div>
+        )}
+
+        {activeSection2 === "bakedMenu" && (
+          <div className="w-full flex flex-col  h-[80vh] overflow-y-auto no-scrollbar">
+            <section className="flex w-full flex-col">
+              <h3 className="text-xl font-semibold mb-1">Main Course</h3>
+              <div className="py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+                {products
+                  .filter(
+                    (product) => product.category.toLowerCase() === "snacks"
+                  ) // Filter for 'Main Course' category
+                  .map((product, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        // backgroundColor: "rgb(204, 15, 49)",
+                        height: "100%",
+                        gap: "2vw",
+                      }}
+                      className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                    >
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-[40%] h-full object-cover"
+                      />
+                      <div className="flex h-full w-[60%] flex-col items-start">
+                        <h4 className="text-lg font-bold">{product.name}</h4>
+                        <p className="text-gray-600 text-center">
+                          ₦{product.price.toFixed(2)}
+                        </p>
+                        <div className="flex justify-center items-center mt-2">
+                          <button className="px-2 py-1 bg-gray-300 rounded">
+                            -
+                          </button>
+                          <span className="mx-3 text-lg font-semibold">1</span>
+                          <button className="px-2 py-1 bg-gray-300 rounded">
+                            +
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </section>
+          </div>
+        )}
       </main>
 
       {/* Order Sidebar */}
@@ -167,15 +449,19 @@ const UserDashboard = () => {
           </div>
 
           <div className="flex space-x-2 mt-4">
-            <button className="flex-1 bg-green-500 py-2 rounded">Cash</button>
-            <button className="flex-1 bg-blue-500 py-2 rounded">Debit</button>
-            <button className="flex-1 bg-purple-500 py-2 rounded">
+            <button className="flex-1 bg-red-700 py-2 rounded hover:bg-red-800">
+              Cash
+            </button>
+            <button className="flex-1 bg-orange-400 rounded hover:bg-orange-500">
+              Debit
+            </button>
+            <button className="flex-1 bg-green-600 py-2 rounded hover:bg-green-700">
               E-wallet
             </button>
           </div>
         </div>
 
-        <button className="w-full mt-4 bg-primary text-white py-3 rounded">
+        <button className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded">
           Place Order
         </button>
       </aside>
