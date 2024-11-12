@@ -460,7 +460,7 @@ const AdminSideNav = () => {
                             className="text-sm md:text-base mt-1 p-2 border border-gray-700 rounded bg-gray-900 text-gray-200"
                           >
                             <option value="" label="Select category" />
-                            <option value="Main product" label="Main product" />
+                            <option value="Main course" label="Main course" />
                             <option value="Beverages" label="Beverages" />
                             <option value="Appetizers" label="Appetizers" />
                             <option value="Snacks" label="Snacks" />
