@@ -4,7 +4,7 @@ import axios from "axios";
 import "./user.css";
 
 const UserDashboard = () => {
-  const [activeSection2, setActiveSection2] = useState("topMenu");
+  const [activeSection2, setActiveSection2] = useState("mainMenu");
   const [products, setProducts] = useState([]);
   const [orderItems, setOrderItems] = useState([
     { name: "Ukrainian borscht", price: 5.0 },
@@ -68,31 +68,51 @@ const UserDashboard = () => {
           <div className="flex space-x-2">
             <button
               onClick={() => setActiveSection2("mainMenu")}
-              className="px-3 py-1 bg-gray-800 text-white rounded-full"
+              className={`px-3 py-1 rounded-full ${
+                activeSection2 === "mainMenu"
+                  ? "bg-gray-800 text-white"
+                  : "bg-gray-200 text-gray-800"
+              }`}
             >
               All
             </button>
             <button
               onClick={() => setActiveSection2("topMenu")}
-              className="px-3 py-1 bg-gray-200 rounded-full"
+              className={`px-3 py-1 rounded-full ${
+                activeSection2 === "topMenu"
+                  ? "bg-gray-800 text-white"
+                  : "bg-gray-200 text-gray-800"
+              }`}
             >
               Top Menu
             </button>
             <button
               onClick={() => setActiveSection2("mainCourse")}
-              className="px-3 py-1 bg-gray-200 rounded-full"
+              className={`px-3 py-1 rounded-full ${
+                activeSection2 === "mainCourse"
+                  ? "bg-gray-800 text-white"
+                  : "bg-gray-200 text-gray-800"
+              }`}
             >
               Main Course
             </button>
             <button
               onClick={() => setActiveSection2("sideMenu")}
-              className="px-3 py-1 bg-gray-200 rounded-full"
+              className={`px-3 py-1 rounded-full ${
+                activeSection2 === "sideMenu"
+                  ? "bg-gray-800 text-white"
+                  : "bg-gray-200 text-gray-800"
+              }`}
             >
               Side dishes
             </button>
             <button
               onClick={() => setActiveSection2("bakedMenu")}
-              className="px-3 py-1 bg-gray-200 rounded-full"
+              className={`px-3 py-1 rounded-full ${
+                activeSection2 === "bakedMenu"
+                  ? "bg-gray-800 text-white"
+                  : "bg-gray-200 text-gray-800"
+              }`}
             >
               Bakery Products
             </button>
@@ -228,10 +248,10 @@ const UserDashboard = () => {
         )}
 
         {activeSection2 === "topMenu" && (
-          <div className="w-full flex flex-col  h-[80vh] overflow-y-auto no-scrollbar">
-            <section className="flex w-full flex-col">
-              <h3 className="text-xl font-semibold mb-1">Main Course</h3>
-              <div className="py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+          <div className="w-[60vw] flex flex-col h-[80vh]">
+            <section className="flex w-full h-full flex-col">
+              <h3 className="text-xl font-semibold mb-1">New Menu</h3>
+              <div className="py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
                 {products
                   .filter(
                     (product) =>
@@ -242,10 +262,11 @@ const UserDashboard = () => {
                       key={index}
                       style={{
                         // backgroundColor: "rgb(204, 15, 49)",
-                        height: "100%",
+                        height: "70%",
                         gap: "2vw",
+                        width: "47%",
                       }}
-                      className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                      className="flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
                       <img
                         src={product.image}
@@ -275,10 +296,10 @@ const UserDashboard = () => {
         )}
 
         {activeSection2 === "mainCourse" && (
-          <div className="w-full flex flex-col  h-[80vh] overflow-y-auto no-scrollbar">
-            <section className="flex w-[60vw] flex-col">
+          <div className="w-[60vw] flex flex-col h-[80vh]">
+            <section className="flex w-full h-full flex-col">
               <h3 className="text-xl font-semibold mb-1">New Menu</h3>
-              <div className="py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+              <div className="py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
                 {products
                   .filter((product) => {
                     const createdAt = new Date(product.createdAt);
@@ -291,10 +312,11 @@ const UserDashboard = () => {
                       key={index}
                       style={{
                         // backgroundColor: "rgb(204, 15, 49)",
-                        height: "100%",
+                        height: "70%",
                         gap: "2vw",
+                        width: "47%",
                       }}
-                      className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                      className="lex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
                       <img
                         src={product.image}
@@ -324,10 +346,10 @@ const UserDashboard = () => {
         )}
 
         {activeSection2 === "sideMenu" && (
-          <div className="w-full flex flex-col  h-[80vh] overflow-y-auto no-scrollbar">
-            <section className="flex w-full flex-col">
-              <h3 className="text-xl font-semibold mb-1">Main Course</h3>
-              <div className="py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+          <div className="w-[60vw] flex flex-col h-[80vh]">
+            <section className="flex w-full h-full flex-col">
+              <h3 className="text-xl font-semibold mb-1">New Menu</h3>
+              <div className="py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
                 {products
                   .filter(
                     (product) => product.category.toLowerCase() === "beverages"
@@ -337,8 +359,9 @@ const UserDashboard = () => {
                       key={index}
                       style={{
                         // backgroundColor: "rgb(204, 15, 49)",
-                        height: "100%",
+                        height: "70%",
                         gap: "2vw",
+                        width: "47%",
                       }}
                       className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
@@ -370,10 +393,10 @@ const UserDashboard = () => {
         )}
 
         {activeSection2 === "bakedMenu" && (
-          <div className="w-full flex flex-col  h-[80vh] overflow-y-auto no-scrollbar">
-            <section className="flex w-full flex-col">
-              <h3 className="text-xl font-semibold mb-1">Main Course</h3>
-              <div className="py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+          <div className="w-[60vw] flex flex-col h-[80vh]">
+            <section className="flex w-full h-full flex-col">
+              <h3 className="text-xl font-semibold mb-1">New Menu</h3>
+              <div className="py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
                 {products
                   .filter(
                     (product) => product.category.toLowerCase() === "snacks"
@@ -383,10 +406,11 @@ const UserDashboard = () => {
                       key={index}
                       style={{
                         // backgroundColor: "rgb(204, 15, 49)",
-                        height: "100%",
+                        height: "70%",
                         gap: "2vw",
+                        width: "47%",
                       }}
-                      className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                      className=" flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
                       <img
                         src={product.image}
