@@ -107,7 +107,7 @@ const UserDashboard = () => {
       </aside>
 
       <main className="flex-1 p-6 bg-gray-100">
-        <section className="flex items-center justify-between mb-6">
+        <section className="section1 flex items-center justify-between mb-6">
           <h3 className="text-2xl font-[12px]">Food & Drinks</h3>
           <div className="flex space-x-2">
             <button
@@ -165,9 +165,9 @@ const UserDashboard = () => {
 
         {activeSection2 === "mainMenu" && (
           <div className="w-full flex flex-col  h-[80vh] overflow-y-auto no-scrollbar">
-            <section className="flex w-[60vw] flex-col">
+            <section className="section2 flex w-[60vw] flex-col">
               <h3 className="text-xl font-semibold mb-1">Top Menu</h3>
-              <div className="w-full py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+              <div className="section3 w-full py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
                 {products.map((product, index) => (
                   <div
                     key={index}
@@ -183,7 +183,7 @@ const UserDashboard = () => {
                       alt={product.name}
                       className="w-[40%] h-full object-cover"
                     />
-                    <div className="flex h-full w-[60%] flex-col items-start">
+                    <div className="section4 flex h-full w-[60%] flex-col items-start">
                       <h4 className="text-lg font-bold">{product.name}</h4>
                       <p className="text-gray-600 text-center">
                         ₦{product.price.toFixed(2)}
@@ -202,9 +202,9 @@ const UserDashboard = () => {
                 ))}
               </div>
             </section>
-            <section className="flex w-full flex-col">
+            <section className="section2 flex w-full flex-col">
               <h3 className="text-xl font-semibold mb-1">Main Course</h3>
-              <div className="py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+              <div className="section3 py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
                 {products
                   .filter(
                     (product) =>
@@ -225,7 +225,7 @@ const UserDashboard = () => {
                         alt={product.name}
                         className="w-[40%] h-full object-cover"
                       />
-                      <div className="flex h-full w-[60%] flex-col items-start">
+                      <div className="section4 flex h-full w-[60%] flex-col items-start">
                         <h4 className="text-lg font-bold">{product.name}</h4>
                         <p className="text-gray-600 text-center">
                           ₦{product.price.toFixed(2)}
@@ -244,9 +244,9 @@ const UserDashboard = () => {
                   ))}
               </div>
             </section>
-            <section className="flex w-[60vw] flex-col">
+            <section className="section2 flex w-[60vw] flex-col">
               <h3 className="text-xl font-semibold mb-1">New Menu</h3>
-              <div className="py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+              <div className="section3 py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
                 {products
                   .filter((product) => {
                     const createdAt = new Date(product.createdAt);
@@ -269,7 +269,7 @@ const UserDashboard = () => {
                         alt={product.name}
                         className="w-[40%] h-full object-cover"
                       />
-                      <div className="flex h-full w-[60%] flex-col items-start">
+                      <div className="section4 flex h-full w-[60%] flex-col items-start">
                         <h4 className="text-lg font-bold">{product.name}</h4>
                         <p className="text-gray-600 text-center">
                           ₦{product.price.toFixed(2)}
@@ -293,9 +293,9 @@ const UserDashboard = () => {
 
         {activeSection2 === "topMenu" && (
           <div className="w-[60vw] flex flex-col h-[80vh]">
-            <section className="flex w-full h-full flex-col">
+            <section className="section5 flex w-full h-full flex-col">
               <h3 className="text-xl font-semibold mb-1">Top Menu</h3>
-              <div className="py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
+              <div className="section6 py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
                 {products
                   .filter(
                     (product) => product.category.toLowerCase() === "specials"
@@ -309,14 +309,14 @@ const UserDashboard = () => {
                         gap: "2vw",
                         width: "47%",
                       }}
-                      className="flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                      className="section7 flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
                       <img
                         src={product.image}
                         alt={product.name}
                         className="w-[40%] h-full object-cover"
                       />
-                      <div className="flex h-full w-[60%] flex-col items-start">
+                      <div className="section4 flex h-full w-[60%] flex-col items-start">
                         <h4 className="text-lg font-bold">{product.name}</h4>
                         <p className="text-gray-600 text-center">
                           ₦{product.price.toFixed(2)}
@@ -342,7 +342,7 @@ const UserDashboard = () => {
           <div className="w-[60vw] flex flex-col h-[80vh]">
             <section className="flex w-full h-full flex-col">
               <h3 className="text-xl font-semibold mb-1">Our Main Course</h3>
-              <div className="py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
+              <div className="section6 py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
                 {products
                   .filter(
                     (product) =>
@@ -357,7 +357,7 @@ const UserDashboard = () => {
                         gap: "2vw",
                         width: "47%",
                       }}
-                      className="flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                      className="section7 flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
                       <img
                         src={product.image}
@@ -390,7 +390,7 @@ const UserDashboard = () => {
           <div className="w-[60vw] flex flex-col h-[80vh]">
             <section className="flex w-full h-full flex-col">
               <h3 className="text-xl font-semibold mb-1">Side Menu</h3>
-              <div className="py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
+              <div className="section6 py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
                 {products
                   .filter((product) =>
                     ["beverages", "appetizers", "extras"].includes(
@@ -406,7 +406,7 @@ const UserDashboard = () => {
                         gap: "2vw",
                         width: "47%",
                       }}
-                      className="flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                      className="section7 flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
                       <img
                         src={product.image}
@@ -439,7 +439,7 @@ const UserDashboard = () => {
           <div className="w-[60vw] flex flex-col h-[80vh]">
             <section className="flex w-full h-full flex-col">
               <h3 className="text-xl font-semibold mb-1">Bakery goods</h3>
-              <div className="py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
+              <div className="section6 py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
                 {products
                   .filter(
                     (product) => product.category.toLowerCase() === "snacks"
@@ -453,7 +453,7 @@ const UserDashboard = () => {
                         gap: "2vw",
                         width: "47%",
                       }}
-                      className=" flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                      className="section7 flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
                       <img
                         src={product.image}
@@ -483,7 +483,6 @@ const UserDashboard = () => {
         )}
       </main>
 
-      {/* Order Sidebar */}
       <aside className="sideNav2  w-80 bg-gray-900 text-white p-6 flex flex-col justify-between">
         <div>
           <div className="text-xl font-semibold mb-6">Current Order</div>
