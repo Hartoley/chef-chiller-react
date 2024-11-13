@@ -17,3 +17,18 @@
     scrollbar-width: none;
     /* Firefox */
 }
+
+
+@media (max-width: 760px) {
+    .mainContainer{
+        flex-direction: column;
+    }
+
+    .sideNav{
+        display: none;
+    }
+
+    .sideNav2 {
+        display: none;
+    }
+}

@@ -31,8 +31,52 @@ const UserDashboard = () => {
   }, [formik.values.category]);
 
   return (
-    <div className="flex h-screen font-sans text-gray-800 bg-gray-100">
-      <aside className="w-[15vw] bg-gray-900 text-white flex flex-col justify-between py-4 px-2">
+    <div className="mainContainer flex h-screen font-sans text-gray-800 bg-gray-100">
+      <div class="flex items-center justify-between p-4 bg-gray-900 text-white md:hidden">
+        <div class="text-lg font-semibold">Logo</div>
+
+        <div class="flex items-center space-x-4">
+          <div class="relative">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4m5.6 0L9 21m5-6H7m0 0l1.6-8m4.8 0h4.2"
+              ></path>
+            </svg>
+
+            <span class="absolute top-0 right-0 block h-4 w-4 rounded-full bg-red-500 text-white text-xs text-center">
+              3
+            </span>
+          </div>
+
+          <button>
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <aside className="sideNav w-[15vw] bg-gray-900 text-white flex flex-col justify-between py-4 px-2">
         <div>
           <h1 className="text-2xl font-bold mb-8 text-center">FoodWish!</h1>
           <nav className="flex bg-gray-900 items-start gap-2 flex-col">
@@ -362,7 +406,7 @@ const UserDashboard = () => {
                         gap: "2vw",
                         width: "47%",
                       }}
-                      className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                      className="flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
                       <img
                         src={product.image}
@@ -440,7 +484,7 @@ const UserDashboard = () => {
       </main>
 
       {/* Order Sidebar */}
-      <aside className="w-80 bg-gray-900 text-white p-6 flex flex-col justify-between">
+      <aside className="sideNav2  w-80 bg-gray-900 text-white p-6 flex flex-col justify-between">
         <div>
           <div className="text-xl font-semibold mb-6">Current Order</div>
           <div className="flex justify-between items-center mb-4">
