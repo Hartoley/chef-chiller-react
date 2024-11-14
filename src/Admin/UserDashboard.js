@@ -6,6 +6,15 @@ import "./user.css";
 const UserDashboard = () => {
   const [activeSection2, setActiveSection2] = useState("mainMenu");
   const [products, setProducts] = useState([]);
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [showMenu, setshowMenu] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuVisible((prev) => !prev);
+    setshowMenu((prev) => !prev);
+    console.log(isMenuVisible);
+  };
+
   const [orderItems, setOrderItems] = useState([
     { name: "Ukrainian borscht", price: 5.0 },
     { name: "Poke with salmon", price: 6.0 },
@@ -38,6 +47,7 @@ const UserDashboard = () => {
         <div class="flex items-center space-x-4">
           <div class="relative">
             <svg
+              onClick={toggleMenu}
               class="w-6 h-6"
               fill="none"
               stroke="currentColor"
@@ -483,7 +493,11 @@ const UserDashboard = () => {
         )}
       </main>
 
-      <aside className="sideNav2  w-80 bg-gray-900 text-white p-6 flex flex-col justify-between">
+      <aside
+        className={`sideNav2 w-80 bg-gray-900 text-white p-6 flex flex-col justify-between fixed z-10 transition-transform transform ${
+          isMenuVisible ? "translate-x-0" : "-translate-x-full"
+        } md:static md:transform-none md:translate-x-0`}
+      >
         <div>
           <div className="text-xl font-semibold mb-6">Current Order</div>
           <div className="flex justify-between items-center mb-4">
