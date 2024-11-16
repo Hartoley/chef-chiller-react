@@ -2,13 +2,39 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import "./user.css";
+import { useParams } from "react-router-dom";
 import Footer from "./Footer";
+import { ToastContainer, toast } from "react-toastify";
 
 const UserDashboard = () => {
   const [activeSection2, setActiveSection2] = useState("mainMenu");
   const [products, setProducts] = useState([]);
+  const [user, setuser] = useState([]);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [showMenu, setshowMenu] = useState(false);
+  const [cart, setCart] = useState([]);
+  const endpoint = "https://chef-chiller-node.onrender.com";
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5010/user/getuser/${id}`);
+        // console.log("students data from API:", res.data);
+        setuser(res.data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
+  }, []);
+  // console.log(id);
+  console.log(user);
+
+  useEffect(() => {
+    console.log(isMenuVisible);
+  }, [isMenuVisible]);
 
   const toggleMenu = () => {
     setIsMenuVisible((prev) => !prev);
@@ -35,6 +61,92 @@ const UserDashboard = () => {
   const formik = useFormik({
     initialValues: { category: "" },
   });
+
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const updateCart = async (product, action) => {
+    if (isUpdating) return;
+
+    setIsUpdating(true);
+
+    console.log("updateCart called with action:", action);
+
+    try {
+      const response = await syncCartWithServer(product, action);
+      console.log(response.data.message);
+    } catch (error) {
+      console.error("Error updating cart:", error);
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  const syncCartWithServer = async (product, action) => {
+    const toastId = toast.loading("Updating cart...");
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5010/chefchiller/updatecart",
+        {
+          userId: user._id,
+          productId: product._id,
+          productName: product.name,
+          productPrice: product.price,
+          action,
+        }
+      );
+
+      toast.update(toastId, {
+        render: response.data.message || "Cart updated successfully!",
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
+
+      return response;
+    } catch (error) {
+      toast.update(toastId, {
+        render: "Error updating the cart. Please try again.",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
+      throw error;
+    }
+  };
+
+  // const syncCartWithServer = (product, action, quantity) => {
+  //   const toastId = toast.loading("Updating cart...");
+  //   console.log(quantity);
+
+  //   axios
+  //     .post("http://localhost:5010/chefchiller/updatecart", {
+  //       userId: user._id,
+  //       productId: product._id,
+  //       productName: product.name,
+  //       productPrice: product.price,
+  //       quantity,
+  //     })
+  //     .then((response) => {
+  //       toast.update(toastId, {
+  //         render: response.data.message || "Cart updated successfully!",
+  //         type: "success",
+  //         isLoading: false,
+  //         autoClose: 3000,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       toast.update(toastId, {
+  //         render: "Error updating the cart. Please try again.",
+  //         type: "error",
+  //         isLoading: false,
+  //         autoClose: 3000,
+  //       });
+  //       console.error("Error updating the cart:", error);
+  //     });
+  // };
+
+  // console.log(user._id);
 
   useEffect(() => {
     fetchData();
@@ -201,11 +313,19 @@ const UserDashboard = () => {
                           ₦{product.price.toFixed(2)}
                         </p>
                         <div className="flex justify-center items-center mt-2">
-                          <button className="px-2 py-1 bg-gray-300 rounded">
+                          <button
+                            onClick={() => updateCart(product, "decrease")}
+                            disabled={isUpdating}
+                            className="px-2 py-1 bg-gray-300 rounded"
+                          >
                             -
                           </button>
                           <span className="mx-3 text-lg font-semibold">1</span>
-                          <button className="px-2 py-1 bg-gray-300 rounded">
+                          <button
+                            onClick={() => updateCart(product, "increase")}
+                            disabled={isUpdating}
+                            className="px-2 py-1 bg-gray-300 rounded"
+                          >
                             +
                           </button>
                         </div>
@@ -561,6 +681,7 @@ const UserDashboard = () => {
         </aside>
       </div>
       <Footer />
+      <ToastContainer />
     </>
   );
 };
