@@ -14,7 +14,15 @@ const UserDashboard = () => {
   const [showMenu, setshowMenu] = useState(false);
   const [cart, setCart] = useState([]);
   const endpoint = "https://chef-chiller-node.onrender.com";
+  const [orderItems, setOrderItems] = useState([]);
+  const [subtotal, setsubtotal] = useState(0);
   const { id } = useParams();
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,6 +30,12 @@ const UserDashboard = () => {
         const res = await axios.get(`http://localhost:5010/user/getuser/${id}`);
         // console.log("students data from API:", res.data);
         setuser(res.data.data);
+        setOrderItems(res.data.data.orders);
+        const subtotal = res.data.data.orders.reduce((total, order) => {
+          return total + order.productPrice;
+        }, 0);
+
+        setsubtotal(subtotal);
       } catch (err) {
         console.log(err);
       }
@@ -41,11 +55,6 @@ const UserDashboard = () => {
     setshowMenu((prev) => !prev);
     console.log(isMenuVisible);
   };
-
-  const [orderItems, setOrderItems] = useState([
-    { name: "Ukrainian borscht", price: 5.0 },
-    { name: "Poke with salmon", price: 6.0 },
-  ]);
 
   const fetchData = async () => {
     try {
@@ -363,13 +372,21 @@ const UserDashboard = () => {
                             ₦{product.price.toFixed(2)}
                           </p>
                           <div className="flex justify-center items-center mt-2">
-                            <button className="px-2 py-1 bg-gray-300 rounded">
+                            <button
+                              onClick={() => updateCart(product, "decrease")}
+                              disabled={isUpdating}
+                              className="px-2 py-1 bg-gray-300 rounded"
+                            >
                               -
                             </button>
                             <span className="mx-3 text-lg font-semibold">
                               1
                             </span>
-                            <button className="px-2 py-1 bg-gray-300 rounded">
+                            <button
+                              onClick={() => updateCart(product, "increase")}
+                              disabled={isUpdating}
+                              className="px-2 py-1 bg-gray-300 rounded"
+                            >
                               +
                             </button>
                           </div>
@@ -409,13 +426,21 @@ const UserDashboard = () => {
                             ₦{product.price.toFixed(2)}
                           </p>
                           <div className="flex justify-center items-center mt-2">
-                            <button className="px-2 py-1 bg-gray-300 rounded">
+                            <button
+                              onClick={() => updateCart(product, "decrease")}
+                              disabled={isUpdating}
+                              className="px-2 py-1 bg-gray-300 rounded"
+                            >
                               -
                             </button>
                             <span className="mx-3 text-lg font-semibold">
                               1
                             </span>
-                            <button className="px-2 py-1 bg-gray-300 rounded">
+                            <button
+                              onClick={() => updateCart(product, "increase")}
+                              disabled={isUpdating}
+                              className="px-2 py-1 bg-gray-300 rounded"
+                            >
                               +
                             </button>
                           </div>
@@ -458,13 +483,21 @@ const UserDashboard = () => {
                             ₦{product.price.toFixed(2)}
                           </p>
                           <div className="flex justify-center items-center mt-2">
-                            <button className="px-2 py-1 bg-gray-300 rounded">
+                            <button
+                              onClick={() => updateCart(product, "decrease")}
+                              disabled={isUpdating}
+                              className="px-2 py-1 bg-gray-300 rounded"
+                            >
                               -
                             </button>
                             <span className="mx-3 text-lg font-semibold">
                               1
                             </span>
-                            <button className="px-2 py-1 bg-gray-300 rounded">
+                            <button
+                              onClick={() => updateCart(product, "increase")}
+                              disabled={isUpdating}
+                              className="px-2 py-1 bg-gray-300 rounded"
+                            >
                               +
                             </button>
                           </div>
@@ -508,13 +541,21 @@ const UserDashboard = () => {
                             ₦{product.price.toFixed(2)}
                           </p>
                           <div className="flex justify-center items-center mt-2">
-                            <button className="px-2 py-1 bg-gray-300 rounded">
+                            <button
+                              onClick={() => updateCart(product, "decrease")}
+                              disabled={isUpdating}
+                              className="px-2 py-1 bg-gray-300 rounded"
+                            >
                               -
                             </button>
                             <span className="mx-3 text-lg font-semibold">
                               1
                             </span>
-                            <button className="px-2 py-1 bg-gray-300 rounded">
+                            <button
+                              onClick={() => updateCart(product, "increase")}
+                              disabled={isUpdating}
+                              className="px-2 py-1 bg-gray-300 rounded"
+                            >
                               +
                             </button>
                           </div>
@@ -559,13 +600,21 @@ const UserDashboard = () => {
                             ₦{product.price.toFixed(2)}
                           </p>
                           <div className="flex justify-center items-center mt-2">
-                            <button className="px-2 py-1 bg-gray-300 rounded">
+                            <button
+                              onClick={() => updateCart(product, "decrease")}
+                              disabled={isUpdating}
+                              className="px-2 py-1 bg-gray-300 rounded"
+                            >
                               -
                             </button>
                             <span className="mx-3 text-lg font-semibold">
                               1
                             </span>
-                            <button className="px-2 py-1 bg-gray-300 rounded">
+                            <button
+                              onClick={() => updateCart(product, "increase")}
+                              disabled={isUpdating}
+                              className="px-2 py-1 bg-gray-300 rounded"
+                            >
                               +
                             </button>
                           </div>
@@ -608,13 +657,21 @@ const UserDashboard = () => {
                             ₦{product.price.toFixed(2)}
                           </p>
                           <div className="flex justify-center items-center mt-2">
-                            <button className="px-2 py-1 bg-gray-300 rounded">
+                            <button
+                              onClick={() => updateCart(product, "decrease")}
+                              disabled={isUpdating}
+                              className="px-2 py-1 bg-gray-300 rounded"
+                            >
                               -
                             </button>
                             <span className="mx-3 text-lg font-semibold">
                               1
                             </span>
-                            <button className="px-2 py-1 bg-gray-300 rounded">
+                            <button
+                              onClick={() => updateCart(product, "increase")}
+                              disabled={isUpdating}
+                              className="px-2 py-1 bg-gray-300 rounded"
+                            >
                               +
                             </button>
                           </div>
@@ -635,14 +692,14 @@ const UserDashboard = () => {
           <div>
             <div className="text-xl font-semibold mb-6">Current Order</div>
             <div className="flex justify-between items-center mb-4">
-              <span>Table 5</span>
-              <span>🕒 10.30.2022</span>
+              <span>Today</span>
+              <span>🕒 {formattedDate}</span>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-4 h-[30vh] overflow-y-auto no-scrollbar">
               {orderItems.map((item, index) => (
                 <div key={index} className="flex justify-between">
-                  <span>{item.name}</span>
-                  <span>${item.price.toFixed(2)}</span>
+                  <span>{item.productName}</span>
+                  <span>₦{item.productPrice.toFixed(2)}</span>
                 </div>
               ))}
             </div>
@@ -650,15 +707,15 @@ const UserDashboard = () => {
             <div className="border-t border-gray-700 mt-6 pt-4 space-y-2">
               <div className="flex justify-between">
                 <span className="text-gray-400">Subtotal</span>
-                <span>$10.00</span>
+                <span>₦{subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Tax</span>
-                <span>$1.00</span>
+                <span className="text-gray-400">Fee</span>
+                <span>₦0.00</span>
               </div>
               <div className="flex justify-between font-semibold">
                 <span>Total</span>
-                <span>$11.00</span>
+                <span>₦{subtotal.toFixed(2)}</span>
               </div>
             </div>
 
