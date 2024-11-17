@@ -738,12 +738,7 @@ const UserDashboard = () => {
           )}
         </main>
         <aside
-          className={`sideNav2 w-80 bg-gray-900 text-white p-6 flex flex-col justify-between fixed z-10 transition-transform transform ${
-            isMenuVisible ? "translate-x-0" : "-translate-x-full"
-          } md:translate-x-0 md:static`}
-        ></aside>{" "}
-        <aside
-          className={`sideNav2 w-80 bg-gray-900 text-white p-6 flex flex-col justify-between fixed z-10 transition-transform transform ${
+          className={`sideNav2 w-[20%] flex-shrink-0 bg-gray-900 text-white p-6 flex flex-col justify-between fixed z-10 transition-transform transform ${
             isMenuVisible ? "translate-x-0" : "-translate-x-full"
           } md:static md:transform-none md:translate-x-0`}
         >
@@ -794,6 +789,7 @@ const UserDashboard = () => {
             Place Order
           </button>
         </aside>
+
         {showMenu && (
           <aside
             className={`sideNav3 w-80 bg-gray-900 text-white p-6 flex flex-col justify-between fixed z-10 transition-transform transform ${
