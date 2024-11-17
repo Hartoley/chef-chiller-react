@@ -12,6 +12,7 @@ const UserDashboard = () => {
   const [user, setuser] = useState([]);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [showMenu, setshowMenu] = useState(false);
+  const [showMenu2, setshowMenu2] = useState(false);
   const [cart, setCart] = useState([]);
   const endpoint = "https://chef-chiller-node.onrender.com";
   const [orderItems, setOrderItems] = useState([]);
@@ -53,6 +54,12 @@ const UserDashboard = () => {
   const toggleMenu = () => {
     setIsMenuVisible((prev) => !prev);
     setshowMenu((prev) => !prev);
+    console.log(isMenuVisible);
+  };
+
+  const toggleMenu2 = () => {
+    setIsMenuVisible((prev) => !prev);
+    setshowMenu2((prev) => !prev);
     console.log(isMenuVisible);
   };
 
@@ -168,9 +175,8 @@ const UserDashboard = () => {
           <div class="text-lg font-semibold">Logo</div>
 
           <div class="flex items-center space-x-4">
-            <div class="relative">
+            <div onClick={toggleMenu} class="relative">
               <svg
-                onClick={toggleMenu}
                 class="w-6 h-6"
                 fill="none"
                 stroke="currentColor"
@@ -190,7 +196,7 @@ const UserDashboard = () => {
               </span>
             </div>
 
-            <button>
+            <button onClick={toggleMenu2}>
               <svg
                 class="w-6 h-6"
                 fill="none"
@@ -208,7 +214,56 @@ const UserDashboard = () => {
             </button>
           </div>
         </div>
+        {showMenu2 && (
+          <aside className="sideNav4 w-[15vw] bg-gray-900 text-white flex flex-col justify-between py-4 px-2">
+            <div>
+              <div className="flex w-full items-center mb-8 justify-between h-10">
+                <h1 className="text-2xl font-bold text-center">FoodWish!</h1>
 
+                {/* <button onClick={toggleMenu2}>
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 6h16M4 12h16m-7 6h7"
+                    ></path>
+                  </svg>
+                </button> */}
+              </div>
+              <nav className="flex bg-gray-900 items-start gap-2 flex-col">
+                <p className="flex items-center text-[14px] hover:text-gray-300">
+                  <span className="mr-3">🏠</span> Dashboard
+                </p>
+                <p className="flex items-center text-[14px] hover:text-gray-300">
+                  <span className="mr-3">🍲</span> Food & Drinks
+                </p>
+                <p className="flex items-center text-[14px] hover:text-gray-300">
+                  <span className="mr-3">💬</span> Messages
+                </p>
+                <p className="flex items-center text-[14px] hover:text-gray-300">
+                  <span className="mr-3">💸</span> Bills
+                </p>
+                <p className="flex items-center text-[14px] hover:text-gray-300">
+                  <span className="mr-3">⚙️</span> Settings
+                </p>
+                <p className="flex items-center text-[14px] hover:text-gray-300">
+                  <span className="mr-3">🔔</span> Notifications
+                </p>
+              </nav>
+            </div>
+            <footer className="text-sm text-gray-500 mt-8">
+              <p>© 2024 FoodWish! POS</p>
+              <p>Terms • Privacy</p>
+            </footer>
+          </aside>
+        )}
         <aside className="sideNav w-[15vw] bg-gray-900 text-white flex flex-col justify-between py-4 px-2">
           <div>
             <h1 className="text-2xl font-bold mb-8 text-center">FoodWish!</h1>
@@ -238,7 +293,6 @@ const UserDashboard = () => {
             <p>Terms • Privacy</p>
           </footer>
         </aside>
-
         <main className="flex-1 p-6 bg-gray-100">
           <section className="section1 flex items-center justify-between mb-6">
             <h3 className="text-2xl font-[12px]">Food & Drinks</h3>
@@ -683,7 +737,11 @@ const UserDashboard = () => {
             </div>
           )}
         </main>
-
+        <aside
+          className={`sideNav2 w-80 bg-gray-900 text-white p-6 flex flex-col justify-between fixed z-10 transition-transform transform ${
+            isMenuVisible ? "translate-x-0" : "-translate-x-full"
+          } md:translate-x-0 md:static`}
+        ></aside>{" "}
         <aside
           className={`sideNav2 w-80 bg-gray-900 text-white p-6 flex flex-col justify-between fixed z-10 transition-transform transform ${
             isMenuVisible ? "translate-x-0" : "-translate-x-full"
@@ -736,6 +794,82 @@ const UserDashboard = () => {
             Place Order
           </button>
         </aside>
+        {showMenu && (
+          <aside
+            className={`sideNav3 w-80 bg-gray-900 text-white p-6 flex flex-col justify-between fixed z-10 transition-transform transform ${
+              isMenuVisible ? "translate-x-0" : "-translate-x-full"
+            } md:static md:transform-none md:translate-x-0`}
+          >
+            <div>
+              <div className="text-xl font-semibold mb-6 flex items-center justify-between">
+                <p className="text-xl font-semibold">Current Order</p>
+                <div onClick={toggleMenu} class="relative">
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 3h2l.4 2M7 13h10l4-8H5.4m5.6 0L9 21m5-6H7m0 0l1.6-8m4.8 0h4.2"
+                    ></path>
+                  </svg>
+
+                  <span class="absolute top-0 right-0 block h-4 w-4 rounded-full bg-red-500 text-white text-xs text-center">
+                    3
+                  </span>
+                </div>
+              </div>
+              <div className="flex justify-between items-center mb-4">
+                <span>Today</span>
+                <span>🕒 {formattedDate}</span>
+              </div>
+              <div className="space-y-4 h-[30vh] overflow-y-auto no-scrollbar">
+                {orderItems.map((item, index) => (
+                  <div key={index} className="flex justify-between">
+                    <span>{item.productName}</span>
+                    <span>₦{item.productPrice.toFixed(2)}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="border-t border-gray-700 mt-6 pt-4 space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Subtotal</span>
+                  <span>₦{subtotal.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Fee</span>
+                  <span>₦0.00</span>
+                </div>
+                <div className="flex justify-between font-semibold">
+                  <span>Total</span>
+                  <span>₦{subtotal.toFixed(2)}</span>
+                </div>
+              </div>
+
+              <div className="flex space-x-2 mt-4">
+                <button className="flex-1 bg-red-700 py-2 rounded hover:bg-red-800">
+                  Cash
+                </button>
+                <button className="flex-1 bg-orange-400 rounded hover:bg-orange-500">
+                  Debit
+                </button>
+                <button className="flex-1 bg-green-600 py-2 rounded hover:bg-green-700">
+                  E-wallet
+                </button>
+              </div>
+            </div>
+
+            <button className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded">
+              Place Order
+            </button>
+          </aside>
+        )}
       </div>
       <Footer />
       <ToastContainer />

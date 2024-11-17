@@ -18,6 +18,22 @@
   /* Firefox */
 }
 
+.sideNav3 {
+  /* display: none; */
+  width: 100% !important;
+  /* margin-top: 8vh !important; */
+  height: 100vh !important;
+  position: fixed !important;
+}
+
+.sideNav4 {
+  /* display: none; */
+  width: 30% !important;
+  /* margin-top: 8vh !important; */
+  height: 100vh !important;
+  position: fixed !important;
+}
+
 @media (max-width: 760px) {
   .mainContainer {
     flex-direction: column;
