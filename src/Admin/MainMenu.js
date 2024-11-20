@@ -141,7 +141,7 @@ const MainMenu = () => {
   }, [formik.values.category]);
   return (
     <>
-      <main className="flex-1 p-6 bg-gray-100 w-[60vw]">
+      <main className="child flex-1 p-6 bg-gray-100 w-[60vw]">
         <section className="section1 flex items-center justify-between mb-6">
           <h3 className="text-2xl font-[12px]">Food & Drinks</h3>
           <div className="flex space-x-2">
@@ -205,7 +205,7 @@ const MainMenu = () => {
               <div className="section3 w-full py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
                 {products.map((product, index) => (
                   <div
-                    onClick={showMoreDetail}
+                    onClick={() => setActiveSection3("mainMenu5")}
                     key={index}
                     style={{
                       // backgroundColor: "rgb(204, 15, 49)",

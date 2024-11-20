@@ -9,6 +9,7 @@ import FoodsDrinks from "./FoodsDrinks";
 import Messages from "./Messages";
 import Basket from "./Basket";
 import MainMenu from "./MainMenu";
+import Product from "./Product";
 
 const UserDashboard = () => {
   const [activeSection2, setActiveSection2] = useState("mainMenu");
@@ -67,10 +68,6 @@ const UserDashboard = () => {
     setIsMenuVisible((prev) => !prev);
     setshowMenu2((prev) => !prev);
     console.log(isMenuVisible);
-  };
-
-  const showMoreDetail = () => {
-    setshowMore((prev) => !prev);
   };
 
   const fetchData = async () => {
@@ -140,39 +137,6 @@ const UserDashboard = () => {
       throw error;
     }
   };
-
-  // const syncCartWithServer = (product, action, quantity) => {
-  //   const toastId = toast.loading("Updating cart...");
-  //   console.log(quantity);
-
-  //   axios
-  //     .post("http://localhost:5010/chefchiller/updatecart", {
-  //       userId: user._id,
-  //       productId: product._id,
-  //       productName: product.name,
-  //       productPrice: product.price,
-  //       quantity,
-  //     })
-  //     .then((response) => {
-  //       toast.update(toastId, {
-  //         render: response.data.message || "Cart updated successfully!",
-  //         type: "success",
-  //         isLoading: false,
-  //         autoClose: 3000,
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       toast.update(toastId, {
-  //         render: "Error updating the cart. Please try again.",
-  //         type: "error",
-  //         isLoading: false,
-  //         autoClose: 3000,
-  //       });
-  //       console.error("Error updating the cart:", error);
-  //     });
-  // };
-
-  // console.log(user._id);
 
   useEffect(() => {
     fetchData();
@@ -258,13 +222,22 @@ const UserDashboard = () => {
                   >
                     <span className="mr-3">🏠</span> Dashboard
                   </p>
-                  <p className="flex items-center text-[14px] hover:text-gray-300">
+                  <p
+                    onClick={() => setActiveSection3("mainMenu2")}
+                    className="flex items-center text-[14px] hover:text-gray-300"
+                  >
                     <span className="mr-3">🍲</span> Food & Drinks
                   </p>
-                  <p className="flex items-center text-[14px] hover:text-gray-300">
+                  <p
+                    onClick={() => setActiveSection3("mainMenu3")}
+                    className="flex items-center text-[14px] hover:text-gray-300"
+                  >
                     <span className="mr-3">💬</span> Messages
                   </p>
-                  <p className="flex items-center text-[14px] hover:text-gray-300">
+                  <p
+                    onClick={() => setActiveSection3("mainMenu4")}
+                    className="flex items-center text-[14px] hover:text-gray-300"
+                  >
                     <span className="mr-3">💸</span> Basket
                   </p>
                   <p className="flex items-center text-[14px] hover:text-gray-300">
@@ -321,6 +294,7 @@ const UserDashboard = () => {
             {activeSection3 === "mainMenu2" && <FoodsDrinks />}
             {activeSection3 === "mainMenu3" && <Messages />}
             {activeSection3 === "mainMenu4" && <Basket />}
+            {activeSection3 === "mainMenu5" && <Product />}
           </>
 
           <aside
@@ -453,14 +427,6 @@ const UserDashboard = () => {
             </aside>
           )}
         </div>
-
-        {showMore && (
-          <div className="flex justify-center bg-black bg-opacity-15 z-20 fixed items-center w-full h-screen">
-            <div className="bg-black text-red-900 z-25 w-[60%] h-screen">
-              <h1 onClick={showMoreDetail}>Close</h1>
-            </div>
-          </div>
-        )}
       </div>
       <Footer />
       <ToastContainer />

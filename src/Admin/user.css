@@ -35,10 +35,26 @@
 }
 
 @media (max-width: 760px) {
-  .mainContainer {
-    flex-direction: column;
+  .mother {
+    flex-direction: column !important;
+    background-color: blue !important;
+    width: 100%;
   }
 
+  .child {
+    width: 100%;
+  }
+
+  .list {
+    width: 100vw !important;
+    background-color: blue;
+    overflow-y: hidden;
+  }
+
+  .list button {
+    width: 500px !important;
+    background-color: red !important;
+  }
   .sideNav {
     display: none;
   }
