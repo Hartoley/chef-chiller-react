@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import "./user.css";
-import { useParams } from "react-router-dom";
+import { json, useParams } from "react-router-dom";
 import Footer from "./Footer";
 import { ToastContainer, toast } from "react-toastify";
 
-const MainMenu = () => {
-  const [activeSection2, setActiveSection2] = useState("mainMenu");
-  const [activeSection3, setActiveSection3] = useState("mainMenu1");
+const MainMenu = ({
+  activeSection2,
+  setActiveSection2,
+  activeSection3,
+  setActiveSection3,
+}) => {
   const [products, setProducts] = useState([]);
   const [user, setuser] = useState([]);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
@@ -19,8 +22,11 @@ const MainMenu = () => {
   const endpoint = "https://chef-chiller-node.onrender.com";
   const [orderItems, setOrderItems] = useState([]);
   const [subtotal, setsubtotal] = useState(0);
+  const [productId, setProductId] = useState("");
   const { id } = useParams();
+  localStorage.setItem("id", JSON.stringify(id));
   const today = new Date();
+
   const formattedDate = today.toLocaleDateString("en-US", {
     year: "numeric",
     month: "2-digit",
@@ -35,7 +41,7 @@ const MainMenu = () => {
         setuser(res.data.data);
         setOrderItems(res.data.data.orders);
         const subtotal = res.data.data.orders.reduce((total, order) => {
-          return total + order.productPrice;
+          return total + order.productPrice * order.quantity;
         }, 0);
 
         setsubtotal(subtotal);
@@ -47,11 +53,8 @@ const MainMenu = () => {
     fetchData();
   }, []);
   // console.log(id);
-  console.log(user);
 
-  useEffect(() => {
-    console.log(isMenuVisible);
-  }, [isMenuVisible]);
+  useEffect(() => {}, [isMenuVisible]);
 
   const toggleMenu = () => {
     setIsMenuVisible((prev) => !prev);
@@ -114,6 +117,7 @@ const MainMenu = () => {
           productId: product._id,
           productName: product.name,
           productPrice: product.price,
+          image: product.image,
           action,
         }
       );
@@ -141,13 +145,13 @@ const MainMenu = () => {
   }, [formik.values.category]);
   return (
     <>
-      <main className="child flex-1 p-6 bg-gray-100 w-[60vw]">
-        <section className="section1 flex items-center justify-between mb-6">
-          <h3 className="text-2xl font-[12px]">Food & Drinks</h3>
-          <div className="flex space-x-2">
+      <main className="child h-[100h] flex-1 p-6 bg-gray-100 w-[63.65vw]">
+        <section className="section1 flex gap-3 items-center justify-between mb-6">
+          <h3 className="text-2xl flex-shrink-0 font-[12px]">Food & Drinks</h3>
+          <div className="list no-scrollbar flex space-x-2">
             <button
               onClick={() => setActiveSection2("mainMenu")}
-              className={`px-3 py-1 rounded-full ${
+              className={`px-3 py-1 rounded-full flex-shrink-0 ${
                 activeSection2 === "mainMenu"
                   ? "bg-gray-800 text-white"
                   : "bg-gray-200 text-gray-800"
@@ -199,13 +203,19 @@ const MainMenu = () => {
         </section>
 
         {activeSection2 === "mainMenu" && (
-          <div className="w-full flex flex-col  h-[80vh] overflow-y-auto no-scrollbar">
-            <section className="section2 flex w-[60vw] flex-col">
+          <div className="w-full flex flex-col min-h-[80vh] overflow-y-auto no-scrollbar">
+            <section className="section2 flex w-[60vw] h-full flex-col">
               <h3 className="text-xl font-semibold mb-1">Top Menu</h3>
               <div className="section3 w-full py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
                 {products.map((product, index) => (
                   <div
-                    onClick={() => setActiveSection3("mainMenu5")}
+                    onClick={() => {
+                      localStorage.setItem(
+                        "productId",
+                        JSON.stringify(product._id)
+                      );
+                      setActiveSection3("mainMenu5");
+                    }}
                     key={index}
                     style={{
                       // backgroundColor: "rgb(204, 15, 49)",
@@ -226,7 +236,7 @@ const MainMenu = () => {
                       </p>
                       <div className="flex justify-center items-center mt-2">
                         <button
-                          onClick={() => updateCart(product, "decrease")}
+                          //   onClick={() => updateCart(product, "decrease")}
                           disabled={isUpdating}
                           className="px-2 py-1 bg-gray-300 rounded"
                         >
@@ -234,7 +244,7 @@ const MainMenu = () => {
                         </button>
                         <span className="mx-3 text-lg font-semibold">1</span>
                         <button
-                          onClick={() => updateCart(product, "increase")}
+                          //   onClick={() => updateCart(product, "increase")}
                           disabled={isUpdating}
                           className="px-2 py-1 bg-gray-300 rounded"
                         >
@@ -262,6 +272,13 @@ const MainMenu = () => {
                         height: "100%",
                         gap: "2vw",
                       }}
+                      onClick={() => {
+                        localStorage.setItem(
+                          "productId",
+                          JSON.stringify(product._id)
+                        );
+                        setActiveSection3("mainMenu5");
+                      }}
                       className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
                       <img
@@ -276,7 +293,7 @@ const MainMenu = () => {
                         </p>
                         <div className="flex justify-center items-center mt-2">
                           <button
-                            onClick={() => updateCart(product, "decrease")}
+                            // onClick={() => updateCart(product, "decrease")}
                             disabled={isUpdating}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >
@@ -284,7 +301,7 @@ const MainMenu = () => {
                           </button>
                           <span className="mx-3 text-lg font-semibold">1</span>
                           <button
-                            onClick={() => updateCart(product, "increase")}
+                            // onClick={() => updateCart(product, "increase")}
                             disabled={isUpdating}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >
@@ -314,6 +331,13 @@ const MainMenu = () => {
                         height: "100%",
                         gap: "2vw",
                       }}
+                      onClick={() => {
+                        localStorage.setItem(
+                          "productId",
+                          JSON.stringify(product._id)
+                        );
+                        setActiveSection3("mainMenu5");
+                      }}
                       className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
                       <img
@@ -328,7 +352,7 @@ const MainMenu = () => {
                         </p>
                         <div className="flex justify-center items-center mt-2">
                           <button
-                            onClick={() => updateCart(product, "decrease")}
+                            // onClick={() => updateCart(product, "decrease")}
                             disabled={isUpdating}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >
@@ -336,7 +360,7 @@ const MainMenu = () => {
                           </button>
                           <span className="mx-3 text-lg font-semibold">1</span>
                           <button
-                            onClick={() => updateCart(product, "increase")}
+                            // onClick={() => updateCart(product, "increase")}
                             disabled={isUpdating}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >
@@ -369,6 +393,13 @@ const MainMenu = () => {
                         gap: "2vw",
                         width: "47%",
                       }}
+                      onClick={() => {
+                        localStorage.setItem(
+                          "productId",
+                          JSON.stringify(product._id)
+                        );
+                        setActiveSection3("mainMenu5");
+                      }}
                       className="section7 flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
                       <img
@@ -383,7 +414,7 @@ const MainMenu = () => {
                         </p>
                         <div className="flex justify-center items-center mt-2">
                           <button
-                            onClick={() => updateCart(product, "decrease")}
+                            // onClick={() => updateCart(product, "decrease")}
                             disabled={isUpdating}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >
@@ -391,7 +422,7 @@ const MainMenu = () => {
                           </button>
                           <span className="mx-3 text-lg font-semibold">1</span>
                           <button
-                            onClick={() => updateCart(product, "increase")}
+                            // onClick={() => updateCart(product, "increase")}
                             disabled={isUpdating}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >
@@ -425,6 +456,13 @@ const MainMenu = () => {
                         gap: "2vw",
                         width: "47%",
                       }}
+                      onClick={() => {
+                        localStorage.setItem(
+                          "productId",
+                          JSON.stringify(product._id)
+                        );
+                        setActiveSection3("mainMenu5");
+                      }}
                       className="section7 flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
                       <img
@@ -439,7 +477,7 @@ const MainMenu = () => {
                         </p>
                         <div className="flex justify-center items-center mt-2">
                           <button
-                            onClick={() => updateCart(product, "decrease")}
+                            // onClick={() => updateCart(product, "decrease")}
                             disabled={isUpdating}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >
@@ -447,7 +485,7 @@ const MainMenu = () => {
                           </button>
                           <span className="mx-3 text-lg font-semibold">1</span>
                           <button
-                            onClick={() => updateCart(product, "increase")}
+                            // onClick={() => updateCart(product, "increase")}
                             disabled={isUpdating}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >
@@ -482,6 +520,13 @@ const MainMenu = () => {
                         gap: "2vw",
                         width: "47%",
                       }}
+                      onClick={() => {
+                        localStorage.setItem(
+                          "productId",
+                          JSON.stringify(product._id)
+                        );
+                        setActiveSection3("mainMenu5");
+                      }}
                       className="section7 flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
                       <img
@@ -496,7 +541,7 @@ const MainMenu = () => {
                         </p>
                         <div className="flex justify-center items-center mt-2">
                           <button
-                            onClick={() => updateCart(product, "decrease")}
+                            // onClick={() => updateCart(product, "decrease")}
                             disabled={isUpdating}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >
@@ -504,7 +549,7 @@ const MainMenu = () => {
                           </button>
                           <span className="mx-3 text-lg font-semibold">1</span>
                           <button
-                            onClick={() => updateCart(product, "increase")}
+                            // onClick={() => updateCart(product, "increase")}
                             disabled={isUpdating}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >
@@ -537,6 +582,13 @@ const MainMenu = () => {
                         gap: "2vw",
                         width: "47%",
                       }}
+                      onClick={() => {
+                        localStorage.setItem(
+                          "productId",
+                          JSON.stringify(product._id)
+                        );
+                        setActiveSection3("mainMenu5");
+                      }}
                       className="section7 flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
                       <img
@@ -551,7 +603,7 @@ const MainMenu = () => {
                         </p>
                         <div className="flex justify-center items-center mt-2">
                           <button
-                            onClick={() => updateCart(product, "decrease")}
+                            // onClick={() => updateCart(product, "decrease")}
                             disabled={isUpdating}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >
@@ -559,7 +611,7 @@ const MainMenu = () => {
                           </button>
                           <span className="mx-3 text-lg font-semibold">1</span>
                           <button
-                            onClick={() => updateCart(product, "increase")}
+                            // onClick={() => updateCart(product, "increase")}
                             disabled={isUpdating}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >

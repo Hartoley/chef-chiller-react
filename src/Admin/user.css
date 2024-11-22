@@ -26,12 +26,28 @@
   position: fixed !important;
 }
 
+.overflow-y-auto {
+  max-height: 350px; /* Maintain maximum height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  scrollbar-width: none; /* For Firefox: hide scrollbar */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge: hide scrollbar */
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera: hide scrollbar */
+}
+
 .sideNav4 {
   /* display: none; */
   width: 40% !important;
   /* margin-top: 8vh !important; */
   height: 100vh !important;
   position: fixed !important;
+}
+
+.child {
+  /* background-color: #ff6b6b !important; */
+  height: 100vh !important;
 }
 
 @media (max-width: 760px) {
@@ -43,17 +59,15 @@
 
   .child {
     width: 100%;
+    height: 100vh !important;
   }
 
   .list {
-    width: 100vw !important;
-    background-color: blue;
     overflow-y: hidden;
   }
 
   .list button {
-    width: 500px !important;
-    background-color: red !important;
+    flex-shrink: 0;
   }
   .sideNav {
     display: none;
@@ -186,5 +200,17 @@
     gap: 10px !important;
     /* justify-content: space-evenly; */
     /* background-color: palevioletred !important; */
+  }
+
+  .basket-container {
+    padding: 1rem;
+  }
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .text-pink-500:hover {
+    color: #ff6b6b; /* Brighter pink for hover */
   }
 }

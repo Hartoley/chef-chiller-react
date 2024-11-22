@@ -10,6 +10,7 @@ import Messages from "./Messages";
 import Basket from "./Basket";
 import MainMenu from "./MainMenu";
 import Product from "./Product";
+import Setting from "./Setting";
 
 const UserDashboard = () => {
   const [activeSection2, setActiveSection2] = useState("mainMenu");
@@ -40,7 +41,7 @@ const UserDashboard = () => {
         setuser(res.data.data);
         setOrderItems(res.data.data.orders);
         const subtotal = res.data.data.orders.reduce((total, order) => {
-          return total + order.productPrice;
+          return total + order.productPrice * order.quantity;
         }, 0);
 
         setsubtotal(subtotal);
@@ -52,11 +53,8 @@ const UserDashboard = () => {
     fetchData();
   }, []);
   // console.log(id);
-  console.log(user);
 
-  useEffect(() => {
-    console.log(isMenuVisible);
-  }, [isMenuVisible]);
+  useEffect(() => {}, [isMenuVisible]);
 
   const toggleMenu = () => {
     setIsMenuVisible((prev) => !prev);
@@ -240,7 +238,10 @@ const UserDashboard = () => {
                   >
                     <span className="mr-3">💸</span> Basket
                   </p>
-                  <p className="flex items-center text-[14px] hover:text-gray-300">
+                  <p
+                    onClick={() => setActiveSection3("mainMenu6")}
+                    className="flex items-center text-[14px] hover:text-gray-300"
+                  >
                     <span className="mr-3">⚙️</span> Settings
                   </p>
                   <p className="flex items-center text-[14px] hover:text-gray-300">
@@ -282,6 +283,12 @@ const UserDashboard = () => {
                 >
                   <span className="mr-3">💸</span> Basket
                 </p>
+                <p
+                  onClick={() => setActiveSection3("mainMenu6")}
+                  className="flex items-center text-[14px] hover:text-gray-300"
+                >
+                  <span className="mr-3">⚙️</span> Settings
+                </p>
               </nav>
             </div>
             <footer className="text-sm text-gray-500 mt-8">
@@ -290,21 +297,36 @@ const UserDashboard = () => {
             </footer>
           </aside>
           <>
-            {activeSection3 === "mainMenu1" && <MainMenu />}
+            {activeSection3 === "mainMenu1" && (
+              <MainMenu
+                activeSection2={activeSection2}
+                setActiveSection2={setActiveSection2}
+                activeSection3={activeSection3}
+                setActiveSection3={setActiveSection3}
+              />
+            )}
             {activeSection3 === "mainMenu2" && <FoodsDrinks />}
             {activeSection3 === "mainMenu3" && <Messages />}
             {activeSection3 === "mainMenu4" && <Basket />}
-            {activeSection3 === "mainMenu5" && <Product />}
+            {activeSection3 === "mainMenu5" && (
+              <Product
+                activeSection2={activeSection2}
+                setActiveSection2={setActiveSection2}
+                activeSection3={activeSection3}
+                setActiveSection3={setActiveSection3}
+              />
+            )}
+            {activeSection3 === "mainMenu6" && <Setting />}
           </>
 
           <aside
-            className={`sideNav2 w-[20%] flex-shrink-0 bg-gray-900 text-white p-6 flex flex-col justify-between fixed z-10 transition-transform transform ${
+            className={`sideNav2 w-[20vw] flex-shrink-0 bg-gray-900 text-white p-6 flex flex-col justify-between fixed z-10 transition-transform transform ${
               isMenuVisible ? "translate-x-0" : "-translate-x-full"
             } md:static md:transform-none md:translate-x-0`}
           >
             <div>
               <div className="text-xl font-semibold mb-6">Current Order</div>
-              <div className="flex justify-between items-center mb-4">
+              <div className="flex justify-between items-center mb-4 p-2">
                 <span>Today</span>
                 <span>🕒 {formattedDate}</span>
               </div>
