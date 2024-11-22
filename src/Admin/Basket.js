@@ -10,6 +10,27 @@ const Basket = () => {
   const id = JSON.parse(localStorage.getItem("id"));
   const [isUpdating, setIsUpdating] = useState(false);
 
+  const makeOrder = async (id) => {
+    const userId = id;
+    setIsUpdating(true);
+
+    try {
+      const response = await axios.get(
+        `http://localhost:5010/api/makeOrder/${userId}`
+      );
+      console.log("Order Response:", response.data);
+      alert("Order approved and copied successfully!");
+    } catch (error) {
+      console.error(
+        "Error making order:",
+        error.response?.data || error.message
+      );
+      alert(error.response?.data?.message || "Failed to make the order.");
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
   const updateCart = async (order, action) => {
     if (isUpdating) return;
 
@@ -197,8 +218,11 @@ const Basket = () => {
               ${subtotal.toFixed(2)}
             </span>
           </div>
-          <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg">
-            <button>Place order</button>
+          <div
+            onClick={makeOrder}
+            className="flex justify-evenly items-center bg-gray-400 p-4 rounded-lg"
+          >
+            <button> Verify Order</button>
           </div>
         </section>
       </div>

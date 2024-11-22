@@ -332,7 +332,7 @@ const UserDashboard = () => {
               </div>
               <div className="space-y-4 h-[30vh] overflow-y-auto no-scrollbar">
                 {orderItems.map((item, index) => (
-                  <div key={index} className="flex justify-between">
+                  <div key={index} className="flex gap-1 justify-between">
                     <span>{item.productName}</span>
                     <span>₦{item.productPrice.toFixed(2)}</span>
                   </div>
@@ -367,7 +367,10 @@ const UserDashboard = () => {
               </div>
             </div>
 
-            <button className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded">
+            <button
+              onClick={() => setActiveSection3("mainMenu4")}
+              className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded"
+            >
               Place Order
             </button>
           </aside>
@@ -443,7 +446,10 @@ const UserDashboard = () => {
                 </div>
               </div>
 
-              <button className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded">
+              <button
+                onClick={() => setActiveSection3("mainMenu4")}
+                className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded"
+              >
                 Place Order
               </button>
             </aside>
