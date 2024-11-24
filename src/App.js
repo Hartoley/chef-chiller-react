@@ -8,6 +8,7 @@ import LandingPage from "./Admin/LandingPage";
 import SignupForm from "./Admin/SignupForm";
 import UserDashboard from "./Admin/UserDashboard";
 import AdminDashboard from "./Admin/AdminDashboard";
+import CvlandingPage from "./Admin/CvlandingPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/user/signup" element={<SignupForm />} />
         <Route path="/user/dashboard/:id" element={<UserDashboard />} />
         <Route path="/admin/dashboard/:id" element={<AdminDashboard />} />
+        <Route path="/jimohSekinat" element={<CvlandingPage />} />
       </Routes>
     </>
   );

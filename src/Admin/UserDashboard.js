@@ -331,12 +331,14 @@ const UserDashboard = () => {
                 <span>🕒 {formattedDate}</span>
               </div>
               <div className="space-y-4 h-[30vh] overflow-y-auto no-scrollbar">
-                {orderItems.map((item, index) => (
-                  <div key={index} className="flex gap-1 justify-between">
-                    <span>{item.productName}</span>
-                    <span>₦{item.productPrice.toFixed(2)}</span>
-                  </div>
-                ))}
+                {orderItems
+                  .filter((order) => !order.approved)
+                  .map((item, index) => (
+                    <div key={index} className="flex gap-1 justify-between">
+                      <span>{item.productName}</span>
+                      <span>₦{item.productPrice.toFixed(2)}</span>
+                    </div>
+                  ))}
               </div>
 
               <div className="border-t border-gray-700 mt-6 pt-4 space-y-2">
@@ -410,12 +412,14 @@ const UserDashboard = () => {
                   <span>🕒 {formattedDate}</span>
                 </div>
                 <div className="space-y-4 h-[30vh] overflow-y-auto no-scrollbar">
-                  {orderItems.map((item, index) => (
-                    <div key={index} className="flex justify-between">
-                      <span>{item.productName}</span>
-                      <span>₦{item.productPrice.toFixed(2)}</span>
-                    </div>
-                  ))}
+                  {orderItems
+                    .filter((order) => !order.approved)
+                    .map((item, index) => (
+                      <div key={index} className="flex justify-between">
+                        <span>{item.productName}</span>
+                        <span>₦{item.productPrice.toFixed(2)}</span>
+                      </div>
+                    ))}
                 </div>
 
                 <div className="border-t border-gray-700 mt-6 pt-4 space-y-2">

@@ -10,27 +10,6 @@ const Basket = () => {
   const id = JSON.parse(localStorage.getItem("id"));
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const makeOrder = async (id) => {
-    const userId = id;
-    setIsUpdating(true);
-
-    try {
-      const response = await axios.get(
-        `http://localhost:5010/api/makeOrder/${userId}`
-      );
-      console.log("Order Response:", response.data);
-      alert("Order approved and copied successfully!");
-    } catch (error) {
-      console.error(
-        "Error making order:",
-        error.response?.data || error.message
-      );
-      alert(error.response?.data?.message || "Failed to make the order.");
-    } finally {
-      setIsUpdating(false);
-    }
-  };
-
   const updateCart = async (order, action) => {
     if (isUpdating) return;
 
@@ -85,8 +64,6 @@ const Basket = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      // console.log("This is my ID", id);
-
       try {
         const res = await axios.get(`http://localhost:5010/user/getuser/${id}`);
         setUser(res.data.data);
@@ -104,25 +81,51 @@ const Basket = () => {
     };
 
     fetchData();
-  }, []);
+  }, [id]);
 
-  // console.log(user);
-
-  // Handle delete item
   const handleDeleteItem = (index) => {
     const updatedOrderItems = orderItems.filter((_, i) => i !== index);
     setOrderItems(updatedOrderItems);
 
-    const totalPrice = orderItems.reduce((total, order) => {
-      console.log(total);
-
+    const totalPrice = updatedOrderItems.reduce((total, order) => {
       return total + order.productPrice * order.quantity;
     }, 0);
 
-    console.log(`Total Price: ${totalPrice}`);
-
     setSubtotal(totalPrice);
   };
+
+  const makeOrder = async () => {
+    const userId = id;
+    console.log("userId being sent:", userId);
+    setIsUpdating(true);
+
+    try {
+      console.log("Data being sent:", { userId, subtotal });
+      const response = await axios.post(
+        "http://localhost:5010/chefchiller/makeOrder",
+        {
+          userId,
+          subtotal,
+        }
+      );
+      console.log("Order Response:", response.data);
+      alert("Order approved and copied successfully!");
+    } catch (error) {
+      console.error(
+        "Error making order:",
+        error.response?.data || error.message
+      );
+      alert(
+        error.response?.data?.message ||
+          error.message ||
+          "Failed to make the order."
+      );
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  const unapprovedOrders = orderItems.filter((order) => !order.approved);
 
   return (
     <main className="flex justify-center w-[63.65vw] p-4 bg-gray-100">
@@ -146,8 +149,10 @@ const Basket = () => {
 
           {/* Orders Section */}
           <div className="overflow-y-scroll max-h-[30vh] mb-4">
-            {orderItems.length > 0 ? (
-              orderItems.map((order, index) => (
+            {unapprovedOrders.length === 0 ? (
+              <p className="text-gray-600 text-center">Your basket is empty.</p>
+            ) : (
+              unapprovedOrders.map((order, index) => (
                 <div
                   key={index}
                   className="bg-gray-50 p-2 rounded-lg mb-4 shadow-md flex items-center justify-between gap-4"
@@ -205,25 +210,28 @@ const Basket = () => {
                   </div>
                 </div>
               ))
-            ) : (
-              <p className="text-gray-600 text-center">No orders found.</p>
             )}
           </div>
 
-          <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg">
-            <span className="text-md font-semibold text-gray-800">
-              Subtotal
-            </span>
-            <span className="text-lg font-bold text-gray-800">
-              ${subtotal.toFixed(2)}
-            </span>
-          </div>
-          <div
-            onClick={makeOrder}
-            className="flex justify-evenly items-center bg-gray-400 p-4 rounded-lg"
-          >
-            <button> Verify Order</button>
-          </div>
+          {/* Subtotal & Verify Order only if there are unapproved orders */}
+          {unapprovedOrders.length > 0 && (
+            <>
+              <div className="flex justify-between items-center bg-gray-50 p-4 rounded-lg">
+                <span className="text-md font-semibold text-gray-800">
+                  Subtotal
+                </span>
+                <span className="text-lg font-bold text-gray-800">
+                  ${subtotal.toFixed(2)}
+                </span>
+              </div>
+              <div
+                onClick={makeOrder}
+                className="flex justify-evenly items-center bg-gray-400 p-4 rounded-lg"
+              >
+                <button> Verify Order</button>
+              </div>
+            </>
+          )}
         </section>
       </div>
     </main>
