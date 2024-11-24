@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
-import "./cv.css"; // Your custom styles
+import "./cv.css"; // Custom styles
 
 const CvLandingPage = () => {
   const [darkMode, setDarkMode] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -11,7 +12,11 @@ const CvLandingPage = () => {
   };
 
   const scrollToSection = (id) => {
-    document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+      setMenuOpen(false); // Close menu after scrolling
+    }
   };
 
   return (
@@ -28,10 +33,12 @@ const CvLandingPage = () => {
       >
         <div className="container mx-auto flex items-center justify-between p-4">
           <h1 className="text-2xl font-bold">My CV</h1>
-          <div className="flex items-center space-x-4">
+
+          {/* Dark Mode Toggle */}
+          <div className="flex items-center lg:hidden">
             <button
+              className="mr-4 p-2 rounded-md transition-all duration-300 focus:outline-none"
               onClick={toggleDarkMode}
-              className="text-2xl p-2 rounded-md transition-all duration-300 focus:outline-none"
               aria-label="Toggle Dark Mode"
             >
               {darkMode ? (
@@ -40,6 +47,62 @@ const CvLandingPage = () => {
                 <MoonIcon className="h-6 w-6 text-purple-700 dark:text-purple-300" />
               )}
             </button>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              className="text-2xl focus:outline-none"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle Menu"
+            >
+              ☰
+            </button>
+          </div>
+
+          {/* Desktop Navigation */}
+          <div
+            className={`lg:flex items-center space-x-6 hidden ${
+              darkMode ? "text-gray-100" : "text-gray-900"
+            }`}
+          >
+            {["home", "about-me", "skills", "contact-me"].map((section) => (
+              <button
+                key={section}
+                onClick={() => scrollToSection(section)}
+                className="text-sm font-medium hover:text-blue-500 dark:hover:text-blue-300"
+              >
+                {section.replace("-", " ").toUpperCase()}
+              </button>
+            ))}
+            <button
+              className="ml-4 p-2 rounded-md transition-all duration-300 focus:outline-none"
+              onClick={toggleDarkMode}
+              aria-label="Toggle Dark Mode"
+            >
+              {darkMode ? (
+                <SunIcon className="h-6 w-6 text-yellow-400" />
+              ) : (
+                <MoonIcon className="h-6 w-6 text-purple-700 dark:text-purple-300" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        <div
+          className={`lg:hidden ${
+            menuOpen ? "block" : "hidden"
+          } bg-purple-200 dark:bg-purple-800 py-4 transition-all duration-300`}
+        >
+          <div className="container mx-auto flex flex-col space-y-4 items-center">
+            {["home", "about-me", "skills", "contact-me"].map((section) => (
+              <button
+                key={section}
+                onClick={() => scrollToSection(section)}
+                className="text-sm font-medium hover:text-blue-500 dark:hover:text-blue-300"
+              >
+                {section.replace("-", " ").toUpperCase()}
+              </button>
+            ))}
           </div>
         </div>
       </nav>
