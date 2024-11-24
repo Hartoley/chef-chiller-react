@@ -1,11 +1,29 @@
 import React, { useState } from "react";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 import "./cv.css"; // Custom styles
+import Titter from "../Images/kisspng-social-media-internet-blog-twitter-blue-bird-5acd7bc5d021a1.9460553415234160058525-removebg-preview.png";
+import linkdin from "../Images/Untitled-removebg-preview.png";
+import whatsapp from "../Images/whatsapp-removebg-preview.png";
+import telegram from "../Images/images-removebg-preview.png";
 
 const CvLandingPage = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const skills = [
+    {
+      category: "Front-End",
+      items: ["HTML", "CSS", "Bootstrap", "React", "TailWind", "Angular"],
+    },
+    {
+      category: "Back-End",
+      items: ["PHP", "Laravel", "Node.js"],
+    },
+    {
+      category: "Database",
+      items: ["MySQL", "MongoDB"],
+    },
+  ];
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
     document.documentElement.classList.toggle("dark");
@@ -113,10 +131,10 @@ const CvLandingPage = () => {
           darkMode
             ? "bg-purple-900 text-gray-50"
             : "bg-purple-100 text-purple-900"
-        } text-center py-20 transition-colors duration-500`}
+        } text-center py-10 md:py-20 transition-colors duration-500`}
       >
-        <div className="container mx-auto">
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
+        <div className="container mx-auto px-4">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4">
             Hello, I'm{" "}
             <span
               className={`${darkMode ? "text-pink-500" : "text-purple-600"}`}
@@ -124,31 +142,29 @@ const CvLandingPage = () => {
               Jimoh Sekinat Tolani
             </span>
           </h1>
-          <h2 className="text-2xl md:text-3xl font-medium mb-6">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-medium mb-6">
             Full-Stack Web Application Developer
           </h2>
-          <div className="flex justify-center gap-4 mt-4">
-            <a
-              href="#contact"
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+            <p
               className={`${
                 darkMode
                   ? "bg-pink-500 hover:bg-pink-600 text-white"
                   : "bg-purple-500 hover:bg-purple-600 text-white"
-              } py-2 px-6 rounded-lg text-lg font-medium transition duration-300`}
+              } py-2 px-6 rounded-lg text-base sm:text-lg font-medium transition duration-300`}
             >
               Contact Me
-            </a>
-            <a
-              href="path-to-cv.pdf"
+            </p>
+            <p
               download
               className={`${
                 darkMode
                   ? "bg-gray-800 border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white"
                   : "bg-purple-200 border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white"
-              } py-2 px-6 rounded-lg text-lg font-medium transition duration-300`}
+              } py-2 px-6 rounded-lg text-base sm:text-lg font-medium transition duration-300`}
             >
               Download CV
-            </a>
+            </p>
           </div>
         </div>
       </section>
@@ -163,29 +179,31 @@ const CvLandingPage = () => {
       >
         <h2 className="text-4xl font-bold mb-6 text-center">About Me</h2>
         <div className="max-w-3xl mx-auto text-lg leading-relaxed">
-          <p className="mb-4">
-            I’m a Full Stack Web Application Developer with over 4 years of
-            experience in creating modern, responsive, and scalable software
-            solutions. My expertise lies in delivering robust and intuitive web
-            applications, specializing in fintech, education, and e-commerce
-            domains.
+          <p className="mb-6">
+            Hello! I’m a budding Full Stack Web Developer with over a year of
+            experience in building dynamic, responsive, and user-friendly web
+            applications. My journey in software development is fueled by a deep
+            passion for learning, creativity, and bringing ideas to life through
+            clean and functional code.
           </p>
-          <p className="mb-4">
-            With a passion for learning and solving challenges, I transform
-            creative ideas into digital realities. My strengths include
-            creativity, problem-solving, and a commitment to delivering
-            high-quality results for exceptional user experiences.
+          <p className="mb-6">
+            As someone who is constantly exploring the world of web
+            technologies, I’ve gained hands-on experience with modern
+            development tools and techniques, creating solutions for small-scale
+            projects and refining my skills every day.
           </p>
-          <p className="font-semibold mt-6">My areas of expertise include:</p>
-          <ul className="list-disc pl-6 mt-2 space-y-2">
-            <li>Full Stack Development</li>
-            <li>Frontend Development</li>
-            <li>Backend Logic and API Development</li>
-            <li>Database Architecture</li>
+          <p className="font-semibold mb-4">
+            Here’s what I’m currently focusing on:
+          </p>
+          <ul className="list-disc list-inside mb-6">
+            <li>Developing full stack applications using modern tools</li>
+            <li>Enhancing front-end designs with responsive layouts</li>
+            <li>Building backend logic and APIs to power applications</li>
+            <li>Continuously improving my database management skills</li>
           </ul>
-          <p className="mt-6">
-            I look forward to collaborating on your next project to bring your
-            vision to life!
+          <p>
+            I’m excited to grow and contribute to projects that push me to
+            improve and deliver value. Let’s build something amazing together!
           </p>
         </div>
       </section>
@@ -193,29 +211,38 @@ const CvLandingPage = () => {
       {/* Skills Section */}
       <section
         id="skills"
-        className="container mx-auto py-16 px-4 focus:outline-none"
+        className={`py-16 px-10 ${
+          darkMode ? "bg-purple-800 text-white" : "bg-purple-300 text-gray-900"
+        }`}
       >
-        <h2 className="text-4xl font-semibold mb-6 text-center">Skills</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          {[
-            "HTML",
-            "CSS",
-            "JavaScript",
-            "React",
-            "Node.js",
-            "Tailwind",
-            "MongoDB",
-            "REST APIs",
-          ].map((skill) => (
-            <div
-              key={skill}
-              className={`p-4 rounded-md shadow-lg ${
-                darkMode
-                  ? "bg-purple-700 hover:bg-purple-600"
-                  : "bg-purple-300 hover:bg-purple-400"
-              } transition-all duration-300`}
-            >
-              <span className="font-medium">{skill}</span>
+        <h2 className="text-4xl font-bold mb-8 text-center">My Skills</h2>
+        <div className="grid md:grid-cols-3 p-6 gap-8">
+          {skills.map((skillCategory, index) => (
+            <div key={index}>
+              <h3
+                className={`text-2xl font-semibold mb-6 ${
+                  darkMode ? "text-purple-200" : "text-purple-900"
+                }`}
+              >
+                {skillCategory.category}
+              </h3>
+              <div className="space-y-4">
+                {skillCategory.items.map((skill, i) => (
+                  <div
+                    key={i}
+                    className={`p-4 rounded-lg shadow-md ${
+                      darkMode
+                        ? "bg-purple-700 hover:bg-purple-600"
+                        : "bg-purple-100 hover:bg-purple-200"
+                    } transition-all duration-300`}
+                  >
+                    <h4 className="text-lg font-medium">{skill}</h4>
+                    <p className="text-sm">
+                      {["Experienced", "Expert"][i % 2]}{" "}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
@@ -224,32 +251,220 @@ const CvLandingPage = () => {
       {/* Contact Me */}
       <section
         id="contact-me"
-        className={`${
-          darkMode ? "bg-purple-800 text-gray-200" : "bg-purple-200"
-        } container mx-auto py-16 px-4 focus:outline-none`}
+        className={`container mx-auto py-16 px-4 transition-all duration-300 ${
+          darkMode
+            ? "bg-purple-900 text-gray-200"
+            : "bg-purple-200 text-gray-900"
+        }`}
       >
-        <h2 className="text-4xl font-semibold mb-4 text-center">Contact Me</h2>
-        <p className="text-center max-w-2xl mx-auto leading-relaxed">
-          Have a project in mind or just want to say hi? Feel free to reach out
-          to me at{" "}
-          <span
-            className={`font-medium ${
-              darkMode ? "text-purple-300" : "text-purple-700"
-            }`}
-          >
-            example@example.com
-          </span>
-          .
-        </p>
+        <h2 className="text-4xl font-semibold text-center mb-8">Contact Me</h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Contact Info */}
+          <div className="space-y-6">
+            <div className="text-lg flex items-center space-x-4 gap-2">
+              <span className="text-2xl">📍</span>
+              {/* <img
+                style={{
+                  width: "30px",
+                  height: "30px",
+                }}
+                src={Titter}
+                alt=""
+              /> */}
+              <p className="font-medium m-0 p-0">Nigeria</p>
+            </div>
+            <div className="text-lg flex items-center space-x-4 gap-2">
+              <span className="text-2xl">✉️</span>
+              <p className="font-medium p-0 m-0">tolanijimoh1@gmail.com</p>
+            </div>
+            <div className="text-lg flex items-center space-x-4 gap-2">
+              <span className="text-2xl">📞</span>
+              <p className="font-medium p-0 m-0">+2348024219945</p>
+            </div>
+            <div>
+              <p className="text-lg font-semibold mb-2">Connect With Me:</p>
+              <div className="flex space-x-4 text-2xl">
+                {/* Twitter Icon */}
+                <a
+                  href="https://twitter.com/your-username"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                    }}
+                    src={Titter} // Make sure to import your Twitter image correctly
+                    alt="Twitter"
+                  />
+                </a>
+
+                {/* LinkedIn Icon */}
+                <a
+                  href="https://www.linkedin.com/in/your-username"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                    }}
+                    src={linkdin} // Make sure to import your LinkedIn image correctly
+                    alt="LinkedIn"
+                  />
+                </a>
+
+                {/* WhatsApp Icon */}
+                <a
+                  href="https://wa.me/your-phone-number"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                    }}
+                    src={whatsapp} // Make sure to import your WhatsApp image correctly
+                    alt="WhatsApp"
+                  />
+                </a>
+
+                {/* Telegram Icon */}
+                <a
+                  href="https://t.me/your-telegram-username"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                    }}
+                    src={telegram} // Make sure to import your Telegram image correctly
+                    alt="Telegram"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div>
+            <form className="space-y-6">
+              <input
+                type="text"
+                placeholder="Name"
+                className="w-full p-3 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                className="w-full p-3 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+              />
+              <input
+                type="text"
+                placeholder="Subject"
+                className="w-full p-3 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+              />
+              <textarea
+                rows="4"
+                placeholder="Message"
+                className="w-full p-3 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+              ></textarea>
+              <button
+                type="submit"
+                className="w-full bg-purple-700 text-white p-3 rounded-md shadow-md hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+              >
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
       </section>
 
       {/* Footer */}
       <footer
         className={`${
-          darkMode ? "bg-purple-900 text-gray-400" : "bg-purple-300"
+          darkMode ? "bg-purple-900 text-gray-400" : "bg-purple-300 text-black"
         } text-center py-6 transition-colors duration-500`}
       >
-        <p>&copy; {new Date().getFullYear()} My CV. All Rights Reserved.</p>
+        <p className="mb-2">Sekinat Tolani Jimoh</p>
+        <div className="flex justify-center gap-4 mb-2">
+          <div className="flex space-x-4 text-2xl">
+            {/* Twitter Icon */}
+            <a
+              href="https://twitter.com/your-username"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                style={{
+                  width: "30px",
+                  height: "30px",
+                }}
+                src={Titter} // Make sure to import your Twitter image correctly
+                alt="Twitter"
+              />
+            </a>
+
+            {/* LinkedIn Icon */}
+            <a
+              href="https://www.linkedin.com/in/your-username"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                style={{
+                  width: "30px",
+                  height: "30px",
+                }}
+                src={linkdin} // Make sure to import your LinkedIn image correctly
+                alt="LinkedIn"
+              />
+            </a>
+
+            {/* WhatsApp Icon */}
+            <a
+              href="https://wa.me/your-phone-number"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                style={{
+                  width: "30px",
+                  height: "30px",
+                }}
+                src={whatsapp} // Make sure to import your WhatsApp image correctly
+                alt="WhatsApp"
+              />
+            </a>
+
+            {/* Telegram Icon */}
+            <a
+              href="https://t.me/your-telegram-username"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                style={{
+                  width: "30px",
+                  height: "30px",
+                }}
+                src={telegram} // Make sure to import your Telegram image correctly
+                alt="Telegram"
+              />
+            </a>
+          </div>
+        </div>
+        <p className="text-sm">
+          &copy; {new Date().getFullYear()} Keenah. All Rights Reserved.
+        </p>
+        <p className="text-sm">
+          Designed & Developed by <strong>Sekinat Tolani Jimoh</strong>
+        </p>
       </footer>
     </div>
   );
