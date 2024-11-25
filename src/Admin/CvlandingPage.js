@@ -1,14 +1,71 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
-import "./cv.css"; // Custom styles
+import "./cv.css";
+import axios from "axios";
 import Titter from "../Images/twitter2-removebg-preview.png";
 import linkdin from "../Images/linkedin2-removebg-preview.png";
 import whatsapp from "../Images/whatsapp-removebg-preview.png";
 import telegram from "../Images/images-removebg-preview.png";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:5010");
 
 const CvLandingPage = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [projects, setProjects] = useState([]);
+  const [projectsId, setProjectsId] = useState([]);
+  const [error, setError] = useState("");
+  const [pId, setPId] = useState("");
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const showProject = (id) => {
+    setPId(id);
+    console.log(id);
+
+    const fetchProjectsId = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5010/fetchproject/${pId}`
+        );
+        setProjectsId(response.data);
+        console.log("Project data fetched:", response);
+        setIsModalOpen(true);
+      } catch (err) {
+        setError("Failed to load projects");
+        console.error(err);
+      }
+    };
+    fetchProjectsId();
+    // console.log(projectsId);
+  };
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get("http://localhost:5010/getallproject");
+        setProjects(response.data);
+        console.log(response);
+      } catch (err) {
+        setError("Failed to load projects");
+        console.pId(err);
+      }
+    };
+
+    fetchProjects();
+
+    socket.on("newProject", (newProject) => {
+      setProjects((prevProjects) => [newProject, ...prevProjects]);
+    });
+
+    return () => {
+      socket.off("newProject");
+    };
+  }, []);
 
   const skills = [
     {
@@ -109,10 +166,11 @@ const CvLandingPage = () => {
 
         {/* Mobile Dropdown Menu */}
         <div
-          className={`lg:hidden fixed top-[12vh] right-0 h-[40vh] w-[40vw] bg-purple-200 dark:bg-purple-800 py-4 shadow-md z-50
-    transform transition-transform duration-500 ease-in-out ${
-      menuOpen ? "translate-x-0" : "translate-x-full"
-    }`}
+          className={`lg:hidden fixed top-[12vh] right-0 h-[40vh] w-[40vw] py-4 shadow-md z-50 transform transition-transform duration-500 ease-in-out ${
+            darkMode
+              ? "bg-purple-800 text-gray-50"
+              : "bg-purple-200 text-purple-900"
+          } ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
         >
           <div className="container mx-auto flex flex-col space-y-6 items-start">
             {["home", "about-me", "skills", "contact-me"].map((section) => (
@@ -127,6 +185,59 @@ const CvLandingPage = () => {
           </div>
         </div>
       </nav>
+      {/* <div className=" z-50 bg-purple-950 w-full h-[100vh] fixed top-0 bg-opacity-50 left-0"></div> */}
+
+      {isModalOpen && projectsId && (
+        <div className="z-50 bg-purple-950 w-full h-[100vh] fixed top-0 bg-opacity-50 left-0 flex items-center justify-center">
+          <div className="bg-purple-900 w-[90vw] max-w-[600px] text-white rounded-lg shadow-lg p-6 relative">
+            {/* Title */}
+            <h2 className="text-xl font-bold text-center mb-4 border-b-2 border-blue-700 pb-2">
+              {projectsId.title} ({projectsId.status})
+            </h2>
+
+            {/* Project Summary */}
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-blue-400 mb-2">
+                Project Summary
+              </h3>
+              <p className="text-sm leading-relaxed">
+                {projectsId.description}
+              </p>
+              <ul className="list-disc list-inside mt-2 text-sm">
+                {projectsId.features.map((feature, index) => (
+                  <li key={index}>{feature}</li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Technologies Used */}
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold text-blue-400 mb-2">
+                Technology Used
+              </h3>
+              <p className="text-sm">{projectsId.technologies.join(", ")}</p>
+            </div>
+
+            {/* Live Demo and Close */}
+            <div className="flex justify-between items-center">
+              {projectsId.liveDemoLink && (
+                <button
+                  className="bg-blue-700 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded"
+                  onClick={() => window.open(projectsId.liveDemoLink, "_blank")}
+                >
+                  See Live Demo
+                </button>
+              )}
+              <button
+                className="border border-blue-700 text-blue-400 hover:text-blue-600 hover:border-blue-600 text-sm px-4 py-2 rounded"
+                onClick={closeModal}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <section
         id="home"
@@ -252,13 +363,77 @@ const CvLandingPage = () => {
           ))}
         </div>
       </section>
+      {/* Projects Section */}
+      <section
+        id="projects"
+        className={`py-16 px-6 ${
+          darkMode
+            ? "bg-purple-900 text-purple-200"
+            : "bg-purple-200 text-purple-700"
+        }`}
+      >
+        <h2
+          className={`text-4xl font-bold mb-12 text-center ${
+            darkMode ? "text-purple-200" : "text-purple-700"
+          }`}
+        >
+          Projects
+        </h2>
+        {error && <p className="text-red-500 text-center">{error}</p>}
+
+        {projects.length > 0 ? (
+          <div className="flex flex-wrap justify-center gap-8">
+            {projects.map((project, index) => (
+              <div
+                key={index}
+                className="relative w-full max-w-xs md:max-w-sm lg:max-w-md h-[300px] rounded-lg shadow-lg overflow-hidden"
+              >
+                {/* Background Image */}
+                <img
+                  src={`http://localhost:5010/${project.image}`}
+                  alt={project.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+
+                {/* Overlay for Details */}
+                <div
+                  className={`absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-end p-4 ${
+                    darkMode ? "text-gray-300" : "text-white"
+                  }`}
+                >
+                  {/* Project Title */}
+                  <h3 className="text-lg font-semibold mb-2">
+                    {project.title}
+                  </h3>
+
+                  {/* Button */}
+                  <button
+                    onClick={() => showProject(project._id)}
+                    className={`text-sm font-medium py-2 px-4 rounded bg-opacity-50 ${
+                      darkMode
+                        ? "bg-purple-600 hover:bg-purple-500"
+                        : "bg-purple-500 hover:bg-purple-400"
+                    } text-white`}
+                  >
+                    Click to see this project info & link
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-center text-gray-500">
+            No projects available. Stay tuned!
+          </p>
+        )}
+      </section>
 
       {/* Contact Me */}
       <section
         id="contact-me"
         className={`container mx-auto py-16 px-4 transition-all duration-300 ${
           darkMode
-            ? "bg-purple-900 text-gray-200"
+            ? "bg-purple-700 text-gray-200"
             : "bg-purple-200 text-purple-700"
         }`}
       >
