@@ -40,7 +40,9 @@ const CvLandingPage = () => {
   return (
     <div
       className={`${
-        darkMode ? "bg-purple-900 text-gray-100" : "bg-purple-100 text-gray-900"
+        darkMode
+          ? "bg-purple-900 text-gray-100"
+          : "bg-purple-100 text-purple-700"
       } min-h-screen transition-colors duration-500`}
     >
       {/* Navbar */}
@@ -79,7 +81,7 @@ const CvLandingPage = () => {
           {/* Desktop Navigation */}
           <div
             className={`hidden lg:flex items-center space-x-6 ${
-              darkMode ? "text-gray-100" : "text-gray-900"
+              darkMode ? "text-gray-100" : "text-purple-700"
             }`}
           >
             {["home", "about-me", "skills", "contact-me"].map((section) => (
@@ -175,7 +177,7 @@ const CvLandingPage = () => {
         className={`${
           darkMode
             ? "bg-purple-900 text-gray-300"
-            : "bg-purple-100 text-gray-800"
+            : "bg-purple-100 text-purple-700"
         } container mx-auto py-16 px-6 focus:outline-none`}
       >
         <h2 className="text-4xl font-bold mb-6 text-center">About Me</h2>
@@ -213,7 +215,9 @@ const CvLandingPage = () => {
       <section
         id="skills"
         className={`py-16 px-10 ${
-          darkMode ? "bg-purple-800 text-white" : "bg-purple-300 text-gray-900"
+          darkMode
+            ? "bg-purple-800 text-white"
+            : "bg-purple-300 text-purple-700"
         }`}
       >
         <h2 className="text-4xl font-bold mb-8 text-center">My Skills</h2>
@@ -255,7 +259,7 @@ const CvLandingPage = () => {
         className={`container mx-auto py-16 px-4 transition-all duration-300 ${
           darkMode
             ? "bg-purple-900 text-gray-200"
-            : "bg-purple-200 text-gray-900"
+            : "bg-purple-200 text-purple-700"
         }`}
       >
         <h2 className="text-4xl font-semibold text-center mb-8">Contact Me</h2>
@@ -389,7 +393,9 @@ const CvLandingPage = () => {
       {/* Footer */}
       <footer
         className={`${
-          darkMode ? "bg-purple-900 text-gray-400" : "bg-purple-300 text-black"
+          darkMode
+            ? "bg-purple-900 text-gray-400"
+            : "bg-purple-300 text-purple-700"
         } text-center py-6 transition-colors duration-500`}
       >
         <p className="mb-2">Sekinat Tolani Jimoh</p>

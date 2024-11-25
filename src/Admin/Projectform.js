@@ -23,13 +23,9 @@ const ProjectForm = () => {
     image: null,
   });
 
-  const [allProjects, setAllProjects] = useState([]);
+  //   const [allProjects, setAllProjects] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
-
-  socket.on("newProject", (newProject) => {
-    setProjects((prevProjects) => [newProject, ...prevProjects]);
-  });
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -53,6 +49,7 @@ const ProjectForm = () => {
       socket.off("newProject");
     };
   }, []);
+
   const saveToLocalStorage = (data) => {
     localStorage.setItem("projects", JSON.stringify(data));
   };
@@ -145,20 +142,32 @@ const ProjectForm = () => {
 
   const loadProjects = () => {
     const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-    setAllProjects(storedProjects);
+    setProjects(storedProjects);
   };
 
-  // Handle delete project
   const handleDeleteProject = (index) => {
-    const updatedProjects = [...allProjects];
-    updatedProjects.splice(index, 1);
-    setAllProjects(updatedProjects);
-    saveToLocalStorage(updatedProjects); // Update localStorage when deleting
+    const projectToDelete = projects[index];
+    const id = projectToDelete._id;
+
+    fetch(`http://localhost:5010/deleteproject/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === "Project deleted successfully!") {
+          const updatedProjects = [...projects];
+          updatedProjects.splice(index, 1);
+          setProjects(updatedProjects);
+          saveToLocalStorage(updatedProjects);
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting project:", error);
+      });
   };
 
-  // Handle edit project (populate form with selected project data)
   const handleEditProject = (index) => {
-    const projectToEdit = allProjects[index];
+    const projectToEdit = projects[index];
     setProjectData(projectToEdit);
   };
 
@@ -268,36 +277,41 @@ const ProjectForm = () => {
             All Projects
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* {allProjects.map((project, index) => (
-              <div
-                key={index}
-                className="p-4 bg-gray-50 border rounded shadow-sm space-y-2"
-              >
-                <h4 className="font-bold text-purple-600">{project.title}</h4>
-                <p className="text-gray-600">{project.description}</p>
-                {project.image && (
-                  <img
-                    src={project.image}
-                    alt="Project"
-                    className="w-full h-32 object-cover rounded"
-                  />
-                )}
-                <div className="flex justify-between">
-                  <button
-                    onClick={() => handleEditProject(index)}
-                    className="text-blue-600"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDeleteProject(index)}
-                    className="text-red-600"
-                  >
-                    Delete
-                  </button>
+            {/* Check if projects is an array and has items */}
+            {Array.isArray(projects) && projects.length > 0 ? (
+              projects.map((project, index) => (
+                <div
+                  key={index}
+                  className="p-4 bg-gray-50 border rounded shadow-sm space-y-2"
+                >
+                  <h4 className="font-bold text-purple-600">{project.title}</h4>
+                  <p className="text-gray-600">{project.description}</p>
+                  {project.image && (
+                    <img
+                      src={`http://localhost:5010/${project.image}`}
+                      alt="Project"
+                      className="w-full h-32 object-cover rounded"
+                    />
+                  )}
+                  <div className="flex justify-between">
+                    <button
+                      onClick={() => handleEditProject(index)}
+                      className="text-blue-600"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDeleteProject(index)}
+                      className="text-red-600"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))} */}
+              ))
+            ) : (
+              <p className="text-gray-600">No projects available.</p>
+            )}
           </div>
         </div>
       </div>
