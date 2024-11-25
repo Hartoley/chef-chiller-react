@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 import "./cv.css"; // Custom styles
-import Titter from "../Images/kisspng-social-media-internet-blog-twitter-blue-bird-5acd7bc5d021a1.9460553415234160058525-removebg-preview.png";
-import linkdin from "../Images/Untitled-removebg-preview.png";
+import Titter from "../Images/twitter2-removebg-preview.png";
+import linkdin from "../Images/linkedin2-removebg-preview.png";
 import whatsapp from "../Images/whatsapp-removebg-preview.png";
 import telegram from "../Images/images-removebg-preview.png";
 
@@ -52,7 +52,7 @@ const CvLandingPage = () => {
         <div className="container mx-auto flex items-center justify-between p-4">
           <h1 className="text-2xl font-bold">My CV</h1>
 
-          {/* Dark Mode Toggle */}
+          {/* Dark Mode Toggle and Mobile Menu Toggle */}
           <div className="flex items-center lg:hidden">
             <button
               className="mr-4 p-2 rounded-md transition-all duration-300 focus:outline-none"
@@ -78,7 +78,7 @@ const CvLandingPage = () => {
 
           {/* Desktop Navigation */}
           <div
-            className={`lg:flex items-center space-x-6 hidden ${
+            className={`hidden lg:flex items-center space-x-6 ${
               darkMode ? "text-gray-100" : "text-gray-900"
             }`}
           >
@@ -105,13 +105,14 @@ const CvLandingPage = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Dropdown Menu */}
         <div
-          className={`lg:hidden ${
-            menuOpen ? "block" : "hidden"
-          } bg-purple-200 dark:bg-purple-800 py-4 transition-all duration-300`}
+          className={`lg:hidden fixed top-[12vh] right-0 h-[40vh] w-[40vw] bg-purple-200 dark:bg-purple-800 py-4 shadow-md z-50
+    transform transition-transform duration-500 ease-in-out ${
+      menuOpen ? "translate-x-0" : "translate-x-full"
+    }`}
         >
-          <div className="container mx-auto flex flex-col space-y-4 items-center">
+          <div className="container mx-auto flex flex-col space-y-6 items-start">
             {["home", "about-me", "skills", "contact-me"].map((section) => (
               <button
                 key={section}

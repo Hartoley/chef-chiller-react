@@ -9,6 +9,7 @@ import SignupForm from "./Admin/SignupForm";
 import UserDashboard from "./Admin/UserDashboard";
 import AdminDashboard from "./Admin/AdminDashboard";
 import CvlandingPage from "./Admin/CvlandingPage";
+import ProjectForm from "./Admin/Projectform";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/user/dashboard/:id" element={<UserDashboard />} />
         <Route path="/admin/dashboard/:id" element={<AdminDashboard />} />
         <Route path="/jimohSekinat" element={<CvlandingPage />} />
+        <Route path="/jimohSekinat/project" element={<ProjectForm />} />
       </Routes>
     </>
   );
