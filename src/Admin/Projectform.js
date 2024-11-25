@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:5010");
+const socket = io("https://chef-chiller-node.onrender.com");
 
 socket.on("message", (message) => {
   console.log("Message from server:", message);
@@ -30,7 +30,9 @@ const ProjectForm = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get("http://localhost:5010/getallproject");
+        const response = await axios.get(
+          "https://chef-chiller-node.onrender.com/getallproject"
+        );
         setProjects(response.data);
         console.log(response);
       } catch (err) {
@@ -110,7 +112,7 @@ const ProjectForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5010/uploadmyproject",
+        "https://chef-chiller-node.onrender.com/uploadmyproject",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
@@ -149,7 +151,7 @@ const ProjectForm = () => {
     const projectToDelete = projects[index];
     const id = projectToDelete._id;
 
-    fetch(`http://localhost:5010/deleteproject/${id}`, {
+    fetch(`https://chef-chiller-node.onrender.com/deleteproject/${id}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
@@ -288,7 +290,7 @@ const ProjectForm = () => {
                   <p className="text-gray-600">{project.description}</p>
                   {project.image && (
                     <img
-                      src={`http://localhost:5010/${project.image}`}
+                      src={`https://chef-chiller-node.onrender.com/${project.image}`}
                       alt="Project"
                       className="w-full h-32 object-cover rounded"
                     />

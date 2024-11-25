@@ -11,7 +11,9 @@ const FoodsDrinks = () => {
   useEffect(() => {
     const fetchApprovedOrders = async () => {
       try {
-        const res = await axios.get(`http://localhost:5010/user/getuser/${id}`);
+        const res = await axios.get(
+          `https://chef-chiller-node.onrender.com/user/getuser/${id}`
+        );
         setApprovedOrders(res.data.data.orders);
         console.log(approvedOrders);
       } catch (err) {
@@ -29,7 +31,7 @@ const FoodsDrinks = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5010/chefchiller/uploadPaymentProof",
+        "https://chef-chiller-node.onrender.com/chefchiller/uploadPaymentProof",
         { orderId }
       );
 
@@ -57,7 +59,7 @@ const FoodsDrinks = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5010/chefchiller/approveDelivery",
+        "https://chef-chiller-node.onrender.com/chefchiller/approveDelivery",
         { orderId }
       );
 

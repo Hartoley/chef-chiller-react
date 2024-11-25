@@ -8,7 +8,7 @@ import whatsapp from "../Images/whatsapp-removebg-preview.png";
 import telegram from "../Images/images-removebg-preview.png";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:5010");
+const socket = io("https://chef-chiller-node.onrender.com");
 
 const CvLandingPage = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -30,7 +30,7 @@ const CvLandingPage = () => {
     const fetchProjectsId = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5010/fetchproject/${pId}`
+          `https://chef-chiller-node.onrender.com/fetchproject/${pId}`
         );
         setProjectsId(response.data);
         console.log("Project data fetched:", response);
@@ -47,7 +47,9 @@ const CvLandingPage = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get("http://localhost:5010/getallproject");
+        const response = await axios.get(
+          "https://chef-chiller-node.onrender.com/getallproject"
+        );
         setProjects(response.data);
         console.log(response);
       } catch (err) {
@@ -390,7 +392,7 @@ const CvLandingPage = () => {
               >
                 {/* Background Image */}
                 <img
-                  src={`http://localhost:5010/${project.image}`}
+                  src={`https://chef-chiller-node.onrender.com/${project.image}`}
                   alt={project.title}
                   className="absolute inset-0 w-full h-full object-cover"
                 />

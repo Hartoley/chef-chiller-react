@@ -36,7 +36,9 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:5010/user/getuser/${id}`);
+        const res = await axios.get(
+          `https://chef-chiller-node.onrender.com/user/getuser/${id}`
+        );
         // console.log("students data from API:", res.data);
         setuser(res.data.data);
         setOrderItems(res.data.data.orders);
@@ -107,7 +109,7 @@ const UserDashboard = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5010/chefchiller/updatecart",
+        "https://chef-chiller-node.onrender.com/chefchiller/updatecart",
         {
           userId: user._id,
           productId: product._id,

@@ -32,7 +32,7 @@ const Basket = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5010/chefchiller/updatecart",
+        "https://chef-chiller-node.onrender.com/chefchiller/updatecart",
         {
           userId: id,
           productId: order.productId,
@@ -65,7 +65,9 @@ const Basket = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:5010/user/getuser/${id}`);
+        const res = await axios.get(
+          `https://chef-chiller-node.onrender.com/user/getuser/${id}`
+        );
         setUser(res.data.data);
         setOrderItems(res.data.data.orders);
 
@@ -102,7 +104,7 @@ const Basket = () => {
     try {
       console.log("Data being sent:", { userId, subtotal });
       const response = await axios.post(
-        "http://localhost:5010/chefchiller/makeOrder",
+        "https://chef-chiller-node.onrender.com/chefchiller/makeOrder",
         {
           userId,
           subtotal,
