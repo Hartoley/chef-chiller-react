@@ -54,6 +54,8 @@ const CvLandingPage = () => {
         console.log(response);
       } catch (err) {
         setError("Failed to load projects");
+        console.log(err);
+
         // console.pId(err);
       }
     };
@@ -172,7 +174,7 @@ const CvLandingPage = () => {
               <button
                 key={section}
                 onClick={() => scrollToSection(section)}
-                className="text-sm font-medium hover:text-blue-500 dark:hover:text-blue-300"
+                className="text-sm font-medium hover:text-red-500 dark:hover:text-red-300"
               >
                 {section.replace("-", " ").toUpperCase()}
               </button>
@@ -204,7 +206,7 @@ const CvLandingPage = () => {
               <button
                 key={section}
                 onClick={() => scrollToSection(section)}
-                className="text-sm font-medium hover:text-blue-500 dark:hover:text-blue-300"
+                className="text-sm font-medium hover:text-red-500 dark:hover:text-red-300"
               >
                 {section.replace("-", " ").toUpperCase()}
               </button>
@@ -218,13 +220,13 @@ const CvLandingPage = () => {
         <div className="z-50 bg-purple-950 w-full h-[100vh] fixed top-0 bg-opacity-50 left-0 flex items-center justify-center">
           <div className="bg-purple-900 w-[90vw] max-w-[600px] text-white rounded-lg shadow-lg p-6 relative">
             {/* Title */}
-            <h2 className="text-xl font-bold text-center mb-4 border-b-2 border-blue-700 pb-2">
+            <h2 className="text-xl font-bold text-center mb-4 border-b-2 border-red-700 pb-2">
               {projectsId.title} ({projectsId.status})
             </h2>
 
             {/* Project Summary */}
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-blue-400 mb-2">
+              <h3 className="text-lg font-semibold text-red-400 mb-2">
                 Project Summary
               </h3>
               <p className="text-sm leading-relaxed">
@@ -239,7 +241,7 @@ const CvLandingPage = () => {
 
             {/* Technologies Used */}
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-blue-400 mb-2">
+              <h3 className="text-lg font-semibold text-red-400 mb-2">
                 Technology Used
               </h3>
               <p className="text-sm">{projectsId.technologies.join(", ")}</p>
@@ -249,14 +251,14 @@ const CvLandingPage = () => {
             <div className="flex justify-between items-center">
               {projectsId.liveDemoLink && (
                 <button
-                  className="bg-blue-700 hover:bg-blue-600 text-white text-sm px-4 py-2 rounded"
+                  className="bg-red-700 hover:bg-red-600 text-white text-sm px-4 py-2 rounded"
                   onClick={() => window.open(projectsId.liveDemoLink, "_blank")}
                 >
                   See Live Demo
                 </button>
               )}
               <button
-                className="border border-blue-700 text-blue-400 hover:text-blue-600 hover:border-blue-600 text-sm px-4 py-2 rounded"
+                className="border border-red-700 text-red-400 hover:text-red-600 hover:border-red-600 text-sm px-4 py-2 rounded"
                 onClick={closeModal}
               >
                 Close

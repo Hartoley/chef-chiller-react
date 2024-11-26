@@ -298,7 +298,7 @@ const ProjectForm = () => {
                   <div className="flex justify-between">
                     <button
                       onClick={() => handleEditProject(index)}
-                      className="text-blue-600"
+                      className="text-red-600"
                     >
                       Edit
                     </button>
