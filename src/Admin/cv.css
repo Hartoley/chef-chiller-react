@@ -2,3 +2,21 @@
   padding: 0;
   margin: 0;
 }
+
+@media (max-width: 760px) {
+  .hello li {
+    /* color: red !important; */
+    padding: 0 30px !important;
+    font-size: 18px !important;
+    line-height: 26px;
+    width: 90%;
+  }
+
+  .hello p {
+    /* color: red !important; */
+    padding: 0 30px !important;
+    font-size: 18px !important;
+    line-height: 28px;
+    font-weight: 400;
+  }
+}

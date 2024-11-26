@@ -218,14 +218,14 @@ const CvLandingPage = () => {
 
       {isModalOpen && projectsId && (
         <div className="z-50 bg-purple-950 w-full h-[100vh] fixed top-0 bg-opacity-50 left-0 flex items-center justify-center">
-          <div className="bg-purple-900 w-[90vw] max-w-[600px] text-white rounded-lg shadow-lg p-6 relative">
+          <div className="bg-purple-900 w-[90vw] max-w-[600px] max-h-[90vh]  text-white rounded-lg shadow-lg p-6 relative">
             {/* Title */}
             <h2 className="text-xl font-bold text-center mb-4 border-b-2 border-red-700 pb-2">
               {projectsId.title} ({projectsId.status})
             </h2>
 
             {/* Project Summary */}
-            <div className="mb-4">
+            <div className="mb-4 max-h-[35vh] overflow-y-scroll">
               <h3 className="text-lg font-semibold text-red-400 mb-2">
                 Project Summary
               </h3>
@@ -332,7 +332,7 @@ const CvLandingPage = () => {
         } container mx-auto py-16 px-6 focus:outline-none`}
       >
         <h2 className="text-4xl font-bold mb-6 text-center">About Me</h2>
-        <div className="max-w-3xl mx-auto text-lg leading-relaxed">
+        <div className="max-w-3xl mx-auto text-lg leading-relaxed hello">
           <p className="mb-6">
             Hello! I’m a budding Full Stack Web Developer with over a year of
             experience in building dynamic, responsive, and user-friendly web
