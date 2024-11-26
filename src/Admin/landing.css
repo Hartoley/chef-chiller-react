@@ -12,7 +12,6 @@ nav {
   padding: 0 2rem;
 }
 
-
 .dropDown {
   height: 100%;
   width: 100%;
@@ -114,19 +113,19 @@ nav {
 }
 
 .buttonLogin1 {
-    background-color: rgb(35, 149, 81);
-    width: 120px;
-    height: 40px;
-    border: none;
-    border-radius: 3px;
-    color: white;
-    font-size: 16px;
-    font-weight: 700;
-    display: flex;
-    align-items: center !important;
-    justify-content: center !important;
-    transition: all 0.3s ease-in-out;
-    text-align: center;
+  background-color: rgb(35, 149, 81);
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
 }
 
 .buttonSignup:hover {
@@ -140,15 +139,13 @@ nav {
 }
 
 .buttonLogin1:hover {
-    background-color: #f65553;
-    transform: scale(1.1, 1.1);
+  background-color: #f65553;
+  transform: scale(1.1, 1.1);
 }
 
 .content1 p:hover {
   color: #388e3c;
 }
-
-
 
 @media (max-width: 760px) {
   .contentMain {
@@ -178,12 +175,13 @@ nav {
   }
 
   #imageComponent {
-    height: 13vh;
-    width: 80%;
-    
+    height: 200px;
+    width: 200px;
+    border-radius: 100% !important;
+    border: solid 2px white;
   }
 
-  #motion-div{
+  #motion-div {
     flex-direction: column !important;
   }
 
@@ -203,74 +201,70 @@ nav {
   }
 
   #miniBox {
-      top: 73vh;
-      gap: 3px;
-      height: 55vh;
-
+    top: 73vh;
+    gap: 3px;
+    height: 55vh;
   }
 
   #miniBox1 {
-      width: 80%;
-
+    width: 80%;
   }
 
- 
-   #miniBox1 h2, p {
-       font-size: 10px;
-       font-weight: 400;
+  #miniBox1 h2,
+  p {
+    font-size: 10px;
+    font-weight: 400;
+  }
 
-   }
+  #miniBox2 p {
+    font-size: 8px;
+    font-weight: 200;
+  }
 
-          #miniBox2 p {
-              font-size: 8px;
-              font-weight: 200;
-    
-          }
+  #coloredBox {
+    width: 80% !important;
+  }
 
-          #coloredBox{
-            width: 80% !important;
-          }
-
-   #miniBox3 p{
+  #miniBox3 p {
     display: none !important;
-   }  
-   
-         #miniBox3  {
-             flex-direction: column;
-             justify-content: space-evenly;
-         }
-
-  #listFood{
-   top: 49.9vh;
-   overflow-x: scroll !important;
-   padding: 0 20px !important;
-   justify-content: space-evenly;
-   
   }
 
-  #menuIntro h1, p{
+  #miniBox3 {
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  #listFood {
+    top: 49.9vh;
+    overflow-x: scroll !important;
+    padding: 0 20px !important;
+    justify-content: space-evenly;
+  }
+
+  #menuIntro h1,
+  p {
     font-size: 10px !important;
     line-height: 15px;
   }
 
-   #menuIntro1 h1 ,p {
-       font-size: 12px !important;
-       line-height: 15px;
-       font-weight: 500;
-   }
-
-   #menuIntro1 p {
-       font-size: 10px !important;
-       line-height: 15px;
-       font-weight: 200;
-   }
-
-  #menuIntro
+  #menuIntro1 h1,
   p {
+    font-size: 12px !important;
+    line-height: 15px;
+    font-weight: 500;
+  }
+
+  #menuIntro1 p {
+    font-size: 10px !important;
+    line-height: 15px;
+    font-weight: 200;
+  }
+
+  #menuIntro p {
     font-weight: 400;
     font-size: 12px !important;
   }
-#miniBox{
+  #miniBox {
     height: 65vh;
-}
+  }
 }

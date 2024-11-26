@@ -178,7 +178,7 @@ const LandingPage = () => {
                       id="imageComponent"
                       src={slides[currentIndex].image}
                       alt={`Slide ${currentIndex + 1}`}
-                      className="w-[65%] h-[90%] object-cover rounded-full shadow-md bg-white"
+                      className="w-[300px] h-[300px] object-cover rounded-full shadow-md bg-white"
                     />
                   </div>
                 </motion.div>
