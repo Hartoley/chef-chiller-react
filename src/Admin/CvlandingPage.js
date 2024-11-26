@@ -507,7 +507,7 @@ const CvLandingPage = () => {
           {/* Contact Info */}
           <div className="space-y-6">
             <div className="text-lg flex items-center space-x-4 gap-2">
-              <span className="text-2xl">📍</span>
+              <span className="text-lg">📍</span>
               {/* <img
                 style={{
                   width: "30px",
@@ -519,16 +519,16 @@ const CvLandingPage = () => {
               <p className="font-medium m-0 p-0">Nigeria</p>
             </div>
             <div className="text-lg flex items-center space-x-4 gap-2">
-              <span className="text-2xl">✉️</span>
+              <span className="text-lg">✉️</span>
               <p className="font-medium p-0 m-0">tolanijimoh1@gmail.com</p>
             </div>
             <div className="text-lg flex items-center space-x-4 gap-2">
-              <span className="text-2xl">📞</span>
+              <span className="text-lg">📞</span>
               <p className="font-medium p-0 m-0">+2348024219945</p>
             </div>
             <div>
               <p className="text-lg font-semibold mb-2">Connect With Me:</p>
-              <div className="flex space-x-4 text-2xl">
+              <div className="flex space-x-4 items-center text-2xl">
                 {/* Twitter Icon */}
                 <a
                   href="https://twitter.com/Hartoley1"
@@ -537,8 +537,8 @@ const CvLandingPage = () => {
                 >
                   <img
                     style={{
-                      width: "30px",
-                      height: "30px",
+                      width: "35px",
+                      height: "25px",
                     }}
                     src={Titter} // Make sure to import your Twitter image correctly
                     alt="Twitter"
@@ -646,7 +646,7 @@ const CvLandingPage = () => {
       >
         <p className="mb-2">Sekinat Tolani Jimoh</p>
         <div className="flex justify-center gap-4 mb-2">
-          <div className="flex space-x-4 text-2xl">
+          <div className="flex space-x-4 items-center text-2xl">
             {/* Twitter Icon */}
             <a
               href="https://twitter.com/Hartoley1"
@@ -655,8 +655,8 @@ const CvLandingPage = () => {
             >
               <img
                 style={{
-                  width: "30px",
-                  height: "30px",
+                  width: "35px",
+                  height: "25px",
                 }}
                 src={Titter}
                 alt="Twitter"
@@ -674,7 +674,7 @@ const CvLandingPage = () => {
                   width: "30px",
                   height: "30px",
                 }}
-                src={linkdin} // Make sure to import your LinkedIn image correctly
+                src={linkdin}
                 alt="LinkedIn"
               />
             </a>
@@ -690,7 +690,7 @@ const CvLandingPage = () => {
                   width: "30px",
                   height: "30px",
                 }}
-                src={whatsapp} // Make sure to import your WhatsApp image correctly
+                src={whatsapp}
                 alt="WhatsApp"
               />
             </a>
@@ -706,7 +706,7 @@ const CvLandingPage = () => {
                   width: "30px",
                   height: "30px",
                 }}
-                src={telegram} // Make sure to import your Telegram image correctly
+                src={telegram}
                 alt="Telegram"
               />
             </a>
