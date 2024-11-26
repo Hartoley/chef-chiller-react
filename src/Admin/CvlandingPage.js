@@ -370,38 +370,63 @@ const CvLandingPage = () => {
             : "bg-purple-300 text-purple-700"
         }`}
       >
-        <h2 className="text-4xl font-bold mb-8 text-center">My Skills</h2>
-        <div className="grid md:grid-cols-3 p-6 gap-8">
+        <h2 className="text-4xl font-bold mb-12 text-center">My Skills</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {skills.map((skillCategory, index) => (
-            <div key={index}>
+            <div
+              key={index}
+              className={`p-8 rounded-xl shadow-lg ${
+                darkMode
+                  ? "bg-purple-700 text-purple-200 hover:bg-purple-400"
+                  : "bg-white hover:bg-purple-100"
+              } transition-all duration-300`}
+            >
               <h3
-                className={`text-2xl font-semibold mb-6 ${
+                className={`text-2xl font-semibold mb-4 ${
                   darkMode ? "text-purple-200" : "text-purple-900"
                 }`}
               >
                 {skillCategory.category}
               </h3>
-              <div className="space-y-4">
+              <ul className="space-y-4">
                 {skillCategory.items.map((skill, i) => (
-                  <div
-                    key={i}
-                    className={`p-4 rounded-lg shadow-md ${
-                      darkMode
-                        ? "bg-purple-700 hover:bg-purple-600"
-                        : "bg-purple-100 hover:bg-purple-200"
-                    } transition-all duration-300`}
-                  >
-                    <h4 className="text-lg font-medium">{skill}</h4>
-                    <p className="text-sm">
-                      {["Experienced", "Expert"][i % 2]}{" "}
-                    </p>
-                  </div>
+                  <li key={i} className="flex items-center space-x-4">
+                    {/* Icon can be added here */}
+                    <div
+                      className={`w-12 h-12 flex items-center justify-center rounded-full ${
+                        darkMode
+                          ? "bg-purple-600 text-purple-200"
+                          : "bg-purple-200"
+                      }`}
+                    >
+                      {/* Replace with skill-specific icons */}
+                      <span
+                        className={`text-lg font-bold ${
+                          darkMode ? " text-purple-200" : "text-purple-900"
+                        }`}
+                      >
+                        {skill.slice(0, 1)}
+                      </span>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-medium">{skill}</h4>
+                      <p
+                        className={` className="text-sm ${
+                          darkMode ? " text-gray-300" : "text-gray-500"
+                        }`}
+                        // className="text-sm text-gray-500"
+                      >
+                        Experienced
+                      </p>
+                    </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           ))}
         </div>
       </section>
+
       {/* Projects Section */}
       <section
         id="projects"
