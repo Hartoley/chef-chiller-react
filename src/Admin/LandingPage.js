@@ -197,65 +197,65 @@ const LandingPage = () => {
           </div>
           <div
             id="listFood"
-            className=" top-[70vh]  overflow-hidden absolute bg-[rgb(8,21,33)] w-full flex justify-center items-center gap-10 h-[12vh]"
+            className=" top-[70vh] overflow-hidden absolute bg-[rgb(8,21,33)] w-full flex justify-center items-center gap-10 h-[12vh] sm:px-10"
           >
             <motion.img
-              className="w-10 transition-all duration-300 hover:scale-110 h-10"
+              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
               src={img1}
               alt=""
             />
             <motion.img
-              className="w-10 transition-all duration-300 hover:scale-110 h-10"
+              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
               src={img2}
               alt=""
             />
             <motion.img
-              className="w-10 transition-all duration-300 hover:scale-110 h-10"
+              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
               src={img3}
               alt=""
             />
             <motion.img
-              className="w-10 transition-all duration-300 hover:scale-110 h-10"
+              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
               src={img4}
               alt=""
             />
             <motion.img
-              className="w-10 transition-all duration-300 hover:scale-110 h-10"
+              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
               src={img1}
               alt=""
             />
             <motion.img
-              className="w-10 transition-all duration-300 hover:scale-110 h-10"
+              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
               src={img2}
               alt=""
             />
             <motion.img
-              className="w-10 transition-all duration-300 hover:scale-110 h-10"
+              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
               src={img3}
               alt=""
             />
             <motion.img
-              className="w-10 transition-all duration-300 hover:scale-110 h-10"
+              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
               src={img4}
               alt=""
             />
             <motion.img
-              className="w-10 transition-all duration-300 hover:scale-110 h-10"
+              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
               src={img1}
               alt=""
             />
             <motion.img
-              className="w-10 transition-all duration-300 hover:scale-110 h-10"
+              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
               src={img2}
               alt=""
             />
             <motion.img
-              className="w-10 transition-all duration-300 hover:scale-110 h-10"
+              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
               src={img3}
               alt=""
             />
             <motion.img
-              className="w-10 transition-all duration-300 hover:scale-110 h-10"
+              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
               src={img4}
               alt=""
             />

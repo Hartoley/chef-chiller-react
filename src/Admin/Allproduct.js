@@ -57,9 +57,11 @@ const AllProduct = () => {
   return (
     <div className="bg-[rgb(4,14,25)] p-10" id="AllProduct">
       {/* Specials Section */}
-      <div className="custom-scrollbar max-w-6xl mx-auto mb-12">
-        <h2 className="text-4xl font-bold mb-6 text-[#E0E0E0]">Specials</h2>
-        <div className="flex space-x-4">
+      <div className="max-w-6xl mx-auto mb-12">
+        <div className=" bg-[rgb(4,14,25)] p-0 z-10">
+          <h2 className="text-4xl font-bold mb-10 text-[#E0E0E0]">Specials</h2>
+        </div>
+        <div className="flex space-x-4 custom-scrollbar ">
           {specialProducts.map((product, index) => (
             <ProductCard key={index} product={product} />
           ))}
@@ -67,11 +69,13 @@ const AllProduct = () => {
       </div>
 
       {newProducts.length > 0 && (
-        <div className="custom-scrollbar max-w-6xl mx-auto mb-12">
-          <h2 className="text-4xl font-bold mb-6 text-[#E0E0E0]">
-            New Products
-          </h2>
-          <div className="flex space-x-4">
+        <div className=" max-w-6xl mx-auto mb-12">
+          <div className=" bg-[rgb(4,14,25)] p-0 z-10">
+            <h2 className="text-4xl font-bold mb-10 text-[#E0E0E0]">
+              New Products
+            </h2>
+          </div>
+          <div className="flex space-x-4 custom-scrollbar">
             {newProducts.map((product, index) => (
               <ProductCard key={index} product={product} />
             ))}
