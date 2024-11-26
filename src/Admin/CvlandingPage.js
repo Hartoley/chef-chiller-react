@@ -150,7 +150,7 @@ const CvLandingPage = () => {
               {darkMode ? (
                 <SunIcon className="h-6 w-6 text-yellow-400" />
               ) : (
-                <MoonIcon className="h-6 w-6 text-purple-700 dark:text-purple-500" />
+                <MoonIcon className="h-6 w-6 text-purple-700 dark:text-purple-700" />
               )}
             </button>
 
