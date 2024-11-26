@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import "../Admin/login.css";
 import logo from "../Images/logo_chef_chiller-removebg-preview.png";
 import Admin from "./Admin";
+import emailjs from "emailjs-com";
 import Footer from "./Footer";
 
 const SignupForm = () => {
@@ -70,7 +71,27 @@ const SignupForm = () => {
       } else {
         try {
           await axios.post(`${endpoint}/user/register`, values);
-          toast.success("Students signed up successfully");
+          // emailjs
+          //   .send(
+          //     "service_ajs5z5i",
+          //     "template_odtyl1i",
+          //     {
+          //       username: values.username,
+          //       email: values.email,
+          //     },
+          //     "X1hB4dMgGEMc9dG8x"
+          //   )
+          //   .then(
+          //     (result) => {
+          //       console.log("Email sent successfully:", result.text);
+          //       toast.success("Email sent successfully");
+          //     },
+          //     (error) => {
+          //       console.error("Email sending failed:", error.text);
+          //       toast.error("Failed to send email");
+          //     }
+          //   );
+          toast.success("User signed up successfully");
           setIsRegistered(true);
           setTimeout(() => {
             navigate("/user/signin");

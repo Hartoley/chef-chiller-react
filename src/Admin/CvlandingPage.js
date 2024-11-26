@@ -7,6 +7,7 @@ import linkdin from "../Images/linkedin2-removebg-preview.png";
 import whatsapp from "../Images/whatsapp-removebg-preview.png";
 import telegram from "../Images/images-removebg-preview.png";
 import io from "socket.io-client";
+import emailjs from "emailjs-com";
 
 const socket = io("https://chef-chiller-node.onrender.com");
 
@@ -54,7 +55,7 @@ const CvLandingPage = () => {
         console.log(response);
       } catch (err) {
         setError("Failed to load projects");
-        console.pId(err);
+        // console.pId(err);
       }
     };
 
@@ -94,6 +95,31 @@ const CvLandingPage = () => {
       section.scrollIntoView({ behavior: "smooth" });
       setMenuOpen(false); // Close menu after scrolling
     }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const form = event.target;
+
+    emailjs
+      .sendForm(
+        "service_ajs5z5i",
+        "template_odtyl1i",
+        form,
+        "X1hB4dMgGEMc9dG8x"
+      )
+      .then(
+        (result) => {
+          console.log("Message Sent Successfully:", result.text);
+          alert("Your message has been sent!");
+          form.reset();
+        },
+        (error) => {
+          console.error("Error sending message:", error.text);
+          alert("There was an error sending your message.");
+        }
+      );
   };
 
   return (
@@ -263,6 +289,12 @@ const CvLandingPage = () => {
           </h2>
           <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
             <p
+              onClick={() => {
+                const section = document.getElementById("contact-me");
+                if (section) {
+                  section.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
               className={`${
                 darkMode
                   ? "bg-pink-500 hover:bg-pink-600 text-white"
@@ -272,7 +304,12 @@ const CvLandingPage = () => {
               Contact Me
             </p>
             <p
-              download
+              onClick={() => {
+                const link = document.createElement("a");
+                link.href = "JIMOH SEKINAT TOLANI's RESUME.pdf";
+                link.download = "JIMOH SEKINAT TOLANI's RESUME.pdf";
+                link.click();
+              }}
               className={`${
                 darkMode
                   ? "bg-gray-800 border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white"
@@ -468,7 +505,7 @@ const CvLandingPage = () => {
               <div className="flex space-x-4 text-2xl">
                 {/* Twitter Icon */}
                 <a
-                  href="https://twitter.com/your-username"
+                  href="https://twitter.com/Hartoley1"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -484,7 +521,7 @@ const CvLandingPage = () => {
 
                 {/* LinkedIn Icon */}
                 <a
-                  href="https://www.linkedin.com/in/your-username"
+                  href="https://www.linkedin.com/in/sekinat-jimoh-71ab0531a/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -500,7 +537,7 @@ const CvLandingPage = () => {
 
                 {/* WhatsApp Icon */}
                 <a
-                  href="https://wa.me/your-phone-number"
+                  href="https://wa.me/2348024219945"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -516,7 +553,7 @@ const CvLandingPage = () => {
 
                 {/* Telegram Icon */}
                 <a
-                  href="https://t.me/your-telegram-username"
+                  href="https://t.me/Jimoh Sakeena"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -535,23 +572,27 @@ const CvLandingPage = () => {
 
           {/* Contact Form */}
           <div>
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <input
                 type="text"
+                name="user_name"
                 placeholder="Name"
                 className="w-full p-3 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
               />
               <input
                 type="email"
+                name="user_email"
                 placeholder="Email"
                 className="w-full p-3 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
               />
               <input
                 type="text"
+                name="subject"
                 placeholder="Subject"
                 className="w-full p-3 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
               />
               <textarea
+                name="message"
                 rows="4"
                 placeholder="Message"
                 className="w-full p-3 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
@@ -580,7 +621,7 @@ const CvLandingPage = () => {
           <div className="flex space-x-4 text-2xl">
             {/* Twitter Icon */}
             <a
-              href="https://twitter.com/your-username"
+              href="https://twitter.com/Hartoley1"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -589,14 +630,14 @@ const CvLandingPage = () => {
                   width: "30px",
                   height: "30px",
                 }}
-                src={Titter} // Make sure to import your Twitter image correctly
+                src={Titter}
                 alt="Twitter"
               />
             </a>
 
             {/* LinkedIn Icon */}
             <a
-              href="https://www.linkedin.com/in/your-username"
+              href="https://www.linkedin.com/in/sekinat-jimoh-71ab0531a/"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -612,7 +653,7 @@ const CvLandingPage = () => {
 
             {/* WhatsApp Icon */}
             <a
-              href="https://wa.me/your-phone-number"
+              href="https://wa.me/2348024219945"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -628,7 +669,7 @@ const CvLandingPage = () => {
 
             {/* Telegram Icon */}
             <a
-              href="https://t.me/your-telegram-username"
+              href="https://t.me/Jimoh Sakeena"
               target="_blank"
               rel="noopener noreferrer"
             >
