@@ -25,13 +25,12 @@ const CvLandingPage = () => {
   };
 
   const showProject = (id) => {
-    setPId(id);
     console.log(id);
 
     const fetchProjectsId = async () => {
       try {
         const response = await axios.get(
-          `https://chef-chiller-node.onrender.com/fetchproject/${pId}`
+          `https://chef-chiller-node.onrender.com/fetchproject/${id}`
         );
         setProjectsId(response.data);
         console.log("Project data fetched:", response);
