@@ -625,7 +625,9 @@ const CvLandingPage = () => {
               ></textarea>
               <button
                 type="submit"
-                className="w-full bg-purple-700 text-white p-3 rounded-md shadow-md hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                className={`w-full  text-white p-3 rounded-md shadow-md hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${
+                  darkMode ? "bg-purple-400 text-purple-700" : "bg-purple-700 "
+                }`}
               >
                 Send Message
               </button>
