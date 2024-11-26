@@ -217,31 +217,46 @@ const UserDashboard = () => {
                 </div>
                 <nav className="flex bg-gray-900 items-start gap-2 flex-col">
                   <p
-                    onClick={() => setActiveSection3("mainMenu1")}
+                    onClick={() => {
+                      setActiveSection3("mainMenu1");
+                      setshowMenu2(false);
+                    }}
                     className="flex items-center text-[14px] hover:text-gray-300"
                   >
                     <span className="mr-3">🏠</span> Dashboard
                   </p>
                   <p
-                    onClick={() => setActiveSection3("mainMenu2")}
+                    onClick={() => {
+                      setActiveSection3("mainMenu2");
+                      setshowMenu2(false);
+                    }}
                     className="flex items-center text-[14px] hover:text-gray-300"
                   >
                     <span className="mr-3">🍲</span> Food & Drinks
                   </p>
                   <p
-                    onClick={() => setActiveSection3("mainMenu3")}
+                    onClick={() => {
+                      setActiveSection3("mainMenu3");
+                      setshowMenu2(false);
+                    }}
                     className="flex items-center text-[14px] hover:text-gray-300"
                   >
                     <span className="mr-3">💬</span> Messages
                   </p>
                   <p
-                    onClick={() => setActiveSection3("mainMenu4")}
+                    onClick={() => {
+                      setActiveSection3("mainMenu4");
+                      setshowMenu2(false);
+                    }}
                     className="flex items-center text-[14px] hover:text-gray-300"
                   >
                     <span className="mr-3">💸</span> Basket
                   </p>
                   <p
-                    onClick={() => setActiveSection3("mainMenu6")}
+                    onClick={() => {
+                      setActiveSection3("mainMenu6");
+                      setshowMenu2(false);
+                    }}
                     className="flex items-center text-[14px] hover:text-gray-300"
                   >
                     <span className="mr-3">⚙️</span> Settings
@@ -453,7 +468,10 @@ const UserDashboard = () => {
               </div>
 
               <button
-                onClick={() => setActiveSection3("mainMenu4")}
+                onClick={() => {
+                  setActiveSection3("mainMenu4");
+                  setIsMenuVisible(false);
+                }}
                 className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded"
               >
                 Place Order
