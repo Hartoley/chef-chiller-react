@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import "../Admin/adminsidenav.css";
+import { useNavigate } from "react-router-dom";
 
 const Admin = ({ signup, signin, isLoggedIn, isDashboard }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [showMenu, setshowMenu] = useState(false);
+  const id = JSON.parse(localStorage.getItem("id"));
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuVisible((prev) => !prev);
@@ -11,11 +14,20 @@ const Admin = ({ signup, signin, isLoggedIn, isDashboard }) => {
   };
   const logout = () => {};
 
+  const home = () => {
+    navigate("/");
+  };
+
+  Admin.home = home;
+
   return (
     <>
       <nav>
         <div className="dropDown">
-          <div className="image flex items-center justify-center rounded-full">
+          <div
+            onClick={home}
+            className="image flex items-center justify-center rounded-full"
+          >
             <img
               class="logo"
               className="rounded-full h-10 w-10"

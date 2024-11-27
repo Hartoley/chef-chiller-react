@@ -20,6 +20,7 @@ const UserDashboard = () => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [showMenu, setshowMenu] = useState(false);
   const [showMore, setshowMore] = useState(false);
+  const [isFetching, setisFetching] = useState(false);
   const [showMenu2, setshowMenu2] = useState(false);
   const [cart, setCart] = useState([]);
   const endpoint = "https://chef-chiller-node.onrender.com";
@@ -34,7 +35,11 @@ const UserDashboard = () => {
   });
 
   useEffect(() => {
+    if (isFetching) {
+      toast.loading("Fetching items");
+    }
     const fetchData = async () => {
+      setisFetching(true);
       try {
         const res = await axios.get(
           `https://chef-chiller-node.onrender.com/user/getuser/${id}`
@@ -45,7 +50,7 @@ const UserDashboard = () => {
         const subtotal = res.data.data.orders.reduce((total, order) => {
           return total + order.productPrice * order.quantity;
         }, 0);
-
+        setisFetching(false);
         setsubtotal(subtotal);
       } catch (err) {
         console.log(err);

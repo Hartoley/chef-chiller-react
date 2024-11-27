@@ -52,6 +52,7 @@ const LoginForm = () => {
           const { role, id } = res.data;
 
           setLoginSuccess(true);
+          localStorage.setItem("id", JSON.stringify(id));
           setTimeout(() => {
             if (role === "Admin") {
               navigate(`/admin/dashboard/${id}`);
@@ -105,9 +106,9 @@ const LoginForm = () => {
                   />
                 </div>
 
-                <h5 className="cursor-pointer mt-5 text-white" onClick={signup}>
+                {/* <h5 className="cursor-pointer mt-5 text-white" onClick={signup}>
                   Sign up?{" "}
-                </h5>
+                </h5> */}
               </div>
             </div>
             <form

@@ -211,6 +211,11 @@
     align-items: center;
   }
 
+  .footer1 {
+    gap: 30px;
+    /* align-items: center !important; */
+  }
+
   .emailInput {
     flex-direction: column;
   }

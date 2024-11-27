@@ -27,6 +27,8 @@ const Basket = () => {
     }
   };
 
+  console.log(id);
+
   const syncCartWithServer = async (order, action) => {
     const toastId = toast.loading("Updating cart...");
 

@@ -83,7 +83,7 @@ const FoodsDrinks = () => {
 
   return (
     <main className="child flex-1 p-4 bg-gray-600 w-[63.65vw] overflow-y-scroll">
-      <div className="bg-white md:w-[60vw] rounded-lg shadow-lg">
+      <div className="bg-white w-full rounded-lg shadow-lg">
         <section className="p-4 ">
           <h1 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">
             Approved Orders Waiting for Delivery

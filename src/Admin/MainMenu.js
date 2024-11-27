@@ -24,7 +24,7 @@ const MainMenu = ({
   const [subtotal, setsubtotal] = useState(0);
   const [productId, setProductId] = useState("");
   const { id } = useParams();
-  localStorage.setItem("id", JSON.stringify(id));
+
   const today = new Date();
 
   const formattedDate = today.toLocaleDateString("en-US", {

@@ -248,21 +248,11 @@ const SignupForm = () => {
                     <p>Registration successful! Redirecting...</p>
                   </div>
                 ) : (
-                  loading && (
-                    <div className="w-[80%] h-10 flex items-center gap-3 m-auto bg-white">
-                      <p>Saving user...</p>
-                      <div
-                        className="spinner-border text-primary"
-                        role="status"
-                      >
-                        <span className="visually-hidden">Loading...</span>
-                      </div>
-                    </div>
-                  )
+                  loading && <div></div>
                 )}
-                <h5 className="cursor-pointer text-white" onClick={signin}>
+                {/* <h5 className="cursor-pointer text-white" onClick={signin}>
                   Log in?{" "}
-                </h5>
+                </h5> */}
               </div>
             </div>
             {/* <img

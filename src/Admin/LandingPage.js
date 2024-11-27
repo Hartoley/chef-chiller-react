@@ -93,6 +93,7 @@ const LandingPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
   const [direction, setDirection] = useState(1);
+  const id = JSON.parse(localStorage.getItem("id"));
 
   const signin = () => {
     navigate("/user/signin");
@@ -198,7 +199,7 @@ const LandingPage = () => {
             id="listFood"
             className=" top-[70vh] absolute bg-[rgb(8,21,33)] w-full flex justify-center items-center h-[12vh]"
           >
-            <div className=" top-[70vh] overflow-x-scroll no-scrollbar w-[60%] flex justify-center items-center gap-6 h-full ">
+            <div className="listChild top-[70vh] overflow-x-scroll no-scrollbar w-[60%] flex justify-center items-center gap-6 h-full ">
               <motion.img
                 className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
                 src={img1}
@@ -349,15 +350,16 @@ const LandingPage = () => {
                 id="coloredBox"
                 className="bg-[rgb(5,17,31)] rounded-tl-[50px] flex items-center justify-between rounded-br-[50px] w-[80%] h-[30%]"
               >
+                {/* Nigerian Jollof Special */}
                 <div
-                  className="w-[32%] rounded-lg bg-[rgb(234,1,41)] h-[90%] flex items-center p-[32px]"
+                  className="w-[32%] rounded-lg bg-[rgb(234,1,41)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(255,36,86)]"
                   id="miniBox3"
                 >
                   <div className="w-[50%] h-full">
                     <h1 className="text-[1rem] font-bold w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
                       Nigerian Jollof Special
                     </h1>
-                    <p className="text-[0.8rem] text-white w-[90%] cursor-pointer hover:text-[rgb(175,16,60)] ">
+                    <p className="text-[0.8rem] text-white w-[90%] cursor-pointer hover:text-[rgb(175,16,60)]">
                       A flavorful and spicy rice dish that’s a Nigerian
                       favorite.
                     </p>
@@ -366,20 +368,22 @@ const LandingPage = () => {
                     </button>
                   </div>
                   <img
-                    className="w-[130px] h-[130px] rounded-full "
+                    className="w-[130px] h-[130px] rounded-full transition-transform duration-300 hover:scale-110"
                     src={img5}
                     alt=""
                   />
                 </div>
+
+                {/* Swallow Delight */}
                 <div
-                  className="w-[32%] rounded-lg bg-[rgb(248,159,54)] h-[90%] flex items-center  p-[32px]"
+                  className="w-[32%] rounded-lg bg-[rgb(248,159,54)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(255,180,80)]"
                   id="miniBox3"
                 >
                   <div className="w-[50%] h-full">
-                    <h1 className="text-[1rem] font-bold  w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
+                    <h1 className="text-[1rem] font-bold w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
                       Swallow Delight
                     </h1>
-                    <p className="text-[0.8rem] text-white w-[95%] cursor-pointer hover:text-[rgb(175,16,60)] ">
+                    <p className="text-[0.8rem] text-white w-[95%] cursor-pointer hover:text-[rgb(175,16,60)]">
                       Soft and satisfying, perfect for pairing with rich soups.
                     </p>
                     <button className="bg-white px-3 py-1 rounded-md">
@@ -387,20 +391,22 @@ const LandingPage = () => {
                     </button>
                   </div>
                   <img
-                    className="w-[130px] h-[130px] rounded-full"
+                    className="w-[130px] h-[130px] rounded-full transition-transform duration-300 hover:scale-110"
                     src={img3}
                     alt=""
                   />
                 </div>
+
+                {/* Spaghetti Magic */}
                 <div
                   id="miniBox3"
-                  className="w-[32%] rounded-lg bg-[rgb(33,148,80)] h-[90%] flex items-center  p-[32px]"
+                  className="w-[32%] rounded-lg bg-[rgb(33,148,80)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(45,175,95)]"
                 >
                   <div className="w-[50%] h-full">
-                    <h1 className="text-[1rem] font-bold  w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
+                    <h1 className="text-[1rem] font-bold w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
                       Spaghetti Magic
                     </h1>
-                    <p className="text-[0.8rem] text-white w-[90%] cursor-pointer hover:text-[rgb(175,16,60)] ">
+                    <p className="text-[0.8rem] text-white w-[90%] cursor-pointer hover:text-[rgb(175,16,60)]">
                       Twirls of pasta coated in savory goodness.
                     </p>
                     <button className="bg-white px-3 py-1 rounded-md">
@@ -408,7 +414,7 @@ const LandingPage = () => {
                     </button>
                   </div>
                   <img
-                    className="w-[140px] h-[140px] rounded-full"
+                    className="w-[140px] h-[140px] rounded-full transition-transform duration-300 hover:scale-110"
                     src={img6}
                     alt=""
                   />
