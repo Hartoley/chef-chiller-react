@@ -4,8 +4,8 @@ const Footer = () => {
   return (
     <footer className="bg-[#0B1220] text-[#D1D5DB]">
       {/* Newsletter Section */}
-      <div className="px-2 py-12 w-full flex items-center justify-center md:px-20 lg:px-32 h-[60vh] text-center">
-        <div className="px-0 py-12 w-[90%] flex flex-col items-center md:px-20 lg:px-32 rounded-lg bg-[#111827] h-[40vh] text-center">
+      <div className=" px-2 py-12 w-full flex items-center justify-center md:px-20 lg:px-32 h-[60vh] text-center">
+        <div className="newsletter px-0 py-12 w-[90%] flex flex-col items-center md:px-20 lg:px-32 rounded-lg bg-[#111827] h-[40vh] text-center">
           <h2 className="text-white text-3xl font-semibold mb-3">
             Stay Updated
           </h2>
@@ -13,7 +13,7 @@ const Footer = () => {
             Subscribe to our newsletter for the latest updates and exclusive
             offers.
           </p>
-          <div className="flex justify-center items-center gap-3 max-w-lg mx-auto">
+          <div className="emailInput flex justify-center items-center gap-3 max-w-lg mx-auto">
             <input
               type="email"
               placeholder="Enter your email"
@@ -31,7 +31,7 @@ const Footer = () => {
 
       {/* Footer Content */}
       <div className="px-6 py-10 md:px-20 lg:px-32 border-t border-[#1F2937]">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-40">
+        <div className="footer1 grid grid-cols-1 md:grid-cols-3 gap-40">
           {/* About Section */}
           <div>
             <p className="text-[#9CA3AF] leading-relaxed">

@@ -278,7 +278,7 @@ const LandingPage = () => {
                 id="miniBox1"
                 className="bg-[rgb(5,17,31)] flex items-center gap-3 rounded-tl-[50px] rounded-br-[50px] w-[80%] h-[55%]"
               >
-                <div className="w-[30%] h-full flex flex-col items-center justify-between">
+                <div className="w-[30%] miniBoxme h-full flex flex-col items-center justify-between">
                   <motion.img
                     className="w-full h-[48%] rounded-lg transition-all duration-300 hover:scale-110"
                     src="https://i.pinimg.com/236x/76/bf/c2/76bfc2b0105c43202c1e673f3387af01.jpg"
@@ -327,7 +327,7 @@ const LandingPage = () => {
                     We take pride in creating a warm, welcoming atmosphere where
                     guests feel truly cared for.
                   </p>
-                  <div className="w-full flex gap-3 cursor-pointer">
+                  <div className="w-full deli flex gap-3 cursor-pointer">
                     <p className="text-[rgb(175,16,60)] flex flex-col ">
                       <span class="material-symbols-outlined">flatware</span>
                       <p className="text-white text-[0.8rem]">Deli Combo</p>

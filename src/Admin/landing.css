@@ -147,7 +147,7 @@ nav {
   color: #388e3c;
 }
 
-@media (max-width: 450px) {
+@media (min-width: 400px) and (max-width: 480px) {
   .contentMain {
     display: none;
   }
@@ -268,7 +268,7 @@ nav {
   #motion-div {
     height: 50vh !important;
     flex-direction: column !important;
-    background-color: rgb(60, 26, 114) !important;
+    /* background-color: rgb(60, 26, 114) !important; */
   }
 
   #menuIntro1 h1,
@@ -290,10 +290,16 @@ nav {
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 400px) {
   .contentMain {
     display: none;
   }
+
+  /* .deli {
+    flex-direction: column;
+    background-color: #388e3c;
+    gap: 5px !important;
+  } */
 
   .buttonBox1 {
     display: flex;
@@ -347,6 +353,10 @@ nav {
     font-size: 12px;
   }
 
+  #textComponent h1 {
+    font-size: 18px !important;
+  }
+
   #textComponent h1,
   p {
     width: 95% !important;
@@ -359,14 +369,19 @@ nav {
   }
 
   #miniBox1 {
-    margin-top: 7vh !important;
+    margin-top: 68vh !important;
     width: 80%;
     height: 50vh !important;
+    /* flex-direction: column !important; */
   }
+
+  /* .miniBoxme {
+    width: 100%;
+  } */
 
   #miniBoxDupli {
     width: 80%;
-    flex-direction: column;
+    /* flex-direction: column !important; */
   }
 
   #miniBox1 h2,
@@ -381,10 +396,11 @@ nav {
   }
 
   #coloredBox {
+    /* margin-top: 70vh !important; */
     width: 80% !important;
     flex-direction: column;
-    background: #f65553;
-    /* height: 110vh; */
+    /* background: #f65553; */
+    height: 110vh;
     gap: 10px;
   }
 
@@ -395,7 +411,7 @@ nav {
   }
 
   .plain {
-    height: 150vh !important;
+    min-height: 150vh !important;
   }
 
   /* #miniBox3 p {
