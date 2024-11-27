@@ -6,6 +6,8 @@ import img1 from "../Images/spag1-removebg-preview.png";
 import img2 from "../Images/rice-removebg-preview.png";
 import img3 from "../Images/swallow-removebg-preview.png";
 import img4 from "../Images/asun-removebg-preview.png";
+import img5 from "../Images/jollofSpecial.jpg";
+import img6 from "../Images/spaghettiNew.png";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 import AllProduct from "./Allproduct";
@@ -23,10 +25,9 @@ const slides = [
         <p className="text-sm md:text-base items-start text-start leading-relaxed w-3/4">
           Enjoy our Classic Spaghetti Delight with al dente spaghetti in rich
           marinara sauce made from fresh tomatoes, garlic, and basil. Topped
-          with Parmesan cheese and olive oil, it’s perfect with garlic bread and
-          a side salad!
+          with Parmesan cheese and olive oil.
         </p>
-        <div className="buttonLogin1">SHOP NOW</div>
+        <div className="buttonLogin1 ">SHOP NOW</div>
       </div>
     ),
     image: img1,
@@ -62,7 +63,6 @@ const slides = [
         <p className="text-sm md:text-base items-start text-start leading-relaxed w-3/4">
           Delight in Efo Riro with Pounded Yam, featuring rich vegetable soup
           made with fresh spinach and spices, paired with smooth, stretchy yam.
-          A true celebration of Nigerian cuisine!
         </p>
         <div className="buttonLogin1">SHOP NOW</div>
       </div>
@@ -182,12 +182,12 @@ const LandingPage = () => {
                   {slides[currentIndex].content}
                 </motion.div>
               </AnimatePresence>
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+              <div className="absolute dots bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
                 {slides.map((_, index) => (
                   <div
                     key={index}
                     className={`w-3 h-3 rounded-full ${
-                      index === currentIndex ? "bg-[#235126]" : "bg-gray-400"
+                      index === currentIndex ? "bg-[#FC9E34]" : "bg-gray-400"
                     }`}
                   ></div>
                 ))}
@@ -264,19 +264,19 @@ const LandingPage = () => {
         </div>
 
         <div
-          className="absolute top-[93vh] bg-[rgb(1,15,28)] w-full h-[85vh] flex items-center justify-center"
+          className="absolute top-[93vh] bg-[rgb(1,15,28)] w-full h-[135vh] flex items-center justify-center"
           id="miniBox"
         >
-          <div className="w-full h-full relative">
+          <div className=" w-full h-full relative">
             <img
               className="w-full h-full"
               src="https://i.pinimg.com/736x/6e/23/a6/6e23a6fccd6e331bb36d361b6179fbfa.jpg"
               alt=""
             />
-            <div className="absolute bg-[rgb(1,15,28)] z-10 inset-0 opacity-95 flex items-center flex-col justify-center gap-10">
+            <div className="miniBoxDupli absolute bg-[rgb(1,15,28)] z-10 inset-0 opacity-95 flex items-center flex-col justify-center gap-10">
               <div
                 id="miniBox1"
-                className="bg-[rgb(5,17,31)] flex items-center gap-3 rounded-tl-[50px] rounded-br-[50px] w-[60%] h-[55%]"
+                className="bg-[rgb(5,17,31)] flex items-center gap-3 rounded-tl-[50px] rounded-br-[50px] w-[80%] h-[55%]"
               >
                 <div className="w-[30%] h-full flex flex-col items-center justify-between">
                   <motion.img
@@ -347,57 +347,78 @@ const LandingPage = () => {
               </div>
               <div
                 id="coloredBox"
-                className="bg-[rgb(5,17,31)] rounded-tl-[50px] flex items-center justify-evenly rounded-br-[50px] w-[60%] h-[30%]"
+                className="bg-[rgb(5,17,31)] rounded-tl-[50px] flex items-center justify-between rounded-br-[50px] w-[80%] h-[30%]"
               >
                 <div
-                  className="w-[32%] rounded-lg bg-[rgb(234,1,41)] h-[90%] flex items-center p-3"
+                  className="w-[32%] rounded-lg bg-[rgb(234,1,41)] h-[90%] flex items-center p-[32px]"
                   id="miniBox3"
                 >
                   <div className="w-[50%] h-full">
-                    <h1 className="text-[0.8rem] w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
+                    <h1 className="text-[1rem] font-bold w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
                       Nigerian Jollof Special
                     </h1>
                     <p className="text-[0.8rem] text-white w-[90%] cursor-pointer hover:text-[rgb(175,16,60)] ">
                       A flavorful and spicy rice dish that’s a Nigerian
                       favorite.
                     </p>
+                    <button className="bg-white px-3 py-1 rounded-md">
+                      Buy now
+                    </button>
                   </div>
-                  <img className="w-[50%] h-[75%]" src={img1} alt="" />
+                  <img
+                    className="w-[130px] h-[130px] rounded-full "
+                    src={img5}
+                    alt=""
+                  />
                 </div>
                 <div
-                  className="w-[32%] rounded-lg bg-[rgb(248,159,54)] h-[90%] flex items-center  p-3"
+                  className="w-[32%] rounded-lg bg-[rgb(248,159,54)] h-[90%] flex items-center  p-[32px]"
                   id="miniBox3"
                 >
                   <div className="w-[50%] h-full">
-                    <h1 className="text-[0.8rem] w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
+                    <h1 className="text-[1rem] font-bold  w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
                       Swallow Delight
                     </h1>
                     <p className="text-[0.8rem] text-white w-[95%] cursor-pointer hover:text-[rgb(175,16,60)] ">
                       Soft and satisfying, perfect for pairing with rich soups.
                     </p>
+                    <button className="bg-white px-3 py-1 rounded-md">
+                      Buy now
+                    </button>
                   </div>
-                  <img className="w-[50%] h-[75%]" src={img3} alt="" />
+                  <img
+                    className="w-[130px] h-[130px] rounded-full"
+                    src={img3}
+                    alt=""
+                  />
                 </div>
                 <div
                   id="miniBox3"
-                  className="w-[32%] rounded-lg bg-[rgb(33,148,80)] h-[90%] flex items-center  p-3"
+                  className="w-[32%] rounded-lg bg-[rgb(33,148,80)] h-[90%] flex items-center  p-[32px]"
                 >
                   <div className="w-[50%] h-full">
-                    <h1 className="text-[0.8rem] w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
+                    <h1 className="text-[1rem] font-bold  w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
                       Spaghetti Magic
                     </h1>
                     <p className="text-[0.8rem] text-white w-[90%] cursor-pointer hover:text-[rgb(175,16,60)] ">
                       Twirls of pasta coated in savory goodness.
                     </p>
+                    <button className="bg-white px-3 py-1 rounded-md">
+                      Buy now
+                    </button>
                   </div>
-                  <img className="w-[50%] h-[75%]" src={img4} alt="" />
+                  <img
+                    className="w-[140px] h-[140px] rounded-full"
+                    src={img6}
+                    alt=""
+                  />
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="plain h-[98vh] w-full bg-[rgb(4,14,25)]"></div>
+      <div className="plain h-[148vh] w-full bg-[rgb(4,14,25)]"></div>
       <AllProduct />
       <Footer />
     </>

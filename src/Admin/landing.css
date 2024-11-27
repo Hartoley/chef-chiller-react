@@ -113,7 +113,7 @@ nav {
 }
 
 .buttonLogin1 {
-  background-color: rgb(35, 149, 81);
+  background-color: #cc0e31;
   width: 120px;
   height: 40px;
   border: none;
@@ -147,7 +147,7 @@ nav {
   color: #388e3c;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 450px) {
   .contentMain {
     display: none;
   }
@@ -165,7 +165,7 @@ nav {
   }
 
   #bigBox {
-    height: 50vh;
+    height: 50vh !important;
   }
 
   h1,
@@ -175,14 +175,10 @@ nav {
   }
 
   #imageComponent {
-    height: 200px;
-    width: 200px;
+    height: 200px !important;
+    width: 200px !important;
     border-radius: 100% !important;
     border: solid 2px white;
-  }
-
-  #motion-div {
-    flex-direction: column !important;
   }
 
   #textComponent {
@@ -193,6 +189,14 @@ nav {
 
   #imageBox {
     width: 100%;
+    /* background-color: palevioletred; */
+  }
+
+  .buttonLogin1 {
+    width: 100px;
+    height: 30px;
+    font-weight: 500;
+    font-size: 12px;
   }
 
   #textComponent h1,
@@ -203,7 +207,7 @@ nav {
   #miniBox {
     top: 73vh;
     gap: 3px;
-    height: 55vh;
+    height: 65vh;
   }
 
   #miniBox1 {
@@ -223,11 +227,25 @@ nav {
 
   #coloredBox {
     width: 80% !important;
+    flex-direction: column;
+    background: #f65553;
+    /* height: 100vh; */
+    gap: 10px;
   }
 
-  #miniBox3 p {
-    display: none !important;
+  #miniBox3 {
+    width: 90%;
+    flex-direction: row !important;
+    padding: 10px;
   }
+
+  .plain {
+    height: 220vh !important;
+  }
+
+  /* #miniBox3 p {
+    display: none !important;
+  } */
 
   #miniBox3 {
     flex-direction: column;
@@ -235,10 +253,169 @@ nav {
   }
 
   #listFood {
-    top: 49.9vh;
+    top: 49.9vh !important;
     overflow-x: scroll !important;
     padding: 0 20px !important;
     justify-content: space-evenly;
+  }
+
+  #menuIntro h1,
+  p {
+    font-size: 10px !important;
+    line-height: 15px;
+  }
+
+  #motion-div {
+    height: 50vh !important;
+    flex-direction: column !important;
+    background-color: rgb(60, 26, 114) !important;
+  }
+
+  #menuIntro1 h1,
+  p {
+    font-size: 12px !important;
+    line-height: 15px;
+    font-weight: 500;
+  }
+
+  #menuIntro1 p {
+    font-size: 10px !important;
+    line-height: 15px;
+    font-weight: 200;
+  }
+
+  #menuIntro p {
+    font-weight: 400;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .contentMain {
+    display: none;
+  }
+
+  .buttonBox1 {
+    display: flex;
+  }
+
+  .dropDown {
+    justify-content: space-between;
+  }
+
+  nav {
+    padding: 0 1rem;
+  }
+
+  #bigBox {
+    height: 70vh !important;
+  }
+
+  h1,
+  p {
+    font-size: 20px;
+    width: 80%;
+  }
+
+  #imageComponent {
+    height: 150px !important;
+    width: 150px !important;
+    border-radius: 100% !important;
+    border: solid 2px white;
+  }
+
+  #textComponent {
+    font-size: 8px !important;
+    width: 100%;
+    height: 35vh !important;
+  }
+
+  #imageBox {
+    width: 100%;
+    height: 25vh !important;
+    /* background-color: palevioletred; */
+  }
+
+  #motion-div {
+    flex-direction: column !important;
+  }
+
+  .buttonLogin1 {
+    width: 100px;
+    height: 30px;
+    font-weight: 500;
+    font-size: 12px;
+  }
+
+  #textComponent h1,
+  p {
+    width: 95% !important;
+  }
+
+  #miniBox {
+    top: 95vh;
+    gap: 3px;
+    height: 65vh;
+  }
+
+  #miniBox1 {
+    margin-top: 7vh !important;
+    width: 80%;
+    height: 50vh !important;
+  }
+
+  #miniBoxDupli {
+    width: 80%;
+    flex-direction: column;
+  }
+
+  #miniBox1 h2,
+  p {
+    font-size: 10px;
+    font-weight: 400;
+  }
+
+  #miniBox2 p {
+    font-size: 8px;
+    font-weight: 200;
+  }
+
+  #coloredBox {
+    width: 80% !important;
+    flex-direction: column;
+    background: #f65553;
+    /* height: 110vh; */
+    gap: 10px;
+  }
+
+  #miniBox3 {
+    width: 90%;
+    flex-direction: row !important;
+    padding: 10px;
+  }
+
+  .plain {
+    height: 150vh !important;
+  }
+
+  /* #miniBox3 p {
+    display: none !important;
+  } */
+
+  #miniBox3 {
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  #listFood {
+    top: 70.9vh !important;
+    overflow-x: scroll !important;
+    padding: 0 20px !important;
+    justify-content: space-evenly;
+  }
+
+  .dots {
+    /* background-color: red !important; */
   }
 
   #menuIntro h1,
@@ -263,8 +440,5 @@ nav {
   #menuIntro p {
     font-weight: 400;
     font-size: 12px !important;
-  }
-  #miniBox {
-    height: 65vh;
   }
 }
