@@ -14,13 +14,13 @@ const slides = [
   {
     content: (
       <div
-        className="w-[50%] h-full flex items-center flex-col justify-center text-white p-6"
+        className="w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
         id="textComponent"
       >
-        <h1 className="text-2xl md:text-3xl font-bold mb-2 text-center w-3/4">
+        <h1 className="text-2xl md:text-3xl font-bold mb-2 items-start text-start w-3/4">
           Classic Spaghetti Delight
         </h1>
-        <p className="text-sm md:text-base text-center leading-relaxed w-3/4">
+        <p className="text-sm md:text-base items-start text-start leading-relaxed w-3/4">
           Enjoy our Classic Spaghetti Delight with al dente spaghetti in rich
           marinara sauce made from fresh tomatoes, garlic, and basil. Topped
           with Parmesan cheese and olive oil, it’s perfect with garlic bread and
@@ -34,13 +34,13 @@ const slides = [
   {
     content: (
       <div
-        className="w-[50%] h-full flex items-center flex-col justify-center text-white p-6"
+        className="w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
         id="textComponent"
       >
-        <h1 className="text-2xl md:text-3xl font-bold mb-2 text-center w-3/4">
+        <h1 className="text-2xl md:text-3xl font-bold mb-2 items-start text-start w-3/4">
           Jollof Rice Extravaganza
         </h1>
-        <p className="text-sm md:text-base text-center leading-relaxed w-3/4">
+        <p className="text-sm md:text-base items-start text-start leading-relaxed w-3/4">
           Savor our Jollof Rice Extravaganza, a West African favorite with
           fluffy rice in a rich tomato sauce. Served with grilled chicken, beef,
           or fish, it's a vibrant taste of Nigeria!
@@ -53,13 +53,13 @@ const slides = [
   {
     content: (
       <div
-        className="w-[50%] h-full flex items-center flex-col justify-center text-white p-6"
+        className="w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
         id="textComponent"
       >
-        <h1 className="text-2xl md:text-3xl font-bold mb-2 text-center w-3/4">
+        <h1 className="text-2xl md:text-3xl font-bold mb-2 items-start text-start w-3/4">
           Efo Riro with Pounded Yam
         </h1>
-        <p className="text-sm md:text-base text-center leading-relaxed w-3/4">
+        <p className="text-sm md:text-base items-start text-start leading-relaxed w-3/4">
           Delight in Efo Riro with Pounded Yam, featuring rich vegetable soup
           made with fresh spinach and spices, paired with smooth, stretchy yam.
           A true celebration of Nigerian cuisine!
@@ -72,13 +72,13 @@ const slides = [
   {
     content: (
       <div
-        className="w-[50%] h-full flex items-center flex-col justify-center text-white p-6"
+        className="w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
         id="textComponent"
       >
-        <h1 className="text-2xl md:text-3xl font-bold mb-2 text-center w-3/4">
+        <h1 className="text-2xl md:text-3xl font-bold mb-2 items-start text-start w-3/4">
           Spicy Asun Meat
         </h1>
-        <p className="text-sm md:text-base text-center leading-relaxed w-3/4">
+        <p className="text-sm md:text-base items-start text-start leading-relaxed w-3/4">
           Savor our Spicy Asun Meat, grilled goat meat with a smoky, spicy kick.
           Perfect as a snack or appetizer, it's best enjoyed with chilled palm
           wine for an authentic street food experience!
@@ -168,8 +168,6 @@ const LandingPage = () => {
                   exit="exit"
                   transition={{ duration: 0.5 }}
                 >
-                  {slides[currentIndex].content}
-
                   <div
                     className="w-[50%] h-full  flex items-center justify-center"
                     id="imageBox"
@@ -178,9 +176,10 @@ const LandingPage = () => {
                       id="imageComponent"
                       src={slides[currentIndex].image}
                       alt={`Slide ${currentIndex + 1}`}
-                      className="w-[300px] h-[300px] object-cover rounded-full shadow-md bg-white"
+                      className="w-[300px] h-[300px] object-cover rounded-full shadow-md border-2 border-white bg-white"
                     />
                   </div>
+                  {slides[currentIndex].content}
                 </motion.div>
               </AnimatePresence>
               <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
@@ -197,70 +196,73 @@ const LandingPage = () => {
           </div>
           <div
             id="listFood"
-            className=" top-[70vh] overflow-hidden absolute bg-[rgb(8,21,33)] w-full flex justify-center items-center gap-10 h-[12vh] sm:px-10"
+            className=" top-[70vh] absolute bg-[rgb(8,21,33)] w-full flex justify-center items-center h-[12vh]"
           >
-            <motion.img
-              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
-              src={img1}
-              alt=""
-            />
-            <motion.img
-              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
-              src={img2}
-              alt=""
-            />
-            <motion.img
-              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
-              src={img3}
-              alt=""
-            />
-            <motion.img
-              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
-              src={img4}
-              alt=""
-            />
-            <motion.img
-              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
-              src={img1}
-              alt=""
-            />
-            <motion.img
-              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
-              src={img2}
-              alt=""
-            />
-            <motion.img
-              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
-              src={img3}
-              alt=""
-            />
-            <motion.img
-              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
-              src={img4}
-              alt=""
-            />
-            <motion.img
-              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
-              src={img1}
-              alt=""
-            />
-            <motion.img
-              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
-              src={img2}
-              alt=""
-            />
-            <motion.img
-              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
-              src={img3}
-              alt=""
-            />
-            <motion.img
-              className="w-10 rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
-              src={img4}
-              alt=""
-            />
+            <div className=" top-[70vh] overflow-x-scroll no-scrollbar w-[60%] flex justify-center items-center gap-6 h-full ">
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img1}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img2}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img3}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img4}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img1}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img2}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img3}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img4}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img1}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img2}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img3}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img4}
+                alt=""
+              />
+            </div>
           </div>
         </div>
+
         <div
           className="absolute top-[93vh] bg-[rgb(1,15,28)] w-full h-[85vh] flex items-center justify-center"
           id="miniBox"
