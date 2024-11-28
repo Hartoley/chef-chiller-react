@@ -156,7 +156,7 @@ const MainMenu = ({
       <main className="child h-[100h] flex-1 p-6 bg-gray-100 w-[63.65vw]">
         <section className="section1 flex gap-3 items-center justify-between mb-6">
           <h3 className="text-2xl flex-shrink-0 font-[12px]">Food & Drinks</h3>
-          <div className="list no-scrollbar flex space-x-2">
+          <div className="list overflow-x-scroll no-scrollbar flex space-x-2">
             <button
               onClick={() => setActiveSection2("mainMenu")}
               className={`px-3 py-1 rounded-full flex-shrink-0 ${
