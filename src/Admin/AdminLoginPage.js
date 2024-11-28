@@ -59,7 +59,7 @@ const LoginForm = () => {
             } else if (role === "User") {
               navigate(`/user/dashboard/${id}`);
             }
-          }, 5000);
+          }, 3000);
         })
         .catch((err) => {
           toast.error(

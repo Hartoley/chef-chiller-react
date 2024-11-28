@@ -95,7 +95,7 @@ const SignupForm = () => {
           setIsRegistered(true);
           setTimeout(() => {
             navigate("/user/signin");
-          }, 5000);
+          }, 3000);
         } catch (error) {
           console.log(error);
           toast.error(error?.response?.data?.message);
@@ -238,28 +238,20 @@ const SignupForm = () => {
               <div className="w-full absolute inset-0 flex flex-col items-center h-full text-[#f65553] justify-center z-10 bg-[rgb(4,14,25)] bg-opacity-30">
                 <div className="w-full items-center justify-center flex">
                   <img
-                    className="logo"
+                    className="logo rounded-full relative"
                     src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
                     alt=""
                   />
+                  {isRegistered ? (
+                    <div className="redirect absolute !top-60 !w-[80%] h-20 flex items-center justify-center !p-5 gap-3 m-auto !bg-white ">
+                      <p>Registration successful! Redirecting...</p>
+                    </div>
+                  ) : (
+                    loading && <div></div>
+                  )}
                 </div>
-                {isRegistered ? (
-                  <div className="w-[80%] h-20 flex items-center p-5 gap-3 m-auto bg-white">
-                    <p>Registration successful! Redirecting...</p>
-                  </div>
-                ) : (
-                  loading && <div></div>
-                )}
-                {/* <h5 className="cursor-pointer text-white" onClick={signin}>
-                  Log in?{" "}
-                </h5> */}
               </div>
             </div>
-            {/* <img
-              className="logoSm"
-              src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
-              alt=""
-            /> */}
           </div>
         </div>
         <ToastContainer />

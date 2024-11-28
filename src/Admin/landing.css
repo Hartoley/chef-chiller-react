@@ -152,6 +152,10 @@ nav {
     display: none;
   }
 
+  .image {
+    gap: 0;
+  }
+
   .buttonBox1 {
     display: flex;
   }

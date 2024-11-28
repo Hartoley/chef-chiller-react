@@ -23,14 +23,14 @@ const Admin = ({ signup, signin, isLoggedIn, isDashboard }) => {
   return (
     <>
       <nav>
-        <div className="dropDown">
+        <div className="dropDown flex-shrink-0 !pl-4">
           <div
             onClick={home}
-            className="image flex items-center justify-center rounded-full"
+            className="image1 flex items-center justify-center rounded-full"
           >
             <img
               class="logo"
-              className="rounded-full h-10 w-10"
+              className="rounded-full flex-shrink-0 h-10 w-10"
               src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
               alt=""
             />
