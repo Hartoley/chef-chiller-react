@@ -250,7 +250,7 @@ const CvLandingPage = () => {
             </h2>
 
             {/* Project Summary */}
-            <div className="mb-4 max-h-[35vh] overflow-y-scroll">
+            <div className="mb-4 max-h-[35vh] overflow-y-scroll hide-scrollbar">
               <h3 className="text-lg font-semibold text-red-400 mb-2">
                 Project Summary
               </h3>
@@ -276,14 +276,14 @@ const CvLandingPage = () => {
             <div className="flex justify-between items-center">
               {projectsId.liveDemoLink && (
                 <button
-                  className="bg-red-700 hover:bg-red-600 text-white text-sm px-4 py-2 rounded"
+                  className="bg-white text-red-600  hover:text-purple-900  text-sm px-4 py-2 rounded"
                   onClick={() => window.open(projectsId.liveDemoLink, "_blank")}
                 >
                   See Live Demo
                 </button>
               )}
               <button
-                className="border border-red-700 text-red-400 hover:text-red-600 hover:border-red-600 text-sm px-4 py-2 rounded"
+                className="border hover:border-white bg-opacity-70 text-red-600 hover:text-white border-red-600 text-sm px-4 py-2 rounded"
                 onClick={closeModal}
               >
                 Close
@@ -499,13 +499,13 @@ const CvLandingPage = () => {
                   {/* Button */}
                   <button
                     onClick={() => showProject(project._id)}
-                    className={`text-sm font-medium py-2 px-4 rounded bg-opacity-50 ${
+                    className={`text-sm font-medium py-2 px-4 rounded bg-opacity-70 ${
                       darkMode
                         ? "bg-purple-600 hover:bg-purple-500"
                         : "bg-purple-500 hover:bg-purple-400"
                     } text-white`}
                   >
-                    Click to see this project info & link
+                    Click to view project info & link
                   </button>
                 </div>
               </div>

@@ -2,6 +2,15 @@
   padding: 0;
   margin: 0;
 }
+.hide-scrollbar {
+  overflow: auto; /* Enables scrolling */
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
 
 @media (max-width: 760px) {
   .hello li {
