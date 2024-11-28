@@ -98,6 +98,25 @@ const CvLandingPage = () => {
     }
   };
 
+  const [formData, setFormData] = useState({
+    user_name: "",
+    user_email: "",
+    subject: "",
+    message: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const isFormValid = Object.values(formData).every(
+    (value) => value.trim() !== ""
+  );
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -115,6 +134,12 @@ const CvLandingPage = () => {
           console.log("Message Sent Successfully:", result.text);
           alert("Your message has been sent!");
           form.reset();
+          setFormData({
+            user_name: "",
+            user_email: "",
+            subject: "",
+            message: "",
+          });
         },
         (error) => {
           console.error("Error sending message:", error.text);
@@ -603,31 +628,36 @@ const CvLandingPage = () => {
                 type="text"
                 name="user_name"
                 placeholder="Name"
+                onChange={handleInputChange}
                 className="w-full p-3 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
               />
               <input
                 type="email"
                 name="user_email"
                 placeholder="Email"
+                onChange={handleInputChange}
                 className="w-full p-3 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
               />
               <input
                 type="text"
                 name="subject"
                 placeholder="Subject"
+                onChange={handleInputChange}
                 className="w-full p-3 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
               />
               <textarea
                 name="message"
                 rows="4"
                 placeholder="Message"
+                onChange={handleInputChange}
                 className="w-full p-3 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
               ></textarea>
               <button
                 type="submit"
+                disabled={!isFormValid}
                 className={`w-full  text-white p-3 rounded-md shadow-md hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${
                   darkMode ? "bg-purple-400 text-purple-700" : "bg-purple-700 "
-                }`}
+                } ${!isFormValid && "opacity-50 cursor-not-allowed"}`}
               >
                 Send Message
               </button>
