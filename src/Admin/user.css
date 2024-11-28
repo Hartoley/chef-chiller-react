@@ -89,6 +89,7 @@
     align-items: center;
   }
   .sideNav2 {
+    height: 100vh;
     display: none;
   }
 
@@ -225,6 +226,7 @@
   }
 
   .sideNav2 {
+    height: 100vh;
     display: none;
   }
 

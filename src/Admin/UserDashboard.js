@@ -353,11 +353,14 @@ const UserDashboard = () => {
                 <span>Today</span>
                 <span>🕒 {formattedDate}</span>
               </div>
-              <div className="space-y-4 h-[20vh] overflow-y-auto no-scrollbar">
+              <div className="space-y-4 h-[30vh] overflow-y-auto no-scrollbar">
                 {orderItems
-                  .filter((order) => !order.approved)
+                  .filter((order) => order.approved)
                   .map((item, index) => (
-                    <div key={index} className="flex gap-1 justify-between">
+                    <div
+                      key={index}
+                      className="flex font-white gap-1 justify-between"
+                    >
                       <span>{item.productName}</span>
                       <span>₦{item.productPrice.toFixed(2)}</span>
                     </div>
@@ -436,7 +439,7 @@ const UserDashboard = () => {
                 </div>
                 <div className="space-y-4 h-[30vh] overflow-y-auto no-scrollbar">
                   {orderItems
-                    .filter((order) => !order.approved)
+                    .filter((order) => order.approved)
                     .map((item, index) => (
                       <div key={index} className="flex justify-between">
                         <span>{item.productName}</span>
@@ -473,7 +476,7 @@ const UserDashboard = () => {
                 </div>
               </div>
 
-              <button
+              {/* <button
                 onClick={() => {
                   setActiveSection3("mainMenu4");
                   setIsMenuVisible(false);
@@ -481,7 +484,7 @@ const UserDashboard = () => {
                 className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded"
               >
                 Place Order
-              </button>
+              </button> */}
             </aside>
           )}
         </div>

@@ -92,36 +92,39 @@ const FoodsDrinks = () => {
           <div className=" mb-4">
             {approvedOrders.length > 0 ? (
               approvedOrders.map((order, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-50 p-2 rounded-lg mb-4 shadow-md flex items-center justify-between gap-4"
-                >
-                  <div className="flex items-center gap-4">
-                    <input
-                      type="radio"
-                      name="selectedProduct"
-                      className="w-4 h-4 accent-green-500"
-                    />
-                    <img
-                      src={order.image}
-                      alt={order.productName}
-                      className="w-14 h-14 object-cover rounded-md"
-                    />
-                    <div className="text-sm">
-                      <h6 className="font-semibold text-gray-800">
-                        {order.productName}
-                      </h6>
-                      <p className="text-gray-600">
-                        Processed and waiting for delivery
-                      </p>
+                <>
+                  <div
+                    key={index}
+                    className="bg-gray-50 p-2 rounded-lg mb-4 shadow-md flex items-center justify-between gap-4"
+                  >
+                    <div className="flex items-center gap-4">
+                      <input
+                        type="radio"
+                        name="selectedProduct"
+                        className="w-4 h-4 accent-green-500"
+                      />
+                      <img
+                        src={order.image}
+                        alt={order.productName}
+                        className="w-14 h-14 object-cover rounded-md"
+                      />
+                      <div className="text-sm">
+                        <h6 className="font-semibold text-gray-800">
+                          {order.productName}
+                        </h6>
+                        <p className="text-gray-600">
+                          Processed and waiting for delivery
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-4">
+                      <span className="font-semibold text-gray-800 text-sm">
+                        ${order.productPrice.toFixed(2)}
+                      </span>
                     </div>
                   </div>
-
                   <div className="flex items-center gap-4">
-                    <span className="font-semibold text-gray-800 text-sm">
-                      ${order.productPrice.toFixed(2)}
-                    </span>
-
                     <button
                       className="text-green-500 text-sm"
                       onClick={() => handleUploadPaymentProof(order.id)}
@@ -136,7 +139,7 @@ const FoodsDrinks = () => {
                       Approve Delivery
                     </button>
                   </div>
-                </div>
+                </>
               ))
             ) : (
               <p className="text-gray-600 text-center">
