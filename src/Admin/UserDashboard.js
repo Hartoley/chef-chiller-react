@@ -353,7 +353,7 @@ const UserDashboard = () => {
                 <span>Today</span>
                 <span>🕒 {formattedDate}</span>
               </div>
-              <div className="space-y-4 h-[30vh] overflow-y-auto no-scrollbar">
+              <div className="space-y-4 h-[20vh] overflow-y-auto no-scrollbar">
                 {orderItems
                   .filter((order) => !order.approved)
                   .map((item, index) => (

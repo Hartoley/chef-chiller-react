@@ -114,7 +114,7 @@ const Product = ({
   };
 
   return (
-    <main className="flex flex-col w-[63.65vw] items-center bg-gray-100 min-h-screen p-6">
+    <main className="child flex flex-col h-[100vh] w-[63.65vw] items-center bg-gray-100  p-6">
       {/* Header */}
       <section className="section1 flex items-center justify-between w-full mb-6">
         <button
@@ -135,11 +135,11 @@ const Product = ({
           products.map((product) => (
             <div key={product._id}>
               {/* Food Image */}
-              <div className="relative w-full h-52">
+              <div className="w-full h-52">
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className=" w-full h-full object-cover"
                 />
               </div>
 
@@ -176,7 +176,7 @@ const Product = ({
                 </p>
 
                 {/* Action Buttons */}
-                <div className="flex justify-between items-center mt-6">
+                {/* <div className="flex justify-between items-center mt-6">
                   <button
                     onClick={() => setActiveSection3("mainMenu1")}
                     className="px-6 py-2 bg-gray-200 rounded-lg font-semibold text-gray-700 hover:bg-gray-300 transition"
@@ -191,7 +191,7 @@ const Product = ({
                   >
                     Add to Cart
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           ))

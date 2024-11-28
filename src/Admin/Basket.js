@@ -135,7 +135,7 @@ const Basket = () => {
   const unapprovedOrders = orderItems.filter((order) => !order.approved);
 
   return (
-    <main className="flex justify-center w-[63.65vw] p-4 bg-gray-100">
+    <main className="child flex justify-center w-[63.65vw] p-4 bg-gray-100">
       <div className="bg-white w-full md:w-[65vw] rounded-lg shadow-lg">
         <section className="p-4">
           {/* Header */}

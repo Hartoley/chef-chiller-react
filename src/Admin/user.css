@@ -60,13 +60,8 @@
 
   .mother {
     flex-direction: column !important;
-    background-color: blue !important;
+    /* background-color: blue !important; */
     width: 100%;
-  }
-
-  .child {
-    width: 100%;
-    height: auto !important;
   }
 
   .footerCon {
@@ -163,7 +158,7 @@
   }
 
   .section7 {
-    width: 42vw !important;
+    width: 72vw !important;
     /* background-color: aqua !important; */
     height: 30vh !important;
   }
@@ -199,12 +194,17 @@
     width: 100%;
     height: 20vh !important;
   }
+
+  .child {
+    width: 100%;
+    height: 100vh;
+  }
 }
 
 @media (min-width: 401px) and (max-width: 500px) {
   .mother {
     flex-direction: column !important;
-    background-color: blue !important;
+    /* background-color: blue !important; */
     width: 100%;
   }
 
@@ -298,7 +298,9 @@
   }
 
   .section7 {
-    width: 42vw !important;
+    width: 72vw !important;
+    justify-content: center;
+    flex-wrap: nowrap;
     /* background-color: aqua !important; */
     height: 30vh !important;
   }
