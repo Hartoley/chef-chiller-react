@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../Admin/adminsidenav.css";
 import { useNavigate } from "react-router-dom";
 
-const Admin = ({ signup, signin, isLoggedIn, isDashboard }) => {
+const Admin = ({ signup, signin, isDashboard }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [showMenu, setshowMenu] = useState(false);
   const id = JSON.parse(localStorage.getItem("id"));
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -14,11 +15,32 @@ const Admin = ({ signup, signin, isLoggedIn, isDashboard }) => {
   };
   const logout = () => {};
 
+  const goToDash = () => {
+    const id = JSON.parse(localStorage.getItem("id"));
+    if (id) {
+      console.log(id);
+
+      navigate(`/user/dashboard/${id}`);
+    } else {
+      navigate("/user/signin");
+    }
+  };
+
   const home = () => {
     navigate("/");
   };
 
+  console.log(isLoggedIn);
+
+  useEffect(() => {
+    const id = localStorage.getItem("id");
+    if (id) {
+      setIsLoggedIn(true); // Set to true if `id` exists in localStorage
+    }
+  }, []);
+
   Admin.home = home;
+  Admin.goToDash = goToDash;
 
   return (
     <>

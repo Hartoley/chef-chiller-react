@@ -36,6 +36,7 @@ const UserDashboard = () => {
 
   useEffect(() => {
     if (isFetching) {
+      console.log("Retrieved id:", id);
       toast.loading("Fetching items");
     }
     const fetchData = async () => {

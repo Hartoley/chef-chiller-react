@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./footer.css";
+import Admin from "./Admin";
 // import imgPlaceholder from "../Images/placeholder.png"; // Fallback image for any missing images
 
 const AllProduct = () => {
   const [specialProducts, setSpecialProducts] = useState([]);
   const [newProducts, setNewProducts] = useState([]);
+
+  const handleNavigation = () => {
+    Admin.goToDash();
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,7 +41,7 @@ const AllProduct = () => {
 
   const ProductCard = ({ product }) => (
     <div className="min-w-[250px] bg-[rgb(8,22,33)] rounded-lg shadow-md p-4">
-      <div className="relative">
+      <div className="relative" onClick={handleNavigation}>
         <img
           src={product.image}
           alt={product.name}

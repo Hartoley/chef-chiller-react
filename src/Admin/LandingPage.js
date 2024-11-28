@@ -89,6 +89,7 @@ const slides = [
     image: img4,
   },
 ];
+
 const LandingPage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
@@ -101,6 +102,9 @@ const LandingPage = () => {
 
   const signup = () => {
     navigate("/user/signup");
+  };
+  const handleNavigation = () => {
+    Admin.goToDash();
   };
 
   useEffect(() => {
@@ -354,6 +358,7 @@ const LandingPage = () => {
               >
                 {/* Nigerian Jollof Special */}
                 <div
+                  onClick={handleNavigation}
                   className="w-[32%] rounded-lg bg-[rgb(234,1,41)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(255,36,86)]"
                   id="miniBox3"
                 >
@@ -378,6 +383,7 @@ const LandingPage = () => {
 
                 {/* Swallow Delight */}
                 <div
+                  onClick={handleNavigation}
                   className="w-[32%] rounded-lg bg-[rgb(248,159,54)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(255,180,80)]"
                   id="miniBox3"
                 >
@@ -402,6 +408,7 @@ const LandingPage = () => {
                 {/* Spaghetti Magic */}
                 <div
                   id="miniBox3"
+                  onClick={handleNavigation}
                   className="w-[32%] rounded-lg bg-[rgb(33,148,80)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(45,175,95)]"
                 >
                   <div className="w-[50%] h-full">
