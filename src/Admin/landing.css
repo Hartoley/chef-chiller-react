@@ -213,7 +213,17 @@ nav {
 
   #miniBox1 {
     width: 80%;
-    margin-top: 40vh;
+    margin-top: 60vh;
+    flex-direction: column;
+    /* background-color: #4fb354; */
+    height: 70vh;
+  }
+
+  .dishesChild {
+    width: 100%;
+  }
+  #menuIntro {
+    width: 100%;
   }
 
   #miniBox1 h2,
@@ -243,7 +253,7 @@ nav {
   }
 
   .plain {
-    min-height: 110vh !important;
+    min-height: 140vh !important;
   }
 
   /* #miniBox3 p {
@@ -267,7 +277,7 @@ nav {
 
   #menuIntro h1,
   p {
-    font-size: 10px !important;
+    font-size: 14px !important;
     line-height: 15px;
   }
 
@@ -375,15 +385,19 @@ nav {
   }
 
   #miniBox1 {
-    margin-top: 68vh !important;
+    margin-top: 110vh !important;
     width: 80%;
-    height: 50vh !important;
-    /* flex-direction: column !important; */
+    height: 90vh;
+    /* background-color: #4fb354; */
+    flex-direction: column !important;
   }
 
-  /* .miniBoxme {
+  .dishesChild {
     width: 100%;
-  } */
+  }
+  #menuIntro {
+    width: 100%;
+  }
 
   #miniBoxDupli {
     width: 80%;
@@ -417,7 +431,7 @@ nav {
   }
 
   .plain {
-    min-height: 150vh !important;
+    min-height: 190vh !important;
   }
 
   /* #miniBox3 p {
@@ -446,7 +460,7 @@ nav {
 
   #menuIntro h1,
   p {
-    font-size: 10px !important;
+    font-size: 14px !important;
     line-height: 15px;
   }
 

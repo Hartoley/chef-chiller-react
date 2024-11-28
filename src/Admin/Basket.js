@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./user.css";
 import { ToastContainer, toast } from "react-toastify";
+import io from "socket.io-client";
+
+const socket = io("https://chef-chiller-node.onrender.com");
 
 const Basket = () => {
   const [orderItems, setOrderItems] = useState([]);
@@ -225,7 +228,11 @@ const Basket = () => {
                   Subtotal
                 </span>
                 <span className="text-lg font-bold text-gray-800">
-                  ${subtotal.toFixed(2)}
+                  ₦
+                  {subtotal.toLocaleString("en-NG", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
                 </span>
               </div>
               <div

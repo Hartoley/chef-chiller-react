@@ -5,6 +5,9 @@ import "./user.css";
 import { json, useParams } from "react-router-dom";
 import Footer from "./Footer";
 import { ToastContainer, toast } from "react-toastify";
+import io from "socket.io-client";
+
+const socket = io("https://chef-chiller-node.onrender.com");
 
 const MainMenu = ({
   activeSection2,
@@ -35,6 +38,8 @@ const MainMenu = ({
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(id);
+
       try {
         const res = await axios.get(
           `https://chef-chiller-node.onrender.com/user/getuser/${id}`
@@ -51,6 +56,7 @@ const MainMenu = ({
         console.log(err);
       }
     };
+    // console.log(id);
 
     fetchData();
   }, []);
@@ -234,7 +240,11 @@ const MainMenu = ({
                     <div className="section4 flex h-full w-[60%] flex-col items-start">
                       <h4 className="text-lg font-bold">{product.name}</h4>
                       <p className="text-gray-600 text-center">
-                        ₦{product.price.toFixed(2)}
+                        ₦
+                        {product.price.toLocaleString("en-NG", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
                       </p>
                       <div className="flex justify-center items-center mt-2">
                         <button
@@ -291,7 +301,11 @@ const MainMenu = ({
                       <div className="section4 flex h-full w-[60%] flex-col items-start">
                         <h4 className="text-lg font-bold">{product.name}</h4>
                         <p className="text-gray-600 text-center">
-                          ₦{product.price.toFixed(2)}
+                          ₦
+                          {product.price.toLocaleString("en-NG", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
                         </p>
                         <div className="flex justify-center items-center mt-2">
                           <button
@@ -350,7 +364,11 @@ const MainMenu = ({
                       <div className="section4 flex h-full w-[60%] flex-col items-start">
                         <h4 className="text-lg font-bold">{product.name}</h4>
                         <p className="text-gray-600 text-center">
-                          ₦{product.price.toFixed(2)}
+                          ₦
+                          {product.price.toLocaleString("en-NG", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
                         </p>
                         <div className="flex justify-center items-center mt-2">
                           <button
@@ -412,7 +430,11 @@ const MainMenu = ({
                       <div className="section4 flex h-full w-[60%] flex-col items-start">
                         <h4 className="text-lg font-bold">{product.name}</h4>
                         <p className="text-gray-600 text-center">
-                          ₦{product.price.toFixed(2)}
+                          ₦
+                          {product.price.toLocaleString("en-NG", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
                         </p>
                         <div className="flex justify-center items-center mt-2">
                           <button
@@ -475,7 +497,11 @@ const MainMenu = ({
                       <div className="flex h-full w-[60%] flex-col items-start">
                         <h4 className="text-lg font-bold">{product.name}</h4>
                         <p className="text-gray-600 text-center">
-                          ₦{product.price.toFixed(2)}
+                          ₦
+                          {product.price.toLocaleString("en-NG", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
                         </p>
                         <div className="flex justify-center items-center mt-2">
                           <button
@@ -539,7 +565,11 @@ const MainMenu = ({
                       <div className="flex h-full w-[60%] flex-col items-start">
                         <h4 className="text-lg font-bold">{product.name}</h4>
                         <p className="text-gray-600 text-center">
-                          ₦{product.price.toFixed(2)}
+                          ₦
+                          {product.price.toLocaleString("en-NG", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
                         </p>
                         <div className="flex justify-center items-center mt-2">
                           <button
@@ -601,7 +631,11 @@ const MainMenu = ({
                       <div className="flex h-full w-[60%] flex-col items-start">
                         <h4 className="text-lg font-bold">{product.name}</h4>
                         <p className="text-gray-600 text-center">
-                          ₦{product.price.toFixed(2)}
+                          ₦
+                          {product.price.toLocaleString("en-NG", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}
                         </p>
                         <div className="flex justify-center items-center mt-2">
                           <button

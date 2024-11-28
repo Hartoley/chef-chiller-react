@@ -48,7 +48,11 @@ const AllProduct = () => {
       </h3>
       <div className="flex items-center justify-between mt-2">
         <span className="text-xl font-bold text-[#f65553]">
-          ₦{product.price.toFixed(2)}
+          ₦
+          {product.price.toLocaleString("en-NG", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}
         </span>
       </div>
     </div>

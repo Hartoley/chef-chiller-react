@@ -277,47 +277,49 @@ const LandingPage = () => {
             <div className="miniBoxDupli absolute bg-[rgb(1,15,28)] z-10 inset-0 opacity-95 flex items-center flex-col justify-center gap-10">
               <div
                 id="miniBox1"
-                className="bg-[rgb(5,17,31)] flex items-center gap-3 rounded-tl-[50px] rounded-br-[50px] w-[80%] h-[55%]"
+                className="bg-[rgb(5,17,31)] flex items-center justify-center rounded-tl-[50px] rounded-br-[50px] w-[80%] h-[55%]"
               >
-                <div className="w-[30%] miniBoxme h-full flex flex-col items-center justify-between">
-                  <motion.img
-                    className="w-full h-[48%] rounded-lg transition-all duration-300 hover:scale-110"
-                    src="https://i.pinimg.com/236x/76/bf/c2/76bfc2b0105c43202c1e673f3387af01.jpg"
-                    alt=""
-                  />
-                  <motion.img
-                    className="w-full h-[48%] rounded-lg transition-all duration-300 hover:scale-110"
-                    src="https://i.pinimg.com/236x/e5/7d/af/e57daf4d597191157b979965a4125728.jpg"
-                    alt=""
-                  />
-                </div>
-                <motion.div className="w-[25%] h-full flex flex-col items-center justify-between transition-all duration-300 ">
-                  <motion.img
-                    className="w-full h-[40%] rounded-lg transition-all duration-300 hover:scale-110"
-                    src="https://i.pinimg.com/236x/fe/f9/94/fef9943fc227ee4fd0a78ad76e35dcbd.jpg"
-                    alt=""
-                  />
-
-                  <motion.img
-                    className="w-full h-[40%] rounded-lg transition-all duration-300 hover:scale-110"
-                    src="https://i.pinimg.com/236x/f1/aa/8d/f1aa8d7bfe4bf9957e4a16b400b3259c.jpg"
-                    alt=""
-                  />
-                  <div
-                    className="w-full h-[15%] flex items-center gap-2"
-                    id="menuIntro1"
-                  >
-                    <h1 className="text-[rgb(175,16,60)] font-700 text-[24px] cursor-pointer hover:text-white">
-                      100%
-                    </h1>
-                    <p className="text-white font-400 text-[14px] cursor-pointer hover:text-[rgb(175,16,60">
-                      Quality Assured
-                    </p>
+                <div className="dishesChild flex w-[60%] p-3 h-full items-center gap-3 ">
+                  <div className="w-[50%] miniBoxme h-full flex flex-col items-center justify-between">
+                    <motion.img
+                      className="w-full h-[48%] rounded-lg transition-all duration-300 hover:scale-110"
+                      src="https://i.pinimg.com/236x/76/bf/c2/76bfc2b0105c43202c1e673f3387af01.jpg"
+                      alt=""
+                    />
+                    <motion.img
+                      className="w-full h-[48%] rounded-lg transition-all duration-300 hover:scale-110"
+                      src="https://i.pinimg.com/236x/e5/7d/af/e57daf4d597191157b979965a4125728.jpg"
+                      alt=""
+                    />
                   </div>
-                </motion.div>
+                  <motion.div className="w-[45%] h-full flex flex-col items-center justify-between transition-all duration-300 ">
+                    <motion.img
+                      className="w-full h-[40%] rounded-lg transition-all duration-300 hover:scale-110"
+                      src="https://i.pinimg.com/236x/fe/f9/94/fef9943fc227ee4fd0a78ad76e35dcbd.jpg"
+                      alt=""
+                    />
+
+                    <motion.img
+                      className="w-full h-[40%] rounded-lg transition-all duration-300 hover:scale-110"
+                      src="https://i.pinimg.com/236x/f1/aa/8d/f1aa8d7bfe4bf9957e4a16b400b3259c.jpg"
+                      alt=""
+                    />
+                    <div
+                      className="w-full h-[15%] flex items-center gap-2"
+                      id="menuIntro1"
+                    >
+                      <h1 className="text-[rgb(175,16,60)] font-700 text-[24px] cursor-pointer hover:text-white">
+                        100%
+                      </h1>
+                      <p className="text-white font-400 text-[14px] cursor-pointer hover:text-[rgb(175,16,60">
+                        Quality Assured
+                      </p>
+                    </div>
+                  </motion.div>
+                </div>
                 <div
                   id="menuIntro"
-                  className="w-[45%] h-full flex flex-col items-start text-white gap-0.5"
+                  className="w-[45%] p-3 h-full flex flex-col items-start text-white gap-0.5"
                 >
                   <h1 className="text-[1.5rem] w-4/5 cursor-pointer hover:text-[rgb(175,16,60)]">
                     We always provide quality fast food for you
