@@ -480,7 +480,7 @@ const CvLandingPage = () => {
               >
                 {/* Background Image */}
                 <img
-                  src={`https://chef-chiller-node.onrender.com/${project.image}`}
+                  src={project.image}
                   alt={project.title}
                   className="absolute inset-0 w-full h-full object-cover"
                 />

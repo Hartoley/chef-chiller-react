@@ -290,7 +290,7 @@ const ProjectForm = () => {
                   <p className="text-gray-600">{project.description}</p>
                   {project.image && (
                     <img
-                      src={`https://chef-chiller-node.onrender.com/${project.image}`}
+                      src={project.image}
                       alt="Project"
                       className="w-full h-32 object-cover rounded"
                     />
