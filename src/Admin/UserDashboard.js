@@ -355,7 +355,7 @@ const UserDashboard = () => {
               </div>
               <div className="space-y-4 h-[30vh] overflow-y-auto no-scrollbar">
                 {orderItems
-                  .filter((order) => order.approved)
+                  // .filter((order) => order.approved)
                   .map((item, index) => (
                     <div
                       key={index}
@@ -395,12 +395,12 @@ const UserDashboard = () => {
               </div>
             </div>
 
-            <button
+            {/* <button
               onClick={() => setActiveSection3("mainMenu4")}
               className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded"
             >
               Place Order
-            </button>
+            </button> */}
           </aside>
 
           {showMenu && (
@@ -439,7 +439,7 @@ const UserDashboard = () => {
                 </div>
                 <div className="space-y-4 h-[30vh] overflow-y-auto no-scrollbar">
                   {orderItems
-                    .filter((order) => order.approved)
+                    // .filter((order) => order.approved)
                     .map((item, index) => (
                       <div key={index} className="flex justify-between">
                         <span>{item.productName}</span>

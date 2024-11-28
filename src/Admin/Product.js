@@ -114,7 +114,7 @@ const Product = ({
   };
 
   return (
-    <main className="child flex flex-col h-[100vh] w-[63.65vw] items-center bg-gray-100  p-6">
+    <main className="child flex flex-col w-[63.65vw] items-center bg-gray-100  p-6">
       {/* Header */}
       <section className="section1 flex items-center justify-between w-full mb-6">
         <button
@@ -145,11 +145,11 @@ const Product = ({
 
               {/* Food Information */}
               <div className="section4 p-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                <h4 className="text-2xl font-bold text-gray-800 mb-2">
                   {product.name}
-                </h2>
-                <p className="text-gray-600 mb-4">{product.description}</p>
-                <p className="text-xl font-semibold text-gray-800">
+                </h4>
+                <p className="text-gray-600 mb-2">{product.description}</p>
+                <p className="text-md font-semibold text-gray-800">
                   Price: ₦{product.price.toFixed(2)}
                 </p>
 
@@ -157,7 +157,7 @@ const Product = ({
                 <div className="flex items-center mt-6">
                   <button
                     onClick={() => updateCart(product, "decrease")}
-                    className="px-4 py-2 bg-gray-300 rounded-full text-gray-800 font-bold transition hover:bg-gray-400"
+                    className="px-4 py-2 bg-gray-300 rounded-full text-gray-800 font-md transition hover:bg-gray-400"
                   >
                     −
                   </button>

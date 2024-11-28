@@ -69,8 +69,14 @@
     position: absolute;
   }
 
+  .section1 h3 {
+    display: none;
+  }
+
   .list button {
     flex-shrink: 0;
+    font-size: 16px !important;
+    /* color: red !important; */
   }
   .sideNav {
     display: none;
@@ -218,7 +224,12 @@
     overflow-y: hidden;
   }
 
+  .section1 h3 {
+    display: none;
+  }
+
   .list button {
+    font-size: 14px !important;
     flex-shrink: 0;
   }
   .sideNav {
