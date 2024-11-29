@@ -5,17 +5,37 @@ import "./user.css";
 import { useParams } from "react-router-dom";
 import Footer from "./Footer";
 import { ToastContainer, toast } from "react-toastify";
+import io from "socket.io-client";
+
+const socket = io("https://chef-chiller-node.onrender.com");
 
 const Setting = () => {
   const [orders, setOrders] = useState([]);
   const id = JSON.parse(localStorage.getItem("id"));
 
   useEffect(() => {
+    socket.on("message", (message) => {
+      console.log("Message from server:", message);
+    });
+
+    socket.emit("message", "Hello from client!");
+
+    socket.on("ordersRetrieved", (orders) => {
+      setOrders(orders);
+    });
+
+    // Cleanup on unmount
+    return () => {
+      socket.off("ordersRetrieved");
+    };
+  }, []);
+
+  useEffect(() => {
     const userId = id;
     const fetchOrders = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5010/chefchiller/getmyorders/${userId}`
+          `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${userId}`
         );
         setOrders(res.data.orders); // Set orders state to the fetched orders
       } catch (err) {
@@ -105,7 +125,7 @@ const Setting = () => {
 
                           {/* Only display the action buttons for orders with 'Payment Pending' or 'Approved' */}
                           {order.status === "Payment Pending" ||
-                          order.status === "Approved" ? (
+                          order.status === "Seen" ? (
                             <div className="flex justify-between mt-4">
                               <p className="text-sm text-gray-600">
                                 Payment status: {order.status}

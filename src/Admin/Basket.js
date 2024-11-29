@@ -13,6 +13,23 @@ const Basket = () => {
   const id = JSON.parse(localStorage.getItem("id"));
   const [isUpdating, setIsUpdating] = useState(false);
 
+  socket.on("message", (message) => {
+    console.log("Message from server:", message);
+  });
+
+  socket.emit("message", "Hello from client!");
+
+  useEffect(() => {
+    socket.on("userFound", (data) => {
+      setUser(data);
+    });
+
+    // Cleanup on unmount
+    return () => {
+      socket.off("userFound");
+    };
+  }, []);
+
   const updateCart = async (order, action) => {
     if (isUpdating) return;
 
@@ -30,7 +47,7 @@ const Basket = () => {
     }
   };
 
-  console.log(id);
+  // console.log(id);
 
   const syncCartWithServer = async (order, action) => {
     const toastId = toast.loading("Updating cart...");
@@ -74,6 +91,8 @@ const Basket = () => {
           `https://chef-chiller-node.onrender.com/user/getuser/${id}`
         );
         setUser(res.data.data);
+        console.log(res.data);
+
         setOrderItems(res.data.data.orders);
 
         const calculatedSubtotal = res.data.data.orders.reduce(
@@ -115,7 +134,7 @@ const Basket = () => {
         }
       );
       console.log("Order Response:", response.data);
-      alert("Order approved and copied successfully!");
+      alert(response.data.message);
     } catch (error) {
       console.error(
         "Error making order:",

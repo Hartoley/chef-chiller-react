@@ -52,6 +52,18 @@ const ProjectForm = () => {
     };
   }, []);
 
+  useEffect(() => {
+    socket.on("projectDeleted", (deletedProject) => {
+      setProjects((prevProjects) =>
+        prevProjects.filter((project) => project.id !== deletedProject.id)
+      );
+    });
+
+    return () => {
+      socket.off("projectDeleted");
+    };
+  }, []);
+
   const saveToLocalStorage = (data) => {
     localStorage.setItem("projects", JSON.stringify(data));
   };

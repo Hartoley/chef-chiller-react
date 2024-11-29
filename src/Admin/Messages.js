@@ -5,6 +5,9 @@ import "./user.css";
 import { useParams } from "react-router-dom";
 import Footer from "./Footer";
 import { ToastContainer, toast } from "react-toastify";
+import io from "socket.io-client";
+
+const socket = io("https://chef-chiller-node.onrender.com");
 
 const Messages = () => {
   const [selectedChat, setSelectedChat] = useState(null);

@@ -3,34 +3,62 @@ import axios from "axios";
 import "./user.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useFormik } from "formik";
+import io from "socket.io-client";
+
+const socket = io("https://chef-chiller-node.onrender.com");
 
 const FoodsDrinks = () => {
   const [orders, setOrders] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
   const id = JSON.parse(localStorage.getItem("id"));
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const userId = id;
+    socket.on("message", (message) => {
+      console.log("Message from server:", message);
+    });
+
+    socket.emit("message", "Hello from client!");
+
+    socket.on("ordersRetrieved", (orders) => {
+      setOrders(orders);
+    });
+
+    // Cleanup on unmount
+    return () => {
+      socket.off("ordersRetrieved");
+    };
+  }, []);
+
+  useEffect(() => {
     const fetchOrders = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5010/chefchiller/getmyorders/${userId}`
+          `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${id}`
         );
-        setOrders(res.data.orders); // Set orders state to the fetched orders
+        console.log("fetching");
+
+        console.log("Response:", res); // Check full response object
+        setOrders(res.data.orders); // Set the orders in state if response is successful
       } catch (err) {
-        console.error("Error fetching orders:", err);
+        console.error("Error fetching orders:", err); // Log any error from Axios
+        if (axios.isCancel(err)) {
+          console.log("Request canceled:", err.message);
+        }
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchOrders();
-  }, [id]);
+  }, [id]); // Ensure the effect runs again when 'id' changes
 
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0]; // Get the first file from the input
+    const selectedFile = e.target.files[0];
     if (selectedFile) {
-      console.log("File selected:", selectedFile); // Log for debugging
-      setFile(selectedFile); // Set the file in the state
+      console.log("File selected:", selectedFile);
+      setFile(selectedFile);
     }
   };
 
@@ -50,7 +78,7 @@ const FoodsDrinks = () => {
       formData.append("image", file); // Send the file in FormData
 
       const response = await axios.post(
-        `http://localhost:5010/chefchiller/approveDelivery/${orderId}`, // Send orderId as part of the URL
+        `https://chef-chiller-node.onrender.com/chefchiller/approveDelivery/${orderId}`, // Send orderId as part of the URL
         formData,
         {
           headers: {
