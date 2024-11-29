@@ -4,25 +4,24 @@ import "./user.css";
 import { ToastContainer, toast } from "react-toastify";
 
 const FoodsDrinks = () => {
-  const [approvedOrders, setApprovedOrders] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
   const id = JSON.parse(localStorage.getItem("id"));
 
   useEffect(() => {
-    const fetchApprovedOrders = async () => {
+    const userId = id;
+    const fetchOrders = async () => {
       try {
         const res = await axios.get(
-          `https://chef-chiller-node.onrender.com/user/getuser/${id}`
+          `http://localhost:5010/chefchiller/getOrdersByUserId/${userId}`
         );
-        setApprovedOrders(res.data.data.orders);
-        console.log(approvedOrders);
+        setOrders(res.data.orders); // Set orders state to the fetched orders
       } catch (err) {
-        console.error("Error fetching approved orders:", err);
+        console.error("Error fetching orders:", err);
       }
     };
 
-    fetchApprovedOrders();
-    console.log(id);
+    fetchOrders();
   }, [id]);
 
   const handleUploadPaymentProof = async (orderId) => {
@@ -82,69 +81,93 @@ const FoodsDrinks = () => {
   };
 
   return (
-    <main className="child flex-1 p-4 bg-gray-600 w-[63.65vw] overflow-y-scroll">
+    <main className="child flex-1 p-4 bg-gray-600 w-[63.65vw] overflow-y-scroll no-scrollbar">
       <div className="bg-white w-full rounded-lg shadow-lg">
-        <section className="p-4 ">
+        <section className="p-4">
           <h1 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">
-            Approved Orders Waiting for Delivery
+            All Orders (Important Details)
           </h1>
 
-          <div className=" mb-4">
-            {approvedOrders.length > 0 ? (
-              approvedOrders.map((order, index) => (
-                <>
-                  <div
-                    key={index}
-                    className="bg-gray-50 p-2 rounded-lg mb-4 shadow-md flex items-center justify-between gap-4"
-                  >
-                    <div className="flex items-center gap-4">
-                      <input
-                        type="radio"
-                        name="selectedProduct"
-                        className="w-4 h-4 accent-green-500"
-                      />
-                      <img
-                        src={order.image}
-                        alt={order.productName}
-                        className="w-14 h-14 object-cover rounded-md"
-                      />
-                      <div className="text-sm">
+          <div className="mb-4">
+            {orders.length > 0 ? (
+              orders.map((order, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-50 p-4 rounded-lg mb-4 shadow-md"
+                >
+                  <div className="flex flex-col gap-4">
+                    {/* Order Header: Basic Information */}
+                    <div className="flex justify-between text-sm">
+                      <div>
                         <h6 className="font-semibold text-gray-800">
-                          {order.productName}
+                          Order #{index + 1}
                         </h6>
+                        <p className="text-gray-600">Status: {order.status}</p>
                         <p className="text-gray-600">
-                          Processed and waiting for delivery
+                          Payment Method: {order.paymentMethod}
+                        </p>
+                        <p className="text-gray-600">
+                          Total: ${order.Total.toFixed(2)}
+                        </p>
+                        <p className="text-gray-600">
+                          Ordered On:{" "}
+                          {new Date(order.orderedDate).toLocaleString()}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-col items-end">
+                        <p className="text-sm text-gray-600">
+                          Date to be Delivered:{" "}
+                          {new Date(
+                            order.dateToBeDelivered
+                          ).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4">
-                      <span className="font-semibold text-gray-800 text-sm">
-                        ${order.productPrice.toFixed(2)}
-                      </span>
+                    {/* Order Products List: List of Food Items */}
+                    <div className="overflow-y-auto max-h-48">
+                      {order.products.map((product, idx) => (
+                        <div
+                          key={idx}
+                          className="flex justify-between border-b py-2 text-sm"
+                        >
+                          <div className="flex flex-col">
+                            <p className="font-semibold text-gray-800">
+                              {product.productName}
+                            </p>
+                            <p className="text-gray-600">
+                              Quantity: {product.quantity}
+                            </p>
+                            <p className="text-gray-600">
+                              Price: ${product.price.toFixed(2)}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex justify-between mt-4">
+                      <button
+                        className="text-green-500 text-sm"
+                        onClick={() => handleUploadPaymentProof(order._id)}
+                      >
+                        Upload Payment Proof
+                      </button>
+
+                      <button
+                        className="text-blue-500 text-sm"
+                        onClick={() => handleApproveDelivery(order._id)}
+                      >
+                        Approve Delivery
+                      </button>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <button
-                      className="text-green-500 text-sm"
-                      onClick={() => handleUploadPaymentProof(order.id)}
-                    >
-                      Upload Payment Proof
-                    </button>
-
-                    <button
-                      className="text-blue-500 text-sm"
-                      onClick={() => handleApproveDelivery(order.id)}
-                    >
-                      Approve Delivery
-                    </button>
-                  </div>
-                </>
+                </div>
               ))
             ) : (
-              <p className="text-gray-600 text-center">
-                No approved orders found.
-              </p>
+              <p className="text-gray-600 text-center">No orders found.</p>
             )}
           </div>
         </section>

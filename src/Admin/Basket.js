@@ -107,12 +107,11 @@ const Basket = () => {
     setIsUpdating(true);
 
     try {
-      console.log("Data being sent:", { userId, subtotal });
+      console.log("Data being sent:", { userId });
       const response = await axios.post(
         "https://chef-chiller-node.onrender.com/chefchiller/makeOrder",
         {
           userId,
-          subtotal,
         }
       );
       console.log("Order Response:", response.data);

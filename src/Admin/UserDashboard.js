@@ -348,7 +348,7 @@ const UserDashboard = () => {
             } md:static md:transform-none md:translate-x-0`}
           >
             <div>
-              <div className="text-xl font-semibold mb-6">Current Order</div>
+              <div className="text-xl font-semibold mb-6">Basket</div>
               <div className="flex justify-between items-center mb-4 p-2">
                 <span>Today</span>
                 <span>🕒 {formattedDate}</span>
