@@ -13,7 +13,7 @@ const FoodsDrinks = () => {
     const fetchOrders = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5010/chefchiller/getOrdersByUserId/${userId}`
+          `http://localhost:5010/chefchiller/getmyorders/${userId}`
         );
         setOrders(res.data.orders); // Set orders state to the fetched orders
       } catch (err) {
