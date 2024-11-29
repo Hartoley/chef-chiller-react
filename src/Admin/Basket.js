@@ -154,7 +154,7 @@ const Basket = () => {
           </div>
 
           {/* Orders Section */}
-          <div className="overflow-y-scroll max-h-[30vh] mb-4">
+          <div className="overflow-y-scroll max-h-[80vh] no-scrollbar mb-4">
             {unapprovedOrders.length === 0 ? (
               <p className="text-gray-600 text-center">Your basket is empty.</p>
             ) : (
