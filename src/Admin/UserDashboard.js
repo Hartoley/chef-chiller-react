@@ -238,7 +238,7 @@ const UserDashboard = () => {
                     }}
                     className="flex items-center text-[14px] hover:text-gray-300"
                   >
-                    <span className="mr-3">🍲</span> Food & Drinks
+                    <span className="mr-3">🍲</span> Wait lists
                   </p>
                   <p
                     onClick={() => {
@@ -265,7 +265,7 @@ const UserDashboard = () => {
                     }}
                     className="flex items-center text-[14px] hover:text-gray-300"
                   >
-                    <span className="mr-3">⚙️</span> Settings
+                    <span className="mr-3">⚙️</span> History
                   </p>
                   <p className="flex items-center text-[14px] hover:text-gray-300">
                     <span className="mr-3">🔔</span> Notifications
@@ -292,7 +292,7 @@ const UserDashboard = () => {
                   onClick={() => setActiveSection3("mainMenu2")}
                   className="flex items-center text-[14px] hover:text-gray-300"
                 >
-                  <span className="mr-3">🍲</span> Food & Drinks
+                  <span className="mr-3">🍲</span> Wait list
                 </p>
                 <p
                   onClick={() => setActiveSection3("mainMenu3")}
@@ -310,7 +310,7 @@ const UserDashboard = () => {
                   onClick={() => setActiveSection3("mainMenu6")}
                   className="flex items-center text-[14px] hover:text-gray-300"
                 >
-                  <span className="mr-3">⚙️</span> Settings
+                  <span className="mr-3">⚙️</span> History
                 </p>
               </nav>
             </div>
