@@ -106,13 +106,12 @@ const FoodsDrinks = () => {
   };
 
   return (
-    <main className="child flex-1 p-4 bg-gray-600 w-[63.65vw] overflow-y-scroll no-scrollbar">
-      <div className="bg-white w-full rounded-lg shadow-lg">
+    <main className="child flex-1 p-4 bg-gray-600 w-[63.65vw]">
+      <h1 className="text-xl md:text-2xl font-bold flex flex-col items-center text-white  mb-4 text-center">
+        All Orders
+      </h1>
+      <div className="w-full rounded-lg shadow-lg bg-gray-200 max-h-[90%] overflow-y-scroll no-scrollbar">
         <section className="p-4">
-          <h1 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">
-            All Orders (Important Details)
-          </h1>
-
           <div className="mb-4">
             {orders.length > 0 ? (
               orders

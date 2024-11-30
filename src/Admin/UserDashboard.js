@@ -76,6 +76,8 @@ const UserDashboard = () => {
     console.log(isMenuVisible);
   };
 
+  // console.log(user.orders.length);
+
   const fetchData = async () => {
     try {
       const res = await axios.get(
@@ -174,8 +176,7 @@ const UserDashboard = () => {
                     d="M3 3h2l.4 2M7 13h10l4-8H5.4m5.6 0L9 21m5-6H7m0 0l1.6-8m4.8 0h4.2"
                   ></path>
                 </svg>
-
-                {user.orders.length > 0 && (
+                {user?.orders?.length > 0 && (
                   <span className="absolute top-0 right-0 block h-4 w-4 rounded-full bg-red-500 text-white text-xs text-center">
                     {user.orders.length}
                   </span>
@@ -307,6 +308,11 @@ const UserDashboard = () => {
                   className="flex items-center text-[14px] hover:text-gray-300"
                 >
                   <span className="mr-3">💸</span> Basket
+                  {user?.orders?.length > 0 && (
+                    <span className="mb-2 ml-2 block h-4 w-4 rounded-full bg-red-500 text-white text-xs text-center">
+                      {user.orders.length}
+                    </span>
+                  )}
                 </p>
                 <p
                   onClick={() => setActiveSection3("mainMenu6")}
@@ -430,7 +436,7 @@ const UserDashboard = () => {
                       ></path>
                     </svg>
 
-                    {user.orders.length > 0 && (
+                    {user?.orders?.length > 0 && (
                       <span className="absolute top-0 right-0 block h-4 w-4 rounded-full bg-red-500 text-white text-xs text-center">
                         {user.orders.length}
                       </span>
