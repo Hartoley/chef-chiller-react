@@ -154,7 +154,7 @@ const Basket = () => {
 
   return (
     <main className="child flex justify-center w-[63.65vw] p-4 bg-gray-100">
-      <div className="bg-white w-full md:w-[65vw] rounded-lg shadow-lg">
+      <div className="bg-white w-full md:w-[65vw] max-h-[92vh] overflow-y-scroll no-scrollbar rounded-lg shadow-lg">
         <section className="p-4">
           {/* Header */}
           <h1 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">
@@ -173,7 +173,7 @@ const Basket = () => {
           </div>
 
           {/* Orders Section */}
-          <div className="overflow-y-scroll max-h-[80vh] no-scrollbar mb-4">
+          <div className=" mb-4">
             {unapprovedOrders.length === 0 ? (
               <p className="text-gray-600 text-center">Your basket is empty.</p>
             ) : (
@@ -255,7 +255,7 @@ const Basket = () => {
               </div>
               <div
                 onClick={makeOrder}
-                className="flex justify-evenly items-center bg-gray-400 p-4 rounded-lg"
+                className="flex justify-evenly max-w-[50%] ml-auto mr-auto max-h-[30px]: items-center bg-gray-400 p-2 rounded-lg"
               >
                 <button> Verify Order</button>
               </div>

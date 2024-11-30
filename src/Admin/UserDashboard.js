@@ -178,7 +178,7 @@ const UserDashboard = () => {
                 </svg>
                 {user?.orders?.length > 0 && (
                   <span className="absolute top-0 right-0 block h-4 w-4 rounded-full bg-red-500 text-white text-xs text-center">
-                    {user.orders.length}
+                    {user.orders.length > 5 ? "5+" : user.orders.length}
                   </span>
                 )}
               </div>
@@ -310,7 +310,7 @@ const UserDashboard = () => {
                   <span className="mr-3">💸</span> Basket
                   {user?.orders?.length > 0 && (
                     <span className="mb-2 ml-2 block h-4 w-4 rounded-full bg-red-500 text-white text-xs text-center">
-                      {user.orders.length}
+                      {user.orders.length > 5 ? "5+" : user.orders.length}
                     </span>
                   )}
                 </p>
@@ -438,7 +438,7 @@ const UserDashboard = () => {
 
                     {user?.orders?.length > 0 && (
                       <span className="absolute top-0 right-0 block h-4 w-4 rounded-full bg-red-500 text-white text-xs text-center">
-                        {user.orders.length}
+                        {user.orders.length > 5 ? "5+" : user.orders.length}
                       </span>
                     )}
                   </div>
