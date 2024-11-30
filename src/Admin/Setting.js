@@ -74,7 +74,7 @@ const Setting = () => {
                           <div className="flex justify-between text-sm">
                             <div>
                               <h6 className="font-semibold text-gray-800">
-                                Order #{index + 1}
+                                Order {index + 1}
                               </h6>
                               <p className="text-gray-600">
                                 Status: {order.status}

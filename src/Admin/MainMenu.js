@@ -329,69 +329,75 @@ const MainMenu = ({
                   ))}
               </div>
             </section>
-            <section className="section2 flex w-[60vw] flex-col">
-              <h3 className="text-xl font-semibold mb-1">New Menu</h3>
-              <div className="section3 py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
-                {products
-                  .filter((product) => {
-                    const createdAt = new Date(product.createdAt);
-                    const now = new Date();
-                    const differenceInMs = now - createdAt;
-                    return differenceInMs < 48 * 60 * 60 * 1000;
-                  })
-                  .map((product, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        // backgroundColor: "rgb(204, 15, 49)",
-                        height: "100%",
-                        gap: "2vw",
-                      }}
-                      onClick={() => {
-                        localStorage.setItem(
-                          "productId",
-                          JSON.stringify(product._id)
-                        );
-                        setActiveSection3("mainMenu5");
-                      }}
-                      className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
-                    >
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-[40%] h-full object-cover"
-                      />
-                      <div className="section4 flex h-full w-[60%] flex-col items-start">
-                        <h4 className="text-lg font-bold">{product.name}</h4>
-                        <p className="text-gray-600 text-center">
-                          ₦
-                          {product.price.toLocaleString("en-NG", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </p>
-                        <div className="flex justify-center items-center mt-2">
-                          <button
-                            // onClick={() => updateCart(product, "decrease")}
-                            disabled={isUpdating}
-                            className="px-2 py-1 bg-gray-300 rounded"
-                          >
-                            -
-                          </button>
-                          <span className="mx-3 text-lg font-semibold">1</span>
-                          <button
-                            // onClick={() => updateCart(product, "increase")}
-                            disabled={isUpdating}
-                            className="px-2 py-1 bg-gray-300 rounded"
-                          >
-                            +
-                          </button>
+            {products.some((product) => {
+              const createdAt = new Date(product.createdAt);
+              const now = new Date();
+              const differenceInMs = now - createdAt;
+              return differenceInMs < 48 * 60 * 60 * 1000;
+            }) && (
+              <section className="section2 flex w-[60vw] flex-col">
+                <h3 className="text-xl font-semibold mb-1">New Menu</h3>
+                <div className="section3 py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+                  {products
+                    .filter((product) => {
+                      const createdAt = new Date(product.createdAt);
+                      const now = new Date();
+                      const differenceInMs = now - createdAt;
+                      return differenceInMs < 48 * 60 * 60 * 1000;
+                    })
+                    .map((product, index) => (
+                      <div
+                        key={index}
+                        style={{
+                          height: "100%",
+                          gap: "2vw",
+                        }}
+                        onClick={() => {
+                          localStorage.setItem(
+                            "productId",
+                            JSON.stringify(product._id)
+                          );
+                          setActiveSection3("mainMenu5");
+                        }}
+                        className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                      >
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-[40%] h-full object-cover"
+                        />
+                        <div className="section4 flex h-full w-[60%] flex-col items-start">
+                          <h4 className="text-lg font-bold">{product.name}</h4>
+                          <p className="text-gray-600 text-center">
+                            ₦
+                            {product.price.toLocaleString("en-NG", {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
+                          </p>
+                          <div className="flex justify-center items-center mt-2">
+                            <button
+                              disabled={isUpdating}
+                              className="px-2 py-1 bg-gray-300 rounded"
+                            >
+                              -
+                            </button>
+                            <span className="mx-3 text-lg font-semibold">
+                              1
+                            </span>
+                            <button
+                              disabled={isUpdating}
+                              className="px-2 py-1 bg-gray-300 rounded"
+                            >
+                              +
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-              </div>
-            </section>
+                    ))}
+                </div>
+              </section>
+            )}
           </div>
         )}
 

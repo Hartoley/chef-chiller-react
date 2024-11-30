@@ -175,9 +175,11 @@ const UserDashboard = () => {
                   ></path>
                 </svg>
 
-                <span class="absolute top-0 right-0 block h-4 w-4 rounded-full bg-red-500 text-white text-xs text-center">
-                  3
-                </span>
+                {user.orders.length > 0 && (
+                  <span className="absolute top-0 right-0 block h-4 w-4 rounded-full bg-red-500 text-white text-xs text-center">
+                    {user.orders.length}
+                  </span>
+                )}
               </div>
 
               <button onClick={toggleMenu2}>
@@ -428,9 +430,11 @@ const UserDashboard = () => {
                       ></path>
                     </svg>
 
-                    <span class="absolute top-0 right-0 block h-4 w-4 rounded-full bg-red-500 text-white text-xs text-center">
-                      3
-                    </span>
+                    {user.orders.length > 0 && (
+                      <span className="absolute top-0 right-0 block h-4 w-4 rounded-full bg-red-500 text-white text-xs text-center">
+                        {user.orders.length}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="flex justify-between items-center mb-4">
