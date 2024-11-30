@@ -107,7 +107,22 @@ const Basket = () => {
     };
 
     fetchData();
-  }, [id]);
+
+    socket.on("ordersUpdated", (data) => {
+      if (data.userId === id) {
+        setOrderItems(data.orders);
+        const subtotal = data.orders.reduce((total, order) => {
+          return total + order.productPrice * order.quantity;
+        }, 0);
+        setSubtotal(subtotal);
+        // toast.success("Orders updated successfully!");
+      }
+    });
+
+    return () => {
+      socket.off("ordersUpdated");
+    };
+  }, [id, socket]);
 
   const handleDeleteItem = (index) => {
     const updatedOrderItems = orderItems.filter((_, i) => i !== index);
@@ -154,7 +169,7 @@ const Basket = () => {
 
   return (
     <main className="child flex justify-center w-[63.65vw] p-4 bg-gray-100">
-      <div className="bg-white w-full md:w-[65vw] max-h-[92vh] overflow-y-scroll no-scrollbar rounded-lg shadow-lg">
+      <div className="bg-white w-full md:w-[65vw] max-h-[89vh] overflow-y-scroll no-scrollbar rounded-lg shadow-lg">
         <section className="p-4">
           {/* Header */}
           <h1 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">
@@ -173,14 +188,14 @@ const Basket = () => {
           </div>
 
           {/* Orders Section */}
-          <div className=" mb-4">
+          <div className="mb-4">
             {unapprovedOrders.length === 0 ? (
               <p className="text-gray-600 text-center">Your basket is empty.</p>
             ) : (
               unapprovedOrders.map((order, index) => (
                 <div
                   key={index}
-                  className="bg-gray-50 p-2 rounded-lg mb-4 shadow-md flex items-center justify-between gap-4"
+                  className="bg-gray-50 p-2 rounded-lg mb-4 shadow-md flex flex-col md:flex-row items-center md:justify-between gap-4"
                 >
                   {/* Product Info */}
                   <div className="flex items-center gap-4">
@@ -198,14 +213,11 @@ const Basket = () => {
                       <h6 className="font-semibold text-gray-800">
                         {order.productName}
                       </h6>
-                      <p className="text-gray-600">
-                        Fresh vegetables and salad
-                      </p>
                     </div>
                   </div>
 
                   {/* Controls */}
-                  <div className="flex items-center gap-4">
+                  <div className="flex flex-wrap md:flex-nowrap items-center gap-4">
                     <div className="flex items-center gap-2 bg-gray-200 rounded-full px-3 py-1">
                       <button
                         onClick={() => updateCart(order, "decrease")}
@@ -224,7 +236,11 @@ const Basket = () => {
                       </button>
                     </div>
                     <span className="font-semibold text-gray-800 text-sm">
-                      ${order.productPrice.toFixed(2)}
+                      ₦
+                      {order.productPrice.toLocaleString("en-NG", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
                     </span>
                     <button
                       className="text-pink-500 text-sm"
@@ -255,7 +271,7 @@ const Basket = () => {
               </div>
               <div
                 onClick={makeOrder}
-                className="flex justify-evenly max-w-[50%] ml-auto mr-auto max-h-[30px]: items-center bg-gray-400 p-2 rounded-lg"
+                className="flex justify-evenly mt-2 max-w-[50%] ml-auto mr-auto max-h-[30px]: items-center bg-gray-900 text-gray-200 p-2 rounded-lg"
               >
                 <button> Verify Order</button>
               </div>

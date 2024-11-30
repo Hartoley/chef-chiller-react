@@ -11,6 +11,7 @@ const socket = io("https://chef-chiller-node.onrender.com");
 
 const Setting = () => {
   const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const id = JSON.parse(localStorage.getItem("id"));
 
   useEffect(() => {
@@ -33,13 +34,19 @@ const Setting = () => {
   useEffect(() => {
     const userId = id;
     const fetchOrders = async () => {
+      // setIsLoading(true); // Set loading to true when the fetch starts
+
       try {
         const res = await axios.get(
           `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${userId}`
         );
-        setOrders(res.data.orders); // Set orders state to the fetched orders
+        console.log("API response:", res.data);
+        setOrders(res.data.orders);
       } catch (err) {
+        toast.error("Failed to fetch orders");
         console.error("Error fetching orders:", err);
+      } finally {
+        // setIsLoading(false);
       }
     };
 
@@ -48,15 +55,14 @@ const Setting = () => {
 
   return (
     <>
-      <main className="child flex-1 p-6 bg-gray-400 w-[63.65vw] overflow-y-scroll no-scrollbar">
-        <section className="section1 flex items-center justify-between mb-6">
-          <div className="bg-white w-full rounded-lg shadow-lg">
-            <section className="p-4">
-              <h1 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">
-                Order History
-              </h1>
-
-              <div className="mb-4">
+      <main className="child flex-1 p-6 bg-gray-400 w-[63.65vw] ">
+        <h1 className="text-xl md:text-2xl font-bold mb-4 text-center">
+          Order History
+        </h1>
+        <section className="section1 flex items-center rounded-md justify-between mb-6 max-h-[90%] overflow-y-scroll no-scrollbar">
+          <div className="bg-gray-400 w-full rounded-lg shadow-lg">
+            <section className="p-4 rounded-md">
+              <div className="mb-4 rounded-md">
                 {orders.length > 0 ? (
                   orders
                     .filter(
@@ -83,7 +89,11 @@ const Setting = () => {
                                 Payment Method: {order.paymentMethod}
                               </p>
                               <p className="text-gray-600">
-                                Total: ${order.Total.toFixed(2)}
+                                Total: ₦
+                                {order.Total.toLocaleString("en-NG", {
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                })}
                               </p>
                               <p className="text-gray-600">
                                 Ordered On:{" "}
@@ -116,7 +126,11 @@ const Setting = () => {
                                     Quantity: {product.quantity}
                                   </p>
                                   <p className="text-gray-600">
-                                    Price: ${product.price.toFixed(2)}
+                                    Price: ₦
+                                    {product.price.toLocaleString("en-NG", {
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    })}
                                   </p>
                                 </div>
                               </div>
@@ -136,7 +150,7 @@ const Setting = () => {
                       </div>
                     ))
                 ) : (
-                  <p className="text-gray-600 text-center">No orders found.</p>
+                  <p className="text-gray-900 text-center">No orders found.</p>
                 )}
               </div>
             </section>

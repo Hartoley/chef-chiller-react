@@ -92,6 +92,7 @@ const Product = ({
   };
 
   useEffect(() => {
+    handleQuantityChange();
     console.log("Received Product ID:", productId);
     axios
       .get(

@@ -131,7 +131,7 @@ const FoodsDrinks = () => {
                       <div className="flex justify-between text-sm">
                         <div>
                           <h6 className="font-semibold text-gray-800">
-                            Order #{index + 1}
+                            Order {index + 1}
                           </h6>
                           <p className="text-gray-600">
                             Status: {order.status}
@@ -140,7 +140,11 @@ const FoodsDrinks = () => {
                             Payment Method: {order.paymentMethod}
                           </p>
                           <p className="text-gray-600">
-                            Total: ${order.Total.toFixed(2)}
+                            Total: ₦
+                            {order.Total.toLocaleString("en-NG", {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
                           </p>
                           <p className="text-gray-600">
                             Ordered On:{" "}
@@ -148,14 +152,14 @@ const FoodsDrinks = () => {
                           </p>
                         </div>
 
-                        <div className="flex flex-col items-end">
+                        {/* <div className="flex flex-col items-end">
                           <p className="text-sm text-gray-600">
                             Date to be Delivered:{" "}
                             {new Date(
                               order.dateToBeDelivered
                             ).toLocaleDateString()}
                           </p>
-                        </div>
+                        </div> */}
                       </div>
 
                       {/* Order Products List: List of Food Items */}
@@ -173,7 +177,11 @@ const FoodsDrinks = () => {
                                 Quantity: {product.quantity}
                               </p>
                               <p className="text-gray-600">
-                                Price: ${product.price.toFixed(2)}
+                                Price: ₦
+                                {product.price.toLocaleString("en-NG", {
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                })}
                               </p>
                             </div>
                           </div>

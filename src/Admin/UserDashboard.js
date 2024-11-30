@@ -11,6 +11,9 @@ import Basket from "./Basket";
 import MainMenu from "./MainMenu";
 import Product from "./Product";
 import Setting from "./Setting";
+import io from "socket.io-client";
+
+const socket = io("https://chef-chiller-node.onrender.com");
 
 const UserDashboard = () => {
   const [activeSection2, setActiveSection2] = useState("mainMenu");
@@ -26,7 +29,8 @@ const UserDashboard = () => {
   const endpoint = "https://chef-chiller-node.onrender.com";
   const [orderItems, setOrderItems] = useState([]);
   const [subtotal, setsubtotal] = useState(0);
-  const { id } = useParams();
+  // const { id } = useParams();
+  const id = JSON.parse(localStorage.getItem("id"));
   const today = new Date();
   const formattedDate = today.toLocaleDateString("en-US", {
     year: "numeric",
@@ -35,31 +39,48 @@ const UserDashboard = () => {
   });
 
   useEffect(() => {
-    if (isFetching) {
-      console.log("Retrieved id:", id);
-      toast.loading("Fetching items");
-    }
     const fetchData = async () => {
       setisFetching(true);
+      toast.loading("Fetching items");
       try {
         const res = await axios.get(
           `https://chef-chiller-node.onrender.com/user/getuser/${id}`
         );
-        // console.log("students data from API:", res.data);
         setuser(res.data.data);
         setOrderItems(res.data.data.orders);
         const subtotal = res.data.data.orders.reduce((total, order) => {
           return total + order.productPrice * order.quantity;
         }, 0);
-        setisFetching(false);
         setsubtotal(subtotal);
+        setisFetching(false);
+        toast.dismiss(); // Dismiss loading toast
       } catch (err) {
         console.log(err);
+        setisFetching(false);
+        toast.error("Failed to fetch data");
       }
     };
 
     fetchData();
-  }, []);
+
+    socket.on("ordersUpdated", (data) => {
+      if (data.userId === id) {
+        setOrderItems(data.orders);
+        console.log(data);
+        setuser(data.user);
+        const subtotal = data.orders.reduce((total, order) => {
+          return total + order.productPrice * order.quantity;
+        }, 0);
+        setsubtotal(subtotal);
+        // toast.success("Orders updated successfully!");
+      }
+    });
+
+    return () => {
+      socket.off("ordersUpdated");
+    };
+  }, [id, socket]);
+
   // console.log(id);
 
   useEffect(() => {}, [isMenuVisible]);
@@ -177,7 +198,7 @@ const UserDashboard = () => {
                   ></path>
                 </svg>
                 {user?.orders?.length > 0 && (
-                  <span className="absolute top-0 right-0 block h-4 w-4 rounded-full bg-red-500 text-white text-xs text-center">
+                  <span className="absolute top-0 right-0 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
                     {user.orders.length > 5 ? "5+" : user.orders.length}
                   </span>
                 )}
@@ -309,7 +330,7 @@ const UserDashboard = () => {
                 >
                   <span className="mr-3">💸</span> Basket
                   {user?.orders?.length > 0 && (
-                    <span className="mb-2 ml-2 block h-4 w-4 rounded-full bg-red-500 text-white text-xs text-center">
+                    <span className="mb-2 ml-2 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
                       {user.orders.length > 5 ? "5+" : user.orders.length}
                     </span>
                   )}
@@ -437,7 +458,7 @@ const UserDashboard = () => {
                     </svg>
 
                     {user?.orders?.length > 0 && (
-                      <span className="absolute top-0 right-0 block h-4 w-4 rounded-full bg-red-500 text-white text-xs text-center">
+                      <span className="absolute top-0 right-0 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
                         {user.orders.length > 5 ? "5+" : user.orders.length}
                       </span>
                     )}
