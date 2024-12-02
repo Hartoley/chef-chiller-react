@@ -39,26 +39,50 @@ const UserDashboard = () => {
   });
 
   const [isVisible, setIsVisible] = useState(true);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const smallScreen = window.innerWidth <= 767;
+      setIsSmallScreen(smallScreen);
+
+      // Trigger an alert when the screen is small
+      if (smallScreen) {
+        alert("Screen size is 767px or smaller!");
+      }
+    };
+
+    // Add resize event listener
+    window.addEventListener("resize", handleResize);
+
+    // Initial check
+    handleResize();
+
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        // Hide sideNav4 when less than 90% of `.mother` is in view
-        setIsVisible(entry.intersectionRatio >= 0.9); // Check if 90% of `.mother` is visible
+        // Check if .mother is 90% or more in view
+        setIsVisible(entry.intersectionRatio >= 0.9);
       },
       {
-        root: null, // Viewport as the root
-        threshold: 0.9, // Trigger when at least 90% of `.mother` is in the viewport
+        root: null, // Using the viewport as the root
+        threshold: 0.9, // Trigger when 90% of .mother is in view
       }
     );
 
-    // Target the `.mother` element
     const motherElement = document.querySelector(".mother");
     if (motherElement) {
       observer.observe(motherElement);
     }
 
+    // Cleanup the observer
     return () => {
       if (motherElement) {
         observer.unobserve(motherElement);
@@ -252,9 +276,11 @@ const UserDashboard = () => {
             </div>
           </div>
           <div
-            className={`sideNav4 sticky w-[100vw] mt-[90vh] flex justify-center items-center ${
+            className={`sideNav4 mt-[90vh] ${
+              isSmallScreen ? "flex" : "hidden"
+            } ${
               isVisible ? "" : "hidden"
-            }`}
+            } fixed w-full flex justify-center items-center`}
           >
             <nav className="flex items-center justify-evenly w-4/5 bg-transparent">
               <p
