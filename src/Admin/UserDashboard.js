@@ -285,7 +285,7 @@ const UserDashboard = () => {
             <nav className="flex items-center justify-evenly w-4/5 bg-transparent">
               <p
                 onClick={() => {
-                  setActiveSection3("mainMenu2");
+                  setActiveSection3("mainMenu4");
                   setshowMenu2(false);
                 }}
                 className="flex items-center text-[14px] hover:text-gray-300"
@@ -312,16 +312,18 @@ const UserDashboard = () => {
               </p>
               <p
                 onClick={() => {
-                  setActiveSection3("mainMenu4");
+                  setActiveSection3("mainMenu2");
                   setshowMenu2(false);
                 }}
                 className="flex items-center text-[14px] hover:text-gray-300"
               >
                 <span className="text-2xl">💸</span>
               </p>
-
-              <p className="flex items-center text-[14px] hover:text-gray-300">
-                <span className="text-2xl">🔔</span>
+              <p
+                onClick={() => setActiveSection3("mainMenu6")}
+                className="flex items-center text-[14px] hover:text-gray-300"
+              >
+                <span className="text-2xl">⚙️</span>
               </p>
             </nav>
           </div>
@@ -337,10 +339,10 @@ const UserDashboard = () => {
                   <span className="mr-3">🏠</span> Dashboard
                 </p>
                 <p
-                  onClick={() => setActiveSection3("mainMenu2")}
+                  onClick={() => setActiveSection3("mainMenu4")}
                   className="flex items-center text-[14px] hover:text-gray-300"
                 >
-                  <span className="mr-3">🍲</span> Wait list
+                  <span className="mr-3">🍲</span> Basket
                 </p>
                 <p
                   onClick={() => setActiveSection3("mainMenu3")}
@@ -349,10 +351,10 @@ const UserDashboard = () => {
                   <span className="mr-3">💬</span> Messages
                 </p>
                 <p
-                  onClick={() => setActiveSection3("mainMenu4")}
+                  onClick={() => setActiveSection3("mainMenu2")}
                   className="flex items-center text-[14px] hover:text-gray-300"
                 >
-                  <span className="mr-3">💸</span> Basket
+                  <span className="mr-3">💸</span> Status
                   {user?.orders?.length > 0 && (
                     <span className="mb-2 ml-2 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
                       {user.orders.length > 5 ? "5+" : user.orders.length}
