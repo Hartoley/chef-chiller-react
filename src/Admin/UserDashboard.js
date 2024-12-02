@@ -15,6 +15,28 @@ import io from "socket.io-client";
 
 const socket = io("https://chef-chiller-node.onrender.com");
 
+function CustomAlert({ message, type, onClose }) {
+  // Default alert styles based on the type (success, error, info)
+  const alertStyles = {
+    success: "bg-gray-900 text-white",
+    error: "bg-red-500 text-white",
+    info: "bg-blue-500 text-white",
+  };
+
+  return (
+    <div
+      className={`fixed top-5 left-1/2 transform -translate-x-1/2 p-4 w-80 rounded-lg shadow-lg ${alertStyles[type]}`}
+    >
+      <div className="flex justify-between items-center">
+        <span>{message}</span>
+        <button onClick={onClose} className="text-lg font-semibold">
+          &times;
+        </button>
+      </div>
+    </div>
+  );
+}
+
 const UserDashboard = () => {
   const [activeSection2, setActiveSection2] = useState("mainMenu");
   const [activeSection3, setActiveSection3] = useState("mainMenu1");
@@ -40,6 +62,9 @@ const UserDashboard = () => {
 
   const [isVisible, setIsVisible] = useState(true);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertType, setAlertType] = useState("info");
 
   useEffect(() => {
     const handleResize = () => {
@@ -93,7 +118,7 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       setisFetching(true);
-      toast.loading("Fetching items");
+      // toast.loading("Fetching items");
       try {
         const res = await axios.get(
           `https://chef-chiller-node.onrender.com/user/getuser/${id}`
@@ -105,7 +130,9 @@ const UserDashboard = () => {
         }, 0);
         setsubtotal(subtotal);
         setisFetching(false);
-        toast.dismiss(); // Dismiss loading toast
+        showCustomAlert("Items fetched successfully!", "success");
+
+        // toast.dismiss(); // Dismiss loading toast
       } catch (err) {
         console.log(err);
         setisFetching(false);
@@ -166,62 +193,19 @@ const UserDashboard = () => {
     initialValues: { category: "" },
   });
 
-  const [isUpdating, setIsUpdating] = useState(false);
-
-  const updateCart = async (product, action) => {
-    if (isUpdating) return;
-
-    setIsUpdating(true);
-
-    console.log("updateCart called with action:", action);
-
-    try {
-      const response = await syncCartWithServer(product, action);
-      console.log(response.data.message);
-    } catch (error) {
-      console.error("Error updating cart:", error);
-    } finally {
-      setIsUpdating(false);
-    }
-  };
-
-  const syncCartWithServer = async (product, action) => {
-    const toastId = toast.loading("Updating cart...");
-
-    try {
-      const response = await axios.post(
-        "https://chef-chiller-node.onrender.com/chefchiller/updatecart",
-        {
-          userId: user._id,
-          productId: product._id,
-          productName: product.name,
-          productPrice: product.price,
-          action,
-        }
-      );
-
-      toast.update(toastId, {
-        render: response.data.message || "Cart updated successfully!",
-        type: "success",
-        isLoading: false,
-        autoClose: 3000,
-      });
-
-      return response;
-    } catch (error) {
-      toast.update(toastId, {
-        render: "Error updating the cart. Please try again.",
-        type: "error",
-        isLoading: false,
-        autoClose: 3000,
-      });
-      throw error;
-    }
-  };
-
   useEffect(() => {
     fetchData();
   }, [formik.values.category]);
+
+  const showCustomAlert = (message, type) => {
+    setAlertMessage(message);
+    setAlertType(type);
+    setShowAlert(true);
+  };
+
+  const hideAlert = () => {
+    setShowAlert(false);
+  };
 
   return (
     <>
@@ -327,7 +311,13 @@ const UserDashboard = () => {
               </p>
             </nav>
           </div>
-
+          {showAlert && (
+            <CustomAlert
+              message={alertMessage}
+              type={alertType}
+              onClose={hideAlert}
+            />
+          )}
           <aside className="sideNav w-[15vw] bg-gray-900 text-white flex flex-col justify-between py-4 px-2">
             <div>
               <h1 className="text-2xl font-bold mb-8 text-center">FoodWish!</h1>
