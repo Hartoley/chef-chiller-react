@@ -302,13 +302,13 @@ const UserDashboard = () => {
                 }}
                 className="flex items-center text-[14px] hover:text-gray-300"
               >
-                <span className="text-2xl">💸</span>
+                <span className="text-2xl">⌛</span>
               </p>
               <p
                 onClick={() => setActiveSection3("mainMenu6")}
                 className="flex items-center text-[14px] hover:text-gray-300"
               >
-                <span className="text-2xl">⚙️</span>
+                <span className="text-2xl">📜</span>
               </p>
             </nav>
           </div>
@@ -345,7 +345,7 @@ const UserDashboard = () => {
                   onClick={() => setActiveSection3("mainMenu2")}
                   className="flex items-center text-[14px] hover:text-gray-300"
                 >
-                  <span className="mr-3">💸</span> Status
+                  <span className="mr-3">⌛</span> Awaiting
                   {user?.orders?.length > 0 && (
                     <span className="mb-2 ml-2 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
                       {user.orders.length > 5 ? "5+" : user.orders.length}
@@ -356,7 +356,7 @@ const UserDashboard = () => {
                   onClick={() => setActiveSection3("mainMenu6")}
                   className="flex items-center text-[14px] hover:text-gray-300"
                 >
-                  <span className="mr-3">⚙️</span> History
+                  <span className="mr-3">📜</span> History
                 </p>
               </nav>
             </div>
