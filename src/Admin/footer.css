@@ -170,6 +170,10 @@
     align-items: center;
   }
 
+  .sideNav {
+    display: none;
+  }
+
   .newsletter {
     height: 98% !important;
     /* background-color: red !important; */

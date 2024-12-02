@@ -38,6 +38,34 @@ const UserDashboard = () => {
     day: "2-digit",
   });
 
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        // Hide sideNav4 when less than 90% of `.mother` is in view
+        setIsVisible(entry.intersectionRatio >= 0.9); // Check if 90% of `.mother` is visible
+      },
+      {
+        root: null, // Viewport as the root
+        threshold: 0.9, // Trigger when at least 90% of `.mother` is in the viewport
+      }
+    );
+
+    // Target the `.mother` element
+    const motherElement = document.querySelector(".mother");
+    if (motherElement) {
+      observer.observe(motherElement);
+    }
+
+    return () => {
+      if (motherElement) {
+        observer.unobserve(motherElement);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       setisFetching(true);
@@ -88,13 +116,13 @@ const UserDashboard = () => {
   const toggleMenu = () => {
     setIsMenuVisible((prev) => !prev);
     setshowMenu((prev) => !prev);
-    console.log(isMenuVisible);
+    // console.log(isMenuVisible);
   };
 
   const toggleMenu2 = () => {
     setIsMenuVisible((prev) => !prev);
     setshowMenu2((prev) => !prev);
-    console.log(isMenuVisible);
+    // console.log(isMenuVisible);
   };
 
   // console.log(user.orders.length);
@@ -173,16 +201,16 @@ const UserDashboard = () => {
 
   return (
     <>
-      <div className="mainContainer flex h-screen font-sans text-gray-800 bg-gray-100">
+      <div className="mainContainer relative flex h-screen font-sans text-gray-800 bg-gray-100">
         <div
           style={{ position: showMore ? "fixed" : "static" }}
-          className="mother flex h-screen font-sans text-gray-800 bg-gray-100"
+          className="mother relative flex h-screen font-sans text-gray-800 bg-gray-100"
         >
           <div class="flex items-center justify-between p-4 bg-gray-900 text-white md:hidden">
             <div class="text-lg font-semibold">Logo</div>
 
             <div class="flex items-center space-x-4">
-              <div onClick={toggleMenu} class="relative">
+              <div onClick={toggleMenu} class="">
                 <svg
                   class="w-6 h-6"
                   fill="none"
@@ -194,9 +222,10 @@ const UserDashboard = () => {
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4m5.6 0L9 21m5-6H7m0 0l1.6-8m4.8 0h4.2"
+                    d="M3 3h2l3 8h10l3-8H6M3 3v2m14 14a2 2 0 100-4 2 2 0 000 4zM5 17a2 2 0 100-4 2 2 0 000 4z"
                   ></path>
                 </svg>
+
                 {user?.orders?.length > 0 && (
                   <span className="absolute top-0 right-0 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
                     {user.orders.length > 5 ? "5+" : user.orders.length}
@@ -222,86 +251,55 @@ const UserDashboard = () => {
               </button>
             </div>
           </div>
-          {showMenu2 && (
-            <aside className="sideNav4 w-[15vw] bg-gray-900 text-white flex flex-col justify-between py-4 px-2">
-              <div>
-                <div className="flex w-full items-center mb-8 justify-between h-10">
-                  <h1 className="text-2xl font-bold text-center">FoodWish!</h1>
+          <div
+            className={`sideNav4 sticky w-[100vw] mt-[90vh] flex justify-center items-center ${
+              isVisible ? "" : "hidden"
+            }`}
+          >
+            <nav className="flex items-center justify-evenly w-4/5 bg-transparent">
+              <p
+                onClick={() => {
+                  setActiveSection3("mainMenu2");
+                  setshowMenu2(false);
+                }}
+                className="flex items-center text-[14px] hover:text-gray-300"
+              >
+                <span className="text-2xl">🍲</span>
+              </p>
+              <p
+                onClick={() => {
+                  setActiveSection3("mainMenu3");
+                  setshowMenu2(false);
+                }}
+                className="flex items-center text-[14px] hover:text-gray-300"
+              >
+                <span className="text-2xl">💬</span>
+              </p>
+              <p
+                onClick={() => {
+                  setActiveSection3("mainMenu1");
+                  setshowMenu2(false);
+                }}
+                className="flex items-center text-[14px] hover:text-gray-300"
+              >
+                <span className="text-4xl">🏠</span>
+              </p>
+              <p
+                onClick={() => {
+                  setActiveSection3("mainMenu4");
+                  setshowMenu2(false);
+                }}
+                className="flex items-center text-[14px] hover:text-gray-300"
+              >
+                <span className="text-2xl">💸</span>
+              </p>
 
-                  {/* <button onClick={toggleMenu2}>
-                  <svg
-                    class="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M4 6h16M4 12h16m-7 6h7"
-                    ></path>
-                  </svg>
-                </button> */}
-                </div>
-                <nav className="flex bg-gray-900 items-start gap-2 flex-col">
-                  <p
-                    onClick={() => {
-                      setActiveSection3("mainMenu1");
-                      setshowMenu2(false);
-                    }}
-                    className="flex items-center text-[14px] hover:text-gray-300"
-                  >
-                    <span className="mr-3">🏠</span> Dashboard
-                  </p>
-                  <p
-                    onClick={() => {
-                      setActiveSection3("mainMenu2");
-                      setshowMenu2(false);
-                    }}
-                    className="flex items-center text-[14px] hover:text-gray-300"
-                  >
-                    <span className="mr-3">🍲</span> Wait lists
-                  </p>
-                  <p
-                    onClick={() => {
-                      setActiveSection3("mainMenu3");
-                      setshowMenu2(false);
-                    }}
-                    className="flex items-center text-[14px] hover:text-gray-300"
-                  >
-                    <span className="mr-3">💬</span> Messages
-                  </p>
-                  <p
-                    onClick={() => {
-                      setActiveSection3("mainMenu4");
-                      setshowMenu2(false);
-                    }}
-                    className="flex items-center text-[14px] hover:text-gray-300"
-                  >
-                    <span className="mr-3">💸</span> Basket
-                  </p>
-                  <p
-                    onClick={() => {
-                      setActiveSection3("mainMenu6");
-                      setshowMenu2(false);
-                    }}
-                    className="flex items-center text-[14px] hover:text-gray-300"
-                  >
-                    <span className="mr-3">⚙️</span> History
-                  </p>
-                  <p className="flex items-center text-[14px] hover:text-gray-300">
-                    <span className="mr-3">🔔</span> Notifications
-                  </p>
-                </nav>
-              </div>
-              <footer className="text-sm text-gray-500 mt-8">
-                <p>© 2024 FoodWish! POS</p>
-                <p>Terms • Privacy</p>
-              </footer>
-            </aside>
-          )}
+              <p className="flex items-center text-[14px] hover:text-gray-300">
+                <span className="text-2xl">🔔</span>
+              </p>
+            </nav>
+          </div>
+
           <aside className="sideNav w-[15vw] bg-gray-900 text-white flex flex-col justify-between py-4 px-2">
             <div>
               <h1 className="text-2xl font-bold mb-8 text-center">FoodWish!</h1>
@@ -411,7 +409,7 @@ const UserDashboard = () => {
                 </div>
               </div>
 
-              <div className="flex space-x-2 mt-4">
+              {/* <div className="flex space-x-2 mt-4">
                 <button className="flex-1 bg-red-700 py-2 rounded hover:bg-red-800">
                   Cash
                 </button>
@@ -421,15 +419,14 @@ const UserDashboard = () => {
                 <button className="flex-1 bg-green-600 py-2 rounded hover:bg-green-700">
                   E-wallet
                 </button>
-              </div>
+              </div> */}
+              <button
+                onClick={() => setActiveSection3("mainMenu4")}
+                className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded"
+              >
+                Place Order
+              </button>
             </div>
-
-            {/* <button
-              onClick={() => setActiveSection3("mainMenu4")}
-              className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded"
-            >
-              Place Order
-            </button> */}
           </aside>
 
           {showMenu && (
@@ -453,12 +450,12 @@ const UserDashboard = () => {
                         stroke-linecap="round"
                         stroke-linejoin="round"
                         stroke-width="2"
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4m5.6 0L9 21m5-6H7m0 0l1.6-8m4.8 0h4.2"
+                        d="M3 3h2l3 8h10l3-8H6M3 3v2m14 14a2 2 0 100-4 2 2 0 000 4zM5 17a2 2 0 100-4 2 2 0 000 4z"
                       ></path>
                     </svg>
 
                     {user?.orders?.length > 0 && (
-                      <span className="absolute top-0 right-0 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
+                      <span className="relative top-0 right-0 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
                         {user.orders.length > 5 ? "5+" : user.orders.length}
                       </span>
                     )}
@@ -494,7 +491,7 @@ const UserDashboard = () => {
                   </div>
                 </div>
 
-                <div className="flex space-x-2 mt-4">
+                {/* <div className="flex space-x-2 mt-4">
                   <button className="flex-1 bg-red-700 py-2 rounded hover:bg-red-800">
                     Cash
                   </button>
@@ -504,18 +501,15 @@ const UserDashboard = () => {
                   <button className="flex-1 bg-green-600 py-2 rounded hover:bg-green-700">
                     E-wallet
                   </button>
-                </div>
-              </div>
+                </div> */}
 
-              {/* <button
-                onClick={() => {
-                  setActiveSection3("mainMenu4");
-                  setIsMenuVisible(false);
-                }}
-                className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded"
-              >
-                Place Order
-              </button> */}
+                <button
+                  onClick={() => setActiveSection3("mainMenu4")}
+                  className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded"
+                >
+                  Place Order
+                </button>
+              </div>
             </aside>
           )}
         </div>

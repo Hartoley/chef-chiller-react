@@ -122,7 +122,7 @@ const Product = ({
           onClick={() => setActiveSection3("mainMenu1")}
           className="text-gray-700 hover:text-gray-900 transition text-sm font-medium flex items-center"
         >
-          <i className="fas fa-chevron-left mr-2"></i> Back to Menu
+          <span class="material-symbols-outlined">arrow_back</span>
         </button>
         <h1 className="text-2xl font-bold text-gray-800">Food Details</h1>
         <div />

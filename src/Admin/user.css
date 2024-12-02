@@ -38,9 +38,9 @@
 
 .sideNav4 {
   /* display: none; */
-  width: 40% !important;
+  width: 100% !important;
   /* margin-top: 8vh !important; */
-  height: 100vh !important;
+  /* height: 100vh !important; */
   position: fixed !important;
 }
 
@@ -165,7 +165,7 @@
   }
 
   .section7 {
-    width: 72vw !important;
+    width: 88vw !important;
     /* background-color: aqua !important; */
     height: 30vh !important;
   }
@@ -311,7 +311,7 @@
   }
 
   .section7 {
-    width: 72vw !important;
+    width: 88vw !important;
     justify-content: center;
     flex-wrap: nowrap;
     /* background-color: aqua !important; */
