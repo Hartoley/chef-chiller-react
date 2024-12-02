@@ -374,7 +374,7 @@ const UserDashboard = () => {
                 setActiveSection3={setActiveSection3}
               />
             )}
-            {activeSection3 === "mainMenu2" && <Notifications />}
+            {activeSection3 === "mainMenu2" && <FoodsDrinks />}
             {activeSection3 === "mainMenu3" && <Messages />}
             {activeSection3 === "mainMenu4" && <Basket />}
             {activeSection3 === "mainMenu5" && (

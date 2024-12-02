@@ -10,7 +10,7 @@ import io from "socket.io-client";
 const socket = io("https://chef-chiller-node.onrender.com");
 
 const Setting = () => {
-  const [orders, setOrders] = useState([]);
+  const [delivered, setDelivered] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const id = JSON.parse(localStorage.getItem("id"));
 
@@ -21,36 +21,36 @@ const Setting = () => {
 
     socket.emit("message", "Hello from client!");
 
-    socket.on("ordersRetrieved", (orders) => {
-      setOrders(orders);
+    socket.on("deliveredRetrieved", (delivered) => {
+      setDelivered(delivered);
     });
 
     // Cleanup on unmount
     return () => {
-      socket.off("ordersRetrieved");
+      socket.off("deliveredRetrieved");
     };
   }, []);
 
   useEffect(() => {
     const userId = id;
-    const fetchOrders = async () => {
+    const fetchDelivered = async () => {
       // setIsLoading(true); // Set loading to true when the fetch starts
 
       try {
         const res = await axios.get(
-          `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${userId}`
+          `https://chef-chiller-node.onrender.com/chefchiller/getmydelivered/${userId}`
         );
         console.log("API response:", res.data);
-        setOrders(res.data.orders);
+        setDelivered(res.data.delivered);
       } catch (err) {
-        toast.error("Failed to fetch orders");
-        console.error("Error fetching orders:", err);
+        toast.error("Failed to fetch delivered");
+        console.error("Error fetching delivered:", err);
       } finally {
         // setIsLoading(false);
       }
     };
 
-    fetchOrders();
+    fetchDelivered();
   }, [id]);
 
   return (
@@ -63,11 +63,11 @@ const Setting = () => {
           <div className="bg-gray-400 w-full rounded-lg shadow-lg">
             <section className="p-4 rounded-md">
               <div className="mb-4 rounded-md">
-                {Array.isArray(orders) && orders.length > 0 ? (
+                {Array.isArray(delivered) && delivered.length > 0 ? (
                   <div className="overflow-y-scroll max-h-[70vh]">
                     {" "}
                     {/* Scrollable Content Area */}
-                    {orders
+                    {delivered
                       .filter(
                         (order) =>
                           order.status === "Payment Pending" ||
@@ -133,7 +133,7 @@ const Setting = () => {
                               ))}
                             </div>
 
-                            {/* Only display the action buttons for orders with 'Payment Pending' or 'Approved' */}
+                            {/* Only display the action buttons for delivered with 'Payment Pending' or 'Approved' */}
                             {order.status === "Payment Pending" ||
                             order.status === "Seen" ? (
                               <div className="flex justify-between mt-4">
@@ -147,7 +147,9 @@ const Setting = () => {
                       ))}
                   </div>
                 ) : (
-                  <p className="text-gray-900 text-center">No orders found.</p>
+                  <p className="text-gray-900 text-center">
+                    No delivered found.
+                  </p>
                 )}
               </div>
             </section>
