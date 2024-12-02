@@ -7,6 +7,7 @@ import Footer from "./Footer";
 import { ToastContainer, toast } from "react-toastify";
 import FoodsDrinks from "./FoodsDrinks";
 import Messages from "./Messages";
+import Notifications from "./Notifications";
 import Basket from "./Basket";
 import MainMenu from "./MainMenu";
 import Product from "./Product";
@@ -373,7 +374,7 @@ const UserDashboard = () => {
                 setActiveSection3={setActiveSection3}
               />
             )}
-            {activeSection3 === "mainMenu2" && <FoodsDrinks />}
+            {activeSection3 === "mainMenu2" && <Notifications />}
             {activeSection3 === "mainMenu3" && <Messages />}
             {activeSection3 === "mainMenu4" && <Basket />}
             {activeSection3 === "mainMenu5" && (
