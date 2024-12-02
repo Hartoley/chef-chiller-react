@@ -48,7 +48,7 @@ const UserDashboard = () => {
 
       // Trigger an alert when the screen is small
       if (smallScreen) {
-        alert("Screen size is 767px or smaller!");
+        // alert("Screen size is 767px or smaller!");
       }
     };
 
@@ -276,7 +276,7 @@ const UserDashboard = () => {
             </div>
           </div>
           <div
-            className={`sideNav4 mt-[90vh] ${
+            className={`sideNav4 mt-[85vh] ${
               isSmallScreen ? "flex" : "hidden"
             } ${
               isVisible ? "" : "hidden"
