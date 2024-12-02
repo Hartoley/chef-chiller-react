@@ -219,7 +219,7 @@ const UserDashboard = () => {
             <div class="text-lg font-semibold">Logo</div>
 
             <div class="flex items-center space-x-4">
-              <div onClick={toggleMenu} class="">
+              {/* <div onClick={toggleMenu} class="">
                 <svg
                   class="w-6 h-6"
                   fill="none"
@@ -240,7 +240,7 @@ const UserDashboard = () => {
                     {user.orders.length > 5 ? "5+" : user.orders.length}
                   </span>
                 )}
-              </div>
+              </div> */}
 
               <button onClick={toggleMenu2}>
                 <svg
@@ -284,7 +284,7 @@ const UserDashboard = () => {
                 }}
                 className="flex items-center text-[14px] hover:text-gray-300"
               >
-                <span className="text-2xl">💬</span>
+                <span className="text-2xl">⚙️</span>
               </p>
               <p
                 onClick={() => {
@@ -339,7 +339,7 @@ const UserDashboard = () => {
                   onClick={() => setActiveSection3("mainMenu3")}
                   className="flex items-center text-[14px] hover:text-gray-300"
                 >
-                  <span className="mr-3">💬</span> Messages
+                  <span className="mr-3">⚙️</span> Messages
                 </p>
                 <p
                   onClick={() => setActiveSection3("mainMenu2")}
