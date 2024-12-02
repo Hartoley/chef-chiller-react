@@ -113,7 +113,7 @@ const FoodsDrinks = () => {
       <div className="w-full rounded-lg shadow-lg bg-gray-200 max-h-[90%] overflow-y-scroll no-scrollbar">
         <section className="p-4">
           <div className="mb-4">
-            {orders.length > 0 ? (
+            {Array.isArray(orders) && orders.length > 0 ? (
               orders
 
                 .filter(
@@ -139,13 +139,13 @@ const FoodsDrinks = () => {
                           <p className="text-gray-600">
                             Payment Method: {order.paymentMethod}
                           </p>
-                          <p className="text-gray-600">
+                          {/* <p className="text-gray-600">
                             Total: ₦
                             {order.Total.toLocaleString("en-NG", {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
                             })}
-                          </p>
+                          </p> */}
                           <p className="text-gray-600">
                             Ordered On:{" "}
                             {new Date(order.orderedDate).toLocaleString()}
