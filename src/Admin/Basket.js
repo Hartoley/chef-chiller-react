@@ -25,8 +25,9 @@ const Basket = () => {
     });
 
     socket.on("orderApproved", (data) => {
-      console.log("Order approved:", data);
+      console.log("Order approved:", data.user);
       setUser(data.user);
+      setOrderItems(data.user.orders);
     });
 
     return () => {
@@ -173,6 +174,8 @@ const Basket = () => {
       setIsUpdating(false);
     }
   };
+
+  console.log(user);
 
   const unapprovedOrders = orderItems.filter((order) => !order.approved);
 
