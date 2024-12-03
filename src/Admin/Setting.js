@@ -8,7 +8,7 @@ const socket = io("https://chef-chiller-node.onrender.com");
 
 const Setting = () => {
   const [orders, setOrders] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); // Start loading as true
+  const [isLoading, setIsLoading] = useState(false);
   const id = JSON.parse(localStorage.getItem("id"));
 
   useEffect(() => {
@@ -20,6 +20,10 @@ const Setting = () => {
 
     socket.on("ordersRetrieved", (orders) => {
       setOrders(orders);
+    });
+
+    socket.on("orderApproved", (data) => {
+      console.log("Order approved:", data);
     });
 
     // Cleanup on unmount

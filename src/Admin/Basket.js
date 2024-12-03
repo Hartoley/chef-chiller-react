@@ -117,6 +117,10 @@ const Basket = () => {
         setSubtotal(subtotal);
         // toast.success("Orders updated successfully!");
       }
+
+      socket.on("orderApproved", (data) => {
+        console.log("Order approved:", data);
+      });
     });
 
     return () => {

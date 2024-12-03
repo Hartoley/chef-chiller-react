@@ -14,7 +14,7 @@ const FoodsDrinks = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalOrders, setTotalOrders] = useState(0);
-  const ordersPerPage = 10; // Number of orders to fetch per page
+  const ordersPerPage = 10;
 
   useEffect(() => {
     socket.on("message", (message) => {
@@ -25,6 +25,10 @@ const FoodsDrinks = () => {
 
     socket.on("ordersRetrieved", (orders) => {
       setOrders(orders);
+    });
+
+    socket.on("orderApproved", (data) => {
+      console.log("Order approved:", data);
     });
 
     // Cleanup on unmount
