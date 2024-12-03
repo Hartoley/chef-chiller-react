@@ -24,11 +24,15 @@ const Basket = () => {
       setUser(data);
     });
 
-    // Cleanup on unmount
     return () => {
       socket.off("userFound");
     };
-  }, []);
+
+    socket.on("orderApproved", (data) => {
+      console.log("Order approved:", data);
+      setUser(data.user);
+    });
+  }, [socket]);
 
   const updateCart = async (order, action) => {
     if (isUpdating) return;

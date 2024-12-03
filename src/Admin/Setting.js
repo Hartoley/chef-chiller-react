@@ -24,6 +24,7 @@ const Setting = () => {
 
     socket.on("orderApproved", (data) => {
       console.log("Order approved:", data);
+      setOrders(data.order);
     });
 
     // Cleanup on unmount
