@@ -334,6 +334,11 @@ const UserDashboard = () => {
                   className="flex items-center text-[14px] hover:text-gray-300"
                 >
                   <span className="mr-3">🍲</span> Basket
+                  {user?.orders?.length > 0 && (
+                    <span className="mb-2 ml-2 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
+                      {user.orders.length > 5 ? "5+" : user.orders.length}
+                    </span>
+                  )}
                 </p>
                 <p
                   onClick={() => setActiveSection3("mainMenu3")}
@@ -346,11 +351,6 @@ const UserDashboard = () => {
                   className="flex items-center text-[14px] hover:text-gray-300"
                 >
                   <span className="mr-3">⌛</span> Awaiting
-                  {user?.orders?.length > 0 && (
-                    <span className="mb-2 ml-2 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
-                      {user.orders.length > 5 ? "5+" : user.orders.length}
-                    </span>
-                  )}
                 </p>
                 <p
                   onClick={() => setActiveSection3("mainMenu6")}

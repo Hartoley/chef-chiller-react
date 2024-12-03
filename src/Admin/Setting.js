@@ -31,7 +31,7 @@ const Setting = () => {
   useEffect(() => {
     const userId = id;
     const fetchOrders = async () => {
-      setIsLoading(true); // Set loading to true when the fetch starts
+      // setIsLoading(true);
 
       try {
         const res = await axios.get(
@@ -63,7 +63,7 @@ const Setting = () => {
             <section className="p-4 rounded-md">
               <div className="mb-4 rounded-md">
                 {isLoading ? (
-                  <div className="overflow-y-scroll max-h-[70vh]">
+                  <div className="overflow-y-scroll no-srollbar max-h-[70vh]">
                     {/* Placeholder Loading State */}
                     {[...Array(5)].map((_, index) => (
                       <div
@@ -93,7 +93,7 @@ const Setting = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="overflow-y-scroll max-h-[70vh]">
+                  <div className="overflow-y-scroll no-scrollbar max-h-[70vh]">
                     {Array.isArray(orders) && orders.length > 0 ? (
                       orders
                         .filter(
@@ -137,7 +137,7 @@ const Setting = () => {
                               </div>
 
                               {/* Order Products List: List of Food Items */}
-                              <div className="overflow-y-auto max-h-48">
+                              <div className="overflow-y-auto no-scrollbar max-h-48">
                                 {order.products.map((product, idx) => (
                                   <div
                                     key={idx}

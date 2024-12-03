@@ -204,11 +204,17 @@ const MainMenu = ({
         ) : (
           activeSection2 === "mainMenu" && (
             <div className="w-full flex flex-col min-h-[80vh] overflow-y-auto no-scrollbar">
-              <section className="section2 flex w-[60vw] h-full flex-col">
-                <h3 className="text-xl font-semibold mb-1">Top Menu</h3>
-                <div className="section3 w-full py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+              <section className="section2 flex w-full flex-col">
+                <h3 className="text-xl font-semibold mb-1">Main Course</h3>
+                <div className="section3 py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
                   {products.map((product, index) => (
                     <div
+                      key={index}
+                      style={{
+                        // backgroundColor: "rgb(204, 15, 49)",
+                        height: "100%",
+                        gap: "2vw",
+                      }}
                       onClick={() => {
                         localStorage.setItem(
                           "productId",
@@ -216,7 +222,6 @@ const MainMenu = ({
                         );
                         setActiveSection3("mainMenu5");
                       }}
-                      key={index}
                       className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
                     >
                       <img
@@ -235,6 +240,7 @@ const MainMenu = ({
                         </p>
                         <div className="flex justify-center items-center mt-2">
                           <button
+                            // onClick={() => updateCart(product, "decrease")}
                             disabled={isUpdating}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >
@@ -242,6 +248,7 @@ const MainMenu = ({
                           </button>
                           <span className="mx-3 text-lg font-semibold">1</span>
                           <button
+                            // onClick={() => updateCart(product, "increase")}
                             disabled={isUpdating}
                             className="px-2 py-1 bg-gray-300 rounded"
                           >
