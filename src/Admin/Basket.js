@@ -24,14 +24,15 @@ const Basket = () => {
       setUser(data);
     });
 
-    return () => {
-      socket.off("userFound");
-    };
-
     socket.on("orderApproved", (data) => {
       console.log("Order approved:", data);
       setUser(data.user);
     });
+
+    return () => {
+      socket.off("orderApproved");
+      socket.off("userFound");
+    };
   }, [socket]);
 
   const updateCart = async (order, action) => {

@@ -34,6 +34,7 @@ const FoodsDrinks = () => {
 
     // Cleanup on unmount
     return () => {
+      socket.off("orderApproved");
       socket.off("ordersRetrieved");
     };
   }, []);

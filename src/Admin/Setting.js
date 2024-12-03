@@ -30,6 +30,7 @@ const Setting = () => {
     // Cleanup on unmount
     return () => {
       socket.off("ordersRetrieved");
+      socket.off("orderApproved");
     };
   }, []);
 
