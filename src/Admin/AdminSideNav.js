@@ -853,55 +853,43 @@ const AdminSideNav = () => {
 
               <div className="w-full h-[60%] gap-4 flex flex-col overflow-y-auto">
                 {/* Example Task Item */}
-                <div className="task-item w-full bg-white p-4 mb-4 rounded-lg shadow-sm flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Task #00350</p>
-                    <p className="text-lg font-semibold text-gray-800">
-                      ₦120.21
-                    </p>
-                  </div>
-                  <button className="text-white bg-[#ff7a00] py-1 px-3 rounded-full">
-                    Accept Order
-                  </button>
-                </div>
-
-                {/* Repeat Task Item */}
-                <div className="task-item w-full bg-white p-4 mb-4 rounded-lg shadow-sm flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Task #00349</p>
-                    <p className="text-lg font-semibold text-gray-800">
-                      ₦99.60
-                    </p>
-                  </div>
-                  <button className="text-white bg-[#ff7a00] py-1 px-3 rounded-full">
-                    Accept Order
-                  </button>
-                </div>
-
-                {/* Additional Task Items */}
-                {/* Repeat Task Item */}
-                <div className="task-item w-full bg-white p-4 mb-4 rounded-lg shadow-sm flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Task #00349</p>
-                    <p className="text-lg font-semibold text-gray-800">
-                      ₦99.60
-                    </p>
-                  </div>
-                  <button className="text-white bg-[#ff7a00] py-1 px-3 rounded-full">
-                    Accept Order
-                  </button>
-                </div>
-              </div>
-
-              {/* Additional Content */}
-              <div className="flex justify-between mt-8">
-                <div className="bg-[#ccedf4] p-3 rounded-lg w-1/2 mr-4 text-center">
-                  <h3 className="font-bold text-gray-800">Preparing Info</h3>
-                  <p className="text-gray-700">Order starts in: 00:25:30</p>
-                </div>
-                <div className="bg-[#ccedf4] p-3 rounded-lg w-1/2 text-center">
-                  <h3 className="font-bold text-gray-800">Delivery Address</h3>
-                  <p className="text-gray-700">Lincoln Street 45</p>
+                <div className="w-full h-full flex flex-col gap-4 overflow-y-scroll no-scrollbar relative">
+                  {orders.filter((order) => order.status === "Pending").length >
+                  0 ? (
+                    orders
+                      .filter((order) => order.status === "Pending")
+                      .map((order) => (
+                        <div
+                          key={order._id}
+                          className="bg-white p-4 rounded-lg shadow-sm flex items-center gap-4"
+                        >
+                          <div className="flex-1">
+                            <p className="text-sm text-gray-700">
+                              Order ID: {order._id}
+                            </p>
+                            <p className="text-sm text-gray-700">
+                              Status: {order.status}
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => handleDecline(order._id)}
+                            className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                          >
+                            Decline
+                          </button>
+                          <button
+                            onClick={() => handleApprove(order._id)}
+                            className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+                          >
+                            Approve
+                          </button>
+                        </div>
+                      ))
+                  ) : (
+                    <div className="bg-white p-4 rounded-lg shadow-sm text-center">
+                      <p className="text-gray-500">No pending orders</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -912,49 +900,58 @@ const AdminSideNav = () => {
                 Notifications
               </h2>
               <div className="w-full h-full flex flex-col gap-4 overflow-y-scroll no-scrollbar relative">
-                {orders
-                  .filter((order) => order.status === "Payment Pending")
-                  .map((order) => (
-                    <div
-                      key={order._id}
-                      className="bg-white p-4 rounded-lg shadow-sm flex items-center gap-4"
-                    >
-                      <div className="w-16 h-16 cursor-pointer">
-                        {order.paymentImage ? (
-                          <img
-                            src={order.paymentImage}
-                            alt="Payment"
-                            className="w-full h-full object-cover rounded"
-                            onClick={() => handleImageClick(order.paymentImage)}
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center text-gray-500">
-                            No Image
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-sm text-gray-700">
-                          Order ID: {order._id}
-                        </p>
-                        <p className="text-sm text-gray-700">
-                          Status: {order.status}
-                        </p>
-                      </div>
-                      <button
-                        onClick={() => handleDecline(order._id)}
-                        className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+                {orders.filter((order) => order.status === "Payment Pending")
+                  .length > 0 ? (
+                  orders
+                    .filter((order) => order.status === "Payment Pending")
+                    .map((order) => (
+                      <div
+                        key={order._id}
+                        className="bg-white p-4 rounded-lg shadow-sm flex items-center gap-4"
                       >
-                        Decline
-                      </button>
-                      <button
-                        onClick={() => handleApprove(order._id)}
-                        className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
-                      >
-                        Approve
-                      </button>
-                    </div>
-                  ))}
+                        <div className="w-16 h-16 cursor-pointer">
+                          {order.paymentImage ? (
+                            <img
+                              src={order.paymentImage}
+                              alt="Payment"
+                              className="w-full h-full object-cover rounded"
+                              onClick={() =>
+                                handleImageClick(order.paymentImage)
+                              }
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center text-gray-500">
+                              No Image
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm text-gray-700">
+                            Order ID: {order._id}
+                          </p>
+                          <p className="text-sm text-gray-700">
+                            Status: {order.status}
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => handleDecline(order._id)}
+                          className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+                        >
+                          Decline
+                        </button>
+                        <button
+                          onClick={() => handleApprove(order._id)}
+                          className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+                        >
+                          Approve
+                        </button>
+                      </div>
+                    ))
+                ) : (
+                  <div className="bg-white p-4 rounded-lg shadow-sm text-center">
+                    <p className="text-gray-500">No pending Notification</p>
+                  </div>
+                )}
 
                 {/* Image Overlay */}
                 {selectedImage && (
