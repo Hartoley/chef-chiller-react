@@ -6,6 +6,11 @@ import * as yup from "yup";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
+import "./admin.css";
+import io from "socket.io-client";
+import { useParams } from "react-router-dom";
+
+const socket = io("https://chef-chiller-node.onrender.com");
 
 const AdminSideNav = () => {
   const [activeSection, setActiveSection] = useState("product");
@@ -16,6 +21,10 @@ const AdminSideNav = () => {
   const [products, setProducts] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
   const [isEditing, setisEditing] = useState(false);
+  const { id } = useParams();
+  const [orders, setOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const [chats, setChats] = useState([
     {
@@ -47,6 +56,52 @@ const AdminSideNav = () => {
     setSelectedChat(null);
   };
 
+  const handleDecline = async (orderId) => {
+    console.log(`Approving order with ID: ${orderId}`);
+
+    try {
+      const response = await axios.post(
+        `https://chef-chiller-node.onrender.com/chefchiller/declineorders/${orderId}`
+      );
+
+      console.log("Order approved successfully:", response.data.order);
+      alert("Order approved successfully!");
+    } catch (error) {
+      console.error(
+        "Error approving order:",
+        error.response ? error.response.data.message : error.message
+      );
+      alert("An error occurred while approving the order.");
+    }
+  };
+
+  const handleApprove = async (orderId) => {
+    console.log(`Approving order with ID: ${orderId}`);
+
+    try {
+      const response = await axios.post(
+        `https://chef-chiller-node.onrender.com/chefchiller/approveorders/${orderId}`
+      );
+
+      console.log("Order approved successfully:", response.data.order);
+      alert("Order approved successfully!");
+    } catch (error) {
+      console.error(
+        "Error approving order:",
+        error.response ? error.response.data.message : error.message
+      );
+      alert("An error occurred while approving the order.");
+    }
+  };
+
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+  };
+
+  const closeImageOverlay = () => {
+    setSelectedImage(null);
+  };
+
   useEffect(() => {
     if (activeSection3 === "mainMenu") {
       formik.resetForm();
@@ -58,6 +113,23 @@ const AdminSideNav = () => {
 
   useEffect(() => {
     fetchData();
+
+    socket.on("orderApproved", (data) => {
+      console.log("Order approved:", data);
+    });
+
+    socket.on("orderApprovedByAdmin", (data) => {
+      console.log("Order approved:", data);
+    });
+
+    socket.on("orderDeclinedByAdmin", (data) => {
+      console.log("Order approved:", data);
+    });
+
+    return () => {
+      socket.off("ordersUpdated");
+      socket.off("ordersUpdatedByAdmin");
+    };
   }, []);
 
   const fetchData = async () => {
@@ -65,12 +137,29 @@ const AdminSideNav = () => {
       const res = await axios.get(
         "https://chef-chiller-node.onrender.com/chefchiller/user/getproducts"
       );
-      console.log("students data from API:", res.data);
+      console.log("Product data from API:", res.data);
       setProducts(res.data);
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const res = await axios.get(
+          `https://chef-chiller-node.onrender.com/chefchiller/admingetorders`
+        );
+        console.log("API response:", res.data);
+        setOrders(res.data.orders);
+      } catch (err) {
+        toast.error("Failed to fetch orders");
+        console.error("Error fetching orders:", err);
+      }
+    };
+
+    fetchOrders();
+  }, [id]);
 
   const formik = useFormik({
     initialValues: {
@@ -818,30 +907,70 @@ const AdminSideNav = () => {
             </div>
           )}
           {activeSection === "notification" && (
-            <div className="notifications w-full h-full rounded-lg bg-[#50606C] p-4 flex flex-col items-center justify-center text-gray-800 overflow-y-auto">
+            <div className="notifications w-full h-full rounded-lg bg-[#50606C] p-4 flex flex-col items-center justify-center text-gray-800 ">
               <h2 className="text-lg font-medium mb-4 text-center">
                 Notifications
               </h2>
-              <div className="w-full flex flex-col gap-4">
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <p className="text-sm text-gray-700">
-                    Your first notification content goes here. This is a neat
-                    and professional notification example.
-                  </p>
-                </div>
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <p className="text-sm text-gray-700">
-                    Here’s another notification, keeping the design clean and
-                    simple for a professional look.
-                  </p>
-                </div>
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <p className="text-sm text-gray-700">
-                    Notifications will be neatly aligned and easy to read with
-                    this template. No clutter, just clean content.
-                  </p>
-                </div>
-                {/* More notifications can be added here */}
+              <div className="w-full h-full flex flex-col gap-4 overflow-y-scroll no-scrollbar relative">
+                {orders
+                  .filter((order) => order.status === "Payment Pending")
+                  .map((order) => (
+                    <div
+                      key={order._id}
+                      className="bg-white p-4 rounded-lg shadow-sm flex items-center gap-4"
+                    >
+                      <div className="w-16 h-16 cursor-pointer">
+                        {order.paymentImage ? (
+                          <img
+                            src={order.paymentImage}
+                            alt="Payment"
+                            className="w-full h-full object-cover rounded"
+                            onClick={() => handleImageClick(order.paymentImage)}
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gray-200 rounded flex items-center justify-center text-gray-500">
+                            No Image
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm text-gray-700">
+                          Order ID: {order._id}
+                        </p>
+                        <p className="text-sm text-gray-700">
+                          Status: {order.status}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => handleDecline(order._id)}
+                        className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+                      >
+                        Decline
+                      </button>
+                      <button
+                        onClick={() => handleApprove(order._id)}
+                        className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+                      >
+                        Approve
+                      </button>
+                    </div>
+                  ))}
+
+                {/* Image Overlay */}
+                {selectedImage && (
+                  <div
+                    className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50"
+                    onClick={closeImageOverlay}
+                  >
+                    <div className="bg-white p-4 rounded-lg shadow-lg">
+                      <img
+                        src={selectedImage}
+                        alt="Large View"
+                        className="max-w-full max-h-[80vh] object-contain"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}

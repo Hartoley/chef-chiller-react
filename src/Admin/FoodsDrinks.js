@@ -32,43 +32,41 @@ const FoodsDrinks = () => {
       setOrders(data.order);
     });
 
-    // Cleanup on unmount
     return () => {
       socket.off("orderApproved");
       socket.off("ordersRetrieved");
     };
   }, []);
+  const fetchOrders = async (page = 1) => {
+    // setLoading(true);
+    try {
+      const res = await axios.get(
+        `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${id}?page=${page}&limit=${ordersPerPage}`
+      );
+      setOrders(res.data.orders);
+      setTotalOrders(res.data.totalOrders);
+    } catch (err) {
+      console.error("Error fetching orders:", err);
+      if (axios.isCancel(err)) {
+        console.log("Request canceled:", err.message);
+      }
+    } finally {
+      setLoading(false);
+      console.log("Component mounted");
+      console.log("Socket connected:", socket);
+      console.log("Orders retrieved:", orders);
+      console.log("Total orders:", totalOrders);
+      console.log("Current page:", currentPage);
+      console.log("Orders per page:", ordersPerPage);
+      console.log("File selected:", file);
+      console.log("Is uploading:", isUploading);
+      console.log("Loading:", loading);
+    }
+  };
 
   useEffect(() => {
-    const fetchOrders = async (page = 1) => {
-      // setLoading(true);
-      try {
-        const res = await axios.get(
-          `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${id}?page=${page}&limit=${ordersPerPage}`
-        );
-        setOrders(res.data.orders);
-        setTotalOrders(res.data.totalOrders); // Assuming the API returns total number of orders
-      } catch (err) {
-        console.error("Error fetching orders:", err);
-        if (axios.isCancel(err)) {
-          console.log("Request canceled:", err.message);
-        }
-      } finally {
-        // setLoading(false);
-        console.log("Component mounted");
-        console.log("Socket connected:", socket);
-        console.log("Orders retrieved:", orders);
-        console.log("Total orders:", totalOrders);
-        console.log("Current page:", currentPage);
-        console.log("Orders per page:", ordersPerPage);
-        console.log("File selected:", file);
-        console.log("Is uploading:", isUploading);
-        console.log("Loading:", loading);
-      }
-    };
-
     fetchOrders(currentPage);
-  }, [id, currentPage]); // Ensure the effect runs again when 'id' or 'currentPage' changes
+  }, [id, currentPage]);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -89,14 +87,14 @@ const FoodsDrinks = () => {
 
     try {
       const formData = new FormData();
-      formData.append("image", file); // Send the file in FormData
+      formData.append("image", file);
 
       const response = await axios.post(
-        `https://chef-chiller-node.onrender.com/chefchiller/approveDelivery/${orderId}`, // Send orderId as part of the URL
+        `https://chef-chiller-node.onrender.com/chefchiller/approveDelivery/${orderId}`,
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data", // Set the content type for file upload
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -150,7 +148,8 @@ const FoodsDrinks = () => {
                   .filter(
                     (order) =>
                       order.status !== "Payment Pending" &&
-                      order.status !== "Seen"
+                      order.status !== "Payment Approved" &&
+                      order.status !== "Payment Declined"
                   )
                   .map((order, index) => (
                     <div
@@ -158,7 +157,6 @@ const FoodsDrinks = () => {
                       className="bg-gray-50 p-4 rounded-lg mb-4 shadow-md"
                     >
                       <div className="flex flex-col gap-4">
-                        {/* Order Header: Basic Information */}
                         <div className="flex justify-between text-sm">
                           <div>
                             <h6 className="font-semibold text-gray-800">
@@ -177,7 +175,6 @@ const FoodsDrinks = () => {
                           </div>
                         </div>
 
-                        {/* Order Products List: List of Food Items */}
                         <div className="overflow-y-auto max-h-48">
                           {order.products.map((product, idx) => (
                             <div
@@ -203,7 +200,6 @@ const FoodsDrinks = () => {
                           ))}
                         </div>
 
-                        {/* Action Buttons */}
                         <input
                           type="file"
                           id="productImage"
@@ -223,7 +219,9 @@ const FoodsDrinks = () => {
                     </div>
                   ))
               ) : (
-                <p className="text-gray-600 text-center">No orders found.</p>
+                <p className="text-gray-600 text-center">
+                  Your wait list is currently empty.
+                </p>
               )}
             </div>
           </section>

@@ -27,12 +27,22 @@ const Setting = () => {
       setOrders(data.order);
     });
 
+    socket.on("orderApprovedByAdmin", (data) => {
+      console.log("Order approved:", data);
+    });
+
+    socket.on("orderDeclinedByAdmin", (data) => {
+      console.log("Order approved:", data);
+    });
+
     // Cleanup on unmount
     return () => {
       socket.off("ordersRetrieved");
       socket.off("orderApproved");
+      socket.off("orderApprovedByAdmin");
+      socket.off("orderDeclinedByAdmin");
     };
-  }, []);
+  }, [socket]);
 
   useEffect(() => {
     const userId = id;
@@ -105,7 +115,8 @@ const Setting = () => {
                         .filter(
                           (order) =>
                             order.status === "Payment Pending" ||
-                            order.status === "Seen"
+                            order.status === "Payment Approved" ||
+                            order.status === "Payment Declined"
                         )
                         .map((order, index) => (
                           <div
@@ -170,7 +181,8 @@ const Setting = () => {
 
                               {/* Only display the action buttons for orders with 'Payment Pending' or 'Approved' */}
                               {order.status === "Payment Pending" ||
-                              order.status === "Seen" ? (
+                              order.status === "Payment Approved" ||
+                              order.status === "Payment Declined" ? (
                                 <div className="flex justify-between mt-4">
                                   <p className="text-sm text-gray-600">
                                     Payment status: {order.status}
