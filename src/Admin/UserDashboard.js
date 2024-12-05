@@ -51,6 +51,7 @@ const UserDashboard = () => {
   const [cart, setCart] = useState([]);
   const endpoint = "https://chef-chiller-node.onrender.com";
   const [orderItems, setOrderItems] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [subtotal, setsubtotal] = useState(0);
   // const { id } = useParams();
   const id = JSON.parse(localStorage.getItem("id"));
@@ -66,6 +67,7 @@ const UserDashboard = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState("info");
+  const [filteredOrdersCount, setfilteredOrdersCount] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
@@ -116,6 +118,33 @@ const UserDashboard = () => {
     };
   }, []);
 
+  const fetchOrders = async (page = 1) => {
+    // setLoading(true);
+    try {
+      const res = await axios.get(
+        `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${id}`
+      );
+      setOrders(res.data.orders);
+      const filteredOrders = orders.filter(
+        (order) =>
+          order.status !== "Payment Pending" &&
+          order.status !== "Payment Approved" &&
+          order.status !== "Payment Declined"
+      );
+
+      setfilteredOrdersCount(filteredOrders.length);
+    } catch (err) {
+      console.error("Error fetching orders:", err);
+      if (axios.isCancel(err)) {
+        console.log("Request canceled:", err.message);
+      }
+    } finally {
+      console.log("Component mounted");
+      console.log("Socket connected:", socket);
+      console.log("Orders retrieved:", orders);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       setisFetching(true);
@@ -142,6 +171,7 @@ const UserDashboard = () => {
     };
 
     fetchData();
+    fetchOrders();
 
     socket.on("ordersUpdated", (data) => {
       if (data.userId === id) {
@@ -156,8 +186,15 @@ const UserDashboard = () => {
       }
     });
 
+    socket.on("orderApproved", (data) => {
+      console.log("Order approved:", data);
+      setuser(data.user);
+      setOrders(data.order);
+    });
+
     return () => {
       socket.off("ordersUpdated");
+      socket.off("orderApproved");
     };
   }, [id, socket]);
 
@@ -219,29 +256,6 @@ const UserDashboard = () => {
             <div class="text-lg font-semibold">Logo</div>
 
             <div class="flex items-center space-x-4">
-              {/* <div onClick={toggleMenu} class="">
-                <svg
-                  class="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M3 3h2l3 8h10l3-8H6M3 3v2m14 14a2 2 0 100-4 2 2 0 000 4zM5 17a2 2 0 100-4 2 2 0 000 4z"
-                  ></path>
-                </svg>
-
-                {user?.orders?.length > 0 && (
-                  <span className="absolute top-0 right-0 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
-                    {user.orders.length > 5 ? "5+" : user.orders.length}
-                  </span>
-                )}
-              </div> */}
-
               <button onClick={toggleMenu2}>
                 <svg
                   class="w-6 h-6"
@@ -276,6 +290,11 @@ const UserDashboard = () => {
                 className="flex items-center text-[14px] hover:text-gray-300"
               >
                 <span className="text-2xl">🍲</span>
+                {user?.orders?.length > 0 && (
+                  <span className="absolute top-5 left-15 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
+                    {user.orders.length > 5 ? "5+" : user.orders.length}
+                  </span>
+                )}
               </p>
               <p
                 onClick={() => {
@@ -303,12 +322,23 @@ const UserDashboard = () => {
                 className="flex items-center text-[14px] hover:text-gray-300"
               >
                 <span className="text-2xl">⌛</span>
+                {filteredOrdersCount > 0 && (
+                  <span className="absolute top-5 left-15 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
+                    {filteredOrdersCount > 5 ? "5+" : filteredOrdersCount}
+                  </span>
+                )}
               </p>
+
               <p
                 onClick={() => setActiveSection3("mainMenu6")}
                 className="flex items-center text-[14px] hover:text-gray-300"
               >
                 <span className="text-2xl">📜</span>
+                {user?.orders?.length > 0 && (
+                  <span className="absolute top-5 left-15 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
+                    {user.orders.length > 5 ? "5+" : user.orders.length}
+                  </span>
+                )}
               </p>
             </nav>
           </div>
