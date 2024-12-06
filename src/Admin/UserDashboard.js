@@ -25,11 +25,11 @@ function CustomAlert({ message, type, onClose, isLoading = false }) {
   };
 
   useEffect(() => {
-    console.log("isLoading state:", isLoading);
+    // console.log("isLoading state:", isLoading);
 
     if (!isLoading) {
       const timer = setTimeout(() => {
-        console.log("Alert closing...");
+        // console.log("Alert closing...");
         onClose();
       }, 3000);
 
@@ -138,7 +138,8 @@ const UserDashboard = () => {
   }, []);
 
   const fetchOrders = async () => {
-    // setLoading(true);
+    console.log(id);
+
     try {
       const res = await axios.get(
         `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${id}`
@@ -192,7 +193,6 @@ const UserDashboard = () => {
     };
 
     fetchData();
-    fetchOrders();
 
     socket.on("ordersUpdated", (data) => {
       if (data.userId === id) {
@@ -221,7 +221,9 @@ const UserDashboard = () => {
 
   // console.log(id);
 
-  useEffect(() => {}, [isMenuVisible]);
+  useEffect(() => {
+    fetchOrders();
+  }, [id]);
 
   const toggleMenu = () => {
     setIsMenuVisible((prev) => !prev);
@@ -234,8 +236,6 @@ const UserDashboard = () => {
     setshowMenu2((prev) => !prev);
     // console.log(isMenuVisible);
   };
-
-  // console.log(user.orders.length);
 
   const fetchData = async () => {
     try {

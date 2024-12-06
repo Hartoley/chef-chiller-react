@@ -13,7 +13,11 @@ const Admin = ({ signup, signin, isDashboard }) => {
     setIsMenuVisible((prev) => !prev);
     setshowMenu((prev) => !prev);
   };
-  const logout = () => {};
+  const logout = () => {
+    localStorage.removeItem("id");
+
+    window.location.href = "/user/signin";
+  };
 
   const goToDash = () => {
     const id = JSON.parse(localStorage.getItem("id"));
