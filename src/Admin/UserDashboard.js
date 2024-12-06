@@ -20,8 +20,8 @@ function CustomAlert({ message, type, onClose, isLoading = false }) {
   const alertStyles = {
     success: "bg-gray-900 text-white",
     error: "bg-red-500 text-white",
-    info: "bg-blue-500 text-white",
-    loading: "bg-gray-700 text-white", // Style for loading
+    info: "bg-gray-900 text-white",
+    loading: "bg-gray-900 text-white",
   };
 
   useEffect(() => {
@@ -40,9 +40,7 @@ function CustomAlert({ message, type, onClose, isLoading = false }) {
     >
       <div className="flex justify-between items-center">
         <div className="flex items-center">
-          {isLoading && (
-            <span className="loader mr-2"></span> // Spinner for loading
-          )}
+          {isLoading && <span className="loader mr-2"></span>}
           <span>{message}</span>
         </div>
         {!isLoading && (
@@ -273,8 +271,15 @@ const UserDashboard = () => {
           style={{ position: showMore ? "fixed" : "static" }}
           className="mother relative flex h-screen font-sans text-gray-800 bg-gray-100"
         >
-          <div class="flex items-center justify-between p-4 bg-gray-900 text-white md:hidden">
-            <div class="text-lg font-semibold">Logo</div>
+          <div class=" flex items-center justify-between p-4 bg-gray-900 text-white md:hidden">
+            <div className="image1 flex items-center justify-center rounded-full">
+              <img
+                class="logo"
+                className="rounded-full flex-shrink-0 h-10 w-10"
+                src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
+                alt=""
+              />
+            </div>
 
             <div class="flex items-center space-x-4">
               <button onClick={toggleMenu2}>

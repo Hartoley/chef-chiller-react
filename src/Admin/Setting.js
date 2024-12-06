@@ -44,7 +44,6 @@ const Setting = ({ showCustomAlert }) => {
       console.log("Order approved:", data);
     });
 
-    // Cleanup on unmount
     return () => {
       socket.off("ordersRetrieved");
       socket.off("orderApproved");
@@ -55,22 +54,29 @@ const Setting = ({ showCustomAlert }) => {
 
   useEffect(() => {
     const userId = id;
+
     const fetchOrders = async () => {
-      // setIsLoading(true);
+      showCustomAlert("Fetching orders, please wait...", "info", true);
 
       try {
         const res = await axios.get(
           `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${userId}`
         );
+
         console.log("API response:", res.data);
+
         setOrders(res.data.orders);
-        setIsLoading(false); // Set loading to false when done
+
+        showCustomAlert("Orders fetched successfully!", "success");
       } catch (err) {
-        toast.error("Failed to fetch orders");
         console.error("Error fetching orders:", err);
-        setIsLoading(false); // Set loading to false when done
+
+        showCustomAlert(
+          "Failed to fetch orders. Please check your connection and try again.",
+          "error"
+        );
       } finally {
-        setIsLoading(false); // Set loading to false when done
+        setIsLoading(false);
       }
     };
 

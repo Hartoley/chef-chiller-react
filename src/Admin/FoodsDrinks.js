@@ -37,30 +37,33 @@ const FoodsDrinks = ({ showCustomAlert }) => {
       socket.off("ordersRetrieved");
     };
   }, []);
+
   const fetchOrders = async (page = 1) => {
-    // setLoading(true);
     try {
+      // Show progress alert
+      showCustomAlert("Fetching orders, please wait...", "info", true);
+
       const res = await axios.get(
         `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${id}?page=${page}&limit=${ordersPerPage}`
       );
+
       setOrders(res.data.orders);
       setTotalOrders(res.data.totalOrders);
+
+      showCustomAlert("Orders fetched successfully!", "success");
     } catch (err) {
       console.error("Error fetching orders:", err);
+
       if (axios.isCancel(err)) {
         console.log("Request canceled:", err.message);
       }
+
+      showCustomAlert(
+        "Failed to fetch orders. Please check your connection and try again.",
+        "error"
+      );
     } finally {
       setLoading(false);
-      console.log("Component mounted");
-      console.log("Socket connected:", socket);
-      console.log("Orders retrieved:", orders);
-      console.log("Total orders:", totalOrders);
-      console.log("Current page:", currentPage);
-      console.log("Orders per page:", ordersPerPage);
-      console.log("File selected:", file);
-      console.log("Is uploading:", isUploading);
-      console.log("Loading:", loading);
     }
   };
 
