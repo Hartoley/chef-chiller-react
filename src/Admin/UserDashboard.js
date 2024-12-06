@@ -25,14 +25,17 @@ function CustomAlert({ message, type, onClose, isLoading = false }) {
   };
 
   useEffect(() => {
+    console.log("isLoading state:", isLoading);
+
     if (!isLoading) {
       const timer = setTimeout(() => {
+        console.log("Alert closing...");
         onClose();
       }, 3000);
 
       return () => clearTimeout(timer);
     }
-  }, [onClose, isLoading]);
+  }, [isLoading, onClose]);
 
   return (
     <div

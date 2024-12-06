@@ -25,7 +25,7 @@ const Basket = () => {
     });
 
     socket.on("orderApproved", (data) => {
-      console.log("Order approved:", data.user);
+      // console.log("Order approved:", data.user);
       setUser(data.user);
       setOrderItems(data.user.orders);
     });
@@ -41,11 +41,11 @@ const Basket = () => {
 
     setIsUpdating(true);
 
-    console.log("updateCart called with action:", action);
+    // console.log("updateCart called with action:", action);
 
     try {
       const response = await syncCartWithServer(order, action);
-      console.log(response.data.message);
+      // console.log(response.data.message);
     } catch (error) {
       console.error("Error updating cart:", error);
     } finally {
@@ -97,7 +97,7 @@ const Basket = () => {
           `https://chef-chiller-node.onrender.com/user/getuser/${id}`
         );
         setUser(res.data.data);
-        console.log(res.data);
+        // console.log(res.data);
 
         setOrderItems(res.data.data.orders);
 
@@ -125,7 +125,7 @@ const Basket = () => {
       }
 
       socket.on("orderApproved", (data) => {
-        console.log("Order approved:", data);
+        // console.log("Order approved:", data);
       });
     });
 
@@ -147,18 +147,18 @@ const Basket = () => {
 
   const makeOrder = async () => {
     const userId = id;
-    console.log("userId being sent:", userId);
+    // console.log("userId being sent:", userId);
     setIsUpdating(true);
 
     try {
-      console.log("Data being sent:", { userId });
+      // console.log("Data being sent:", { userId });
       const response = await axios.post(
         "https://chef-chiller-node.onrender.com/chefchiller/makeOrder",
         {
           userId,
         }
       );
-      console.log("Order Response:", response.data);
+      // console.log("Order Response:", response.data);
       alert(response.data.message);
     } catch (error) {
       console.error(
@@ -175,7 +175,7 @@ const Basket = () => {
     }
   };
 
-  console.log(user);
+  // console.log(user);
 
   const unapprovedOrders = orderItems.filter((order) => !order.approved);
 

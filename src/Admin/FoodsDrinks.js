@@ -40,7 +40,6 @@ const FoodsDrinks = ({ showCustomAlert }) => {
 
   const fetchOrders = async (page = 1) => {
     try {
-      // Show progress alert
       showCustomAlert("Fetching orders, please wait...", "info", true);
 
       const res = await axios.get(

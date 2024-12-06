@@ -56,6 +56,7 @@ const Setting = ({ showCustomAlert }) => {
     const userId = id;
 
     const fetchOrders = async () => {
+      // setIsLoading(true);
       showCustomAlert("Fetching orders, please wait...", "info", true);
 
       try {
@@ -75,8 +76,6 @@ const Setting = ({ showCustomAlert }) => {
           "Failed to fetch orders. Please check your connection and try again.",
           "error"
         );
-      } finally {
-        setIsLoading(false);
       }
     };
 
