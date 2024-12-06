@@ -310,7 +310,7 @@ const UserDashboard = () => {
               isVisible ? "" : "hidden"
             } fixed w-full flex justify-center items-center`}
           >
-            <nav className="flex items-center justify-evenly w-4/5 bg-transparent">
+            <nav className="flex items-center z-20 justify-evenly w-4/5 bg-transparent">
               <p
                 onClick={() => {
                   setActiveSection3("mainMenu4");
@@ -384,13 +384,13 @@ const UserDashboard = () => {
               <nav className="flex bg-gray-900 items-start gap-2 flex-col">
                 <p
                   onClick={() => setActiveSection3("mainMenu1")}
-                  className="flex items-center text-[14px] hover:text-gray-300"
+                  className="flex items-center text-[14px] cursor-pointer hover:text-gray-300"
                 >
                   <span className="mr-3">🏠</span> Dashboard
                 </p>
                 <p
                   onClick={() => setActiveSection3("mainMenu4")}
-                  className="flex items-center text-[14px] hover:text-gray-300"
+                  className="flex items-center text-[14px] cursor-pointer hover:text-gray-300"
                 >
                   <span className="mr-3">🍲</span> Basket
                   {user?.orders?.length > 0 && (
@@ -401,19 +401,19 @@ const UserDashboard = () => {
                 </p>
                 <p
                   onClick={() => setActiveSection3("mainMenu3")}
-                  className="flex items-center text-[14px] hover:text-gray-300"
+                  className="flex items-center text-[14px] cursor-pointer hover:text-gray-300"
                 >
                   <span className="mr-3">⚙️</span> Messages
                 </p>
                 <p
                   onClick={() => setActiveSection3("mainMenu2")}
-                  className="flex items-center text-[14px] hover:text-gray-300"
+                  className="flex items-center text-[14px] cursor-pointer hover:text-gray-300"
                 >
                   <span className="mr-3">⌛</span> Awaiting
                 </p>
                 <p
                   onClick={() => setActiveSection3("mainMenu6")}
-                  className="flex items-center text-[14px] hover:text-gray-300"
+                  className="flex items-center text-[14px] cursor-pointer hover:text-gray-300"
                 >
                   <span className="mr-3">📜</span> History
                 </p>
