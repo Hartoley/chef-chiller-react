@@ -103,7 +103,7 @@ const Admin = ({ signup, signin, isDashboard }) => {
             )}
             {isLoggedIn && (
               <div className="buttonBox">
-                <button onClick={signin} className="buttonLogin">
+                <button onClick={logout} className="buttonLogin">
                   Log out
                 </button>
               </div>
