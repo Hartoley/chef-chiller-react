@@ -331,15 +331,10 @@ const MainMenu = ({
                 return differenceInMs < 48 * 60 * 60 * 1000;
               }) && (
                 <section className="section2 flex w-[60vw] flex-col">
-                  <h3 className="text-xl font-semibold mb-1">New Menu</h3>
+                  <h3 className="text-xl font-semibold mb-1">Extras</h3>
                   <div className="section3 py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
                     {products
-                      .filter((product) => {
-                        const createdAt = new Date(product.createdAt);
-                        const now = new Date();
-                        const differenceInMs = now - createdAt;
-                        return differenceInMs < 48 * 60 * 60 * 1000;
-                      })
+                      .filter((product) => product.category === "Extras")
                       .map((product, index) => (
                         <div
                           key={index}
