@@ -6,7 +6,7 @@ import io from "socket.io-client";
 
 const socket = io("https://chef-chiller-node.onrender.com");
 
-const FoodsDrinks = () => {
+const FoodsDrinks = ({ showCustomAlert }) => {
   const [orders, setOrders] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
   const id = JSON.parse(localStorage.getItem("id"));

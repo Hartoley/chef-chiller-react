@@ -7,6 +7,7 @@ const Product = ({
   setActiveSection2,
   activeSection3,
   setActiveSection3,
+  showCustomAlert,
 }) => {
   const [quantity, setQuantity] = useState(1);
   const id = JSON.parse(localStorage.getItem("id"));
@@ -72,13 +73,14 @@ const Product = ({
         }
       );
 
-      toast.update(toastId, {
-        render: response.data.message || "Cart updated successfully!",
-        type: "success",
-        isLoading: false,
-        autoClose: 3000,
-      });
-
+      // toast.update(toastId, {
+      //   render: response.data.message || "Cart updated successfully!",
+      //   type: "success",
+      //   isLoading: false,
+      //   autoClose: 3000,
+      // });
+      showCustomAlert(response.data.message, "success");
+      toast.dismiss();
       return response;
     } catch (error) {
       toast.update(toastId, {

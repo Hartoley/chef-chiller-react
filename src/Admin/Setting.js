@@ -6,7 +6,7 @@ import "./user.css";
 
 const socket = io("https://chef-chiller-node.onrender.com");
 
-const Setting = () => {
+const Setting = ({ showCustomAlert }) => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const id = JSON.parse(localStorage.getItem("id"));

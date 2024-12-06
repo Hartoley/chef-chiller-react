@@ -13,6 +13,7 @@ const MainMenu = ({
   setActiveSection2,
   activeSection3,
   setActiveSection3,
+  showCustomAlert,
 }) => {
   const [products, setProducts] = useState([]);
   const [user, setuser] = useState([]);

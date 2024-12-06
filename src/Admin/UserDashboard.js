@@ -16,23 +16,40 @@ import io from "socket.io-client";
 
 const socket = io("https://chef-chiller-node.onrender.com");
 
-function CustomAlert({ message, type, onClose }) {
-  // Default alert styles based on the type (success, error, info)
+function CustomAlert({ message, type, onClose, isLoading = false }) {
   const alertStyles = {
     success: "bg-gray-900 text-white",
     error: "bg-red-500 text-white",
     info: "bg-blue-500 text-white",
+    loading: "bg-gray-700 text-white", // Style for loading
   };
+
+  useEffect(() => {
+    if (!isLoading) {
+      const timer = setTimeout(() => {
+        onClose();
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [onClose, isLoading]);
 
   return (
     <div
       className={`fixed top-5 left-1/2 transform -translate-x-1/2 p-4 w-80 rounded-lg shadow-lg ${alertStyles[type]}`}
     >
       <div className="flex justify-between items-center">
-        <span>{message}</span>
-        <button onClick={onClose} className="text-lg font-semibold">
-          &times;
-        </button>
+        <div className="flex items-center">
+          {isLoading && (
+            <span className="loader mr-2"></span> // Spinner for loading
+          )}
+          <span>{message}</span>
+        </div>
+        {!isLoading && (
+          <button onClick={onClose} className="text-lg font-semibold">
+            &times;
+          </button>
+        )}
       </div>
     </div>
   );
@@ -53,7 +70,8 @@ const UserDashboard = () => {
   const [orderItems, setOrderItems] = useState([]);
   const [orders, setOrders] = useState([]);
   const [subtotal, setsubtotal] = useState(0);
-  // const { id } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
+
   const id = JSON.parse(localStorage.getItem("id"));
   const today = new Date();
   const formattedDate = today.toLocaleDateString("en-US", {
@@ -118,12 +136,13 @@ const UserDashboard = () => {
     };
   }, []);
 
-  const fetchOrders = async (page = 1) => {
+  const fetchOrders = async () => {
     // setLoading(true);
     try {
       const res = await axios.get(
         `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${id}`
       );
+      console.log(res.data);
       setOrders(res.data.orders);
       const filteredOrders = orders.filter(
         (order) =>
@@ -131,6 +150,7 @@ const UserDashboard = () => {
           order.status !== "Payment Approved" &&
           order.status !== "Payment Declined"
       );
+      console.log(orders);
 
       setfilteredOrdersCount(filteredOrders.length);
     } catch (err) {
@@ -235,10 +255,11 @@ const UserDashboard = () => {
     fetchData();
   }, [formik.values.category]);
 
-  const showCustomAlert = (message, type) => {
+  const showCustomAlert = (message, type, isLoading = false) => {
     setAlertMessage(message);
     setAlertType(type);
     setShowAlert(true);
+    setIsLoading(isLoading);
   };
 
   const hideAlert = () => {
@@ -334,9 +355,9 @@ const UserDashboard = () => {
                 className="flex items-center text-[14px] hover:text-gray-300"
               >
                 <span className="text-2xl">📜</span>
-                {user?.orders?.length > 0 && (
+                {filteredOrdersCount > 0 && (
                   <span className="absolute top-5 left-15 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
-                    {user.orders.length > 5 ? "5+" : user.orders.length}
+                    {filteredOrdersCount > 5 ? "5+" : filteredOrdersCount}
                   </span>
                 )}
               </p>
@@ -402,20 +423,30 @@ const UserDashboard = () => {
                 setActiveSection2={setActiveSection2}
                 activeSection3={activeSection3}
                 setActiveSection3={setActiveSection3}
+                showCustomAlert={showCustomAlert}
               />
             )}
-            {activeSection3 === "mainMenu2" && <FoodsDrinks />}
-            {activeSection3 === "mainMenu3" && <Messages />}
-            {activeSection3 === "mainMenu4" && <Basket />}
+            {activeSection3 === "mainMenu2" && (
+              <FoodsDrinks showCustomAlert={showCustomAlert} />
+            )}
+            {activeSection3 === "mainMenu3" && (
+              <Messages showCustomAlert={showCustomAlert} />
+            )}
+            {activeSection3 === "mainMenu4" && (
+              <Basket showCustomAlert={showCustomAlert} />
+            )}
             {activeSection3 === "mainMenu5" && (
               <Product
                 activeSection2={activeSection2}
                 setActiveSection2={setActiveSection2}
                 activeSection3={activeSection3}
                 setActiveSection3={setActiveSection3}
+                showCustomAlert={showCustomAlert}
               />
             )}
-            {activeSection3 === "mainMenu6" && <Setting />}
+            {activeSection3 === "mainMenu6" && (
+              <Setting showCustomAlert={showCustomAlert} />
+            )}
           </>
 
           <aside
