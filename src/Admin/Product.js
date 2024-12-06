@@ -58,7 +58,7 @@ const Product = ({
   };
 
   const syncCartWithServer = async (product, action) => {
-    const toastId = toast.loading("Updating cart...");
+    showCustomAlert("Updating cart...", "info", true);
 
     try {
       const response = await axios.post(
@@ -73,22 +73,14 @@ const Product = ({
         }
       );
 
-      // toast.update(toastId, {
-      //   render: response.data.message || "Cart updated successfully!",
-      //   type: "success",
-      //   isLoading: false,
-      //   autoClose: 3000,
-      // });
-      showCustomAlert(response.data.message, "success");
-      toast.dismiss();
+      showCustomAlert(
+        response.data.message || "Cart updated successfully!",
+        "success"
+      );
+
       return response;
     } catch (error) {
-      toast.update(toastId, {
-        render: "Error updating the cart. Please try again.",
-        type: "error",
-        isLoading: false,
-        autoClose: 3000,
-      });
+      showCustomAlert("Error updating the cart. Please try again.", "error");
       throw error;
     }
   };
