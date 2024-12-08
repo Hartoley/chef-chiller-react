@@ -366,7 +366,7 @@ const LandingPage = () => {
               {/* Nigerian Jollof Special */}
               <div
                 onClick={handleNavigation}
-                className="w-[32%] rounded-lg bg-[rgb(234,1,41)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(255,36,86)]"
+                className="color w-[32%] rounded-lg bg-[rgb(234,1,41)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(255,36,86)]"
                 id="miniBox3"
               >
                 <div className="w-[50%] h-full">
@@ -390,7 +390,7 @@ const LandingPage = () => {
               {/* Swallow Delight */}
               <div
                 onClick={handleNavigation}
-                className="w-[32%] rounded-lg bg-[rgb(248,159,54)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(255,180,80)]"
+                className="color w-[32%] rounded-lg bg-[rgb(248,159,54)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(255,180,80)]"
                 id="miniBox3"
               >
                 <div className="w-[50%] h-full">
@@ -415,7 +415,7 @@ const LandingPage = () => {
               <div
                 id="miniBox3"
                 onClick={handleNavigation}
-                className="w-[32%] rounded-lg bg-[rgb(33,148,80)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(45,175,95)]"
+                className="color w-[32%] rounded-lg bg-[rgb(33,148,80)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(45,175,95)]"
               >
                 <div className="w-[50%] h-full">
                   <h1 className="text-[1rem] font-bold w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
