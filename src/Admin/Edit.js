@@ -1,653 +1,443 @@
 import React, { useEffect, useState } from "react";
-import { useFormik } from "formik";
-import axios from "axios";
-import "./user.css";
-import { useParams } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
-import io from "socket.io-client";
+import "../Admin/landing.css";
+import Admin from "./Admin";
+import { motion, AnimatePresence } from "framer-motion";
+import img1 from "../Images/spag1-removebg-preview.png";
+import img2 from "../Images/rice-removebg-preview.png";
+import img3 from "../Images/swallow-removebg-preview.png";
+import img4 from "../Images/asun-removebg-preview.png";
+import img5 from "../Images/jollofSpecial.jpg";
+import img6 from "../Images/spaghettiNew.png";
+import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
+import AllProduct from "./Allproduct";
 
-const socket = io("https://chef-chiller-node.onrender.com");
+const slides = [
+  {
+    content: (
+      <div
+        className="w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
+        id="textComponent"
+      >
+        <h1 className="text-2xl md:text-3xl font-bold mb-2 items-start text-start w-3/4">
+          Classic Spaghetti Delight
+        </h1>
+        <p className="text-sm md:text-base items-start text-start leading-relaxed w-3/4">
+          Enjoy our Classic Spaghetti Delight with al dente spaghetti in rich
+          marinara sauce made from fresh tomatoes, garlic, and basil. Topped
+          with Parmesan cheese and olive oil.
+        </p>
+        <div className="buttonLogin1 ">SHOP NOW</div>
+      </div>
+    ),
+    image: img1,
+  },
+  {
+    content: (
+      <div
+        className="w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
+        id="textComponent"
+      >
+        <h1 className="text-2xl md:text-3xl font-bold mb-2 items-start text-start w-3/4">
+          Jollof Rice Extravaganza
+        </h1>
+        <p className="text-sm md:text-base items-start text-start leading-relaxed w-3/4">
+          Savor our Jollof Rice Extravaganza, a West African favorite with
+          fluffy rice in a rich tomato sauce. Served with grilled chicken, beef,
+          or fish, it's a vibrant taste of Nigeria!
+        </p>
+        <div className="buttonLogin1">SHOP NOW</div>
+      </div>
+    ),
+    image: img2,
+  },
+  {
+    content: (
+      <div
+        className="w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
+        id="textComponent"
+      >
+        <h1 className="text-2xl md:text-3xl font-bold mb-2 items-start text-start w-3/4">
+          Efo Riro with Pounded Yam
+        </h1>
+        <p className="text-sm md:text-base items-start text-start leading-relaxed w-3/4">
+          Delight in Efo Riro with Pounded Yam, featuring rich vegetable soup
+          made with fresh spinach and spices, paired with smooth, stretchy yam.
+        </p>
+        <div className="buttonLogin1">SHOP NOW</div>
+      </div>
+    ),
+    image: img3,
+  },
+  {
+    content: (
+      <div
+        className="w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
+        id="textComponent"
+      >
+        <h1 className="text-2xl md:text-3xl font-bold mb-2 items-start text-start w-3/4">
+          Spicy Asun Meat
+        </h1>
+        <p className="text-sm md:text-base items-start text-start leading-relaxed w-3/4">
+          Savor our Spicy Asun Meat, grilled goat meat with a smoky, spicy kick.
+          Perfect as a snack or appetizer, it's best enjoyed with chilled palm
+          wine for an authentic street food experience!
+        </p>
+        <div className="buttonLogin1">SHOP NOW</div>
+      </div>
+    ),
+    image: img4,
+  },
+];
 
-const MainMenu = ({
-  activeSection2,
-  setActiveSection2,
-  activeSection3,
-  setActiveSection3,
-}) => {
-  const [products, setProducts] = useState([]);
-  const [user, setuser] = useState([]);
-  const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const [showMenu, setshowMenu] = useState(false);
-  const [showMore, setshowMore] = useState(false);
-  const [showMenu2, setshowMenu2] = useState(false);
-  const [cart, setCart] = useState([]);
-  const endpoint = "https://chef-chiller-node.onrender.com";
-  const [orderItems, setOrderItems] = useState([]);
-  const [subtotal, setsubtotal] = useState(0);
-  const [productId, setProductId] = useState("");
-  const { id } = useParams();
-  const [loading, setLoading] = useState(true); // Loading state
-  const [isUpdating, setIsUpdating] = useState(false);
+const LandingPage = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate();
+  const [direction, setDirection] = useState(1);
+  const id = JSON.parse(localStorage.getItem("id"));
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(
-          `https://chef-chiller-node.onrender.com/user/getuser/${id}`
-        );
-        setuser(res.data.data);
-        setOrderItems(res.data.data.orders);
-        const subtotal = res.data.data.orders.reduce((total, order) => {
-          return total + order.productPrice * order.quantity;
-        }, 0);
-        setsubtotal(subtotal);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+  const signin = () => {
+    navigate("/user/signin");
+  };
 
-    fetchData();
-  }, [id]);
-
-  const fetchProducts = async () => {
-    setLoading(true); // Set loading to true before fetching
-    try {
-      const res = await axios.get(
-        "https://chef-chiller-node.onrender.com/chefchiller/user/getproducts"
-      );
-      setProducts(res.data);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false); // Set loading to false after fetching
-    }
+  const signup = () => {
+    navigate("/user/signup");
+  };
+  const handleNavigation = () => {
+    Admin.goToDash();
   };
 
   useEffect(() => {
-    fetchProducts();
+    const interval = setInterval(() => {
+      setDirection(1);
+      setCurrentIndex((prevIndex) =>
+        prevIndex === slides.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 6000);
+
+    return () => clearInterval(interval);
   }, []);
 
-  const formik = useFormik({
-    initialValues: { category: "" },
-  });
-
-  const updateCart = async (product, action) => {
-    if (isUpdating) return;
-
-    setIsUpdating(true);
-    console.log("updateCart called with action:", action);
-
-    try {
-      const response = await syncCartWithServer(product, action);
-      console.log(response.data.message);
-    } catch (error) {
-      console.error("Error updating cart:", error);
-    } finally {
-      setIsUpdating(false);
-    }
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
   };
 
-  const syncCartWithServer = async (product, action) => {
-    const toastId = toast.loading("Updating cart...");
+  const products = [
+    { name: "Steak Deluxe", price: 12.89, oldPrice: 14.99, image: "steak.jpg" },
+    { name: "Pasta Primavera", price: 12.89, image: "pasta.jpg" },
+    { name: "Grilled Chicken", price: 12.89, image: "chicken.jpg" },
+    { name: "Cheesy Burger", price: 12.89, image: "burger.jpg" },
+    { name: "Crunchy Tenders", price: 12.89, image: "tenders.jpg" },
+  ];
 
-    try {
-      const response = await axios.post(
-        "https://chef-chiller-node.onrender.com/chefchiller/updatecart",
-        {
-          userId: user._id,
-          productId: product._id,
-          productName: product.name,
-          productPrice: product.price,
-          image: product.image,
-          action,
-        }
-      );
-
-      toast.update(toastId, {
-        render: response.data.message || "Cart updated successfully!",
-        type: "success",
-        isLoading: false,
-        autoClose: 3000,
-      });
-
-      return response;
-    } catch (error) {
-      toast.update(toastId, {
-        render: "Error updating the cart. Please try again.",
-        type: "error",
-        isLoading: false,
-        autoClose: 3000,
-      });
-      throw error;
-    }
+  const slideVariants = {
+    enter: (direction) => ({
+      x: direction === 1 ? "100%" : "-100%",
+      opacity: 0,
+    }),
+    center: { x: 0, opacity: 1 },
+    exit: (direction) => ({
+      x: direction === 1 ? "-100%" : "100%",
+      opacity: 0,
+    }),
   };
 
   return (
     <>
-      <main className="child h-[100h] flex-1 p-6 bg-gray-100 w-[63.65vw]">
-        <section className="section1 flex gap-3 items-center justify-between mb-6">
-          <h3 className="text-2xl flex-shrink-0 font-[12px]">Food & Drinks</h3>
-          <div className="list overflow-x-scroll no-scrollbar flex space-x-2">
-            <button
-              onClick={() => setActiveSection2("mainMenu")}
-              className={`px-3 py-1 rounded-full flex-shrink-0 ${
-                activeSection2 === "mainMenu"
-                  ? "bg-gray-800 text-white"
-                  : "bg-gray-200 text-gray-800"
-              }`}
-            >
-              All
-            </button>
-            <button
-              onClick={() => setActiveSection2("topMenu")}
-              className={`px-3 py-1 rounded-full ${
-                activeSection2 === "topMenu"
-                  ? "bg-gray-800 text-white"
-                  : "bg-gray-200 text-gray-800"
-              }`}
-            >
-              Top Menu
-            </button>
-            <button
-              onClick={() => setActiveSection2("mainCourse")}
-              className={`px-3 py-1 rounded-full ${
-                activeSection2 === "mainCourse"
-                  ? "bg-gray-800 text-white"
-                  : "bg-gray-200 text-gray-800"
-              }`}
-            >
-              Main Course
-            </button>
-            <button
-              onClick={() => setActiveSection2("sideMenu")}
-              className={`px-3 py-1 rounded-full ${
-                activeSection2 === "sideMenu"
-                  ? "bg-gray-800 text-white"
-                  : "bg-gray-200 text-gray-800"
-              }`}
-            >
-              Side Menu
-            </button>
-            <button
-              onClick={() => setActiveSection2("bakedMenu")}
-              className={`px-3 py-1 rounded-full ${
-                activeSection2 === "bakedMenu"
-                  ? "bg-gray-800 text-white"
-                  : "bg-gray-200 text-gray-800"
-              }`}
-            >
-              Bakery Products
-            </button>
-          </div>
-        </section>
+      <Admin signin={signin} signup={signup} />
+      <div>
+        <div id="bigBox" className="relative h-[70vh] w-full">
+          <img
+            className="absolute inset-0 w-full h-full object-cover z-0"
+            src="https://i.pinimg.com/236x/13/f7/ab/13f7ab894c39396151c52b4b354b1aad.jpg"
+            alt="Background"
+          />
 
-        {loading ? (
-          <div className="w-full flex flex-col min-h-[80vh] overflow-y-auto no-scrollbar">
-            <section className="section2 flex w-[60vw] h-full flex-col">
-              <h3 className="text-xl font-semibold mb-1">Top Menu</h3>
-              <div className="section3 w-full py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
-                {[...Array(5)].map((_, index) => (
+          <div className="absolute inset-0 bg-[rgb(4,14,25)] bg-opacity-95 z-10 flex items-center justify-center">
+            <div className="relative w-4/5 h-full rounded-lg overflow-hidden">
+              <AnimatePresence initial={false} custom={direction}>
+                <motion.div
+                  id="motion-div"
+                  key={currentIndex}
+                  className="absolute inset-0 w-full h-full flex"
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.5 }}
+                >
+                  <div
+                    className="w-[50%] h-full  flex items-center justify-center"
+                    id="imageBox"
+                  >
+                    <img
+                      id="imageComponent"
+                      src={slides[currentIndex].image}
+                      alt={`Slide ${currentIndex + 1}`}
+                      className="w-[300px] h-[300px] object-cover rounded-full shadow-md border-2 border-white bg-white"
+                    />
+                  </div>
+                  {slides[currentIndex].content}
+                </motion.div>
+              </AnimatePresence>
+              <div className="absolute dots bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+                {slides.map((_, index) => (
                   <div
                     key={index}
-                    className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md bg-gray-300 animate-pulse"
-                  >
-                    <div className="w-[40%] h-full bg-gray-400"></div>
-                    <div className="section4 flex h-full w-[60%] flex-col items-start">
-                      <div className="h-4 bg-gray-400 rounded w-3/4 mb-2"></div>
-                      <div className="h-4 bg-gray-400 rounded w-1/2"></div>
-                    </div>
-                  </div>
+                    className={`w-3 h-3 rounded-full ${
+                      index === currentIndex ? "bg-[#FC9E34]" : "bg-gray-400"
+                    }`}
+                  ></div>
                 ))}
               </div>
-            </section>
-          </div>
-        ) : (
-          activeSection2 === "mainMenu" && (
-            <div className="w-full flex flex-col min-h-[80vh] overflow-y-auto no-scrollbar">
-              <section className="section2 flex w-[60vw] h-full flex-col">
-                <h3 className="text-xl font-semibold mb-1">Top Menu</h3>
-                <div className="section3 w-full py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
-                  {products.map((product, index) => (
-                    <div
-                      onClick={() => {
-                        localStorage.setItem(
-                          "productId",
-                          JSON.stringify(product._id)
-                        );
-                        setActiveSection3("mainMenu5");
-                      }}
-                      key={index}
-                      className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
-                    >
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-[40%] h-full object-cover"
-                      />
-                      <div className="section4 flex h-full w-[60%] flex-col items-start">
-                        <h4 className="text-lg font-bold">{product.name}</h4>
-                        <p className="text-gray-600 text-center">
-                          ₦
-                          {product.price.toLocaleString("en-NG", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </p>
-                        <div className="flex justify-center items-center mt-2">
-                          <button
-                            disabled={isUpdating}
-                            className="px-2 py-1 bg-gray-300 rounded"
-                          >
-                            -
-                          </button>
-                          <span className="mx-3 text-lg font-semibold">1</span>
-                          <button
-                            disabled={isUpdating}
-                            className="px-2 py-1 bg-gray-300 rounded"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-              <section className="section2 flex w-full flex-col">
-                <h3 className="text-xl font-semibold mb-1">Main Course</h3>
-                <div className="section3 py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
-                  {products
-                    .filter(
-                      (product) =>
-                        product.category.toLowerCase() === "main course"
-                    ) // Filter for 'Main Course' category
-                    .map((product, index) => (
-                      <div
-                        key={index}
-                        style={{
-                          // backgroundColor: "rgb(204, 15, 49)",
-                          height: "100%",
-                          gap: "2vw",
-                        }}
-                        onClick={() => {
-                          localStorage.setItem(
-                            "productId",
-                            JSON.stringify(product._id)
-                          );
-                          setActiveSection3("mainMenu5");
-                        }}
-                        className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
-                      >
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-[40%] h-full object-cover"
-                        />
-                        <div className="section4 flex h-full w-[60%] flex-col items-start">
-                          <h4 className="text-lg font-bold">{product.name}</h4>
-                          <p className="text-gray-600 text-center">
-                            ₦
-                            {product.price.toLocaleString("en-NG", {
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            })}
-                          </p>
-                          <div className="flex justify-center items-center mt-2">
-                            <button
-                              // onClick={() => updateCart(product, "decrease")}
-                              disabled={isUpdating}
-                              className="px-2 py-1 bg-gray-300 rounded"
-                            >
-                              -
-                            </button>
-                            <span className="mx-3 text-lg font-semibold">
-                              1
-                            </span>
-                            <button
-                              // onClick={() => updateCart(product, "increase")}
-                              disabled={isUpdating}
-                              className="px-2 py-1 bg-gray-300 rounded"
-                            >
-                              +
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                </div>
-              </section>
-              {products.some((product) => {
-                const createdAt = new Date(product.createdAt);
-                const now = new Date();
-                const differenceInMs = now - createdAt;
-                return differenceInMs < 48 * 60 * 60 * 1000;
-              }) && (
-                <section className="section2 flex w-[60vw] flex-col">
-                  <h3 className="text-xl font-semibold mb-1">New Menu</h3>
-                  <div className="section3 py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
-                    {products
-                      .filter((product) => {
-                        const createdAt = new Date(product.createdAt);
-                        const now = new Date();
-                        const differenceInMs = now - createdAt;
-                        return differenceInMs < 48 * 60 * 60 * 1000;
-                      })
-                      .map((product, index) => (
-                        <div
-                          key={index}
-                          style={{
-                            height: "100%",
-                            gap: "2vw",
-                          }}
-                          onClick={() => {
-                            localStorage.setItem(
-                              "productId",
-                              JSON.stringify(product._id)
-                            );
-                            setActiveSection3("mainMenu5");
-                          }}
-                          className="foodBox flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
-                        >
-                          <img
-                            src={product.image}
-                            alt={product.name}
-                            className="w-[40%] h-full object-cover"
-                          />
-                          <div className="section4 flex h-full w-[60%] flex-col items-start">
-                            <h4 className="text-lg font-bold">
-                              {product.name}
-                            </h4>
-                            <p className="text-gray-600 text-center">
-                              ₦
-                              {product.price.toLocaleString("en-NG", {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                              })}
-                            </p>
-                            <div className="flex justify-center items-center mt-2">
-                              <button
-                                disabled={isUpdating}
-                                className="px-2 py-1 bg-gray-300 rounded"
-                              >
-                                -
-                              </button>
-                              <span className="mx-3 text-lg font-semibold">
-                                1
-                              </span>
-                              <button
-                                disabled={isUpdating}
-                                className="px-2 py-1 bg-gray-300 rounded"
-                              >
-                                +
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                </section>
-              )}
             </div>
-          )
-        )}
-
-        {activeSection2 === "topMenu" && (
-          <div className="w-[60vw] flex flex-col h-[80vh]">
-            <section className="section5 flex w-full h-full flex-col">
-              <h3 className="text-xl font-semibold mb-1">Top Menu</h3>
-              <div className="section6 py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
-                {products
-                  .filter(
-                    (product) => product.category.toLowerCase() === "specials"
-                  )
-                  .map((product, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        height: "60%",
-                        gap: "2vw",
-                        width: "47%",
-                      }}
-                      onClick={() => {
-                        localStorage.setItem(
-                          "productId",
-                          JSON.stringify(product._id)
-                        );
-                        setActiveSection3("mainMenu5");
-                      }}
-                      className="section7 flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
-                    >
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-[40%] h-full object-cover"
-                      />
-                      <div className="section4 flex h-full w-[60%] flex-col items-start">
-                        <h4 className="text-lg font-bold">{product.name}</h4>
-                        <p className="text-gray-600 text-center">
-                          ₦
-                          {product.price.toLocaleString("en-NG", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </p>
-                        <div className="flex justify-center items-center mt-2">
-                          <button
-                            disabled={isUpdating}
-                            className="px-2 py-1 bg-gray-300 rounded"
-                          >
-                            -
-                          </button>
-                          <span className="mx-3 text-lg font-semibold">1</span>
-                          <button
-                            disabled={isUpdating}
-                            className="px-2 py-1 bg-gray-300 rounded"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </section>
           </div>
-        )}
-
-        {activeSection2 === "mainCourse" && (
-          <div className="w-[60vw] flex flex-col h-[80vh]">
-            <section className="flex w-full h-full flex-col">
-              <h3 className="text-xl font-semibold mb-1">Our Main Course</h3>
-              <div className="section6 py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
-                {products
-                  .filter(
-                    (product) =>
-                      product.category.toLowerCase() === "main course"
-                  )
-                  .map((product, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        height: "60%",
-                        gap: "2vw",
-                        width: "47%",
-                      }}
-                      onClick={() => {
-                        localStorage.setItem(
-                          "productId",
-                          JSON.stringify(product._id)
-                        );
-                        setActiveSection3("mainMenu5");
-                      }}
-                      className="section7 flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
-                    >
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-[40%] h-full object-cover"
-                      />
-                      <div className="flex h-full w-[60%] flex-col items-start">
-                        <h4 className="text-lg font-bold">{product.name}</h4>
-                        <p className="text-gray-600 text-center">
-                          ₦
-                          {product.price.toLocaleString("en-NG", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </p>
-                        <div className="flex justify-center items-center mt-2">
-                          <button
-                            disabled={isUpdating}
-                            className="px-2 py-1 bg-gray-300 rounded"
-                          >
-                            -
-                          </button>
-                          <span className="mx-3 text-lg font-semibold">1</span>
-                          <button
-                            disabled={isUpdating}
-                            className="px-2 py-1 bg-gray-300 rounded"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </section>
+          <div
+            id="listFood"
+            className=" top-[70vh] absolute bg-[rgb(8,21,33)] w-full flex justify-center items-center h-[12vh]"
+          >
+            <div className="listChild top-[70vh] overflow-x-scroll no-scrollbar w-[60%] flex justify-center items-center gap-6 h-full ">
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img1}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img2}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img3}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img4}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img1}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img2}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img3}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img4}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img1}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img2}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img3}
+                alt=""
+              />
+              <motion.img
+                className="w-10 border border-white flex-shrink-0  rounded-full bg-white transition-all duration-300 hover:scale-110 h-10"
+                src={img4}
+                alt=""
+              />
+            </div>
           </div>
-        )}
+        </div>
 
-        {activeSection2 === "sideMenu" && (
-          <div className="w-[60vw] flex flex-col h-[80vh]">
-            <section className="flex w-full h-full flex-col">
-              <h3 className="text-xl font-semibold mb-1">Side Menu</h3>
-              <div className="section6 py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
-                {products
-                  .filter((product) =>
-                    ["beverages", "appetizers", "extras"].includes(
-                      product.category.toLowerCase()
-                    )
-                  )
-                  .map((product, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        height: "60%",
-                        gap: "2vw",
-                        width: "47%",
-                      }}
-                      onClick={() => {
-                        localStorage.setItem(
-                          "productId",
-                          JSON.stringify(product._id)
-                        );
-                        setActiveSection3("mainMenu5");
-                      }}
-                      className="section7 flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
-                    >
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-[40%] h-full object-cover"
-                      />
-                      <div className="flex h-full w-[60%] flex-col items-start">
-                        <h4 className="text-lg font-bold">{product.name}</h4>
-                        <p className="text-gray-600 text-center">
-                          ₦
-                          {product.price.toLocaleString("en-NG", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </p>
-                        <div className="flex justify-center items-center mt-2">
-                          <button
-                            disabled={isUpdating}
-                            className="px-2 py-1 bg-gray-300 rounded"
-                          >
-                            -
-                          </button>
-                          <span className="mx-3 text-lg font-semibold">1</span>
-                          <button
-                            disabled={isUpdating}
-                            className="px-2 py-1 bg-gray-300 rounded"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </section>
-          </div>
-        )}
+        <div
+          className="absolute top-[93vh] bg-[rgb(1,15,28)] w-full h-[135vh] flex items-center justify-center"
+          id="miniBox"
+        >
+          <div className=" w-full h-full relative">
+            <img
+              className="w-full h-full"
+              src="https://i.pinimg.com/736x/6e/23/a6/6e23a6fccd6e331bb36d361b6179fbfa.jpg"
+              alt=""
+            />
+            <div className="miniBoxDupli absolute bg-[rgb(1,15,28)] z-10 inset-0 opacity-95 flex items-center flex-col justify-center gap-10">
+              <div
+                id="miniBox1"
+                className="bg-[rgb(5,17,31)] flex items-center justify-center rounded-tl-[50px] rounded-br-[50px] w-[80%] h-[55%]"
+              >
+                <div className="dishesChild flex w-[60%] p-3 h-full items-center gap-3 ">
+                  <div className="w-[50%] miniBoxme h-full flex flex-col items-center justify-between">
+                    <motion.img
+                      className="w-full h-[48%] rounded-lg transition-all duration-300 hover:scale-110"
+                      src="https://i.pinimg.com/236x/76/bf/c2/76bfc2b0105c43202c1e673f3387af01.jpg"
+                      alt=""
+                    />
+                    <motion.img
+                      className="w-full h-[48%] rounded-lg transition-all duration-300 hover:scale-110"
+                      src="https://i.pinimg.com/236x/e5/7d/af/e57daf4d597191157b979965a4125728.jpg"
+                      alt=""
+                    />
+                  </div>
+                  <motion.div className="w-[45%] h-full flex flex-col items-center justify-between transition-all duration-300 ">
+                    <motion.img
+                      className="w-full h-[40%] rounded-lg transition-all duration-300 hover:scale-110"
+                      src="https://i.pinimg.com/236x/fe/f9/94/fef9943fc227ee4fd0a78ad76e35dcbd.jpg"
+                      alt=""
+                    />
 
-        {activeSection2 === "bakedMenu" && (
-          <div className="w-[60vw] flex flex-col h-[80vh]">
-            <section className="flex w-full h-full flex-col">
-              <h3 className="text-xl font-semibold mb-1">Bakery goods</h3>
-              <div className="section6 py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
-                {products
-                  .filter(
-                    (product) => product.category.toLowerCase() === "snacks"
-                  )
-                  .map((product, index) => (
+                    <motion.img
+                      className="w-full h-[40%] rounded-lg transition-all duration-300 hover:scale-110"
+                      src="https://i.pinimg.com/236x/f1/aa/8d/f1aa8d7bfe4bf9957e4a16b400b3259c.jpg"
+                      alt=""
+                    />
                     <div
-                      key={index}
-                      style={{
-                        height: "60%",
-                        gap: "2vw",
-                        width: "47%",
-                      }}
-                      onClick={() => {
-                        localStorage.setItem(
-                          "productId",
-                          JSON.stringify(product._id)
-                        );
-                        setActiveSection3("mainMenu5");
-                      }}
-                      className="section7 flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
+                      className="w-full h-[15%] flex items-center gap-2"
+                      id="menuIntro1"
                     >
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-[40%] h-full object-cover"
-                      />
-                      <div className="flex h-full w-[60%] flex-col items-start">
-                        <h4 className="text-lg font-bold">{product.name}</h4>
-                        <p className="text-gray-600 text-center">
-                          ₦
-                          {product.price.toLocaleString("en-NG", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2,
-                          })}
-                        </p>
-                        <div className="flex justify-center items-center mt-2">
-                          <button
-                            disabled={isUpdating}
-                            className="px-2 py-1 bg-gray-300 rounded"
-                          >
-                            -
-                          </button>
-                          <span className="mx-3 text-lg font-semibold">1</span>
-                          <button
-                            disabled={isUpdating}
-                            className="px-2 py-1 bg-gray-300 rounded"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
+                      <h1 className="text-[rgb(175,16,60)] font-700 text-[24px] cursor-pointer hover:text-white">
+                        100%
+                      </h1>
+                      <p className="text-white font-400 text-[14px] cursor-pointer hover:text-[rgb(175,16,60">
+                        Quality Assured
+                      </p>
                     </div>
-                  ))}
+                  </motion.div>
+                </div>
+                <div
+                  id="menuIntro"
+                  className="w-[45%] p-3 h-full flex flex-col items-start text-white gap-0.5"
+                >
+                  <h1 className="text-[1.5rem] w-4/5 cursor-pointer hover:text-[rgb(175,16,60)]">
+                    We always provide quality fast food for you
+                  </h1>
+                  <p className="text-[0.8rem] w-[90%] cursor-pointer hover:text-[rgb(175,16,60)] ">
+                    Our restaurant offers exceptional service with friendly
+                    staff who go above and beyond to make every visit memorable.
+                    We take pride in creating a warm, welcoming atmosphere where
+                    guests feel truly cared for.
+                  </p>
+                  <div className="w-full deli flex gap-3 cursor-pointer">
+                    <p className="text-[rgb(175,16,60)] flex flex-col ">
+                      <span class="material-symbols-outlined">flatware</span>
+                      <p className="text-white text-[0.8rem]">Deli Combo</p>
+                    </p>
+                    <p className="text-[rgb(175,16,60)] flex flex-col ">
+                      <span class="material-symbols-outlined">nutrition</span>
+                      <p className="text-white text-[0.8rem]">Fresh Daily</p>
+                    </p>
+                    <p className="text-[rgb(175,16,60)] flex flex-col ">
+                      <span class="material-symbols-outlined">
+                        credit_card_heart
+                      </span>
+                      <p className="text-white text-[0.8rem]">Best price</p>
+                    </p>
+                  </div>
+                </div>
               </div>
-            </section>
+              <div
+                id="coloredBox"
+                className="bg-[rgb(5,17,31)] rounded-tl-[50px] flex items-center justify-between rounded-br-[50px] w-[80%] h-[30%]"
+              >
+                {/* Nigerian Jollof Special */}
+                <div
+                  onClick={handleNavigation}
+                  className="w-[32%] rounded-lg bg-[rgb(234,1,41)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(255,36,86)]"
+                  id="miniBox3"
+                >
+                  <div className="w-[50%] h-full">
+                    <h1 className="text-[1rem] font-bold w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
+                      Nigerian Jollof Special
+                    </h1>
+                    <p className="text-[0.8rem] text-white w-[90%] cursor-pointer hover:text-[rgb(175,16,60)]">
+                      A flavorful and spicy rice dish that’s a Nigerian
+                      favorite.
+                    </p>
+                    <button className="bg-white px-3 py-1 rounded-md">
+                      Buy now
+                    </button>
+                  </div>
+                  <img
+                    className="w-[130px] h-[130px] rounded-full transition-transform duration-300 hover:scale-110"
+                    src={img5}
+                    alt=""
+                  />
+                </div>
+
+                {/* Swallow Delight */}
+                <div
+                  onClick={handleNavigation}
+                  className="w-[32%] rounded-lg bg-[rgb(248,159,54)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(255,180,80)]"
+                  id="miniBox3"
+                >
+                  <div className="w-[50%] h-full">
+                    <h1 className="text-[1rem] font-bold w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
+                      Swallow Delight
+                    </h1>
+                    <p className="text-[0.8rem] text-white w-[95%] cursor-pointer hover:text-[rgb(175,16,60)]">
+                      Soft and satisfying, perfect for pairing with rich soups.
+                    </p>
+                    <button className="bg-white px-3 py-1 rounded-md">
+                      Buy now
+                    </button>
+                  </div>
+                  <img
+                    className="w-[130px] h-[130px] rounded-full transition-transform duration-300 hover:scale-110"
+                    src={img3}
+                    alt=""
+                  />
+                </div>
+
+                {/* Spaghetti Magic */}
+                <div
+                  id="miniBox3"
+                  onClick={handleNavigation}
+                  className="w-[32%] rounded-lg bg-[rgb(33,148,80)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(45,175,95)]"
+                >
+                  <div className="w-[50%] h-full">
+                    <h1 className="text-[1rem] font-bold w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
+                      Spaghetti Magic
+                    </h1>
+                    <p className="text-[0.8rem] text-white w-[90%] cursor-pointer hover:text-[rgb(175,16,60)]">
+                      Twirls of pasta coated in savory goodness.
+                    </p>
+                    <button className="bg-white px-3 py-1 rounded-md">
+                      Buy now
+                    </button>
+                  </div>
+                  <img
+                    className="w-[140px] h-[140px] rounded-full transition-transform duration-300 hover:scale-110"
+                    src={img6}
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
           </div>
-        )}
-      </main>
+        </div>
+      </div>
+      <div className="plain h-[148vh] w-full bg-[rgb(4,14,25)]"></div>
+      <AllProduct />
+      <Footer />
     </>
   );
 };
 
-export default MainMenu;
+export default LandingPage;

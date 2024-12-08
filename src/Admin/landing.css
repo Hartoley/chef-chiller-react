@@ -210,14 +210,14 @@ nav {
   }
 
   #miniBox {
-    top: 73vh;
+    /* top: 73vh; */
     gap: 3px;
     height: 65vh;
   }
 
   #miniBox1 {
     width: 80%;
-    margin-top: 60vh;
+    /* margin-top: 60vh; */
     flex-direction: column;
     /* background-color: #4fb354; */
     height: 70vh;
@@ -389,7 +389,7 @@ nav {
   }
 
   #miniBox1 {
-    margin-top: 110vh !important;
+    /* margin-top: 110vh !important; */
     width: 80%;
     height: 90vh;
     /* background-color: #4fb354; */
@@ -448,7 +448,7 @@ nav {
   }
 
   #listFood {
-    top: 70.9vh !important;
+    /* top: 70.9vh !important; */
     overflow-x: scroll !important;
     padding: 0 20px !important;
     justify-content: space-evenly;
