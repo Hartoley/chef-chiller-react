@@ -49,20 +49,15 @@ const FoodsDrinks = ({ showCustomAlert }) => {
       setOrders(res.data.orders);
       setTotalOrders(res.data.totalOrders);
 
-      showCustomAlert("Orders fetched successfully!", "success");
+      showCustomAlert("Orders fetched successfully!", "success", false);
     } catch (err) {
       console.error("Error fetching orders:", err);
 
-      if (axios.isCancel(err)) {
-        console.log("Request canceled:", err.message);
-      }
-
       showCustomAlert(
         "Failed to fetch orders. Please check your connection and try again.",
-        "error"
+        "error",
+        false
       );
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -80,12 +75,20 @@ const FoodsDrinks = ({ showCustomAlert }) => {
 
   const handleApproveDelivery = async (orderId) => {
     if (!file) {
-      toast.error("Please select a payment proof image first!");
+      showCustomAlert(
+        "Please select a payment proof image first!",
+        "info",
+        true
+      );
+
+      // toast.error("Please select a payment proof image first!");
       return;
     }
 
     setIsUploading(true);
-    const toastId = toast.loading("Approving delivery...");
+    showCustomAlert("Approving delivery...", "info", true);
+
+    // const toastId = toast.loading("Approving delivery...");
 
     try {
       const formData = new FormData();
@@ -101,21 +104,31 @@ const FoodsDrinks = ({ showCustomAlert }) => {
         }
       );
 
-      toast.update(toastId, {
-        render: response.data.message || "Delivery approved successfully!",
-        type: "success",
-        isLoading: false,
-        autoClose: 3000,
-      });
+      // toast.update(toastId, {
+      //   render: response.data.message || "Delivery approved successfully!",
+      //   type: "success",
+      //   isLoading: false,
+      //   autoClose: 3000,
+      // });
+
+      setIsUploading(true);
+      showCustomAlert(
+        response.data.message || "Delivery approved successfully!",
+        "info",
+        true
+      );
     } catch (error) {
-      toast.update(toastId, {
-        render: "Error approving delivery. Please try again.",
-        type: "error",
-        isLoading: false,
-        autoClose: 3000,
-      });
-    } finally {
-      setIsUploading(false);
+      showCustomAlert(
+        "Error approving delivery. Please try again.",
+        "info",
+        true
+      );
+      // toast.update(toastId, {
+      //   render: "Error approving delivery. Please try again.",
+      //   type: "error",
+      //   isLoading: false,
+      //   autoClose: 3000,
+      // });
     }
   };
 

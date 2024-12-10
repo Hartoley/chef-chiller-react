@@ -169,7 +169,7 @@ nav {
   }
 
   #bigBox {
-    height: 50vh !important;
+    height: 55vh !important;
   }
 
   h1,
@@ -216,11 +216,11 @@ nav {
   }
 
   #miniBox1 {
-    width: 95%;
+    width: 92vw;
     /* margin-top: 60vh; */
     flex-direction: column;
     /* background-color: #4fb354; */
-    height: 70vh;
+    height: 75vh;
   }
 
   .dishesChild {
@@ -242,17 +242,23 @@ nav {
   }
 
   #coloredBox {
-    width: 95% !important;
+    width: 92vw !important;
     /* margin-top: 20vh; */
     flex-direction: column;
     /* background: #f65553; */
     height: 100vh;
-    gap: 10px;
+    justify-content: space-evenly;
   }
 
   .color {
     width: 100% !important;
+    height: 25vh;
     padding: 20px !important;
+  }
+
+  .color1 {
+    padding: 40px 0 !important;
+    /* gap: 80px; */
   }
 
   #miniBox3 {
@@ -294,7 +300,17 @@ nav {
     height: 50vh !important;
     flex-direction: column !important;
     /* background-color: rgb(60, 26, 114) !important; */
+    width: 95vw !important;
+    padding-top: 30px;
   }
+  /* 
+  .motion {
+    padding-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+  } */
 
   #menuIntro1 h1,
   p {
@@ -369,7 +385,16 @@ nav {
 
   #motion-div {
     flex-direction: column !important;
+    width: 95vw !important;
   }
+
+  /* .motion {
+    padding-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+  } */
 
   .buttonLogin1 {
     width: 100px;
@@ -395,8 +420,10 @@ nav {
 
   #miniBox1 {
     /* margin-top: 110vh !important; */
-    width: 95%;
-    height: 90vh;
+    width: 92vw;
+    height: 95vh;
+    padding: 0 !important;
+    /* background-color: #4fb354; */
     /* background-color: #4fb354; */
     flex-direction: column !important;
   }
@@ -409,7 +436,11 @@ nav {
   }
 
   #miniBoxDupli {
-    width: 100% !important;
+    width: 100vw !important;
+    padding: 0% !important;
+    gap: 0 !important;
+    background-color: #cc0e31 !important;
+
     /* flex-direction: column !important; */
   }
 
@@ -426,15 +457,16 @@ nav {
 
   #coloredBox {
     /* margin-top: 70vh !important; */
-    width: 95% !important;
+    width: 95vw !important;
     flex-direction: column;
     /* background: #f65553; */
     height: 110vh;
-    gap: 10px;
+    justify-content: space-evenly;
   }
 
   .color {
     width: 100% !important;
+    height: 30vh;
     padding: 20px !important;
   }
 

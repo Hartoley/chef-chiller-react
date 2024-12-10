@@ -16,7 +16,7 @@ const slides = [
   {
     content: (
       <div
-        className="w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
+        className=" mycon w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
         id="textComponent"
       >
         <h1 className="text-2xl md:text-3xl font-bold mb-2 items-start text-start w-3/4">
@@ -35,7 +35,7 @@ const slides = [
   {
     content: (
       <div
-        className="w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
+        className=" mycon w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
         id="textComponent"
       >
         <h1 className="text-2xl md:text-3xl font-bold mb-2 items-start text-start w-3/4">
@@ -54,7 +54,7 @@ const slides = [
   {
     content: (
       <div
-        className="w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
+        className=" mycon  w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
         id="textComponent"
       >
         <h1 className="text-2xl md:text-3xl font-bold mb-2 items-start text-start w-3/4">
@@ -72,7 +72,7 @@ const slides = [
   {
     content: (
       <div
-        className="w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
+        className=" mycon  w-[50%] h-full flex items-start text-start flex-col justify-center text-white p-6"
         id="textComponent"
       >
         <h1 className="text-2xl md:text-3xl font-bold mb-2 items-start text-start w-3/4">
@@ -161,7 +161,7 @@ const LandingPage = () => {
           }}
         >
           <div className="bg-[rgba(4,14,25,0.95)] w-full h-[87%] flex items-center justify-center">
-            <div className="w-4/5 h-full rounded-lg overflow-hidden">
+            <div className="motion w-4/5 h-full rounded-lg overflow-hidden">
               <AnimatePresence initial={false} custom={direction}>
                 <motion.div
                   id="motion-div"
@@ -369,7 +369,7 @@ const LandingPage = () => {
                 className="color w-[32%] rounded-lg bg-[rgb(234,1,41)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(255,36,86)]"
                 id="miniBox3"
               >
-                <div className="w-[50%] h-full">
+                <div className="color1 w-[50%] h-full">
                   <h1 className="text-[1rem] font-bold w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
                     Nigerian Jollof Special
                   </h1>
@@ -393,7 +393,7 @@ const LandingPage = () => {
                 className="color w-[32%] rounded-lg bg-[rgb(248,159,54)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(255,180,80)]"
                 id="miniBox3"
               >
-                <div className="w-[50%] h-full">
+                <div className="color1 w-[50%] h-full">
                   <h1 className="text-[1rem] font-bold w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
                     Swallow Delight
                   </h1>
@@ -417,7 +417,7 @@ const LandingPage = () => {
                 onClick={handleNavigation}
                 className="color w-[32%] rounded-lg bg-[rgb(33,148,80)] h-[90%] flex items-center p-[32px] transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-[rgb(45,175,95)]"
               >
-                <div className="w-[50%] h-full">
+                <div className="color1 w-[50%] h-full">
                   <h1 className="text-[1rem] font-bold w-4/5 text-white cursor-pointer hover:text-[rgb(175,16,60)]">
                     Spaghetti Magic
                   </h1>

@@ -51,7 +51,7 @@ const MainMenu = ({
   }, [id]);
 
   const fetchProducts = async () => {
-    setLoading(true); // Set loading to true before fetching
+    setLoading(true);
     try {
       const res = await axios.get(
         "https://chef-chiller-node.onrender.com/chefchiller/user/getproducts"
@@ -60,7 +60,7 @@ const MainMenu = ({
     } catch (err) {
       console.log(err);
     } finally {
-      setLoading(false); // Set loading to false after fetching
+      setLoading(false);
     }
   };
 

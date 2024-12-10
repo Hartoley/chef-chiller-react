@@ -24,22 +24,11 @@ function CustomAlert({ message, type, onClose, isLoading = false }) {
     loading: "bg-gray-900 text-white",
   };
 
-  useEffect(() => {
-    // console.log("isLoading state:", isLoading);
-
-    if (!isLoading) {
-      const timer = setTimeout(() => {
-        // console.log("Alert closing...");
-        onClose();
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [isLoading, onClose]);
-
   return (
     <div
-      className={`fixed top-5 left-1/2 transform -translate-x-1/2 p-4 w-80 rounded-lg shadow-lg ${alertStyles[type]}`}
+      role="alert"
+      aria-live={isLoading ? "polite" : "assertive"}
+      className={`fixed top-5 left-1/2 transform -translate-x-1/2 p-4 w-full max-w-sm rounded-lg shadow-lg ${alertStyles[type]}`}
     >
       <div className="flex justify-between items-center">
         <div className="flex items-center">
@@ -47,7 +36,10 @@ function CustomAlert({ message, type, onClose, isLoading = false }) {
           <span>{message}</span>
         </div>
         {!isLoading && (
-          <button onClick={onClose} className="text-lg font-semibold">
+          <button
+            onClick={onClose}
+            className="text-lg font-semibold hover:text-red-500 transition-colors"
+          >
             &times;
           </button>
         )}
@@ -93,49 +85,44 @@ const UserDashboard = () => {
       const smallScreen = window.innerWidth <= 767;
       setIsSmallScreen(smallScreen);
 
-      // Trigger an alert when the screen is small
       if (smallScreen) {
-        // alert("Screen size is 767px or smaller!");
       }
     };
 
-    // Add resize event listener
     window.addEventListener("resize", handleResize);
 
-    // Initial check
     handleResize();
 
-    // Cleanup event listener on unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       const entry = entries[0];
-  //       // Check if .mother is 90% or more in view
-  //       setIsVisible(entry.intersectionRatio >= 0.9);
-  //     },
-  //     {
-  //       root: null, // Using the viewport as the root
-  //       threshold: 0.9, // Trigger when 90% of .mother is in view
-  //     }
-  //   );
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        // Check if .mother is 90% or more in view
+        setIsVisible(entry.intersectionRatio >= 0.9);
+      },
+      {
+        root: null, // Using the viewport as the root
+        threshold: 0.9, // Trigger when 90% of .mother is in view
+      }
+    );
 
-  //   const motherElement = document.querySelector(".mother");
-  //   if (motherElement) {
-  //     observer.observe(motherElement);
-  //   }
+    const motherElement = document.querySelector(".mother");
+    if (motherElement) {
+      observer.observe(motherElement);
+    }
 
-  //   // Cleanup the observer
-  //   return () => {
-  //     if (motherElement) {
-  //       observer.unobserve(motherElement);
-  //     }
-  //   };
-  // }, []);
+    // Cleanup the observer
+    return () => {
+      if (motherElement) {
+        observer.unobserve(motherElement);
+      }
+    };
+  }, []);
 
   const fetchOrders = async () => {
     console.log(id);
@@ -256,11 +243,20 @@ const UserDashboard = () => {
     fetchData();
   }, [formik.values.category]);
 
+  let isLoadingFlag = false;
+
   const showCustomAlert = (message, type, isLoading = false) => {
     setAlertMessage(message);
     setAlertType(type);
     setShowAlert(true);
-    setIsLoading(isLoading);
+    isLoadingFlag = isLoading;
+
+    // Auto-hide non-loading alerts
+    if (!isLoading) {
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
+    }
   };
 
   const hideAlert = () => {
