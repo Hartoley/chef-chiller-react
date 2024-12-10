@@ -98,31 +98,31 @@ const UserDashboard = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        // Check if .mother is 90% or more in view
-        setIsVisible(entry.intersectionRatio >= 0.9);
-      },
-      {
-        root: null, // Using the viewport as the root
-        threshold: 0.9, // Trigger when 90% of .mother is in view
-      }
-    );
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       const entry = entries[0];
+  //       // Check if .mother is 90% or more in view
+  //       setIsVisible(entry.intersectionRatio >= 0.9);
+  //     },
+  //     {
+  //       root: null, // Using the viewport as the root
+  //       threshold: 0.9, // Trigger when 90% of .mother is in view
+  //     }
+  //   );
 
-    const motherElement = document.querySelector(".mother");
-    if (motherElement) {
-      observer.observe(motherElement);
-    }
+  //   const motherElement = document.querySelector(".mother");
+  //   if (motherElement) {
+  //     observer.observe(motherElement);
+  //   }
 
-    // Cleanup the observer
-    return () => {
-      if (motherElement) {
-        observer.unobserve(motherElement);
-      }
-    };
-  }, []);
+  //   // Cleanup the observer
+  //   return () => {
+  //     if (motherElement) {
+  //       observer.unobserve(motherElement);
+  //     }
+  //   };
+  // }, []);
 
   const fetchOrders = async () => {
     console.log(id);
