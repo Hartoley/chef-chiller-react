@@ -15,7 +15,7 @@ const FoodsDrinks = ({ showCustomAlert }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalOrders, setTotalOrders] = useState(0);
   const ordersPerPage = 10;
-
+  const [awaiting, setAwaiting] = useState(0);
   useEffect(() => {
     socket.on("message", (message) => {
       console.log("Message from server:", message);
@@ -45,9 +45,20 @@ const FoodsDrinks = ({ showCustomAlert }) => {
       const res = await axios.get(
         `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${id}?page=${page}&limit=${ordersPerPage}`
       );
-
-      setOrders(res.data.orders);
-      setTotalOrders(res.data.totalOrders);
+      if (Array.isArray(res.data.orders)) {
+        setOrders(res.data.orders);
+        setTotalOrders(res.data.totalOrders || 0);
+        setAwaiting(res.data.orders.length);
+        localStorage.setItem(
+          "awaitingOrders",
+          res.data.orders.length.toString()
+        );
+      } else {
+        setOrders([]);
+        setTotalOrders(0);
+        setAwaiting(0);
+        localStorage.setItem("awaitingOrders", "0");
+      }
 
       showCustomAlert("Orders fetched successfully!", "success", false);
     } catch (err) {
@@ -111,7 +122,6 @@ const FoodsDrinks = ({ showCustomAlert }) => {
       //   autoClose: 3000,
       // });
 
-      setIsUploading(true);
       showCustomAlert(
         response.data.message || "Delivery approved successfully!",
         "info",
@@ -123,15 +133,35 @@ const FoodsDrinks = ({ showCustomAlert }) => {
         "info",
         true
       );
-      // toast.update(toastId, {
-      //   render: "Error approving delivery. Please try again.",
-      //   type: "error",
-      //   isLoading: false,
-      //   autoClose: 3000,
-      // });
     }
   };
+  const handleDeleteDelivery = async (orderId) => {
+    setIsUploading(true);
+    showCustomAlert("Deleting order...", "info", true);
 
+    try {
+      const response = await axios.post(
+        `https://chef-chiller-node.onrender.com/chefchiller/deleteOrder/${orderId}`,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      showCustomAlert(
+        response.data.message || "Delivery Deleted successfully!",
+        "info",
+        true
+      );
+    } catch (error) {
+      showCustomAlert(
+        "Error approving delivery. Please try again.",
+        "info",
+        true
+      );
+    }
+  };
   const handleScroll = () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
       if (orders.length < totalOrders) {
@@ -214,21 +244,53 @@ const FoodsDrinks = ({ showCustomAlert }) => {
                             </div>
                           ))}
                         </div>
-
-                        <input
-                          type="file"
-                          id="productImage"
-                          name="image"
-                          onChange={handleFileChange}
-                          className="text-sm md:text-base mt-1 p-2 border border-gray-700 rounded bg-gray-900 text-gray-200"
-                        />
+                        {order.status === "Delivery Approved" && (
+                          <input
+                            type="file"
+                            id="productImage"
+                            name="image"
+                            onChange={handleFileChange}
+                            className="text-sm md:text-base mt-1 p-2 border border-gray-700 rounded bg-gray-900 text-gray-200"
+                          />
+                        )}
                         <div className="flex justify-between mt-4">
-                          <button
-                            className="text-green-500 text-sm"
-                            onClick={() => handleApproveDelivery(order._id)}
-                          >
-                            Upload Payment Proof
-                          </button>
+                          {order.status === "Pending" && (
+                            <p className="text-yellow-500 text-sm">
+                              Please be patient, your order is being processed.
+                            </p>
+                          )}
+
+                          {order.status === "Delivery declined" && (
+                            <p className="text-red-500 text-sm">
+                              We apologize, but your order couldn't be processed
+                              because the item is out of stock.
+                            </p>
+                          )}
+
+                          {order.status === "Delivery Approved" && (
+                            <button
+                              className="text-green-500 text-sm"
+                              onClick={() => handleApproveDelivery(order._id)}
+                            >
+                              Upload Payment Proof
+                            </button>
+                          )}
+
+                          {(order.status === "Pending" ||
+                            order.status === "Delivery declined") && (
+                            <button
+                              className={`text-sm px-4 py-2 rounded-lg ${
+                                order.status === "Pending"
+                                  ? "bg-gray-500 text-white hover:bg-gray-600"
+                                  : "bg-red-500 text-white hover:bg-red-600"
+                              }`}
+                              onClick={() => handleDeleteDelivery(order._id)}
+                            >
+                              {order.status === "Pending"
+                                ? "Delete Order"
+                                : "Delete Declined Delivery"}
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>

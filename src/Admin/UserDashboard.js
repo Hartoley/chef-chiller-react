@@ -64,6 +64,10 @@ const UserDashboard = () => {
   const [orders, setOrders] = useState([]);
   const [subtotal, setsubtotal] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalOrders, setTotalOrders] = useState(0);
+  const ordersPerPage = 10;
+  const [awaiting, setAwaiting] = useState(0);
 
   const id = JSON.parse(localStorage.getItem("id"));
   const today = new Date();
@@ -97,62 +101,6 @@ const UserDashboard = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       const entry = entries[0];
-  //       // Check if .mother is 90% or more in view
-  //       setIsVisible(entry.intersectionRatio >= 0.9);
-  //     },
-  //     {
-  //       root: null, // Using the viewport as the root
-  //       threshold: 0.9, // Trigger when 90% of .mother is in view
-  //     }
-  //   );
-
-  //   const motherElement = document.querySelector(".mother");
-  //   if (motherElement) {
-  //     observer.observe(motherElement);
-  //   }
-
-  //   // Cleanup the observer
-  //   return () => {
-  //     if (motherElement) {
-  //       observer.unobserve(motherElement);
-  //     }
-  //   };
-  // }, []);
-
-  const fetchOrders = async () => {
-    console.log(id);
-
-    try {
-      const res = await axios.get(
-        `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${id}`
-      );
-      console.log(res.data);
-      setOrders(res.data.orders);
-      const filteredOrders = orders.filter(
-        (order) =>
-          order.status !== "Payment Pending" &&
-          order.status !== "Payment Approved" &&
-          order.status !== "Payment Declined"
-      );
-      console.log(orders);
-
-      setfilteredOrdersCount(filteredOrders.length);
-    } catch (err) {
-      console.error("Error fetching orders:", err);
-      if (axios.isCancel(err)) {
-        console.log("Request canceled:", err.message);
-      }
-    } finally {
-      console.log("Component mounted");
-      console.log("Socket connected:", socket);
-      console.log("Orders retrieved:", orders);
-    }
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -206,10 +154,45 @@ const UserDashboard = () => {
     };
   }, [id, socket]);
 
-  // console.log(id);
+  const Mylist = async (page = 1) => {
+    try {
+      showCustomAlert("Fetching Awaiting, please wait...", "info", true);
+      toast.info("Fetching Awaiting, please wait...");
+
+      const response = await axios.get(
+        `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${id}?page=${page}&limit=${ordersPerPage}`
+      );
+
+      if (Array.isArray(response.data.orders)) {
+        setOrders(response.data.orders);
+        setTotalOrders(response.data.totalOrders || 0);
+        setAwaiting(response.data.orders.length);
+        localStorage.setItem(
+          "awaitingOrders",
+          response.data.orders.length.toString()
+        );
+      } else {
+        setOrders([]);
+        setTotalOrders(0);
+        setAwaiting(0);
+        localStorage.setItem("awaitingOrders", "0");
+      }
+
+      formik.success("Awaiting fetched successfully!");
+      showCustomAlert("Awaiting fetched successfully!", "success", false);
+    } catch (error) {
+      console.error("Error fetching Awaiting:", error);
+
+      showCustomAlert(
+        "Failed to fetch Awaiting. Please check your connection and try again.",
+        "error",
+        false
+      );
+    }
+  };
 
   useEffect(() => {
-    fetchOrders();
+    Mylist();
   }, [id]);
 
   const toggleMenu = () => {
@@ -347,9 +330,9 @@ const UserDashboard = () => {
                 className="flex items-center text-[14px] hover:text-gray-300"
               >
                 <span className="text-2xl">⌛</span>
-                {filteredOrdersCount > 0 && (
+                {awaiting > 0 && (
                   <span className="absolute top-5 left-15 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
-                    {filteredOrdersCount > 5 ? "5+" : filteredOrdersCount}
+                    {awaiting > 5 ? "5+" : awaiting}
                   </span>
                 )}
               </p>

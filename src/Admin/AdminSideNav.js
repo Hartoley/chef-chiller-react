@@ -94,6 +94,44 @@ const AdminSideNav = () => {
     }
   };
 
+  const handleDeclineDelivery = async (orderId) => {
+    console.log(`Approving order with ID: ${orderId}`);
+
+    try {
+      const response = await axios.post(
+        `https://chef-chiller-node.onrender.com/chefchiller/declinedeliveryadmin/${orderId}`
+      );
+
+      console.log("Order approved successfully:", response.data.order);
+      alert("Order approved successfully!");
+    } catch (error) {
+      console.error(
+        "Error approving order:",
+        error.response ? error.response.data.message : error.message
+      );
+      alert("An error occurred while approving the order.");
+    }
+  };
+
+  const handleApproveDelivery = async (orderId) => {
+    console.log(`Approving order with ID: ${orderId}`);
+
+    try {
+      const response = await axios.post(
+        `https://chef-chiller-node.onrender.com/chefchiller/approvedeliveryadmin/${orderId}`
+      );
+
+      console.log("Order approved successfully:", response.data.order);
+      alert("Order approved successfully!");
+    } catch (error) {
+      console.error(
+        "Error approving order:",
+        error.response ? error.response.data.message : error.message
+      );
+      alert("An error occurred while approving the order.");
+    }
+  };
+
   const handleImageClick = (image) => {
     setSelectedImage(image);
   };
@@ -852,16 +890,16 @@ const AdminSideNav = () => {
               </h2>
 
               <div className="w-full h-[60%] gap-4 flex flex-col overflow-y-auto">
-                {/* Example Task Item */}
                 <div className="w-full h-full flex flex-col gap-4 overflow-y-scroll no-scrollbar relative">
-                  {orders.filter((order) => order.status === "Pending").length >
-                  0 ? (
+                  {Array.isArray(orders) &&
+                  orders.filter((order) => order.status === "Pending").length >
+                    0 ? (
                     orders
                       .filter((order) => order.status === "Pending")
                       .map((order) => (
                         <div
                           key={order._id}
-                          className="bg-white p-4 rounded-lg shadow-sm flex items-center gap-4"
+                          className="bg-white p-4 rounded-lg shadow-sm flex flex-col md:flex-row md:items-center gap-4"
                         >
                           <div className="flex-1">
                             <p className="text-sm text-gray-700">
@@ -871,18 +909,20 @@ const AdminSideNav = () => {
                               Status: {order.status}
                             </p>
                           </div>
-                          <button
-                            onClick={() => handleDecline(order._id)}
-                            className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
-                          >
-                            Decline
-                          </button>
-                          <button
-                            onClick={() => handleApprove(order._id)}
-                            className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
-                          >
-                            Approve
-                          </button>
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => handleDeclineDelivery(order._id)}
+                              className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 w-full md:w-auto"
+                            >
+                              Decline Order
+                            </button>
+                            <button
+                              onClick={() => handleApproveDelivery(order._id)}
+                              className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 w-full md:w-auto"
+                            >
+                              Approve Order
+                            </button>
+                          </div>
                         </div>
                       ))
                   ) : (
@@ -900,7 +940,8 @@ const AdminSideNav = () => {
                 Notifications
               </h2>
               <div className="w-full h-full flex flex-col gap-4 overflow-y-scroll no-scrollbar relative">
-                {orders.filter((order) => order.status === "Payment Pending")
+                {Array.isArray(orders) &&
+                orders.filter((order) => order.status === "Payment Pending")
                   .length > 0 ? (
                   orders
                     .filter((order) => order.status === "Payment Pending")
@@ -971,6 +1012,7 @@ const AdminSideNav = () => {
               </div>
             </div>
           )}
+
           {activeSection === "chat" && (
             <div className="chat w-full h-full rounded-lg bg-[#50606C] p-4 flex flex-col">
               {selectedChat === null ? (
