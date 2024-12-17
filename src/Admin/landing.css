@@ -158,6 +158,7 @@ nav {
 
   .buttonBox1 {
     display: flex;
+    padding-right: 30px;
   }
 
   .dropDown {
@@ -344,6 +345,7 @@ nav {
 
   .buttonBox1 {
     display: flex;
+    padding-right: 30px;
   }
 
   .dropDown {
