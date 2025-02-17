@@ -19,6 +19,7 @@ const CvLandingPage = () => {
   const [error, setError] = useState("");
   const [pId, setPId] = useState("");
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [loading, setLoading] = useState(true);
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -57,6 +58,8 @@ const CvLandingPage = () => {
         console.log(err);
 
         // console.pId(err);
+      } finally {
+        setLoading(false); // Stop loading regardless of success or failure
       }
     };
 
@@ -469,9 +472,18 @@ const CvLandingPage = () => {
         >
           Projects
         </h2>
+
         {error && <p className="text-red-500 text-center">{error}</p>}
 
-        {projects.length > 0 ? (
+        {/* Show loading spinner when fetching projects */}
+        {loading && (
+          <div className="flex flex-col items-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-purple-500"></div>
+            <p className="text-gray-500 mt-2">Loading projects...</p>
+          </div>
+        )}
+
+        {!loading && projects.length > 0 ? (
           <div className="flex flex-wrap justify-center gap-8">
             {projects.map((project, index) => (
               <div
@@ -512,9 +524,11 @@ const CvLandingPage = () => {
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-500">
-            No projects available. Stay tuned!
-          </p>
+          !loading && (
+            <p className="text-center text-gray-500">
+              No projects available. Stay tuned!
+            </p>
+          )
         )}
       </section>
 

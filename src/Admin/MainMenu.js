@@ -27,7 +27,7 @@ const MainMenu = ({
   const [subtotal, setsubtotal] = useState(0);
   const [productId, setProductId] = useState("");
   const { id } = useParams();
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
   const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
