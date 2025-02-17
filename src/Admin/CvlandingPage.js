@@ -166,7 +166,7 @@ const CvLandingPage = () => {
         } sticky top-0 z-50 shadow-md transition-colors duration-500`}
       >
         <div className="container mx-auto flex items-center justify-between p-4">
-          <h1 className="text-2xl font-bold">My CV</h1>
+          <h1 className="text-2xl font-bold">Keena</h1>
 
           {/* Dark Mode Toggle and Mobile Menu Toggle */}
           <div className="flex items-center lg:hidden">
