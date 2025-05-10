@@ -3,8 +3,8 @@
   margin: 0;
 }
 
-.navbar {
-  position: fixed;
+.mynavbar {
+  position: fixed !important;
   top: 0;
   z-index: 14;
 }
