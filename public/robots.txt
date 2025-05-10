@@ -1,7 +1,4 @@
-# https://www.robotstxt.org/robotstxt.html
-User-agent: *
-Disallow:
 User-agent: *
 Disallow: /admin/
 Allow: /
-
+Sitemap: https://chef-chiller-react.vercel.app/sitemap.xml
