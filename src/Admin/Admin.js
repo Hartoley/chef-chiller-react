@@ -48,7 +48,7 @@ const Admin = ({ signup, signin, isDashboard }) => {
 
   return (
     <>
-      <nav>
+      <nav className="navbar">
         <div className="dropDown flex-shrink-0 !pl-4">
           <div
             onClick={home}

@@ -151,7 +151,7 @@ const LandingPage = () => {
   return (
     <>
       <Admin signin={signin} signup={signup} />
-      <div>
+      <div className="mt-[12vh]">
         <div
           id="bigBox"
           className="h-[88vh] w-full bg-cover bg-center bg-no-repeat"
@@ -175,7 +175,7 @@ const LandingPage = () => {
                   transition={{ duration: 0.5 }}
                 >
                   <div
-                    className="w-[50%] h-full  flex items-center justify-center"
+                    className="w-[50%] h-full flex items-center justify-center"
                     id="imageBox"
                   >
                     <img

@@ -111,7 +111,7 @@ const SignupForm = () => {
   return (
     <>
       <Admin signin={signin} signup={signup} />
-      <div className="body w-full h-screen bg-black relative">
+      <div className="body mt-[12vh] w-full h-screen bg-black relative">
         <img
           className="absolute w-full h-full inset-0"
           src="https://i.pinimg.com/474x/d9/a7/67/d9a7674a942f55c1f76705d4406cac3b.jpg"

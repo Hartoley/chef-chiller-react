@@ -330,6 +330,14 @@ nav {
     font-weight: 400;
     font-size: 12px !important;
   }
+
+  #imageBox {
+    width: 100%;
+    height: 25vh !important;
+    padding: 0;
+    padding-right: 70px;
+    /* background-color: palevioletred; */
+  }
 }
 
 @media (max-width: 400px) {
@@ -382,6 +390,8 @@ nav {
   #imageBox {
     width: 100%;
     height: 25vh !important;
+    padding: 0;
+    padding-right: 70px;
     /* background-color: palevioletred; */
   }
 
