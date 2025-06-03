@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { FaHeart, FaRegHeart, FaCommentDots } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaCommentDots, FaTimes } from "react-icons/fa";
 
 const dummyUserId = "683eaedb3f503cfef0520069";
 const baseURL = "http://localhost:5003";
@@ -9,6 +9,7 @@ export default function BlogPage() {
   const [blogs, setBlogs] = useState([]);
   const [commentInputs, setCommentInputs] = useState({});
   const [replyInputs, setReplyInputs] = useState({});
+  const [showLikers, setShowLikers] = useState(null); // { blogId, likers }
 
   useEffect(() => {
     fetchBlogs();
@@ -18,7 +19,7 @@ export default function BlogPage() {
     try {
       const res = await axios.get(`${baseURL}/blogs`);
       setBlogs(res.data);
-      //   console.log(res.data);
+      console.log(res.data);
     } catch (err) {
       alert(
         "Error fetching blogs: " + (err.response?.data?.error || err.message)
@@ -155,6 +156,41 @@ export default function BlogPage() {
                 </div>
               </div>
 
+              {blog.likes && blog.likes.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-4 text-sm text-gray-700 items-center">
+                  {blog.likes.slice(0, 2).map((liker) => (
+                    <a
+                      key={liker._id}
+                      href={`/profile/${liker._id}`}
+                      className="flex items-center space-x-2 hover:underline"
+                    >
+                      <img
+                        src={
+                          liker.avatarUrl ||
+                          "https://i.pinimg.com/736x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
+                        }
+                        alt="liker avatar"
+                        className="w-6 h-6 rounded-full"
+                      />
+                      <span>{liker.userName}</span>
+                    </a>
+                  ))}
+                  {blog.likes.length > 2 && (
+                    <button
+                      onClick={() =>
+                        setShowLikers({
+                          blogId: blog._id,
+                          likers: blog.likes,
+                        })
+                      }
+                      className="text-indigo-600 hover:underline"
+                    >
+                      +{blog.likes.length - 2} more
+                    </button>
+                  )}
+                </div>
+              )}
+
               <input
                 type="text"
                 placeholder="Add a comment..."
@@ -176,7 +212,6 @@ export default function BlogPage() {
 
               <div className="mt-4 space-y-4">
                 {blog.comments.map((c) => {
-                  // Commenter user data is nested inside commenter.userId
                   const commenter = c.commenter?.userId;
 
                   return (
@@ -210,7 +245,6 @@ export default function BlogPage() {
                       </div>
                       <div className="ml-4">
                         {c.replies?.map((r, index) => {
-                          // Reply commenter user data is inside commenter.id (can be null)
                           const replier = r.commenter?.id;
 
                           return (
@@ -279,6 +313,40 @@ export default function BlogPage() {
           ))}
         </div>
       </div>
+
+      {/* Likers Modal */}
+      {showLikers && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
+          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl relative">
+            <button
+              className="absolute top-3 right-3 text-gray-600"
+              onClick={() => setShowLikers(null)}
+            >
+              <FaTimes />
+            </button>
+            <h3 className="text-lg font-semibold mb-4">Liked by</h3>
+            <div className="space-y-3 max-h-[300px] overflow-y-auto">
+              {showLikers.likers.map((liker) => (
+                <a
+                  key={liker._id}
+                  href={`/profile/${liker._id}`}
+                  className="flex items-center gap-3 hover:bg-gray-50 p-2 rounded-md"
+                >
+                  <img
+                    src={
+                      liker.avatarUrl ||
+                      "https://i.pinimg.com/736x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
+                    }
+                    alt="avatar"
+                    className="w-8 h-8 rounded-full"
+                  />
+                  <span className="text-sm font-medium">{liker.userName}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
