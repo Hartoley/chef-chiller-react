@@ -18,6 +18,7 @@ const CvLandingPage = () => {
   const [projectsId, setProjectsId] = useState([]);
   const [error, setError] = useState("");
   const [pId, setPId] = useState("");
+  const [isSending, setIsSending] = useState(false);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -117,6 +118,7 @@ const CvLandingPage = () => {
   );
 
   const handleSubmit = (event) => {
+    setIsSending(true);
     event.preventDefault();
 
     const form = event.target;
@@ -138,10 +140,12 @@ const CvLandingPage = () => {
             subject: "",
             message: "",
           });
+          setIsSending(false);
         },
         (error) => {
           console.error("Error sending message:", error.text);
           alert("There was an error sending your message.");
+          setIsSending(false);
         }
       );
   };
@@ -632,7 +636,12 @@ const CvLandingPage = () => {
 
           {/* Contact Form */}
           <div>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form
+              onSubmit={handleSubmit}
+              className={`${
+                darkMode ? "text-gray-900" : "text-purple-700"
+              } text-center py-6 transition-colors duration-500 space-y-6`}
+            >
               <input
                 type="text"
                 name="user_name"
@@ -663,12 +672,14 @@ const CvLandingPage = () => {
               ></textarea>
               <button
                 type="submit"
-                disabled={!isFormValid}
-                className={`w-full  text-white p-3 rounded-md shadow-md hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${
-                  darkMode ? "bg-purple-400 text-purple-200" : "bg-purple-700 "
-                } ${!isFormValid && "opacity-50 cursor-not-allowed"}`}
+                disabled={!isFormValid || isSending}
+                className={`w-full text-white p-3 rounded-md shadow-md hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${
+                  darkMode ? "bg-purple-400 text-purple-900" : "bg-purple-700"
+                } ${
+                  (!isFormValid || isSending) && "opacity-50 cursor-not-allowed"
+                }`}
               >
-                Send Message
+                {isSending ? "Sending..." : "Send Message"}
               </button>
             </form>
           </div>
