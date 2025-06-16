@@ -5,7 +5,7 @@ import io from "socket.io-client";
 const socket = io("https://chef-chiller-node.onrender.com");
 
 socket.on("message", (message) => {
-  console.log("Message from server:", message);
+  // console.log("Message from server:", message);
 });
 
 socket.emit("message", "Hello from client!");

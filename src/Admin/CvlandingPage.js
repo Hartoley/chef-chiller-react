@@ -26,15 +26,12 @@ const CvLandingPage = () => {
   };
 
   const showProject = (id) => {
-    console.log(id);
-
     const fetchProjectsId = async () => {
       try {
         const response = await axios.get(
           `https://chef-chiller-node.onrender.com/fetchproject/${id}`
         );
         setProjectsId(response.data);
-        console.log("Project data fetched:", response);
         setIsModalOpen(true);
       } catch (err) {
         setError("Failed to load projects");
@@ -52,7 +49,6 @@ const CvLandingPage = () => {
           "https://chef-chiller-node.onrender.com/getallproject"
         );
         setProjects(response.data);
-        console.log(response);
       } catch (err) {
         setError("Failed to load projects");
         console.log(err);
@@ -134,7 +130,6 @@ const CvLandingPage = () => {
       )
       .then(
         (result) => {
-          console.log("Message Sent Successfully:", result.text);
           alert("Your message has been sent!");
           form.reset();
           setFormData({

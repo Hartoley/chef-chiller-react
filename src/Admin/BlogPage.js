@@ -158,23 +158,26 @@ export default function BlogPage() {
 
               {blog.likes && blog.likes.length > 0 && (
                 <div className="flex flex-wrap gap-2 mb-4 text-sm text-gray-700 items-center">
-                  {blog.likes.slice(0, 2).map((liker) => (
-                    <a
-                      key={liker._id}
-                      href={`/profile/${liker._id}`}
-                      className="flex items-center space-x-2 hover:underline"
-                    >
-                      <img
-                        src={
-                          liker.avatarUrl ||
-                          "https://i.pinimg.com/736x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
-                        }
-                        alt="liker avatar"
-                        className="w-6 h-6 rounded-full"
-                      />
-                      <span>{liker.userName}</span>
-                    </a>
-                  ))}
+                  {blog.likes.slice(0, 2).map((liker) => {
+                    console.log("Liker ID:", liker._id); // Log liker id here
+                    return (
+                      <a
+                        key={liker._id}
+                        href={`/profile/${liker}`}
+                        className="flex items-center space-x-2 hover:underline"
+                      >
+                        <img
+                          src={
+                            liker.avatarUrl ||
+                            "https://i.pinimg.com/736x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
+                          }
+                          alt="liker avatar"
+                          className="w-6 h-6 rounded-full"
+                        />
+                        <span>{liker.userName}</span>
+                      </a>
+                    );
+                  })}
                   {blog.likes.length > 2 && (
                     <button
                       onClick={() =>
@@ -296,11 +299,11 @@ export default function BlogPage() {
                               [c._id]: e.target.value,
                             })
                           }
-                          className="mt-2 w-full border px-3 py-2 rounded-full"
+                          className="w-full border px-3 py-1 rounded-full mt-2 text-xs"
                         />
                         <button
                           onClick={() => handleReply(blog._id, c._id)}
-                          className="bg-indigo-500 text-white px-4 py-1 rounded-full mt-1 text-xs"
+                          className="text-indigo-600 text-xs font-semibold mt-1"
                         >
                           Reply
                         </button>
@@ -312,41 +315,44 @@ export default function BlogPage() {
             </div>
           ))}
         </div>
-      </div>
 
-      {/* Likers Modal */}
-      {showLikers && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl relative">
-            <button
-              className="absolute top-3 right-3 text-gray-600"
-              onClick={() => setShowLikers(null)}
-            >
-              <FaTimes />
-            </button>
-            <h3 className="text-lg font-semibold mb-4">Liked by</h3>
-            <div className="space-y-3 max-h-[300px] overflow-y-auto">
-              {showLikers.likers.map((liker) => (
-                <a
-                  key={liker._id}
-                  href={`/profile/${liker._id}`}
-                  className="flex items-center gap-3 hover:bg-gray-50 p-2 rounded-md"
-                >
-                  <img
-                    src={
-                      liker.avatarUrl ||
-                      "https://i.pinimg.com/736x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
-                    }
-                    alt="avatar"
-                    className="w-8 h-8 rounded-full"
-                  />
-                  <span className="text-sm font-medium">{liker.userName}</span>
-                </a>
-              ))}
+        {/* Likers Modal */}
+        {showLikers && (
+          <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
+            <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl relative">
+              <button
+                className="absolute top-3 right-3 text-gray-600"
+                onClick={() => setShowLikers(null)}
+                aria-label="Close likers popup"
+              >
+                <FaTimes size={20} />
+              </button>
+              <h3 className="text-lg font-semibold mb-4">Liked by</h3>
+              <div className="space-y-3 max-h-[300px] overflow-y-auto">
+                {showLikers.likers.map((liker) => (
+                  <a
+                    key={liker._id}
+                    href={`/profile/${liker._id}`}
+                    className="flex items-center gap-3 hover:bg-gray-50 p-2 rounded-md"
+                  >
+                    <img
+                      src={
+                        liker.avatarUrl ||
+                        "https://i.pinimg.com/736x/cd/4b/d9/cd4bd9b0ea2807611ba3a67c331bff0b.jpg"
+                      }
+                      alt="avatar"
+                      className="w-8 h-8 rounded-full"
+                    />
+                    <span className="text-sm font-medium">
+                      {liker.userName}
+                    </span>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
