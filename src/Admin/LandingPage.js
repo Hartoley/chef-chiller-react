@@ -81,7 +81,7 @@ const LandingPage = () => {
         <div className="relative w-full h-[88vh] overflow-hidden">
           {/* Background Image */}
           <img
-            src="https://i.pinimg.com/236x/13/f7/ab/13f7ab894c39396151c52b4b354b1aad.jpg"
+            src="https://i.pinimg.com/736x/a6/a8/2c/a6a82cf20d2fb7cae922836a9ad79ff6.jpg"
             alt="background"
             className="absolute inset-0 w-full h-full object-cover"
           />
@@ -145,6 +145,22 @@ const LandingPage = () => {
                   index === currentIndex ? "bg-[#FC9E34]" : "bg-gray-400"
                 }`}
               ></div>
+            ))}
+          </div>
+        </div>
+        {/* Bottom thumbnail images */}
+        <div
+          id="listFood"
+          className="bg-[rgb(8,21,33)] w-full flex justify-center items-center h-[12vh]"
+        >
+          <div className="listChild overflow-x-scroll no-scrollbar w-[60%] flex justify-center items-center gap-6 h-full px-4">
+            {[img1, img2, img3, img4, img1, img2, img3, img4].map((src, i) => (
+              <motion.img
+                key={i}
+                src={src}
+                alt={`thumb-${i}`}
+                className="w-10 h-10 md:w-12 md:h-12 border border-white rounded-full bg-white flex-shrink-0 hover:scale-110 transition-all duration-300"
+              />
             ))}
           </div>
         </div>
