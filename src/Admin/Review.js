@@ -77,7 +77,7 @@ const reviews = [
 const ReviewSection = () => {
   return (
     <div className="min-h-screen bg-[rgb(8,21,33)] py-16 px-4 md:px-12 flex flex-col items-center">
-      <h2 className="text-4xl font-bold text-white mb-4">
+      <h2 className="text-3xl text-center font-bold text-white mb-4">
         What Our Customers Say
       </h2>
       <p className="text-yellow-500 mb-12 max-w-2xl text-center">

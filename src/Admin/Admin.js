@@ -34,8 +34,6 @@ const Admin = ({ signup, signin, isDashboard }) => {
     navigate("/");
   };
 
-  console.log(isLoggedIn);
-
   useEffect(() => {
     const id = localStorage.getItem("id");
     if (id) {
