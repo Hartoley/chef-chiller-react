@@ -11,6 +11,7 @@ import img6 from "../Images/spaghettiNew.png";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 import AllProduct from "./Allproduct";
+import ReviewSection from "./Review";
 
 const slides = [
   {
@@ -167,6 +168,7 @@ const LandingPage = () => {
 
         {/* Products & Footer */}
         <AllProduct />
+        <ReviewSection />
         <Footer />
       </div>
     </>

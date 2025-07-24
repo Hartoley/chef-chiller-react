@@ -417,7 +417,7 @@ const AdminSideNav = () => {
             </div>
             <div className="chef h-[80%] flex items-center justify-center">
               <p className="text-[12px] mb-0 w-full flex items-center p-0 text-white font-medium">
-                Chef Chiller
+                Chef Keena
               </p>
             </div>
           </div>

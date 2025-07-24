@@ -119,7 +119,7 @@ const Footer = () => {
       {/* Footer Bottom */}
       <div className="border-t border-[#1F2937] py-6 px-6 md:px-20 lg:px-32 flex flex-col md:flex-row items-center justify-between">
         <p className="text-sm text-[#9CA3AF]">
-          © 2024 Chef Chiller. All Rights Reserved
+          © 2024 Chef Keena. All Rights Reserved
         </p>
         <div className="flex space-x-6 mt-4 md:mt-0">
           <a
