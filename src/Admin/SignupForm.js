@@ -123,7 +123,7 @@ const SignupForm = () => {
             id="loginContainer2"
           >
             <form
-              className="w-[60%] h-full px-5 py-3 flex flex-col gap-1"
+              className="w-full lg:w-[60%] h-full px-5 py-3 flex flex-col gap-1"
               id="main2"
               onSubmit={formik.handleSubmit}
             >

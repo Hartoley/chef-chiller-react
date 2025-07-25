@@ -70,6 +70,14 @@ const LandingPage = () => {
     setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
   };
 
+  const signin = () => {
+    navigate("/user/signin");
+  };
+
+  const signup = () => {
+    navigate("/user/signup");
+  };
+
   useEffect(() => {
     const interval = setInterval(() => nextSlide(), 10000);
     return () => clearInterval(interval);
@@ -77,7 +85,8 @@ const LandingPage = () => {
 
   return (
     <>
-      <Admin />
+      <Admin signin={signin} signup={signup} />
+
       <div className="mt-[12vh]">
         <div className="relative w-full h-[88vh] overflow-hidden">
           {/* Background Image */}
