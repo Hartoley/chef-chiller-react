@@ -13,6 +13,7 @@ import ProjectForm from "./Admin/Projectform";
 import BlogEditor from "./Admin/Blog";
 import BlogPage from "./Admin/BlogPage";
 import UserProfile from "./Admin/userProfile";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/blogpage" element={<BlogPage />} />
         <Route path="/profile/:userId" element={<UserProfile />} />
       </Routes>
+      <ToastContainer />
     </>
   );
 }

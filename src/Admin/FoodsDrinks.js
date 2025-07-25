@@ -304,7 +304,6 @@ const FoodsDrinks = ({ showCustomAlert }) => {
           </section>
         </div>
       )}
-      <ToastContainer />
     </main>
   );
 };

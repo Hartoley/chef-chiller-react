@@ -154,8 +154,6 @@ const Notifications = () => {
           </div>
         </section>
       </main>
-
-      <ToastContainer />
     </>
   );
 };

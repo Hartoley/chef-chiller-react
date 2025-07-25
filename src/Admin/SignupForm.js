@@ -23,7 +23,6 @@ const SignupForm = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(`${endpoint}/user/getdata`);
-        console.log("students data from API:", res.data);
         setStudents(res.data);
       } catch (err) {
         console.log(err);
@@ -254,7 +253,6 @@ const SignupForm = () => {
             </div>
           </div>
         </div>
-        <ToastContainer />
       </div>
       <Footer />
     </>

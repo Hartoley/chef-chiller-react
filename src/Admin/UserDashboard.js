@@ -4,7 +4,6 @@ import axios from "axios";
 import "./user.css";
 import { useParams } from "react-router-dom";
 import Footer from "./Footer";
-import { ToastContainer, toast } from "react-toastify";
 import FoodsDrinks from "./FoodsDrinks";
 import Messages from "./Messages";
 import Notifications from "./Notifications";
@@ -105,45 +104,41 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       setisFetching(true);
-      // toast.loading("Fetching items");
+
       try {
         const res = await axios.get(
           `https://chef-chiller-node.onrender.com/user/getuser/${id}`
         );
         setuser(res.data.data);
         setOrderItems(res.data.data.orders);
+
         const subtotal = res.data.data.orders.reduce((total, order) => {
           return total + order.productPrice * order.quantity;
         }, 0);
         setsubtotal(subtotal);
-        setisFetching(false);
-        showCustomAlert("Items fetched successfully!", "success");
-
-        // toast.dismiss(); // Dismiss loading toast
       } catch (err) {
-        console.log(err);
+        console.error(err);
+      } finally {
         setisFetching(false);
-        toast.error("Failed to fetch data");
       }
     };
 
     fetchData();
 
+    // socket listeners
     socket.on("ordersUpdated", (data) => {
       if (data.userId === id) {
         setOrderItems(data.orders);
-        console.log(data);
         setuser(data.user);
+
         const subtotal = data.orders.reduce((total, order) => {
           return total + order.productPrice * order.quantity;
         }, 0);
         setsubtotal(subtotal);
-        // toast.success("Orders updated successfully!");
       }
     });
 
     socket.on("orderApproved", (data) => {
-      console.log("Order approved:", data);
       setuser(data.user);
       setOrders(data.order);
     });
@@ -152,12 +147,11 @@ const UserDashboard = () => {
       socket.off("ordersUpdated");
       socket.off("orderApproved");
     };
-  }, [id, socket]);
+  }, [id]);
 
   const Mylist = async (page = 1) => {
     try {
       showCustomAlert("Fetching Awaiting, please wait...", "info", true);
-      toast.info("Fetching Awaiting, please wait...");
 
       const response = await axios.get(
         `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${id}?page=${page}&limit=${ordersPerPage}`
@@ -215,6 +209,8 @@ const UserDashboard = () => {
       setProducts(res.data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -582,7 +578,6 @@ const UserDashboard = () => {
         </div>
       </div>
       <Footer />
-      <ToastContainer />
     </>
   );
 };

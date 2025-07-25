@@ -1099,7 +1099,6 @@ const AdminSideNav = () => {
           )}
         </div>
       </div>
-      <ToastContainer />
     </>
   );
 };
