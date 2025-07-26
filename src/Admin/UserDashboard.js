@@ -12,6 +12,9 @@ import MainMenu from "./MainMenu";
 import Product from "./Product";
 import Setting from "./Setting";
 import io from "socket.io-client";
+import AsideSidebar from "./AsideSidebar";
+import AsideBasket from "./AsideBsaket";
+import AsideMobile from "./AsideMobile";
 
 const socket = io("https://chef-chiller-node.onrender.com");
 
@@ -358,52 +361,7 @@ const UserDashboard = () => {
               onClose={hideAlert}
             />
           )}
-          <aside className="sideNav w-[15vw] bg-gray-900 text-white flex flex-col justify-between py-4 px-2">
-            <div>
-              <h1 className="text-2xl font-bold mb-8 text-center">FoodWish!</h1>
-              <nav className="flex bg-gray-900 items-start gap-2 flex-col">
-                <p
-                  onClick={() => setActiveSection3("mainMenu1")}
-                  className="flex items-center text-[14px] cursor-pointer hover:text-gray-300"
-                >
-                  <span className="mr-3">🏠</span> Dashboard
-                </p>
-                <p
-                  onClick={() => setActiveSection3("mainMenu4")}
-                  className="flex items-center text-[14px] cursor-pointer hover:text-gray-300"
-                >
-                  <span className="mr-3">🍲</span> Basket
-                  {user?.orders?.length > 0 && (
-                    <span className="mb-2 ml-2 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
-                      {user.orders.length > 5 ? "5+" : user.orders.length}
-                    </span>
-                  )}
-                </p>
-                <p
-                  onClick={() => setActiveSection3("mainMenu3")}
-                  className="flex items-center text-[14px] cursor-pointer hover:text-gray-300"
-                >
-                  <span className="mr-3">⚙️</span> Messages
-                </p>
-                <p
-                  onClick={() => setActiveSection3("mainMenu2")}
-                  className="flex items-center text-[14px] cursor-pointer hover:text-gray-300"
-                >
-                  <span className="mr-3">⌛</span> Awaiting
-                </p>
-                <p
-                  onClick={() => setActiveSection3("mainMenu6")}
-                  className="flex items-center text-[14px] cursor-pointer hover:text-gray-300"
-                >
-                  <span className="mr-3">📜</span> History
-                </p>
-              </nav>
-            </div>
-            <footer className="text-sm text-gray-500 mt-8">
-              <p>© 2024 FoodWish! POS</p>
-              <p>Terms • Privacy</p>
-            </footer>
-          </aside>
+          <AsideSidebar user={user} setActiveSection3={setActiveSection3} />
           <>
             {activeSection3 === "mainMenu1" && (
               <MainMenu
@@ -437,149 +395,22 @@ const UserDashboard = () => {
             )}
           </>
 
-          <aside
-            className={`sideNav2 w-[20vw] flex-shrink-0 bg-gray-900 text-white p-6 flex flex-col justify-between fixed z-10 transition-transform transform ${
-              isMenuVisible ? "translate-x-0" : "-translate-x-full"
-            } md:static md:transform-none md:translate-x-0`}
-          >
-            <div>
-              <div className="text-xl font-semibold mb-6">Basket</div>
-              <div className="flex justify-between items-center mb-4 p-2">
-                <span>Today</span>
-                <span>🕒 {formattedDate}</span>
-              </div>
-              <div className="space-y-4 h-[30vh] overflow-y-auto no-scrollbar">
-                {orderItems
-                  // .filter((order) => order.approved)
-                  .map((item, index) => (
-                    <div
-                      key={index}
-                      className="flex font-white gap-1 justify-between"
-                    >
-                      <span>{item.productName}</span>
-                      <span>₦{item.productPrice.toFixed(2)}</span>
-                    </div>
-                  ))}
-              </div>
+          <AsideBasket
+            formattedDate={formattedDate}
+            orderItems={orderItems}
+            subtotal={subtotal}
+            setActiveSection3={setActiveSection3}
+            isMenuVisible={isMenuVisible}
+          />
 
-              <div className="border-t border-gray-700 mt-6 pt-4 space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-gray-400">Subtotal</span>
-                  <span>₦{subtotal.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-400">Fee</span>
-                  <span>₦0.00</span>
-                </div>
-                <div className="flex justify-between font-semibold">
-                  <span>Total</span>
-                  <span>₦{subtotal.toFixed(2)}</span>
-                </div>
-              </div>
-
-              {/* <div className="flex space-x-2 mt-4">
-                <button className="flex-1 bg-red-700 py-2 rounded hover:bg-red-800">
-                  Cash
-                </button>
-                <button className="flex-1 bg-orange-400 rounded hover:bg-orange-500">
-                  Debit
-                </button>
-                <button className="flex-1 bg-green-600 py-2 rounded hover:bg-green-700">
-                  E-wallet
-                </button>
-              </div> */}
-              <button
-                onClick={() => setActiveSection3("mainMenu4")}
-                className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded"
-              >
-                Place Order
-              </button>
-            </div>
-          </aside>
-
-          {showMenu && (
-            <aside
-              className={`sideNav3 w-80 bg-gray-900 text-white p-6 flex flex-col justify-between fixed z-10 transition-transform transform ${
-                isMenuVisible ? "translate-x-0" : "-translate-x-full"
-              } md:static md:transform-none md:translate-x-0`}
-            >
-              <div>
-                <div className="text-xl font-semibold mb-6 flex items-center justify-between">
-                  <p className="text-xl font-semibold">Current Order</p>
-                  <div onClick={toggleMenu} class="relative">
-                    <svg
-                      class="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M3 3h2l3 8h10l3-8H6M3 3v2m14 14a2 2 0 100-4 2 2 0 000 4zM5 17a2 2 0 100-4 2 2 0 000 4z"
-                      ></path>
-                    </svg>
-
-                    {user?.orders?.length > 0 && (
-                      <span className="relative top-0 right-0 block h-5 w-5 rounded-full bg-red-500 text-white text-xs text-center">
-                        {user.orders.length > 5 ? "5+" : user.orders.length}
-                      </span>
-                    )}
-                  </div>
-                </div>
-                <div className="flex justify-between items-center mb-4">
-                  <span>Today</span>
-                  <span>🕒 {formattedDate}</span>
-                </div>
-                <div className="space-y-4 h-[30vh] overflow-y-auto no-scrollbar">
-                  {orderItems
-                    // .filter((order) => order.approved)
-                    .map((item, index) => (
-                      <div key={index} className="flex justify-between">
-                        <span>{item.productName}</span>
-                        <span>₦{item.productPrice.toFixed(2)}</span>
-                      </div>
-                    ))}
-                </div>
-
-                <div className="border-t border-gray-700 mt-6 pt-4 space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Subtotal</span>
-                    <span>₦{subtotal.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Fee</span>
-                    <span>₦0.00</span>
-                  </div>
-                  <div className="flex justify-between font-semibold">
-                    <span>Total</span>
-                    <span>₦{subtotal.toFixed(2)}</span>
-                  </div>
-                </div>
-
-                {/* <div className="flex space-x-2 mt-4">
-                  <button className="flex-1 bg-red-700 py-2 rounded hover:bg-red-800">
-                    Cash
-                  </button>
-                  <button className="flex-1 bg-orange-400 rounded hover:bg-orange-500">
-                    Debit
-                  </button>
-                  <button className="flex-1 bg-green-600 py-2 rounded hover:bg-green-700">
-                    E-wallet
-                  </button>
-                </div> */}
-
-                <button
-                  onClick={() => setActiveSection3("mainMenu4")}
-                  className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded"
-                >
-                  Place Order
-                </button>
-              </div>
-            </aside>
-          )}
+          <AsideMobile
+            isVisible={isVisible}
+            isSmallScreen={isSmallScreen}
+            user={user}
+            awaiting={awaiting}
+            filteredOrdersCount={filteredOrdersCount}
+            setActiveSection3={setActiveSection3}
+          />
         </div>
       </div>
       <Footer />
