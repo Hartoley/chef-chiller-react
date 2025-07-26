@@ -22,50 +22,48 @@ const categories = [
   { label: "Vegan Options", value: "vegan options" },
   { label: "Extras & Add-ons", value: "extras & add-ons" },
 ];
-const ProductCard = ({ product, setActiveSection3 }) => {
-  return (
-    <div className="w-full sm:w-[48%] lg:w-[30%] bg-white rounded-xl shadow-md hover:shadow-lg border p-4 flex flex-col justify-between transition-all">
-      {/* Wishlist Checkbox Placeholder */}
-      <div className="flex justify-between items-center mb-2">
-        <span className="inline-block w-4 h-4 rounded-sm border border-[rgb(17,24,39)] bg-[rgb(17,24,39)] "></span>
-      </div>
-
-      <img
-        src={product.image}
-        alt={product.name}
-        className="h-40 object-contain mb-4 mx-auto rounded-md"
-      />
-
-      <h3 className="text-lg font-semibold mb-1 text-center">{product.name}</h3>
-
-      <div className="flex items-center justify-center mb-3">
-        <span className="text-[rgb(17,24,39)] font-bold text-lg">
-          ₦{product.price.toLocaleString("en-NG")}
-        </span>
-        <span className="text-gray-400 line-through ml-2">₦28.30</span>
-      </div>
-
-      <div className="flex justify-between text-sm text-gray-500 items-center mb-4">
-        <span>★ 2.5k+</span>
-      </div>
-
-      <div className="flex justify-between items-center gap-2">
-        <button className="w-full py-2 border border-[rgb(17,24,39)] text-[rgb(17,24,39)] rounded-md hover:bg-[rgb(17,24,39)]/10 transition">
-          Wishlist
-        </button>
-        <button
-          onClick={() => {
-            localStorage.setItem("productId", JSON.stringify(product._id));
-            setActiveSection3("mainMenu5");
-          }}
-          className="w-full py-2 bg-[rgb(17,24,39)] text-white rounded-md hover:opacity-90 transition"
-        >
-          Order Now
-        </button>
-      </div>
+const ProductCard = ({ product, setActiveSection3 }) => (
+  <div className="w-[48%] sm:w-[48%] md:w-[30%] bg-white rounded-lg shadow-sm border border-gray-200 p-2 flex flex-col flex-wrap justify-between transition-all">
+    <div className="flex justify-between items-center mb-1">
+      <span className="inline-block w-3 h-3 rounded-sm border border-gray-800 bg-gray-800"></span>
     </div>
-  );
-};
+
+    <img
+      src={product.image}
+      alt={product.name}
+      className="h-24 sm:h-28 object-contain mb-2 mx-auto rounded"
+    />
+
+    <h3 className="text-xs font-semibold mb-1 text-center leading-tight line-clamp-2">
+      {product.name}
+    </h3>
+
+    <div className="flex items-center justify-center mb-1">
+      <span className="text-gray-800 font-bold text-xs">
+        ₦{product.price.toLocaleString("en-NG")}
+      </span>
+    </div>
+
+    <div className="flex justify-between text-[10px] text-gray-400 items-center mb-2">
+      <span>★ 2.5k+</span>
+    </div>
+
+    <div className="flex justify-between items-center gap-1 text-[10px]">
+      <button className="w-full py-1 border border-gray-800 text-gray-800 rounded hover:bg-gray-800 hover:text-white transition">
+        Wishlist
+      </button>
+      <button
+        onClick={() => {
+          localStorage.setItem("productId", JSON.stringify(product._id));
+          setActiveSection3("mainMenu5");
+        }}
+        className="w-full py-1 bg-gray-800 text-white rounded hover:opacity-90 transition"
+      >
+        Order
+      </button>
+    </div>
+  </div>
+);
 
 const ProductSection = ({
   title,
