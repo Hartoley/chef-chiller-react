@@ -584,17 +584,25 @@ const AdminSideNav = () => {
                             value={formik.values.category}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            className="text-sm md:text-base mt-1 p-2 border border-gray-700 rounded bg-gray-900 text-gray-200"
+                            className="text-sm md:text-base mt-1 p-2 border border-gray-700 rounded bg-gray-900 text-gray-200 w-full"
                           >
-                            <option value="" label="Select category" />
-                            <option value="Main course" label="Main course" />
-                            <option value="Beverages" label="Beverages" />
-                            <option value="Appetizers" label="Appetizers" />
-                            <option value="Snacks" label="Snacks" />
-                            <option value="Specials" label="Specials" />
-                            <option value="Extras" label="Extras" />
-                            {/* Add more categories as needed */}
+                            <option value="">-- Select Category --</option>
+                            <option value="Main Course">Main Course</option>
+                            <option value="Appetizers">Appetizers</option>
+                            <option value="Snacks">Snacks</option>
+                            <option value="Beverages">Beverages</option>
+                            <option value="Desserts">Desserts</option>
+                            <option value="Breakfast">Breakfast</option>
+                            <option value="Lunch Combos">Lunch Combos</option>
+                            <option value="Dinner Specials">
+                              Dinner Specials
+                            </option>
+                            <option value="Vegan Options">Vegan Options</option>
+                            <option value="Extras & Add-ons">
+                              Extras & Add-ons
+                            </option>
                           </select>
+
                           {formik.touched.category && formik.errors.category ? (
                             <div className="text-red-500 text-sm">
                               {formik.errors.category}

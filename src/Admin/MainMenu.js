@@ -1,12 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
-import "./user.css";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import io from "socket.io-client";
 
 const socket = io("https://chef-chiller-node.onrender.com");
+
+// Central category list
+const categories = [
+  { label: "All", value: "" },
+  { label: "Top Menu", value: "specials" },
+  { label: "Main Course", value: "main course" },
+  { label: "Appetizers", value: "appetizers" },
+  { label: "Snacks", value: "snacks" },
+  { label: "Beverages", value: "beverages" },
+  { label: "Desserts", value: "desserts" },
+  { label: "Breakfast", value: "breakfast" },
+  { label: "Lunch Combos", value: "lunch combos" },
+  { label: "Dinner Specials", value: "dinner specials" },
+  { label: "Vegan Options", value: "vegan options" },
+  { label: "Extras & Add-ons", value: "extras & add-ons" },
+];
 
 const ProductCard = ({ product, setActiveSection3, isUpdating }) => (
   <div
@@ -56,23 +71,29 @@ const ProductSection = ({
   return (
     <section className="flex w-full h-full flex-col">
       <h3 className="text-xl font-semibold mb-1">{title}</h3>
-      <div className="section6 py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
-        {filtered.map((product, index) => (
-          <ProductCard
-            key={index}
-            product={product}
-            setActiveSection3={setActiveSection3}
-            isUpdating={isUpdating}
-          />
-        ))}
-      </div>
+      {filtered.length === 0 ? (
+        <div className="h-[70vh] flex justify-center items-center text-gray-500 text-lg">
+          No products available in this category.
+        </div>
+      ) : (
+        <div className="section6 py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
+          {filtered.map((product, index) => (
+            <ProductCard
+              key={index}
+              product={product}
+              setActiveSection3={setActiveSection3}
+              isUpdating={isUpdating}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 };
 
 const LoadingSection = () => (
   <section className="section2 flex w-[60vw] h-full flex-col">
-    <h3 className="text-xl font-semibold mb-1">Top Menu</h3>
+    <h3 className="text-xl font-semibold mb-1">Loading...</h3>
     <div className="section3 w-full py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
       {[...Array(5)].map((_, index) => (
         <div
@@ -90,20 +111,17 @@ const LoadingSection = () => (
   </section>
 );
 
-const MainMenu = ({
-  activeSection2,
-  setActiveSection2,
-  activeSection3,
-  setActiveSection3,
-}) => {
+const MainMenu = ({ activeSection3, setActiveSection3 }) => {
   const [products, setProducts] = useState([]);
   const [user, setUser] = useState([]);
   const [isUpdating, setIsUpdating] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState(""); // value
+
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchUser = async () => {
       try {
         const res = await axios.get(
           `https://chef-chiller-node.onrender.com/user/getuser/${id}`
@@ -113,7 +131,7 @@ const MainMenu = ({
         console.log(err);
       }
     };
-    fetchData();
+    fetchUser();
   }, [id]);
 
   useEffect(() => {
@@ -131,8 +149,6 @@ const MainMenu = ({
     };
     fetchProducts();
   }, []);
-
-  const formik = useFormik({ initialValues: { category: "" } });
 
   const updateCart = async (product, action) => {
     if (isUpdating) return;
@@ -169,28 +185,26 @@ const MainMenu = ({
     }
   };
 
+  const selectedLabel = categories.find(
+    (cat) => cat.value === selectedCategory
+  )?.label;
+
   return (
     <main className="child h-[100h] flex-1 p-6 bg-gray-100 w-[63.65vw]">
       <section className="section1 flex gap-3 items-center justify-between mb-6">
         <h3 className="text-2xl flex-shrink-0 font-[12px]">Food & Drinks</h3>
         <div className="list overflow-x-scroll no-scrollbar flex space-x-2">
-          {[
-            { label: "All", key: "mainMenu" },
-            { label: "Top Menu", key: "topMenu" },
-            { label: "Main Course", key: "mainCourse" },
-            { label: "Side Menu", key: "sideMenu" },
-            { label: "Bakery Products", key: "bakedMenu" },
-          ].map((item) => (
+          {categories.map((cat) => (
             <button
-              key={item.key}
-              onClick={() => setActiveSection2(item.key)}
+              key={cat.value}
+              onClick={() => setSelectedCategory(cat.value)}
               className={`px-3 py-1 rounded-full flex-shrink-0 ${
-                activeSection2 === item.key
+                selectedCategory === cat.value
                   ? "bg-gray-800 text-white"
                   : "bg-gray-200 text-gray-800"
               }`}
             >
-              {item.label}
+              {cat.label}
             </button>
           ))}
         </div>
@@ -202,54 +216,17 @@ const MainMenu = ({
         </div>
       ) : (
         <div className="w-[60vw] flex flex-col h-[80vh]">
-          {activeSection2 === "mainMenu" && (
-            <ProductSection
-              title="Main Course"
-              products={products}
-              setActiveSection3={setActiveSection3}
-              isUpdating={isUpdating}
-            />
-          )}
-          {activeSection2 === "topMenu" && (
-            <ProductSection
-              title="Top Menu"
-              products={products}
-              filterFn={(p) => p.category.toLowerCase() === "specials"}
-              setActiveSection3={setActiveSection3}
-              isUpdating={isUpdating}
-            />
-          )}
-          {activeSection2 === "mainCourse" && (
-            <ProductSection
-              title="Our Main Course"
-              products={products}
-              filterFn={(p) => p.category.toLowerCase() === "main course"}
-              setActiveSection3={setActiveSection3}
-              isUpdating={isUpdating}
-            />
-          )}
-          {activeSection2 === "sideMenu" && (
-            <ProductSection
-              title="Side Menu"
-              products={products}
-              filterFn={(p) =>
-                ["beverages", "appetizers", "extras"].includes(
-                  p.category.toLowerCase()
-                )
-              }
-              setActiveSection3={setActiveSection3}
-              isUpdating={isUpdating}
-            />
-          )}
-          {activeSection2 === "bakedMenu" && (
-            <ProductSection
-              title="Bakery Goods"
-              products={products}
-              filterFn={(p) => p.category.toLowerCase() === "snacks"}
-              setActiveSection3={setActiveSection3}
-              isUpdating={isUpdating}
-            />
-          )}
+          <ProductSection
+            title={selectedLabel || "All Categories"}
+            products={products}
+            filterFn={(p) =>
+              !selectedCategory
+                ? true
+                : p.category?.toLowerCase() === selectedCategory.toLowerCase()
+            }
+            setActiveSection3={setActiveSection3}
+            isUpdating={isUpdating}
+          />
         </div>
       )}
     </main>
