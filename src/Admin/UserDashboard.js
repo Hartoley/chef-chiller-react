@@ -68,7 +68,7 @@ const UserDashboard = () => {
   const ordersPerPage = 10;
   const [awaiting, setAwaiting] = useState(0);
 
-  const id = JSON.parse(localStorage.getItem("id"));
+  const { id } = useParams();
   const today = new Date();
   const formattedDate = today.toLocaleDateString("en-US", {
     year: "numeric",
@@ -82,6 +82,7 @@ const UserDashboard = () => {
   const [alertMessage, setAlertMessage] = useState("");
   const [alertType, setAlertType] = useState("info");
   const [filteredOrdersCount, setfilteredOrdersCount] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const handleResize = () => {
@@ -157,22 +158,26 @@ const UserDashboard = () => {
         `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${id}?page=${page}&limit=${ordersPerPage}`
       );
 
-      if (Array.isArray(response.data.orders)) {
-        setOrders(response.data.orders);
-        setTotalOrders(response.data.totalOrders || 0);
-        setAwaiting(response.data.orders.length);
-        localStorage.setItem(
-          "awaitingOrders",
-          response.data.orders.length.toString()
-        );
+      const data = response.data;
+
+      if (Array.isArray(data.orders)) {
+        setOrders(data.orders);
+        setTotalOrders(data.totalOrders || 0);
+        setAwaiting(data.orders.length);
+        setCurrentPage(data.currentPage || 1);
+        setTotalPages(data.totalPages || 1);
+
+        localStorage.setItem("awaitingOrders", data.orders.length.toString());
       } else {
+        // In case orders is not an array, reset everything
         setOrders([]);
         setTotalOrders(0);
         setAwaiting(0);
+        setCurrentPage(1);
+        setTotalPages(1);
         localStorage.setItem("awaitingOrders", "0");
       }
 
-      formik.success("Awaiting fetched successfully!");
       showCustomAlert("Awaiting fetched successfully!", "success", false);
     } catch (error) {
       console.error("Error fetching Awaiting:", error);

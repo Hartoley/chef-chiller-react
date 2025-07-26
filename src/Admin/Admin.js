@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../Admin/adminsidenav.css";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Admin = ({ signup, signin, isDashboard }) => {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [showMenu, setshowMenu] = useState(false);
-  const id = JSON.parse(localStorage.getItem("id"));
+  const { id } = useParams();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
@@ -20,7 +21,6 @@ const Admin = ({ signup, signin, isDashboard }) => {
   };
 
   const goToDash = () => {
-    const id = JSON.parse(localStorage.getItem("id"));
     if (id) {
       console.log(id);
 

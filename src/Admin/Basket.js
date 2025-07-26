@@ -10,8 +10,9 @@ const Basket = () => {
   const [orderItems, setOrderItems] = useState([]);
   const [subtotal, setSubtotal] = useState(0);
   const [user, setUser] = useState([]);
-  const id = JSON.parse(localStorage.getItem("id"));
+  const { id } = useParams();
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   socket.on("message", (message) => {
     console.log("Message from server:", message);
@@ -109,6 +110,8 @@ const Basket = () => {
         setSubtotal(calculatedSubtotal);
       } catch (err) {
         console.error(err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -201,7 +204,7 @@ const Basket = () => {
 
           {/* Orders Section */}
           <div className="mb-4">
-            {unapprovedOrders.length === 0 ? (
+            {unapprovedOrders.length === 0 || !isLoading ? (
               <p className="text-gray-600 text-center">Your basket is empty.</p>
             ) : (
               unapprovedOrders.map((order, index) => (

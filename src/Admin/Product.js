@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 const Product = ({
   activeSection2,
@@ -10,13 +11,14 @@ const Product = ({
   showCustomAlert,
 }) => {
   const [quantity, setQuantity] = useState(1);
-  const id = JSON.parse(localStorage.getItem("id"));
-  const [products, setProducts] = useState([]); // Changed to handle multiple products
+  const { id } = useParams();
+  const [products, setProducts] = useState([]);
   const productId = JSON.parse(localStorage.getItem("productId"));
   const [isUpdating, setIsUpdating] = useState(false);
-  const [user, setuser] = useState([]);
+  const [user, setUser] = useState([]);
   const [orderItems, setOrderItems] = useState([]);
-  const [subtotal, setsubtotal] = useState(0);
+  const [subtotal, setSubtotal] = useState(0);
+  const [isLoading, setIsLoading] = useState(true); // 👈 loading state
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,14 +26,12 @@ const Product = ({
         const res = await axios.get(
           `https://chef-chiller-node.onrender.com/user/getuser/${id}`
         );
-        // console.log("students data from API:", res.data);
-        setuser(res.data.data);
+        setUser(res.data.data);
         setOrderItems(res.data.data.orders);
         const subtotal = res.data.data.orders.reduce((total, order) => {
           return total + order.productPrice * order.quantity;
         }, 0);
-
-        setsubtotal(subtotal);
+        setSubtotal(subtotal);
       } catch (err) {
         console.log(err);
       }
@@ -42,10 +42,7 @@ const Product = ({
 
   const updateCart = async (product, action) => {
     if (isUpdating) return;
-
     setIsUpdating(true);
-
-    console.log("updateCart called with action:", action);
 
     try {
       const response = await syncCartWithServer(product, action);
@@ -87,16 +84,21 @@ const Product = ({
 
   useEffect(() => {
     handleQuantityChange();
-    console.log("Received Product ID:", productId);
+
     axios
       .get(
         `https://chef-chiller-node.onrender.com/chefchiller/product/${productId}`
       )
       .then((res) => {
-        setProducts([res.data]); // Changed to set an array of products
+        if (res.data) {
+          setProducts([res.data]);
+        }
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setIsLoading(false); // ✅ Finished loading
       });
   }, [productId]);
 
@@ -110,26 +112,27 @@ const Product = ({
 
   return (
     <main className="child flex flex-col w-[63.65vw] items-center bg-gray-100  p-6">
-      {/* Header */}
       <section className="section1 flex items-center justify-between w-full mb-6">
         <button
           onClick={() => setActiveSection3("mainMenu1")}
           className="text-gray-700 hover:text-gray-900 transition text-sm font-medium flex items-center"
         >
-          <span class="material-symbols-outlined">arrow_back</span>
+          <span className="material-symbols-outlined">arrow_back</span>
         </button>
         <h1 className="text-2xl font-bold text-gray-800">Food Details</h1>
         <div />
       </section>
 
-      {/* Food List or Single Product Details */}
       <section className="section2 w-full max-w-lg bg-white rounded-lg shadow-md overflow-hidden">
-        {products.length === 0 ? (
-          <p className="text-center text-gray-500">Loading products...</p>
+        {isLoading ? (
+          <div className="p-6 text-center text-gray-500 animate-pulse">
+            Loading product...
+          </div>
+        ) : products.length === 0 ? (
+          <div className="p-6 text-center text-gray-400">No product found.</div>
         ) : (
           products.map((product) => (
             <div key={product._id}>
-              {/* Food Image */}
               <div className="w-full h-52">
                 <img
                   src={product.image}
@@ -138,7 +141,6 @@ const Product = ({
                 />
               </div>
 
-              {/* Food Information */}
               <div className="section4 p-6">
                 <h4 className="text-2xl font-bold text-gray-800 mb-2">
                   {product.name}
@@ -148,7 +150,6 @@ const Product = ({
                   Price: ₦{product.price.toFixed(2)}
                 </p>
 
-                {/* Quantity Controls */}
                 <div className="flex items-center mt-6">
                   <button
                     onClick={() => updateCart(product, "decrease")}
@@ -165,28 +166,9 @@ const Product = ({
                   </button>
                 </div>
 
-                {/* Total Price */}
                 <p className="text-lg font-medium text-gray-800 mt-4">
                   Total: ₦{(product.price * quantity).toFixed(2)}
                 </p>
-
-                {/* Action Buttons */}
-                {/* <div className="flex justify-between items-center mt-6">
-                  <button
-                    onClick={() => setActiveSection3("mainMenu1")}
-                    className="px-6 py-2 bg-gray-200 rounded-lg font-semibold text-gray-700 hover:bg-gray-300 transition"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={() =>
-                      alert(`Added ${quantity} ${product.name}(s) to cart`)
-                    }
-                    className="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition"
-                  >
-                    Add to Cart
-                  </button>
-                </div> */}
               </div>
             </div>
           ))

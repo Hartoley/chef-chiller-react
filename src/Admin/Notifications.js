@@ -4,13 +4,14 @@ import { ToastContainer, toast } from "react-toastify";
 import io from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import "./user.css"; // Ensure your styles are defined here
+import { useParams } from "react-router-dom";
 
 const socket = io("https://chef-chiller-node.onrender.com");
 
 const Notifications = () => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const id = JSON.parse(localStorage.getItem("id"));
+  const { id } = useParams();
   const navigate = useNavigate();
   const [delivered, setDelivered] = useState([]);
 

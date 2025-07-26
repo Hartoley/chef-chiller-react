@@ -3,19 +3,22 @@ import axios from "axios";
 import "./user.css";
 import { ToastContainer, toast } from "react-toastify";
 import io from "socket.io-client";
+import { useParams } from "react-router-dom";
 
 const socket = io("https://chef-chiller-node.onrender.com");
 
 const FoodsDrinks = ({ showCustomAlert }) => {
   const [orders, setOrders] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
-  const id = JSON.parse(localStorage.getItem("id"));
+  const { id } = useParams();
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [totalOrders, setTotalOrders] = useState(0);
   const ordersPerPage = 10;
   const [awaiting, setAwaiting] = useState(0);
+
   useEffect(() => {
     socket.on("message", (message) => {
       console.log("Message from server:", message);
@@ -28,7 +31,6 @@ const FoodsDrinks = ({ showCustomAlert }) => {
     });
 
     socket.on("orderApproved", (data) => {
-      console.log("Order approved:", data);
       setOrders(data.order);
     });
 
@@ -40,14 +42,17 @@ const FoodsDrinks = ({ showCustomAlert }) => {
 
   const fetchOrders = async (page = 1) => {
     try {
+      setLoading(true);
       showCustomAlert("Fetching orders, please wait...", "info", true);
 
       const res = await axios.get(
         `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${id}?page=${page}&limit=${ordersPerPage}`
       );
+
       if (Array.isArray(res.data.orders)) {
         setOrders(res.data.orders);
         setTotalOrders(res.data.totalOrders || 0);
+        setTotalPages(res.data.totalPages || 1);
         setAwaiting(res.data.orders.length);
         localStorage.setItem(
           "awaitingOrders",
@@ -56,6 +61,7 @@ const FoodsDrinks = ({ showCustomAlert }) => {
       } else {
         setOrders([]);
         setTotalOrders(0);
+        setTotalPages(1);
         setAwaiting(0);
         localStorage.setItem("awaitingOrders", "0");
       }
@@ -63,12 +69,13 @@ const FoodsDrinks = ({ showCustomAlert }) => {
       showCustomAlert("Orders fetched successfully!", "success", false);
     } catch (err) {
       console.error("Error fetching orders:", err);
-
       showCustomAlert(
         "Failed to fetch orders. Please check your connection and try again.",
         "error",
         false
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,7 +86,6 @@ const FoodsDrinks = ({ showCustomAlert }) => {
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
-      console.log("File selected:", selectedFile);
       setFile(selectedFile);
     }
   };
@@ -91,15 +97,11 @@ const FoodsDrinks = ({ showCustomAlert }) => {
         "info",
         true
       );
-
-      // toast.error("Please select a payment proof image first!");
       return;
     }
 
     setIsUploading(true);
     showCustomAlert("Approving delivery...", "info", true);
-
-    // const toastId = toast.loading("Approving delivery...");
 
     try {
       const formData = new FormData();
@@ -115,13 +117,6 @@ const FoodsDrinks = ({ showCustomAlert }) => {
         }
       );
 
-      // toast.update(toastId, {
-      //   render: response.data.message || "Delivery approved successfully!",
-      //   type: "success",
-      //   isLoading: false,
-      //   autoClose: 3000,
-      // });
-
       showCustomAlert(
         response.data.message || "Delivery approved successfully!",
         "info",
@@ -133,8 +128,11 @@ const FoodsDrinks = ({ showCustomAlert }) => {
         "info",
         true
       );
+    } finally {
+      setIsUploading(false);
     }
   };
+
   const handleDeleteDelivery = async (orderId) => {
     setIsUploading(true);
     showCustomAlert("Deleting order...", "info", true);
@@ -150,21 +148,24 @@ const FoodsDrinks = ({ showCustomAlert }) => {
       );
 
       showCustomAlert(
-        response.data.message || "Delivery Deleted successfully!",
+        response.data.message || "Delivery deleted successfully!",
         "info",
         true
       );
     } catch (error) {
       showCustomAlert(
-        "Error approving delivery. Please try again.",
+        "Error deleting delivery. Please try again.",
         "info",
         true
       );
+    } finally {
+      setIsUploading(false);
     }
   };
+
   const handleScroll = () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      if (orders.length < totalOrders) {
+      if (currentPage < totalPages) {
         setCurrentPage((prevPage) => prevPage + 1);
       }
     }
@@ -173,16 +174,19 @@ const FoodsDrinks = ({ showCustomAlert }) => {
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [orders, totalOrders]);
+  }, [orders, totalOrders, currentPage, totalPages]);
 
   return (
     <main className="child flex-1 p-4 bg-gray-600 w-[63.65vw]">
       <h1 className="text-xl md:text-2xl font-bold flex flex-col items-center text-white mb-4 text-center">
         All Orders
       </h1>
+
       {loading ? (
-        <div className="flex justify-center items-center">
-          <p className="text-white">Loading...</p>
+        <div className="flex justify-center items-center min-h-[300px]">
+          <p className="text-white text-lg">
+            Loading your waitlist, kindly exercise patience
+          </p>
         </div>
       ) : (
         <div className="w-full rounded-lg shadow-lg bg-gray-200 max-h-[90%] overflow-y-scroll no-scrollbar">
@@ -190,12 +194,7 @@ const FoodsDrinks = ({ showCustomAlert }) => {
             <div className="mb-4">
               {Array.isArray(orders) && orders.length > 0 ? (
                 orders
-                  .filter(
-                    (order) =>
-                      order.status !== "Payment Pending" &&
-                      order.status !== "Payment Approved" &&
-                      order.status !== "Payment Declined"
-                  )
+                  .filter((order) => order.status !== "Payment Approved")
                   .map((order, index) => (
                     <div
                       key={index}
@@ -244,15 +243,26 @@ const FoodsDrinks = ({ showCustomAlert }) => {
                             </div>
                           ))}
                         </div>
-                        {order.status === "Delivery Approved" && (
-                          <input
-                            type="file"
-                            id="productImage"
-                            name="image"
-                            onChange={handleFileChange}
-                            className="text-sm md:text-base mt-1 p-2 border border-gray-700 rounded bg-gray-900 text-gray-200"
-                          />
+
+                        {/* 👇 Conditional upload input */}
+                        {order.paid === false && (
+                          <>
+                            <input
+                              type="file"
+                              id="productImage"
+                              name="image"
+                              onChange={handleFileChange}
+                              className="text-sm md:text-base mt-1 p-2 border border-gray-700 rounded bg-gray-900 text-gray-200"
+                            />
+                            <button
+                              className="text-green-500 text-sm"
+                              onClick={() => handleApproveDelivery(order._id)}
+                            >
+                              Upload Payment Proof
+                            </button>
+                          </>
                         )}
+
                         <div className="flex justify-between mt-4">
                           {order.status === "Pending" && (
                             <p className="text-yellow-500 text-sm">
@@ -267,28 +277,12 @@ const FoodsDrinks = ({ showCustomAlert }) => {
                             </p>
                           )}
 
-                          {order.status === "Delivery Approved" && (
+                          {order.paid === false && (
                             <button
-                              className="text-green-500 text-sm"
-                              onClick={() => handleApproveDelivery(order._id)}
-                            >
-                              Upload Payment Proof
-                            </button>
-                          )}
-
-                          {(order.status === "Pending" ||
-                            order.status === "Delivery declined") && (
-                            <button
-                              className={`text-sm px-4 py-2 rounded-lg ${
-                                order.status === "Pending"
-                                  ? "bg-gray-500 text-white hover:bg-gray-600"
-                                  : "bg-red-500 text-white hover:bg-red-600"
-                              }`}
+                              className="text-sm px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600"
                               onClick={() => handleDeleteDelivery(order._id)}
                             >
-                              {order.status === "Pending"
-                                ? "Delete Order"
-                                : "Delete Declined Delivery"}
+                              Delete Order
                             </button>
                           )}
                         </div>
@@ -297,9 +291,30 @@ const FoodsDrinks = ({ showCustomAlert }) => {
                   ))
               ) : (
                 <p className="text-gray-600 text-center">
-                  Your wait list is currently empty.
+                  Your waitlist is currently empty.
                 </p>
               )}
+            </div>
+
+            <div className="flex justify-between mt-4">
+              <button
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+              >
+                Previous
+              </button>
+              <button
+                disabled={currentPage === totalPages}
+                onClick={() =>
+                  setCurrentPage((prev) =>
+                    prev < totalPages ? prev + 1 : prev
+                  )
+                }
+                className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+              >
+                Next
+              </button>
             </div>
           </section>
         </div>

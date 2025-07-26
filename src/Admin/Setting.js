@@ -3,14 +3,17 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import io from "socket.io-client";
 import "./user.css";
-
+import { useParams } from "react-router-dom";
 const socket = io("https://chef-chiller-node.onrender.com");
 
 const Setting = ({ showCustomAlert }) => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const id = JSON.parse(localStorage.getItem("id"));
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const ordersPerPage = 10;
+  const { id } = useParams();
 
   const handleOrderClick = (order) => {
     setSelectedOrder(order);
@@ -37,11 +40,11 @@ const Setting = ({ showCustomAlert }) => {
     });
 
     socket.on("orderApprovedByAdmin", (data) => {
-      console.log("Order approved:", data);
+      console.log("Order approved by admin:", data);
     });
 
     socket.on("orderDeclinedByAdmin", (data) => {
-      console.log("Order approved:", data);
+      console.log("Order declined by admin:", data);
     });
 
     return () => {
@@ -50,37 +53,39 @@ const Setting = ({ showCustomAlert }) => {
       socket.off("orderApprovedByAdmin");
       socket.off("orderDeclinedByAdmin");
     };
-  }, [socket]);
+  }, []);
+
+  const fetchOrders = async (page = 1) => {
+    setIsLoading(true);
+    showCustomAlert("Fetching orders, please wait...", "info", true);
+
+    try {
+      const res = await axios.get(
+        `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${id}?page=${page}&limit=${ordersPerPage}`
+      );
+
+      console.log("API response:", res.data);
+
+      setOrders(res.data.orders || []);
+      setTotalPages(res.data.totalPages || 1);
+      setCurrentPage(res.data.currentPage || 1);
+
+      showCustomAlert("Orders fetched successfully!", "success");
+    } catch (err) {
+      console.error("Error fetching orders:", err);
+
+      showCustomAlert(
+        "Failed to fetch orders. Please check your connection and try again.",
+        "error"
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const userId = id;
-
-    const fetchOrders = async () => {
-      // setIsLoading(true);
-      showCustomAlert("Fetching orders, please wait...", "info", true);
-
-      try {
-        const res = await axios.get(
-          `https://chef-chiller-node.onrender.com/chefchiller/getmyorders/${userId}`
-        );
-
-        console.log("API response:", res.data);
-
-        setOrders(res.data.orders);
-
-        showCustomAlert("Orders fetched successfully!", "success");
-      } catch (err) {
-        console.error("Error fetching orders:", err);
-
-        showCustomAlert(
-          "Failed to fetch orders. Please check your connection and try again.",
-          "error"
-        );
-      }
-    };
-
-    fetchOrders();
-  }, [id]);
+    fetchOrders(currentPage);
+  }, [id, currentPage]);
 
   return (
     <main className="child flex-1 p-6 bg-gray-400 w-[63.65vw]">
@@ -93,7 +98,6 @@ const Setting = ({ showCustomAlert }) => {
             <div className="mb-4 rounded-md">
               {isLoading ? (
                 <div className="overflow-y-scroll no-scrollbar max-h-[70vh]">
-                  {/* Placeholder Loading State */}
                   {[...Array(5)].map((_, index) => (
                     <div
                       key={index}
@@ -130,6 +134,33 @@ const Setting = ({ showCustomAlert }) => {
                   )}
                 </div>
               )}
+            </div>
+
+            {/* Pagination Controls */}
+            <div className="flex justify-between mt-4">
+              <button
+                onClick={() =>
+                  setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
+                }
+                disabled={currentPage === 1}
+                className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+              >
+                Previous
+              </button>
+              <span className="text-gray-800">
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={() =>
+                  setCurrentPage((prevPage) =>
+                    prevPage < totalPages ? prevPage + 1 : prevPage
+                  )
+                }
+                disabled={currentPage === totalPages}
+                className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
+              >
+                Next
+              </button>
             </div>
           </section>
         </div>
