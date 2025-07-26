@@ -226,7 +226,7 @@
   }
 }
 
-@media (min-width: 401px) and (max-width: 600px) {
+@media (min-width: 401px) and (max-width: 770px) {
   .mother {
     flex-direction: column !important;
     /* background-color: blue !important; */
