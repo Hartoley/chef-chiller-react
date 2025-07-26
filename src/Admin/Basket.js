@@ -204,7 +204,7 @@ const Basket = () => {
 
           {/* Orders Section */}
           <div className="mb-4">
-            {unapprovedOrders.length === 0 || !isLoading ? (
+            {!isLoading && unapprovedOrders.length === 0 ? (
               <p className="text-gray-600 text-center">Your basket is empty.</p>
             ) : (
               unapprovedOrders.map((order, index) => (

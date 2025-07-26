@@ -22,42 +22,50 @@ const categories = [
   { label: "Vegan Options", value: "vegan options" },
   { label: "Extras & Add-ons", value: "extras & add-ons" },
 ];
+const ProductCard = ({ product, setActiveSection3 }) => {
+  return (
+    <div className="w-full sm:w-[48%] lg:w-[30%] bg-white rounded-xl shadow-md hover:shadow-lg border p-4 flex flex-col justify-between transition-all">
+      {/* Wishlist Checkbox Placeholder */}
+      <div className="flex justify-between items-center mb-2">
+        <span className="inline-block w-4 h-4 rounded-sm border border-[rgb(17,24,39)] bg-[rgb(17,24,39)] "></span>
+      </div>
 
-const ProductCard = ({ product, setActiveSection3, isUpdating }) => (
-  <div
-    style={{ height: "60%", gap: "2vw", width: "47%" }}
-    onClick={() => {
-      localStorage.setItem("productId", JSON.stringify(product._id));
-      setActiveSection3("mainMenu5");
-    }}
-    className="section7 flex-shrink-0 py-4 px-2 w-[60vw] rounded-lg shadow-md hover:shadow-lg transition-shadow flex items-center"
-  >
-    <img
-      src={product.image}
-      alt={product.name}
-      className="w-[40%] h-full object-cover"
-    />
-    <div className="flex h-full w-[60%] flex-col items-start">
-      <h4 className="text-lg font-bold">{product.name}</h4>
-      <p className="text-gray-600 text-center">
-        ₦
-        {product.price.toLocaleString("en-NG", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}
-      </p>
-      <div className="flex justify-center items-center mt-2">
-        <button disabled={isUpdating} className="px-2 py-1 bg-gray-300 rounded">
-          -
+      <img
+        src={product.image}
+        alt={product.name}
+        className="h-40 object-contain mb-4 mx-auto rounded-md"
+      />
+
+      <h3 className="text-lg font-semibold mb-1 text-center">{product.name}</h3>
+
+      <div className="flex items-center justify-center mb-3">
+        <span className="text-[rgb(17,24,39)] font-bold text-lg">
+          ₦{product.price.toLocaleString("en-NG")}
+        </span>
+        <span className="text-gray-400 line-through ml-2">₦28.30</span>
+      </div>
+
+      <div className="flex justify-between text-sm text-gray-500 items-center mb-4">
+        <span>★ 2.5k+</span>
+      </div>
+
+      <div className="flex justify-between items-center gap-2">
+        <button className="w-full py-2 border border-[rgb(17,24,39)] text-[rgb(17,24,39)] rounded-md hover:bg-[rgb(17,24,39)]/10 transition">
+          Wishlist
         </button>
-        <span className="mx-3 text-lg font-semibold">1</span>
-        <button disabled={isUpdating} className="px-2 py-1 bg-gray-300 rounded">
-          +
+        <button
+          onClick={() => {
+            localStorage.setItem("productId", JSON.stringify(product._id));
+            setActiveSection3("mainMenu5");
+          }}
+          className="w-full py-2 bg-[rgb(17,24,39)] text-white rounded-md hover:opacity-90 transition"
+        >
+          Order Now
         </button>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const ProductSection = ({
   title,

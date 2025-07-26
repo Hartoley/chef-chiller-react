@@ -157,7 +157,9 @@ const Product = ({
                   >
                     −
                   </button>
-                  <span className="mx-4 text-lg font-semibold">{quantity}</span>
+                  <span className="mx-4 text-lg font-semibold">
+                    {/* {quantity} */}
+                  </span>
                   <button
                     onClick={() => updateCart(product, "increase")}
                     className="px-4 py-2 bg-gray-300 rounded-full text-gray-800 font-bold transition hover:bg-gray-400"
