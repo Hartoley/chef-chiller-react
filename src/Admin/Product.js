@@ -111,7 +111,7 @@ const Product = ({
   };
 
   return (
-    <main className="child flex flex-col w-full items-center bg-gray-100 p-4 md:p-6">
+    <main className="flex flex-col w-full items-center bg-gray-100 px-4 py-6 sm:px-6">
       <section className="flex items-center justify-between w-full max-w-6xl mb-6">
         <button
           onClick={() => setActiveSection3("mainMenu1")}
@@ -119,11 +119,13 @@ const Product = ({
         >
           <span className="material-symbols-outlined">arrow_back</span>
         </button>
-        <h1 className="text-2xl font-bold text-gray-800">Food Details</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
+          Food Details
+        </h1>
         <div />
       </section>
 
-      <section className="w-full max-w-6xl bg-white rounded-lg shadow-md overflow-hidden flex flex-col md:flex-row gap-6 p-4 md:p-6">
+      <section className="w-full max-w-6xl bg-white rounded-lg shadow-md overflow-hidden flex flex-col lg:flex-row gap-6 p-4">
         {isLoading ? (
           <div className="p-6 text-center text-gray-500 animate-pulse w-full">
             Loading product...
@@ -135,9 +137,9 @@ const Product = ({
         ) : (
           products.map((product) => (
             <React.Fragment key={product._id}>
-              {/* Image section */}
-              <div className="flex flex-col md:w-1/2">
-                <div className="w-full h-[300px] sm:h-[360px] md:h-[420px] lg:h-[460px] bg-gray-100 rounded-lg overflow-hidden">
+              {/* Image Section */}
+              <div className="flex flex-col lg:w-1/2 gap-3">
+                <div className="w-full h-[200px] sm:h-[260px] md:h-[360px] lg:h-[420px] bg-gray-100 rounded-lg overflow-hidden">
                   <img
                     src={product.image}
                     alt={product.name}
@@ -145,11 +147,11 @@ const Product = ({
                   />
                 </div>
 
-                <div className="flex gap-2 mt-3">
+                <div className="flex gap-2">
                   {[...Array(3)].map((_, i) => (
                     <div
                       key={i}
-                      className="w-14 h-14 sm:w-16 sm:h-16 bg-gray-200 rounded-md overflow-hidden"
+                      className="w-16 h-16 bg-gray-200 rounded-md overflow-hidden"
                     >
                       <img
                         src={product.image}
@@ -161,24 +163,24 @@ const Product = ({
                 </div>
               </div>
 
-              {/* Info section */}
-              <div className="md:w-1/2 flex flex-col gap-4">
+              {/* Info Section */}
+              <div className="lg:w-1/2 flex flex-col gap-4">
                 <h2 className="text-2xl font-bold text-gray-900">
                   {product.name}
                 </h2>
                 <p className="text-gray-500 text-sm">Chef Chiller’s Menu</p>
 
-                <div className="text-xl font-bold text-[rgb(17,24,39)]">
+                <div className="text-xl font-bold text-gray-800">
                   ₦{product.price.toFixed(2)}
                 </div>
 
-                <div className="flex gap-3 mt-4">
+                <div className="flex flex-wrap gap-3 mt-4">
                   <button
                     onClick={() => {
                       handleQuantityChange("increase");
                       updateCart(product, "increase");
                     }}
-                    className="bg-[rgba(17,24,39,0.82)] text-white px-4 py-2 rounded-md text-sm hover:bg-[rgb(17,24,39)] transition"
+                    className="bg-gray-800 text-white px-4 py-2 rounded-md text-sm hover:bg-gray-900 transition"
                   >
                     ADD TO CART +
                   </button>
@@ -191,13 +193,13 @@ const Product = ({
                   Free shipping when you spend ₦50,000 or more.
                 </div>
 
-                {/* Tabs section */}
+                {/* Tabs Section */}
                 <div className="mt-6">
                   <div className="flex gap-6 border-b border-gray-200 mb-4">
                     {["Description", "Sizing", "Shipping"].map((tab) => (
                       <button
                         key={tab}
-                        className="pb-2 text-sm font-semibold text-gray-700 border-b-2 border-transparent hover:border-gray-900"
+                        className="pb-2 text-sm font-semibold text-gray-700 border-b-2 border-transparent hover:border-gray-800"
                       >
                         {tab}
                       </button>
@@ -215,7 +217,7 @@ const Product = ({
                   </div>
                 </div>
 
-                {/* Total section */}
+                {/* Total Section */}
                 <div className="text-lg font-medium text-gray-800 mt-4">
                   Total: ₦{(product.price * quantity).toFixed(2)}
                 </div>

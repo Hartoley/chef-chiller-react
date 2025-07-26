@@ -78,11 +78,15 @@ body,
   .basket {
     width: 100%;
   }
+  .mainContainer {
+    height: auto;
+  }
 
   .mother {
     flex-direction: column !important;
     background-color: blue !important;
     width: 100%;
+    height: 100%;
   }
 
   .footerCon {
@@ -180,7 +184,7 @@ body,
   .section6 {
     flex-wrap: wrap !important;
     width: 90vw !important;
-    height: auto;
+    height: 100%;
     /* justify-content: space-evenly; */
     /* background-color: palevioletred !important; */
   }
@@ -225,7 +229,7 @@ body,
 
   .child {
     width: 100%;
-    height: 100vh;
+    /* height: 100vh; */
   }
 }
 
@@ -240,21 +244,23 @@ body,
   .section7,
   .foodBox {
     width: 100% !important;
+    height: 100%;
   }
 
   .child {
     /* background-color: #ff6b6b !important; */
-    height: 100vh !important;
+    /* height: 100vh !important; */
   }
   .mother {
     flex-direction: column !important;
     /* background-color: blue !important; */
     width: 100%;
+    height: 100%;
   }
 
   .child {
     width: 100%;
-    height: 100vh !important;
+    /* height: 100vh !important; */
   }
 
   .list {
@@ -342,7 +348,7 @@ body,
   .section6 {
     flex-wrap: wrap !important;
     width: 90vw !important;
-    height: auto;
+    height: 100%;
     /* justify-content: space-evenly; */
     /* background-color: palevioletred !important; */
   }
