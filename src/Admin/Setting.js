@@ -112,21 +112,31 @@ const Setting = ({ showCustomAlert }) => {
               ) : (
                 <div className="overflow-y-scroll no-scrollbar max-h-[70vh]">
                   {Array.isArray(orders) && orders.length > 0 ? (
-                    orders.map((order, index) => (
-                      <div
-                        key={index}
-                        className="bg-gray-50 p-4 rounded-lg mb-4 shadow-md cursor-pointer"
-                        onClick={() => handleOrderClick(order)}
-                      >
-                        <p className="font-semibold text-gray-800">
-                          Order {index + 1}
-                        </p>
-                        <p className="text-gray-600">
-                          Ordered On:{" "}
-                          {new Date(order.orderedDate).toLocaleString()}
-                        </p>
-                      </div>
-                    ))
+                    orders
+                      .filter(
+                        (order) =>
+                          ![
+                            "payment",
+                            "Payment Pending",
+                            "Payment Declined",
+                          ].includes(order.status) && order.paid !== false
+                      )
+
+                      .map((order, index) => (
+                        <div
+                          key={index}
+                          className="bg-gray-50 p-4 rounded-lg mb-4 shadow-md cursor-pointer"
+                          onClick={() => handleOrderClick(order)}
+                        >
+                          <p className="font-semibold text-gray-800">
+                            Order {index + 1}
+                          </p>
+                          <p className="text-gray-600">
+                            Ordered On:{" "}
+                            {new Date(order.orderedDate).toLocaleString()}
+                          </p>
+                        </div>
+                      ))
                   ) : (
                     <p className="text-gray-900 text-center">
                       No orders found.

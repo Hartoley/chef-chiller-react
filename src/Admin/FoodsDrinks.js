@@ -245,30 +245,33 @@ const FoodsDrinks = ({ showCustomAlert }) => {
                         </div>
 
                         {/* 👇 Conditional upload input */}
-                        {order.paid === false && (
-                          <>
-                            <input
-                              type="file"
-                              id="productImage"
-                              name="image"
-                              onChange={handleFileChange}
-                              className="text-sm md:text-base mt-1 p-2 border border-gray-700 rounded bg-gray-900 text-gray-200"
-                            />
-                            <button
-                              className="text-green-500 text-sm"
-                              onClick={() => handleApproveDelivery(order._id)}
-                            >
-                              Upload Payment Proof
-                            </button>
-                          </>
-                        )}
+                        {order.paid === false ||
+                          (order.status !== "pending" && (
+                            <>
+                              <input
+                                type="file"
+                                id="productImage"
+                                name="image"
+                                onChange={handleFileChange}
+                                className="text-sm md:text-base mt-1 p-2 border border-gray-700 rounded bg-gray-900 text-gray-200"
+                              />
+                              <button
+                                className="text-green-500 text-sm"
+                                onClick={() => handleApproveDelivery(order._id)}
+                              >
+                                Upload Payment Proof
+                              </button>
+                            </>
+                          ))}
 
                         <div className="flex justify-between mt-4">
-                          {order.status === "Pending" && (
-                            <p className="text-yellow-500 text-sm">
-                              Please be patient, your order is being processed.
-                            </p>
-                          )}
+                          {order.status === "Pending" &&
+                            order.paid === true && (
+                              <p className="text-yellow-500 text-sm">
+                                Please be patient, your order is being
+                                processed.
+                              </p>
+                            )}
 
                           {order.status === "Delivery declined" && (
                             <p className="text-red-500 text-sm">
