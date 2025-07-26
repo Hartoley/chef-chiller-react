@@ -18,7 +18,7 @@ const Product = ({
   const [user, setUser] = useState([]);
   const [orderItems, setOrderItems] = useState([]);
   const [subtotal, setSubtotal] = useState(0);
-  const [isLoading, setIsLoading] = useState(true); // 👈 loading state
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -98,7 +98,7 @@ const Product = ({
         console.log(error);
       })
       .finally(() => {
-        setIsLoading(false); // ✅ Finished loading
+        setIsLoading(false);
       });
   }, [productId]);
 
@@ -111,7 +111,7 @@ const Product = ({
   };
 
   return (
-    <main className="child flex flex-col w-[63.55vw] items-center bg-gray-100 p-6">
+    <main className="child flex flex-col w-full items-center bg-gray-100 p-4 md:p-6">
       <section className="flex items-center justify-between w-full max-w-6xl mb-6">
         <button
           onClick={() => setActiveSection3("mainMenu1")}
@@ -123,7 +123,7 @@ const Product = ({
         <div />
       </section>
 
-      <section className="w-full max-w-6xl bg-white rounded-lg shadow-md overflow-hidden flex flex-col lg:flex-row gap-6 p-4">
+      <section className="w-full max-w-6xl bg-white rounded-lg shadow-md overflow-hidden flex flex-col md:flex-row gap-6 p-4 md:p-6">
         {isLoading ? (
           <div className="p-6 text-center text-gray-500 animate-pulse w-full">
             Loading product...
@@ -136,8 +136,8 @@ const Product = ({
           products.map((product) => (
             <React.Fragment key={product._id}>
               {/* Image section */}
-              <div className="flex flex-col lg:w-1/2">
-                <div className="w-full aspect-square bg-gray-100 rounded-lg overflow-hidden">
+              <div className="flex flex-col md:w-1/2">
+                <div className="w-full h-[300px] sm:h-[360px] md:h-[420px] lg:h-[460px] bg-gray-100 rounded-lg overflow-hidden">
                   <img
                     src={product.image}
                     alt={product.name}
@@ -149,7 +149,7 @@ const Product = ({
                   {[...Array(3)].map((_, i) => (
                     <div
                       key={i}
-                      className="w-16 h-16 bg-gray-200 rounded-md overflow-hidden"
+                      className="w-14 h-14 sm:w-16 sm:h-16 bg-gray-200 rounded-md overflow-hidden"
                     >
                       <img
                         src={product.image}
@@ -162,7 +162,7 @@ const Product = ({
               </div>
 
               {/* Info section */}
-              <div className="lg:w-1/2 flex flex-col gap-4">
+              <div className="md:w-1/2 flex flex-col gap-4">
                 <h2 className="text-2xl font-bold text-gray-900">
                   {product.name}
                 </h2>
@@ -197,7 +197,7 @@ const Product = ({
                     {["Description", "Sizing", "Shipping"].map((tab) => (
                       <button
                         key={tab}
-                        className="pb-2 text-sm font-semibold text-gray-700 border-b-2 border-transparent hover:border-bg-[rgba(17,24,39,0.82)]"
+                        className="pb-2 text-sm font-semibold text-gray-700 border-b-2 border-transparent hover:border-gray-900"
                       >
                         {tab}
                       </button>
