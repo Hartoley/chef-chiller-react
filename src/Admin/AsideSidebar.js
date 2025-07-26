@@ -2,10 +2,11 @@
 import React from "react";
 
 const AsideSidebar = ({ user, setActiveSection3 }) => (
-  <aside className="sideNav w-[15vw] bg-gray-900 text-white flex flex-col justify-between py-4 px-2">
-    <div>
-      <h1 className="text-2xl font-bold mb-8 text-center">FoodWish!</h1>
-      <nav className="flex bg-gray-900 items-start gap-2 flex-col">
+  <aside className="sideNav w-[15vw] bg-gray-900 text-white flex flex-col justify-between py-4 px-2 h-screen">
+    <h1 className="text-2xl font-bold mb-8 text-center">FoodWish!</h1>
+
+    <div className="w-full h-[80%] p-0">
+      <nav className="flex w-full h-full bg-gray-900 items-start gap-2 flex-col p-1">
         <p
           onClick={() => setActiveSection3("mainMenu1")}
           className="flex items-center text-[14px] cursor-pointer hover:text-gray-300"
@@ -43,7 +44,7 @@ const AsideSidebar = ({ user, setActiveSection3 }) => (
         </p>
       </nav>
     </div>
-    <footer className="text-sm text-gray-500 mt-8">
+    <footer className="text-sm h-[15%] text-gray-500 mt-8">
       <p>© 2024 FoodWish! POS</p>
       <p>Terms • Privacy</p>
     </footer>

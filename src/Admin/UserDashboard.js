@@ -89,7 +89,7 @@ const UserDashboard = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      const smallScreen = window.innerWidth <= 767;
+      const smallScreen = window.innerWidth <= 777;
       setIsSmallScreen(smallScreen);
 
       if (smallScreen) {
@@ -252,12 +252,12 @@ const UserDashboard = () => {
 
   return (
     <>
-      <div className="mainContainer relative flex h-screen font-sans text-gray-800 bg-gray-100">
+      <div className="mainContainer relative flex h-screen font-sans text-gray-800 bg-gray-900">
         <div
           style={{ position: showMore ? "fixed" : "static" }}
           className="mother relative flex h-screen font-sans text-gray-800 bg-gray-100"
         >
-          <div class=" flex items-center justify-between p-4 bg-gray-900 text-white md:hidden">
+          <div class=" flex items-center justify-between p-4 bg-gray-900 text-white lg:hidden">
             <div className="image1 flex items-center justify-center rounded-full">
               <img
                 class="logo"
@@ -270,18 +270,13 @@ const UserDashboard = () => {
             <div class="flex items-center space-x-4">
               <button onClick={toggleMenu2}>
                 <svg
-                  class="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 64 64"
+                  width="32"
+                  height="32"
+                  fill="currentColor"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16m-7 6h7"
-                  ></path>
+                  <path d="M32 4a12 12 0 00-12 12v.5a8.5 8.5 0 00-5.1 15.5H16a4 4 0 000 8v12a4 4 0 004 4h24a4 4 0 004-4V40a4 4 0 000-8h1.1A8.5 8.5 0 0044 16.5V16A12 12 0 0032 4zm-8 44h16v4H24v-4z" />
                 </svg>
               </button>
             </div>

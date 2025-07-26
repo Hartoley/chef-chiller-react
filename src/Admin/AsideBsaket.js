@@ -9,17 +9,17 @@ const AsideBasket = ({
   isMenuVisible,
 }) => (
   <aside
-    className={`sideNav2 w-[20vw] flex-shrink-0 bg-gray-900 text-white p-6 flex flex-col justify-between fixed z-10 transition-transform transform ${
+    className={`sideNav2 sm:[22vw] w-[19.69vw]  bg-gray-900 text-white py-6 px-2 flex flex-col justify-between fixed z-10 transition-transform transform ${
       isMenuVisible ? "translate-x-0" : "-translate-x-full"
     } md:static md:transform-none md:translate-x-0`}
   >
-    <div>
+    <div className="w-full h-full ">
       <div className="text-xl font-semibold mb-6">Basket</div>
-      <div className="flex justify-between items-center mb-4 p-2">
+      <div className="flex text-[14px] justify-between items-center flex-col sm:flex-row mb-4 p-2">
         <span>Today</span>
         <span>🕒 {formattedDate}</span>
       </div>
-      <div className="space-y-4 h-[30vh] overflow-y-auto no-scrollbar">
+      <div className="space-y-4 text-[14px] h-[30vh] overflow-y-auto no-scrollbar">
         {orderItems.map((item, index) => (
           <div key={index} className="flex font-white gap-1 justify-between">
             <span>{item.productName}</span>
@@ -45,7 +45,7 @@ const AsideBasket = ({
 
       <button
         onClick={() => setActiveSection3("mainMenu4")}
-        className="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded"
+        className="w-full mt-4 self-center bg-purple-600 hover:bg-purple-700 text-white py-2 rounded"
       >
         Place Order
       </button>
