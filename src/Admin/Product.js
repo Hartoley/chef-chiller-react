@@ -111,8 +111,8 @@ const Product = ({
   };
 
   return (
-    <main className="child flex flex-col w-[63.65vw] items-center bg-gray-100  p-6">
-      <section className="section1 flex items-center justify-between w-full mb-6">
+    <main className="child flex flex-col w-[63.55vw] items-center bg-gray-100 p-6">
+      <section className="flex items-center justify-between w-full max-w-6xl mb-6">
         <button
           onClick={() => setActiveSection3("mainMenu1")}
           className="text-gray-700 hover:text-gray-900 transition text-sm font-medium flex items-center"
@@ -123,56 +123,104 @@ const Product = ({
         <div />
       </section>
 
-      <section className="section2 w-full max-w-lg bg-white rounded-lg shadow-md overflow-hidden">
+      <section className="w-full max-w-6xl bg-white rounded-lg shadow-md overflow-hidden flex flex-col lg:flex-row gap-6 p-4">
         {isLoading ? (
-          <div className="p-6 text-center text-gray-500 animate-pulse">
+          <div className="p-6 text-center text-gray-500 animate-pulse w-full">
             Loading product...
           </div>
         ) : products.length === 0 ? (
-          <div className="p-6 text-center text-gray-400">No product found.</div>
+          <div className="p-6 text-center text-gray-400 w-full">
+            No product found.
+          </div>
         ) : (
           products.map((product) => (
-            <div key={product._id}>
-              <div className="w-full h-52">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className=" w-full h-full object-cover"
-                />
+            <React.Fragment key={product._id}>
+              {/* Image section */}
+              <div className="flex flex-col lg:w-1/2">
+                <div className="w-full aspect-square bg-gray-100 rounded-lg overflow-hidden">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                <div className="flex gap-2 mt-3">
+                  {[...Array(3)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="w-16 h-16 bg-gray-200 rounded-md overflow-hidden"
+                    >
+                      <img
+                        src={product.image}
+                        alt={`thumb-${i}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              <div className="section4 p-6">
-                <h4 className="text-2xl font-bold text-gray-800 mb-2">
+              {/* Info section */}
+              <div className="lg:w-1/2 flex flex-col gap-4">
+                <h2 className="text-2xl font-bold text-gray-900">
                   {product.name}
-                </h4>
-                <p className="text-gray-600 mb-2">{product.description}</p>
-                <p className="text-md font-semibold text-gray-800">
-                  Price: ₦{product.price.toFixed(2)}
-                </p>
+                </h2>
+                <p className="text-gray-500 text-sm">Chef Chiller’s Menu</p>
 
-                <div className="flex items-center mt-6">
+                <div className="text-xl font-bold text-[rgb(17,24,39)]">
+                  ₦{product.price.toFixed(2)}
+                </div>
+
+                <div className="flex gap-3 mt-4">
                   <button
-                    onClick={() => updateCart(product, "decrease")}
-                    className="px-4 py-2 bg-gray-300 rounded-full text-gray-800 font-md transition hover:bg-gray-400"
+                    onClick={() => {
+                      handleQuantityChange("increase");
+                      updateCart(product, "increase");
+                    }}
+                    className="bg-[rgba(17,24,39,0.82)] text-white px-4 py-2 rounded-md text-sm hover:bg-[rgb(17,24,39)] transition"
                   >
-                    −
+                    ADD TO CART +
                   </button>
-                  <span className="mx-4 text-lg font-semibold">
-                    {/* {quantity} */}
-                  </span>
-                  <button
-                    onClick={() => updateCart(product, "increase")}
-                    className="px-4 py-2 bg-gray-300 rounded-full text-gray-800 font-bold transition hover:bg-gray-400"
-                  >
-                    +
+                  <button className="border border-gray-400 text-gray-700 px-4 py-2 rounded-md text-sm hover:bg-gray-100">
+                    ADD TO WISHLIST +
                   </button>
                 </div>
 
-                <p className="text-lg font-medium text-gray-800 mt-4">
+                <div className="text-sm text-gray-500 mt-1">
+                  Free shipping when you spend ₦50,000 or more.
+                </div>
+
+                {/* Tabs section */}
+                <div className="mt-6">
+                  <div className="flex gap-6 border-b border-gray-200 mb-4">
+                    {["Description", "Sizing", "Shipping"].map((tab) => (
+                      <button
+                        key={tab}
+                        className="pb-2 text-sm font-semibold text-gray-700 border-b-2 border-transparent hover:border-bg-[rgba(17,24,39,0.82)]"
+                      >
+                        {tab}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="text-gray-700 text-sm leading-relaxed">
+                    {product.description ||
+                      "No detailed description available."}
+                    <ul className="list-disc ml-6 mt-2 text-sm text-gray-600">
+                      <li>Made in Nigeria</li>
+                      <li>100% Fresh Ingredients</li>
+                      <li>Prepared by professional chefs</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Total section */}
+                <div className="text-lg font-medium text-gray-800 mt-4">
                   Total: ₦{(product.price * quantity).toFixed(2)}
-                </p>
+                </div>
               </div>
-            </div>
+            </React.Fragment>
           ))
         )}
       </section>
