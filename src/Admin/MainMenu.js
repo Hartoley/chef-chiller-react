@@ -23,7 +23,10 @@ const categories = [
   { label: "Extras & Add-ons", value: "extras & add-ons" },
 ];
 const ProductCard = ({ product, setActiveSection3 }) => (
-  <div className="w-[48%] sm:w-[48%] md:w-[30%] bg-white rounded-lg shadow-sm border border-gray-200 p-2 flex flex-col flex-wrap justify-between transition-all">
+  <div
+    key={product._id}
+    className="w-[47.5%] sm:w-[31%] min-w-[140px] bg-white rounded-lg shadow-sm border border-gray-200 p-2 flex flex-col justify-between transition-all"
+  >
     <div className="flex justify-between items-center mb-1">
       <span className="inline-block w-3 h-3 rounded-sm border border-gray-800 bg-gray-800"></span>
     </div>
@@ -82,7 +85,7 @@ const ProductSection = ({
           No products available in this category.
         </div>
       ) : (
-        <div className="section6 py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-4 no-scrollbar">
+        <div className="section6 py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-3 no-scrollbar justify-between">
           {filtered.map((product, index) => (
             <ProductCard
               key={index}
