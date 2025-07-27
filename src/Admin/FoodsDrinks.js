@@ -245,8 +245,8 @@ const FoodsDrinks = ({ showCustomAlert }) => {
                         </div>
 
                         {/* 👇 Conditional upload input */}
-                        {order.paid === false ||
-                          (order.status !== "pending" && (
+                        {order.paid === false &&
+                          order.status === "Delivery Approved" && (
                             <>
                               <input
                                 type="file"
@@ -262,7 +262,7 @@ const FoodsDrinks = ({ showCustomAlert }) => {
                                 Upload Payment Proof
                               </button>
                             </>
-                          ))}
+                          )}
 
                         <div className="flex justify-between mt-4">
                           {order.status === "Pending" &&
