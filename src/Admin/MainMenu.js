@@ -25,7 +25,7 @@ const categories = [
 const ProductCard = ({ product, setActiveSection3 }) => (
   <div
     key={product._id}
-    className="w-[47.5%] sm:w-[31%] min-w-[140px] bg-white rounded-lg shadow-sm border border-gray-200 p-2 flex flex-col justify-between transition-all"
+    className="w-[47.5%] sm:w-[31%] min-w-[140px] bg-white rounded-lg shadow-sm border border-gray-200 p-2 flex flex-col transition-all"
   >
     <div className="flex justify-between items-center mb-1">
       <span className="inline-block w-3 h-3 rounded-sm border border-gray-800 bg-gray-800"></span>
@@ -85,7 +85,7 @@ const ProductSection = ({
           No products available in this category.
         </div>
       ) : (
-        <div className="section6 py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-3 no-scrollbar justify-between">
+        <div className="section6 py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-3 no-scrollbar">
           {filtered.map((product, index) => (
             <ProductCard
               key={index}
@@ -224,7 +224,7 @@ const MainMenu = ({ activeSection3, setActiveSection3 }) => {
           <LoadingSection />
         </div>
       ) : (
-        <div className="w-[60vw] flex flex-col h-[80vh] productSection">
+        <div className="w-[60vw] flex flex-col h-[80vh]">
           <ProductSection
             title={selectedLabel || "All Categories"}
             products={products}

@@ -240,7 +240,6 @@ body,
     width: 100%;
     /* height: 100vh; */
     height: auto;
-    margin-top: 12vh;
   }
 }
 
@@ -251,7 +250,6 @@ body,
     width: 100% !important;
     max-width: 100vw !important;
     height: auto;
-    margin-top: 12vh;
   }
   .section6,
   .section7,
