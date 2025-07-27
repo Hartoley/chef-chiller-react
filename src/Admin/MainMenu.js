@@ -25,32 +25,38 @@ const categories = [
 const ProductCard = ({ product, setActiveSection3 }) => (
   <div
     key={product._id}
-    className="w-[47.5%] sm:w-[31%] min-w-[140px] bg-white rounded-lg shadow-sm border border-gray-200 p-2 flex flex-col transition-all"
+    className="w-[47.5%] sm:w-[31%] min-w-[140px] bg-white rounded-lg shadow-sm border border-gray-200 p-2 flex flex-col justify-between transition-all"
   >
+    {/* Dot indicator */}
     <div className="flex justify-between items-center mb-1">
       <span className="inline-block w-3 h-3 rounded-sm border border-gray-800 bg-gray-800"></span>
     </div>
 
+    {/* Image */}
     <img
       src={product.image}
       alt={product.name}
-      className="h-24 sm:h-28 object-contain mb-2 mx-auto rounded"
+      className="w-full h-[100px] object-contain mb-2 mx-auto rounded"
     />
 
-    <h3 className="text-xs font-semibold mb-1 text-center leading-tight line-clamp-2">
+    {/* Name */}
+    <h3 className="text-xs font-semibold text-center leading-tight h-[2.5rem] overflow-hidden line-clamp-2 mb-1">
       {product.name}
     </h3>
 
+    {/* Price */}
     <div className="flex items-center justify-center mb-1">
       <span className="text-gray-800 font-bold text-xs">
         ₦{product.price.toLocaleString("en-NG")}
       </span>
     </div>
 
+    {/* Rating */}
     <div className="flex justify-between text-[10px] text-gray-400 items-center mb-2">
       <span>★ 2.5k+</span>
     </div>
 
+    {/* Buttons */}
     <div className="flex justify-between items-center gap-1 text-[10px]">
       <button className="w-full py-1 border border-gray-800 text-gray-800 rounded hover:bg-gray-800 hover:text-white transition">
         Wishlist
@@ -80,12 +86,13 @@ const ProductSection = ({
   return (
     <section className="flex w-full h-full flex-col">
       <h3 className="text-xl font-semibold mb-1">{title}</h3>
+
       {filtered.length === 0 ? (
         <div className="h-[70vh] flex justify-center items-center text-gray-500 text-lg">
           No products available in this category.
         </div>
       ) : (
-        <div className="section6 py-4 h-[97%] w-full flex flex-wrap overflow-x-auto gap-3 no-scrollbar">
+        <div className="section6 py-4 h-[97%] w-full flex flex-wrap justify-between gap-y-4 gap-x-[3%] overflow-y-auto no-scrollbar">
           {filtered.map((product, index) => (
             <ProductCard
               key={index}
