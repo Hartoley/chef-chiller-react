@@ -257,7 +257,7 @@ const UserDashboard = () => {
           style={{ position: showMore ? "fixed" : "static" }}
           className="mother relative flex h-screen font-sans text-gray-800 bg-gray-100"
         >
-          <div class=" flex items-center justify-between p-4 bg-gray-900 text-white lg:hidden">
+          <div class=" flex fixed w-full items-center justify-between p-4 bg-gray-900 text-white lg:hidden">
             <div className="image1 flex items-center justify-center rounded-full">
               <img
                 class="logo"

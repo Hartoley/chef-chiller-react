@@ -76,13 +76,13 @@ body,
   }
 
   .productSection {
-    height: auto;
+    height: auto !important;
   }
   .foodDetails {
-    height: auto;
+    height: auto !important;
   }
   .foodDetails1 {
-    height: auto;
+    height: auto !important;
   }
   .basket {
     width: 100%;
@@ -240,6 +240,7 @@ body,
     width: 100%;
     /* height: 100vh; */
     height: auto;
+    margin-top: 12vh;
   }
 }
 
@@ -250,6 +251,7 @@ body,
     width: 100% !important;
     max-width: 100vw !important;
     height: auto;
+    margin-top: 12vh;
   }
   .section6,
   .section7,
@@ -259,7 +261,11 @@ body,
   }
 
   .foodDetails1 {
-    height: auto;
+    height: auto !important;
+  }
+
+  .productSection1 {
+    height: auto !important;
   }
 
   .child {
@@ -392,10 +398,14 @@ body,
     font-size: 12px;
   }
   .foodDetails {
-    height: auto;
+    height: auto !important;
   }
   .productSection {
-    height: auto;
+    height: auto !important;
+  }
+
+  .productSection1 {
+    height: auto !important;
   }
 
   .section7 p {
