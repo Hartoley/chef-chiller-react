@@ -224,7 +224,7 @@ const MainMenu = ({ activeSection3, setActiveSection3 }) => {
           <LoadingSection />
         </div>
       ) : (
-        <div className="w-[60vw] flex flex-col h-[80vh]">
+        <div className="w-[60vw] flex flex-col h-[80vh] productSection">
           <ProductSection
             title={selectedLabel || "All Categories"}
             products={products}

@@ -184,8 +184,8 @@ const Basket = () => {
 
   return (
     <main className="child flex justify-center w-[63.65vw] p-4 bg-gray-100">
-      <div className="bg-white w-full md:w-[65vw] max-h-[89vh] overflow-y-scroll no-scrollbar rounded-lg shadow-lg">
-        <section className="p-4">
+      <div className="bg-white w-full md:w-[65vw] max-h-[89vh] overflow-y-scroll no-scrollbar rounded-lg shadow-lg foodDetails">
+        <section className="p-4 productSection1">
           {/* Header */}
           <h1 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">
             Your <span className="text-green-500">Cart</span>
