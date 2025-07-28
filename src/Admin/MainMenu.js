@@ -25,7 +25,7 @@ const categories = [
 const ProductCard = ({ product, setActiveSection3 }) => (
   <div
     key={product._id}
-    className="w-[47.5%] sm:w-[31%] min-w-[140px] bg-white rounded-lg shadow-sm border border-gray-200 p-2 flex flex-col justify-between transition-all"
+    className="w-[47.5%] sm:w-[31%] min-w-[140px] h-[290px] rounded-lg shadow-sm border border-gray-200 p-2 flex flex-col justify-between transition-all"
   >
     {/* Dot indicator */}
     <div className="flex justify-between items-center mb-1">
@@ -36,7 +36,7 @@ const ProductCard = ({ product, setActiveSection3 }) => (
     <img
       src={product.image}
       alt={product.name}
-      className="w-full h-[100px] object-contain mb-2 mx-auto rounded"
+      className="w-full h-[120px] object-cover mb-2 mx-auto rounded"
     />
 
     {/* Name */}
