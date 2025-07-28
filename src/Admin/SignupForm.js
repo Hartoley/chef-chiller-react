@@ -116,13 +116,13 @@ const SignupForm = () => {
           src="https://i.pinimg.com/474x/d9/a7/67/d9a7674a942f55c1f76705d4406cac3b.jpg"
           alt=""
         />
-        <div className="absolute inset-0 bg-[rgb(4,14,25)] bg-opacity-30 z-10 flex items-center justify-center">
+        <div className="absolute h-full inset-0 bg-[rgb(4,14,25)] bg-opacity-30 z-10 flex items-center justify-center">
           <div
-            className="w-full bg-black lg:w-[70%] flex items-center h-[80%] bg-[rgb(4,14,25)] bg-opacity-50"
+            className="w-full lg:w-[70%] flex items-center  h-[80%] bg-[rgb(4,14,25)] bg-opacity-50"
             id="loginContainer2"
           >
             <form
-              className="w-full lg:w-[60%] h-full px-5 py-3 flex flex-col gap-1"
+              className="w-full lg:w-[60%] h-full p-5 flex flex-col gap-1"
               id="main2"
               onSubmit={formik.handleSubmit}
             >
@@ -150,7 +150,7 @@ const SignupForm = () => {
                   <div className="text-red-500">{formik.errors.username}</div>
                 ) : null}
               </div>
-              <div className="w-3/4 text-white text-sm" id="inputs">
+              <div className="w-full lg:w-3/4 text-white text-sm" id="inputs">
                 <p>Email</p>
                 <input
                   type="email"

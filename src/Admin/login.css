@@ -25,7 +25,7 @@
     gap: 0;
   }
   #loginContainer2 {
-    width: 80% !important;
+    width: 95% !important;
     height: 75%;
     flex-direction: column;
     justify-content: start !important;
@@ -40,7 +40,8 @@
   #main2 {
     height: 85%;
     width: 100%;
-    justify-content: space-evenly;
+    justify-content: space-evenly !important;
+    padding-left: 10px !important;
   }
 
   #main2 input {
