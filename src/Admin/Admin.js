@@ -113,84 +113,45 @@ const Admin = ({ signup, signin, isDashboard }) => {
             </span>
             {showMenu && (
               <div
-                className="text-black"
                 id="overrideZIndex"
-                style={{
-                  position: "absolute",
-                  backgroundColor: "white",
-                  left: "60vw",
-                  width: "40vw",
-                  height: "auto",
-                  fontSize: "14px",
-                  lineHeight: "20px",
-                  padding: "10px 15px",
-                  border: "solid 0.5px rgb(135, 137, 138)",
-                  top: "10vh",
-                  zIndex: "10",
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                  transition: "all 0.3s ease",
-                }}
+                className="absolute top-[10vh] left-[10vw] w-[280px] sm:w-[320px] bg-white text-gray-800 p-5 border border-gray-300 shadow-xl z-50 rounded-xl transition-all duration-300 animate-fade-in"
               >
-                <div
-                  onClick={signup}
-                  style={{
-                    marginTop: "15px",
-                    cursor: "pointer",
-                    transition: "color 0.3s, transform 0.3s",
-                    fontSize: "12px",
-                    display: "flex",
-                    gap: "5px",
-                    alignItems: "center",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.color = "#ff4d4d";
-                    e.target.style.transform = "scale(1.1)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.color = "";
-                    e.target.style.transform = "scale(1)";
-                  }}
-                >
-                  Join us
-                  <span
-                    style={{
-                      fontSize: "10px",
-                    }}
-                    className="material-symbols-outlined"
-                  >
-                    face
-                  </span>
+                {/* Header */}
+                <div className="mb-3 pb-2 border-b border-gray-200">
+                  <h4 className="text-base font-semibold">Welcome</h4>
+                  <p className="text-xs text-gray-500">Choose your next step</p>
                 </div>
 
+                {/* Action: Join us */}
+                <div
+                  onClick={signup}
+                  className="flex items-center gap-3 py-3 px-2 cursor-pointer rounded-md hover:bg-gray-100 transition-all"
+                >
+                  <span className="material-symbols-outlined text-gray-600 text-xl">
+                    face
+                  </span>
+                  <div>
+                    <p className="text-sm font-medium">Join us</p>
+                    <p className="text-[11px] text-gray-500">
+                      Create your free account
+                    </p>
+                  </div>
+                </div>
+
+                {/* Action: Login */}
                 <div
                   onClick={signin}
-                  style={{
-                    marginTop: "15px",
-                    cursor: "pointer",
-                    transition: "color 0.3s, transform 0.3s",
-                    fontSize: "12px",
-                    display: "flex",
-                    gap: "5px",
-                    alignItems: "center",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.color = "#ff4d4d";
-                    e.target.style.transform = "scale(1.1)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.color = "";
-                    e.target.style.transform = "scale(1)";
-                  }}
+                  className="flex items-center gap-3 py-3 px-2 cursor-pointer rounded-md hover:bg-gray-100 transition-all"
                 >
-                  Log in
-                  <span
-                    style={{
-                      fontSize: "10px",
-                    }}
-                    className="material-symbols-outlined"
-                  >
+                  <span className="material-symbols-outlined text-gray-600 text-xl">
                     passkey
                   </span>
+                  <div>
+                    <p className="text-sm font-medium">Log in</p>
+                    <p className="text-[11px] text-gray-500">
+                      Access your dashboard
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
