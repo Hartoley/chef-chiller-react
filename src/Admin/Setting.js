@@ -88,114 +88,104 @@ const Setting = ({ showCustomAlert }) => {
   }, [id, currentPage]);
 
   return (
-    <main className="child flex-1 p-6 bg-gray-400 w-[63.65vw]">
-      <h1 className="text-xl md:text-2xl font-bold mb-4 text-center">
+    <main className="flex-1 px-4 py-6 bg-gray-100 w-full max-w-screen md:w-[63.65vw] mx-auto">
+      <h1 className="text-xl md:text-2xl font-bold mb-6 text-center text-gray-800">
         Order History
       </h1>
-      <section className="section1 flex items-center rounded-md justify-between mb-6 overflow-hidden">
-        <div className="bg-gray-400 w-full rounded-lg shadow-lg">
-          <section className="p-4 rounded-md">
-            <div className="mb-4 rounded-md">
-              {isLoading ? (
-                <div className="overflow-y-scroll no-scrollbar max-h-[70vh]">
-                  {[...Array(5)].map((_, index) => (
+
+      <section className="bg-white rounded-lg shadow-lg p-1">
+        <div className="rounded-md">
+          {isLoading ? (
+            <div className="overflow-y-auto no-scrollbar max-h-[70vh]">
+              {[...Array(5)].map((_, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-200 p-1 rounded-lg mb-4 shadow animate-pulse"
+                >
+                  <h6 className="font-semibold text-gray-700">Loading...</h6>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="overflow-y-auto no-scrollbar max-h-[70vh]">
+              {Array.isArray(orders) && orders.length > 0 ? (
+                orders
+                  .filter(
+                    (order) =>
+                      ![
+                        "payment",
+                        "Payment Pending",
+                        "Payment Declined",
+                      ].includes(order.status) && order.paid !== false
+                  )
+                  .map((order, index) => (
                     <div
                       key={index}
-                      className="bg-gray-300 p-4 rounded-lg mb-4 shadow-md animate-pulse"
+                      className="bg-gray-50 p-4 rounded-lg mb-4 shadow hover:shadow-md transition cursor-pointer"
+                      onClick={() => handleOrderClick(order)}
                     >
-                      <h6 className="font-semibold text-gray-800">
-                        Loading...
-                      </h6>
+                      <p className="font-semibold text-gray-800">
+                        Order {index + 1}
+                      </p>
+                      <p className="text-gray-600 text-sm">
+                        Ordered On:{" "}
+                        {new Date(order.orderedDate).toLocaleString()}
+                      </p>
                     </div>
-                  ))}
-                </div>
+                  ))
               ) : (
-                <div className="overflow-y-scroll no-scrollbar max-h-[70vh]">
-                  {Array.isArray(orders) && orders.length > 0 ? (
-                    orders
-                      .filter(
-                        (order) =>
-                          ![
-                            "payment",
-                            "Payment Pending",
-                            "Payment Declined",
-                          ].includes(order.status) && order.paid !== false
-                      )
-
-                      .map((order, index) => (
-                        <div
-                          key={index}
-                          className="bg-gray-50 p-4 rounded-lg mb-4 shadow-md cursor-pointer"
-                          onClick={() => handleOrderClick(order)}
-                        >
-                          <p className="font-semibold text-gray-800">
-                            Order {index + 1}
-                          </p>
-                          <p className="text-gray-600">
-                            Ordered On:{" "}
-                            {new Date(order.orderedDate).toLocaleString()}
-                          </p>
-                        </div>
-                      ))
-                  ) : (
-                    <p className="text-gray-900 text-center">
-                      No orders found.
-                    </p>
-                  )}
-                </div>
+                <p className="text-gray-600 text-center">No orders found.</p>
               )}
             </div>
+          )}
+        </div>
 
-            {/* Pagination Controls */}
-            <div className="flex justify-between mt-4">
-              <button
-                onClick={() =>
-                  setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
-                }
-                disabled={currentPage === 1}
-                className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
-              >
-                Previous
-              </button>
-              <span className="text-gray-800">
-                Page {currentPage} of {totalPages}
-              </span>
-              <button
-                onClick={() =>
-                  setCurrentPage((prevPage) =>
-                    prevPage < totalPages ? prevPage + 1 : prevPage
-                  )
-                }
-                disabled={currentPage === totalPages}
-                className="bg-blue-500 text-white px-4 py-2 rounded disabled:opacity-50"
-              >
-                Next
-              </button>
-            </div>
-          </section>
+        {/* Pagination Controls */}
+        <div className="flex justify-between items-center mt-4 text-sm">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Previous
+          </button>
+          <span className="text-gray-800">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev))
+            }
+            disabled={currentPage === totalPages}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Next
+          </button>
         </div>
       </section>
 
-      {/* Modal for displaying full order details */}
+      {/* Order Details Modal */}
       {selectedOrder && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[90vw] max-w-md">
-            <h2 className="text-lg font-bold mb-4">Order Details</h2>
-            <p className="text-sm text-gray-800">
-              Status: {selectedOrder.status}
-            </p>
-            <p className="text-sm text-gray-800">
-              Payment Method: {selectedOrder.paymentMethod}
-            </p>
-            <p className="text-sm text-gray-800">
-              Ordered On: {new Date(selectedOrder.orderedDate).toLocaleString()}
-            </p>
-            <p className="text-sm text-gray-800">
-              Date Delivered:{" "}
-              {new Date(selectedOrder.dateToBeDelivered).toLocaleDateString()}
-            </p>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 px-4">
+          <div className="bg-white w-full max-w-md p-6 rounded-lg shadow-lg relative">
+            <h2 className="text-lg font-bold mb-4 text-gray-800">
+              Order Details
+            </h2>
 
-            <div className="mt-4 overflow-y-auto max-h-48">
+            <div className="space-y-2 text-sm text-gray-700">
+              <p>Status: {selectedOrder.status}</p>
+              <p>Payment Method: {selectedOrder.paymentMethod}</p>
+              <p>
+                Ordered On:{" "}
+                {new Date(selectedOrder.orderedDate).toLocaleString()}
+              </p>
+              <p>
+                Date Delivered:{" "}
+                {new Date(selectedOrder.dateToBeDelivered).toLocaleDateString()}
+              </p>
+            </div>
+
+            <div className="mt-4 max-h-48 overflow-y-auto pr-2">
               {selectedOrder.products.map((product, idx) => (
                 <div key={idx} className="border-b py-2">
                   <p className="font-semibold text-gray-800">
@@ -216,8 +206,8 @@ const Setting = ({ showCustomAlert }) => {
             </div>
 
             <button
-              className="mt-4 bg-red-500 text-white py-2 px-4 rounded"
               onClick={closeModal}
+              className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
             >
               Close
             </button>

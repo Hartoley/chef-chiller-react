@@ -84,7 +84,7 @@ const ProductSection = ({
   const filtered = filterFn ? products.filter(filterFn) : products;
 
   return (
-    <section className="flex w-full h-full flex-col">
+    <section className="flex w-full h-full flex-col ">
       <h3 className="text-xl font-semibold mb-1">{title}</h3>
 
       {filtered.length === 0 ? (
@@ -92,7 +92,7 @@ const ProductSection = ({
           No products available in this category.
         </div>
       ) : (
-        <div className="section6 py-4 h-[97%] w-full flex flex-wrap justify-between gap-y-4 gap-x-[3%] overflow-y-auto no-scrollbar">
+        <div className="section6 py-4 min-h-[99%] w-full flex flex-wrap justify-between gap-y-4 gap-x-[3%] overflow-y-auto  no-scrollbar">
           {filtered.map((product, index) => (
             <ProductCard
               key={index}
@@ -110,7 +110,7 @@ const ProductSection = ({
 const LoadingSection = () => (
   <section className="section2 flex w-[60vw] h-full flex-col">
     <h3 className="text-xl font-semibold mb-1">Loading...</h3>
-    <div className="section3 w-full py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
+    <div className="section3 w-full  py-4 h-[45vh] flex items-center overflow-y-auto gap-4 no-scrollbar">
       {[...Array(5)].map((_, index) => (
         <div
           key={index}
@@ -206,7 +206,7 @@ const MainMenu = ({ activeSection3, setActiveSection3 }) => {
   )?.label;
 
   return (
-    <main className="child h-[100h] flex-1 p-6 bg-gray-100 w-[63.65vw]">
+    <main className="child h-[100vh] flex-1 p-6 bg-gray-100 w-[63.65vw]">
       <section className="section1 flex gap-3 items-center justify-between mb-6">
         <h3 className="text-2xl flex-shrink-0 font-[12px]">Food & Drinks</h3>
         <div className="list overflow-x-scroll no-scrollbar flex space-x-2">
@@ -227,11 +227,11 @@ const MainMenu = ({ activeSection3, setActiveSection3 }) => {
       </section>
 
       {loading ? (
-        <div className="w-full flex flex-col min-h-[80vh] overflow-y-auto no-scrollbar">
+        <div className="w-full flex flex-col h-[80vh] overflow-y-auto no-scrollbar">
           <LoadingSection />
         </div>
       ) : (
-        <div className="w-[60vw] flex flex-col h-[80vh]">
+        <div className="w-full flex flex-col h-[80vh]">
           <ProductSection
             title={selectedLabel || "All Categories"}
             products={products}
