@@ -84,15 +84,15 @@ const ProductSection = ({
   const filtered = filterFn ? products.filter(filterFn) : products;
 
   return (
-    <section className="flex w-full h-full flex-col ">
-      <h3 className="text-xl font-semibold mb-1">{title}</h3>
+    <section className="flex w-full min-h-[100%] flex-col ">
+      {/* <h3 className="text-xl font-semibold mb-1">{title}</h3> */}
 
       {filtered.length === 0 ? (
         <div className="h-[70vh] flex justify-center items-center text-gray-500 text-lg">
           No products available in this category.
         </div>
       ) : (
-        <div className="section6 py-4 min-h-[99%] w-full flex flex-wrap justify-between gap-y-4 gap-x-[3%] overflow-y-auto  no-scrollbar">
+        <div className="section6 py-4 min-h-[100%] w-full flex flex-wrap justify-between gap-y-4 gap-x-[3%] overflow-y-auto  no-scrollbar">
           {filtered.map((product, index) => (
             <ProductCard
               key={index}
@@ -206,8 +206,8 @@ const MainMenu = ({ activeSection3, setActiveSection3 }) => {
   )?.label;
 
   return (
-    <main className="child h-[100vh] flex-1 p-6 bg-gray-100 w-[63.65vw]">
-      <section className="section1 flex gap-3 items-center justify-between mb-6">
+    <main className="child h-[100vh] flex-1 px-3 py-6 bg-gray-100 w-[63.65vw]">
+      <section className="section1 flex gap-3 items-center justify-between">
         <h3 className="text-2xl flex-shrink-0 font-[12px]">Food & Drinks</h3>
         <div className="list overflow-x-scroll no-scrollbar flex space-x-2">
           {categories.map((cat) => (
@@ -231,7 +231,7 @@ const MainMenu = ({ activeSection3, setActiveSection3 }) => {
           <LoadingSection />
         </div>
       ) : (
-        <div className="w-full flex flex-col h-[80vh]">
+        <div className="w-full flex flex-col h-[80vh] ">
           <ProductSection
             title={selectedLabel || "All Categories"}
             products={products}
