@@ -110,148 +110,157 @@ const SignupForm = () => {
   return (
     <>
       <Admin signin={signin} signup={signup} />
-      <div className="body mt-[12vh] w-full h-screen bg-black relative">
-        <img
-          className="absolute w-full h-full inset-0"
-          src="https://i.pinimg.com/474x/d9/a7/67/d9a7674a942f55c1f76705d4406cac3b.jpg"
-          alt=""
-        />
-        <div className="absolute h-full inset-0 bg-[rgb(4,14,25)] bg-opacity-30 z-10 flex items-center justify-center">
+      <div className="md:mt-16 mt-20 min-h-screen bg-gradient-to-b from-[#040e19] to-[#121a2c] flex items-center justify-center px-4 py-10">
+        <div className="w-full max-w-6xl bg-white rounded-2xl shadow-xl flex flex-col lg:flex-row overflow-hidden">
+          {/* Left Side - Astro Image Card */}
           <div
-            className="w-full lg:w-[70%] flex items-center  h-[80%] bg-[rgb(4,14,25)] bg-opacity-50"
-            id="loginContainer2"
+            className="relative lg:w-1/2 h-[300px] lg:h-auto bg-cover bg-center"
+            style={{
+              backgroundImage: `url('https://i.pinimg.com/1200x/8f/e5/9a/8fe59aaf4e99f4d69e7f602e5e948333.jpg')`,
+            }}
           >
-            <form
-              className="w-full lg:w-[60%] h-full p-5 flex flex-col gap-1"
-              id="main2"
-              onSubmit={formik.handleSubmit}
-            >
-              <h6
-                className="text-[#f65553]"
-                style={{
-                  fontFamily: "Roboto Condensed, sans-serif",
-                  fontWeight: "200",
-                }}
+            <div className="absolute inset-0 bg-[rgba(0,0,0,0.5)] flex flex-col items-start justify-end p-8 text-white">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-snug">
+                Exploring new dishes, one step at a Time.
+              </h2>
+              <p className="mt-2 text-sm">Beyond Earth’s grasp</p>
+            </div>
+          </div>
+
+          {/* Right Side - Form */}
+          <form
+            onSubmit={formik.handleSubmit}
+            className="lg:w-1/2 w-full px-6 py-10 flex flex-col gap-5 justify-center"
+          >
+            <div className="flex justify-between text-sm text-gray-500">
+              <span>Already a member?</span>
+              <span className="text-[#cc0f31] cursor-pointer" onClick={signin}>
+                Sign in →
+              </span>
+            </div>
+
+            <h2 className="text-2xl font-bold text-gray-800">Create Account</h2>
+
+            {/* Social Buttons */}
+            <div className="flex gap-2">
+              <button
+                type="button"
+                className="w-full bg-[#cc0f31] text-white py-2 rounded-lg text-sm shadow"
               >
-                Your Path To A Happy Eating
-              </h6>
-              <div className="w-3/4 text-white text-sm" id="inputs">
-                <p>Your Name</p>
+                Sign up with Google
+              </button>
+              <button
+                type="button"
+                className="w-full bg-[#111827] text-white py-2 rounded-lg text-sm shadow"
+              >
+                Facebook
+              </button>
+            </div>
+
+            {/* Divider */}
+            <div className="text-center text-gray-400 text-xs">
+              or using email and password
+            </div>
+
+            {/* Form Fields */}
+            <div className="space-y-4 text-sm">
+              <div>
+                <label className="block text-gray-700">Full Name</label>
                 <input
                   type="text"
                   name="username"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.username}
-                  className="w-full h-[3vw] px-3 text-gray-900"
-                  placeholder="Your full name"
+                  className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-[#f65553]"
                 />
-                {formik.touched.username && formik.errors.username ? (
-                  <div className="text-red-500">{formik.errors.username}</div>
-                ) : null}
+                {formik.touched.username && formik.errors.username && (
+                  <p className="text-red-500 text-xs">
+                    {formik.errors.username}
+                  </p>
+                )}
               </div>
-              <div className="w-full lg:w-3/4 text-white text-sm" id="inputs">
-                <p>Email</p>
+
+              <div>
+                <label className="block text-gray-700">
+                  Email or Phone no.
+                </label>
                 <input
-                  type="email"
+                  type="text"
                   name="email"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
-                  className="w-full h-[3vw] px-3 text-gray-900"
-                  placeholder="email@gmail.com"
+                  className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-[#f65553]"
                 />
-                {formik.touched.email && formik.errors.email ? (
-                  <div className="text-red-500">{formik.errors.email}</div>
-                ) : null}
+                {formik.touched.email && formik.errors.email && (
+                  <p className="text-[#cc0f31] text-xs">
+                    {formik.errors.email}
+                  </p>
+                )}
               </div>
-              <div className="w-3/4 text-white text-sm" id="inputs">
-                <p>Phone Number</p>
+
+              <div>
+                <label className="block text-gray-700">Username</label>
                 <input
                   type="text"
                   name="phoneNumber"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.phoneNumber}
-                  className="w-full h-[3vw] px-3 text-gray-900"
-                  placeholder="Phone Number"
+                  className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-[#f65553]"
                 />
-                {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-                  <div className="text-red-500">
+                {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+                  <p className="text-[#cc0f31] text-xs">
                     {formik.errors.phoneNumber}
-                  </div>
-                ) : null}
+                  </p>
+                )}
               </div>
-              <div className="w-3/4 text-white text-sm relative" id="inputs">
-                <p>Password</p>
+
+              <div className="relative">
+                <label className="block text-gray-700">Password</label>
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.password}
-                  className="w-full h-[3vw] px-3 text-gray-900"
-                  placeholder="*****"
+                  className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-[#f65553]"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1 text-[#f65553] hover:text-white focus:outline-none"
+                  className="absolute right-3 top-9 text-xs text-[#f65553]"
                 >
                   {showPassword ? "Hide" : "Show"}
                 </button>
-                {formik.touched.password && formik.errors.password ? (
-                  <div className="text-red-500">{formik.errors.password}</div>
-                ) : null}
-              </div>
-              <button
-                type="submit"
-                className="w-3/4 h-10 border-2 border-[#f65553] text-white mt-2"
-                id="inputs1"
-                disabled={loading || isRegistered}
-              >
-                {loading ? (
-                  <span>
-                    <div
-                      className="spinner-border spinner-border-sm text-primary"
-                      role="status"
-                    >
-                      <span className="visually-hidden">Loading...</span>
-                    </div>
-                    Signing up...
-                  </span>
-                ) : (
-                  "Sign up"
+                {formik.touched.password && formik.errors.password && (
+                  <p className="text-red-500 text-xs">
+                    {formik.errors.password}
+                  </p>
                 )}
-              </button>
-            </form>
-            <div
-              id="images1"
-              className="lg:flex w-[40%] relative inset-0 h-full"
-            >
-              <img
-                src="https://i.pinimg.com/474x/88/f7/19/88f719e00706ba3d59c6aa1052fa96ba.jpg"
-                className="w-full z-1 h-full absolute"
-                alt=""
-              />
-              <div className="w-full absolute inset-0 flex flex-col items-center h-full text-[#f65553] justify-center z-10 bg-[rgb(4,14,25)] bg-opacity-30">
-                <div className="w-full items-center justify-center flex">
-                  <img
-                    className="logo rounded-full relative"
-                    src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
-                    alt=""
-                  />
-                  {isRegistered ? (
-                    <div className="redirect absolute !top-60 !w-[80%] h-20 flex items-center justify-center !p-5 gap-3 m-auto !bg-white ">
-                      <p>Registration successful! Redirecting...</p>
-                    </div>
-                  ) : (
-                    loading && <div></div>
-                  )}
-                </div>
               </div>
             </div>
-          </div>
+
+            <label className="text-sm flex items-start gap-2">
+              <input type="checkbox" required />I agree to the{" "}
+              <span className="underline">terms and privacy policy</span>
+            </label>
+
+            <button
+              type="submit"
+              disabled={loading || isRegistered}
+              className="bg-[#cc0f31] text-white py-2 rounded-lg hover:bg-opacity-90 text-sm"
+            >
+              {loading ? "Signing up..." : "Sign up"}
+            </button>
+
+            {isRegistered && (
+              <p className="text-green-600 text-center text-sm">
+                Registration successful! Redirecting...
+              </p>
+            )}
+          </form>
         </div>
       </div>
       <Footer />

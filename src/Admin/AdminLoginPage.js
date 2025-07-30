@@ -1,15 +1,11 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import "../Admin/login.css";
-import Admin from "./Admin";
 import Footer from "./Footer";
-import { useParams } from "react-router-dom";
+import Admin from "./Admin";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -17,15 +13,11 @@ const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
-  };
-
-  const signin = () => {
-    navigate("/user/signin");
-  };
-
   const endpoint = "https://chef-chiller-node.onrender.com";
+
+  const signup = () => {
+    navigate("/user/signup");
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -48,9 +40,7 @@ const LoginForm = () => {
         .post(`${endpoint}/user/login`, values)
         .then((res) => {
           toast.success("Successfully signed in!");
-
           const { role, id } = res.data;
-
           setLoginSuccess(true);
           localStorage.setItem("id", JSON.stringify(id));
           setTimeout(() => {
@@ -70,87 +60,74 @@ const LoginForm = () => {
     },
   });
 
-  const signup = () => {
-    navigate("/user/signup");
-  };
-
   return (
     <>
-      <Admin signin={signin} signup={signup} />
-      <div className="mt-[12vh] body w-full h-screen bg-black relative">
-        <img
-          className="absolute w-full h-full inset-0"
-          src="https://i.pinimg.com/474x/88/50/ea/8850ea685cf18e8ad48758a6164269a1.jpg"
-          alt=""
-        />
-        <div className="absolute inset-0 bg-[rgb(4,14,25)] bg-opacity-30 z-10 flex items-center justify-center">
+      <Admin />
+      <div className="mt-16 min-h-screen bg-gradient-to-b from-[#040e19] to-[#121a2c] flex items-center justify-center px-4 py-10">
+        <div className="w-full max-w-6xl bg-white rounded-2xl shadow-xl flex flex-col lg:flex-row overflow-hidden">
+          {/* Left Side - Image Section */}
           <div
-            className="w-full bg-black lg:w-[60%] flex items-center h-[60%] rounded-lg bg-[rgb(4,14,25)] bg-opacity-50"
-            id="loginContainer"
+            className="relative lg:w-1/2 h-[300px] lg:h-auto bg-cover bg-center"
+            style={{
+              backgroundImage:
+                "url('https://i.pinimg.com/1200x/8f/e5/9a/8fe59aaf4e99f4d69e7f602e5e948333.jpg')",
+            }}
           >
-            <div
-              id="images1"
-              className="lg:flex w-[55%] relative inset-0 h-full rounded-l-lg"
-            >
-              <img
-                src="https://i.pinimg.com/474x/20/0e/12/200e124b9116fff354ec08cc2b5317b0.jpg"
-                className="w-full z-1 h-full absolute rounded-l-lg"
-                alt=""
-              />
-              <div className="w-full absolute inset-0 flex flex-col items-center h-full text-[#f65553] justify-center z-10 bg-[rgb(4,14,25)] bg-opacity-30">
-                <div className="w-full items-center justify-center flex">
-                  <img
-                    className="logo"
-                    src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
-                    alt=""
-                  />
-                </div>
-
-                {/* <h5 className="cursor-pointer mt-5 text-white" onClick={signup}>
-                  Sign up?{" "}
-                </h5> */}
-              </div>
+            <div className="absolute inset-0 bg-[rgba(0,0,0,0.5)] flex flex-col items-start justify-end p-8 text-white">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold leading-snug">
+                Exploring new dishes, one step at a Time.
+              </h2>
+              <p className="mt-2 text-sm">Beyond Earth’s grasp</p>
             </div>
-            <form
-              onSubmit={formik.handleSubmit}
-              className="w-[45%] h-full p-5 flex flex-col gap-1"
-              id="main2"
-            >
-              <h6
-                style={{
-                  fontFamily: "Roboto Condensed, sans-serif",
-                  fontWeight: "200",
-                }}
-                className="text-[#f65553]"
-              >
-                Your Path To A Happy Eating
-              </h6>
+          </div>
 
-              <div className="w-8/9 text-white text-sm" id="inputs">
-                <p>Email</p>
+          {/* Right Side - Login Form */}
+          <form
+            onSubmit={formik.handleSubmit}
+            className="lg:w-1/2 w-full px-6 py-10 flex flex-col gap-5 justify-center"
+          >
+            <div className="flex justify-between text-sm text-gray-500">
+              <span>Don't have an account?</span>
+              <span
+                className="text-[#cc0f31] cursor-pointer"
+                onClick={() => navigate("/user/signup")}
+              >
+                Sign up →
+              </span>
+            </div>
+
+            <h2 className="text-2xl font-bold text-gray-800">Welcome Back</h2>
+
+            <div className="space-y-4 text-sm">
+              <div>
+                <label className="block text-gray-700">Email</label>
                 <input
-                  type="text"
-                  className="w-full h-[3vw] px-3 text-gray-900"
-                  placeholder="email@gmail.com"
-                  {...formik.getFieldProps("email")}
+                  type="email"
+                  name="email"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
+                  className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-[#f65553]"
                 />
                 {formik.touched.email && formik.errors.email && (
                   <p className="text-red-500 text-xs">{formik.errors.email}</p>
                 )}
               </div>
 
-              <div className="w-8/9 text-white text-sm relative" id="inputs">
-                <p>Password</p>
+              <div className="relative">
+                <label className="block text-gray-700">Password</label>
                 <input
                   type={showPassword ? "text" : "password"}
-                  className="w-full h-[3vw] px-3 text-gray-900"
-                  placeholder="*****"
-                  {...formik.getFieldProps("password")}
+                  name="password"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.password}
+                  className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-[#f65553]"
                 />
                 <button
                   type="button"
-                  onClick={togglePasswordVisibility}
-                  className="absolute right-3 top-1 text-[#f65553] hover:text-white focus:outline-none"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-9 text-xs text-[#f65553]"
                 >
                   {showPassword ? "Hide" : "Show"}
                 </button>
@@ -160,38 +137,24 @@ const LoginForm = () => {
                   </p>
                 )}
               </div>
+            </div>
 
-              <button
-                type="submit"
-                className="w-8/9 h-10 border-2 border-[#f65553] text-white mt-2"
-                id="inputs1"
-                disabled={loading}
-              >
-                {loading ? (
-                  loginSuccess ? (
-                    <div className="text-green-500">Login Successful!</div>
-                  ) : (
-                    <span>
-                      <div
-                        className="spinner-border spinner-border-sm text-primary"
-                        role="status"
-                      >
-                        <span className="visually-hidden">Loading...</span>
-                      </div>
-                      Signing in...
-                    </span>
-                  )
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-[#cc0f31] text-white py-2 rounded-lg hover:bg-opacity-90 text-sm"
+            >
+              {loading ? (
+                loginSuccess ? (
+                  <span className="text-green-500">Login Successful!</span>
                 ) : (
-                  "Sign In"
-                )}
-              </button>
-              {/* <img
-                className="logoSm"
-                src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
-                alt=""
-              /> */}
-            </form>
-          </div>
+                  "Signing in..."
+                )
+              ) : (
+                "Sign In"
+              )}
+            </button>
+          </form>
         </div>
       </div>
       <Footer />

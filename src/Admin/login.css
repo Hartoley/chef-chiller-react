@@ -17,6 +17,11 @@
     width: 250px !important;
   }
 
+  .body {
+    height: 80vh !important;
+    background-color: red;
+  }
+
   #loginContainer {
     width: 80% !important;
     height: 70%;
@@ -34,20 +39,20 @@
   }
 
   #inputs input {
-    height: 10vw !important;
+    /* height: 10vw !important; */
   }
 
   #main2 {
     height: 85%;
     width: 100%;
     justify-content: space-evenly !important;
-    padding-left: 10px !important;
+    padding-left: 20px !important;
   }
 
   #main2 input {
     height: 4vh;
-    font-size: 14px;
   }
+
   #images1 img {
     display: none;
   }
