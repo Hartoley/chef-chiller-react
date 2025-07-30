@@ -112,7 +112,7 @@ const SignupForm = () => {
   return (
     <>
       <Admin signin={signin} signup={signup} />
-      <div className="md:mt-16 mt-24 min-h-screen bg-gradient-to-b from-[#040e19] to-[#121a2c] flex items-center justify-center px-4 py-10">
+      <div className="md:mt-16 mt-20 min-h-screen bg-gradient-to-b from-[#040e19] to-[#121a2c] flex items-center justify-center px-4 py-10">
         <div className="w-full max-w-6xl bg-white rounded-2xl shadow-xl flex flex-col lg:flex-row overflow-hidden">
           {/* Left Side - Astro Image Card */}
           <div
