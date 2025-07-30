@@ -88,7 +88,7 @@ const LandingPage = () => {
       <Admin signin={signin} signup={signup} />
 
       <div className="mt-[12vh]">
-        <div className="relative w-full h-[88vh] overflow-hidden">
+        <div className="relative w-full h-[62vh] lg:h-[88vh] overflow-hidden">
           {/* Background Image */}
           <img
             src="https://i.pinimg.com/736x/a6/a8/2c/a6a82cf20d2fb7cae922836a9ad79ff6.jpg"
@@ -163,7 +163,7 @@ const LandingPage = () => {
           id="listFood"
           className="bg-[rgb(8,21,33)] w-full flex justify-center items-center h-[12vh]"
         >
-          <div className="listChild overflow-x-scroll no-scrollbar w-[60%] flex justify-center items-center gap-6 h-full px-4">
+          <div className=" overflow-x-scroll no-scrollbar lg:w-[60%] w-[95%] flex justify-center items-center gap-6 h-full px-4">
             {[img1, img2, img3, img4, img1, img2, img3, img4].map((src, i) => (
               <motion.img
                 key={i}

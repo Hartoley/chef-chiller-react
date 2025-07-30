@@ -34,9 +34,12 @@ const Admin = ({ signup, signin, isDashboard }) => {
 
   return (
     <nav className="w-full fixed z-20 h-[16vh] bg-[#040e19] flex items-center px-4 sm:px-8">
-      <div className="flex items-center justify-between w-full">
+      <div className="flex items-center justify-between w-full h-full">
         {/* Logo */}
-        <div onClick={home} className="flex items-center gap-2 cursor-pointer">
+        <div
+          onClick={home}
+          className="flex items-center gap-2 cursor-pointer h-full"
+        >
           <img
             src="https://i.pinimg.com/236x/72/e2/84/72e284c245a1ba8817265f69ff8d65d7.jpg"
             alt="logo"
@@ -45,7 +48,7 @@ const Admin = ({ signup, signin, isDashboard }) => {
         </div>
 
         {/* Navigation Links */}
-        <div className="hidden md:flex items-center gap-6 text-white font-medium text-sm sm:text-base lg:text-[15px]">
+        <div className="hidden h-full md:flex items-center gap-6 text-white font-medium text-sm sm:text-base lg:text-[15px]">
           {["Our Menu", "Blogs", "Features", "Pages", "Contact Us"].map(
             (item, idx) => (
               <p
