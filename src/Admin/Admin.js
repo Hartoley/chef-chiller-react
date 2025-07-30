@@ -70,7 +70,7 @@ const Admin = ({ signup, signin, isDashboard }) => {
         {!isDashboard && !isLoggedIn ? (
           <div className="hidden md:flex items-center gap-4">
             <button
-              onClick={signup}
+              onClick={() => navigate("/user/signup")}
               className="bg-[#cc0f31] text-white px-4 py-2 rounded text-sm font-semibold hover:bg-[#4fb354] transition-transform transform hover:scale-110"
             >
               Join us
@@ -115,7 +115,7 @@ const Admin = ({ signup, signin, isDashboard }) => {
           </div>
 
           <div
-            onClick={signup}
+            onClick={() => navigate("/user/signup")}
             className="flex items-center gap-3 py-3 px-2 cursor-pointer rounded-md hover:bg-gray-100"
           >
             <span className="material-symbols-outlined text-gray-600 text-xl">

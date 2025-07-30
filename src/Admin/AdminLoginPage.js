@@ -7,17 +7,13 @@ import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import Admin from "./Admin";
 
-const LoginForm = () => {
+const LoginForm = ({ signup }) => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
 
   const endpoint = "https://chef-chiller-node.onrender.com";
-
-  const signup = () => {
-    navigate("/user/signup");
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -63,7 +59,7 @@ const LoginForm = () => {
   return (
     <>
       <Admin />
-      <div className="mt-16 min-h-screen bg-gradient-to-b from-[#040e19] to-[#121a2c] flex items-center justify-center px-4 py-10">
+      <div className="mt-20 min-h-screen bg-gradient-to-b from-[#040e19] to-[#121a2c] flex items-center justify-center px-4 py-10">
         <div className="w-full max-w-6xl bg-white rounded-2xl shadow-xl flex flex-col lg:flex-row overflow-hidden">
           {/* Left Side - Image Section */}
           <div
