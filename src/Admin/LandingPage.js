@@ -135,7 +135,7 @@ const LandingPage = () => {
           {/* Controls */}
           <button
             onClick={prevSlide}
-            className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white bg-gray-800 bg-opacity-50 rounded-full p-2 hover:bg-opacity-80 z-20"
+            className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white bg-gray-800 bg-opacity-50 rounded-full p-2 hover:bg-opacity-65 z-20"
           >
             ❮
           </button>
