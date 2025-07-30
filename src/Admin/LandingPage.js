@@ -147,7 +147,7 @@ const LandingPage = () => {
           </button>
 
           {/* Dots */}
-          <div className="absolute bottom-6 w-full flex justify-center gap-2 z-20">
+          <div className="absolute bottom-6 w-full flex justify-center gap-2 z-10">
             {slides.map((_, index) => (
               <div
                 key={index}
