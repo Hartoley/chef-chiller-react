@@ -114,33 +114,48 @@ const Admin = ({ signup, signin, isDashboard }) => {
             <p className="text-xs text-gray-500">Choose your next step</p>
           </div>
 
-          <div
-            onClick={() => navigate("/user/signup")}
-            className="flex items-center gap-3 py-3 px-2 cursor-pointer rounded-md hover:bg-gray-100"
-          >
-            <span className="material-symbols-outlined text-gray-600 text-xl">
-              face
-            </span>
-            <div>
-              <p className="text-sm font-medium">Join us</p>
-              <p className="text-[11px] text-gray-500">
-                Create your free account
-              </p>
-            </div>
-          </div>
+          {!isLoggedIn ? (
+            <>
+              <div
+                onClick={() => navigate("/user/signup")}
+                className="flex items-center gap-3 py-3 px-2 cursor-pointer rounded-md hover:bg-gray-100"
+              >
+                <span className="material-symbols-outlined text-gray-600 text-xl">
+                  face
+                </span>
+                <div>
+                  <p className="text-sm font-medium">Join us</p>
+                  <p className="text-[11px] text-gray-500">
+                    Create your free account
+                  </p>
+                </div>
+              </div>
 
-          <div
-            onClick={signin}
-            className="flex items-center gap-3 py-3 px-2 cursor-pointer rounded-md hover:bg-gray-100"
-          >
-            <span className="material-symbols-outlined text-gray-600 text-xl">
-              passkey
-            </span>
-            <div>
-              <p className="text-sm font-medium">Log in</p>
-              <p className="text-[11px] text-gray-500">Access your dashboard</p>
+              <div
+                onClick={signin}
+                className="flex items-center gap-3 py-3 px-2 cursor-pointer rounded-md hover:bg-gray-100"
+              >
+                <span className="material-symbols-outlined text-gray-600 text-xl">
+                  passkey
+                </span>
+                <div>
+                  <p className="text-sm font-medium">Log in</p>
+                  <p className="text-[11px] text-gray-500">
+                    Access your dashboard
+                  </p>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="flex items-center">
+              <button
+                onClick={logout}
+                className="bg-[#fc9e34] text-white px-4 py-2 rounded text-sm font-semibold hover:bg-[#f65553] transition-transform transform hover:scale-105 w-full md:w-auto"
+              >
+                Log out
+              </button>
             </div>
-          </div>
+          )}
         </div>
       )}
     </nav>
