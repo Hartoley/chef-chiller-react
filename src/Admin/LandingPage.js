@@ -161,7 +161,7 @@ const LandingPage = () => {
         {/* Bottom thumbnail images */}
         <div
           id="listFood"
-          className="bg-[rgb(8,21,33)] w-full flex justify-center items-center h-[12vh]"
+          className="bg-[#0a1a2f] w-full flex justify-center items-center h-[12vh]"
         >
           <div className="w-full overflow-x-scroll no-scrollbar lg:w-[60%] flex justify-center items-center gap-6 h-full px-2">
             {[img1, img2, img3, img4, img1, img2, img3, img4].map((src, i) => (

@@ -76,7 +76,7 @@ const reviews = [
 
 const ReviewSection = () => {
   return (
-    <div className="min-h-screen bg-[rgb(8,21,33)] py-16 px-4 md:px-12 flex flex-col items-center">
+    <div className="min-h-screen bg-[#30445f] py-16 px-4 md:px-12 flex flex-col items-center">
       <h2 className="text-3xl text-center font-bold text-white mb-4">
         What Our Customers Say
       </h2>
@@ -89,7 +89,7 @@ const ReviewSection = () => {
         {reviews.map((review, index) => (
           <motion.div
             key={index}
-            className="bg-[rgb(5,17,31)] rounded-lg p-6 flex flex-col items-center text-center shadow-lg border border-[rgba(255,255,255,0.05)] hover:shadow-xl transition-shadow duration-300"
+            className="bg-[#20344f] rounded-lg p-6 flex flex-col items-center text-center shadow-lg border border-[rgba(255,255,255,0.05)] hover:shadow-xl transition-shadow duration-300"
             whileHover={{ scale: 1.02 }}
           >
             <img
