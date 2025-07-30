@@ -91,11 +91,11 @@ const LandingPage = () => {
         <div className="relative w-full h-[88vh] overflow-hidden">
           {/* Background Image */}
           <img
-            src="https://i.pinimg.com/736x/a6/a8/2c/a6a82cf20d2fb7cae922836a9ad79ff6.jpg"
+            src="https://i.pinimg.com/736x/9a/2a/6b/9a2a6b1c92fe69e60486eb9c6361d026.jpg"
             alt="background"
             className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-[rgba(4,14,25,0.99)]"></div>
+          <div className="absolute inset-0 bg-[#0a1a2f] bg-opacity-95"></div>
 
           {/* Slides */}
           <div className="relative z-10 flex items-center justify-center h-full w-full overflow-hidden">
@@ -135,7 +135,7 @@ const LandingPage = () => {
           {/* Controls */}
           <button
             onClick={prevSlide}
-            className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white bg-gray-800 bg-opacity-50 rounded-full p-2 hover:bg-opacity-65 z-20"
+            className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white bg-gray-800 bg-opacity-50 rounded-full p-2 hover:bg-opacity-80 z-20"
           >
             ❮
           </button>
