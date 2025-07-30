@@ -45,7 +45,7 @@ const AsideSidebar = ({ user, setActiveSection3 }) => (
       </nav>
     </div>
     <footer className="text-sm h-[15%] text-gray-500 mt-8">
-      <p>© 2024 FoodWish! POS</p>
+      <p>© 2024 ChefKeena! POS</p>
       <p>Terms • Privacy</p>
     </footer>
   </aside>

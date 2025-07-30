@@ -87,6 +87,11 @@ const UserDashboard = () => {
   const [filteredOrdersCount, setfilteredOrdersCount] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
 
+  const logout = () => {
+    localStorage.removeItem("id");
+    window.location.href = "/user/signin";
+  };
+
   useEffect(() => {
     const handleResize = () => {
       const smallScreen = window.innerWidth <= 777;
@@ -267,16 +272,20 @@ const UserDashboard = () => {
               />
             </div>
 
-            <div class="flex items-center space-x-4">
-              <button onClick={toggleMenu2}>
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={logout}
+                title="Log out"
+                className="text-white hover:text-red-500 transition-all"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 64 64"
-                  width="32"
-                  height="32"
+                  viewBox="0 0 24 24"
+                  width="28"
+                  height="28"
                   fill="currentColor"
                 >
-                  <path d="M32 4a12 12 0 00-12 12v.5a8.5 8.5 0 00-5.1 15.5H16a4 4 0 000 8v12a4 4 0 004 4h24a4 4 0 004-4V40a4 4 0 000-8h1.1A8.5 8.5 0 0044 16.5V16A12 12 0 0032 4zm-8 44h16v4H24v-4z" />
+                  <path d="M16 13v-2H7V8l-5 4 5 4v-3h9zm3-9H5c-1.1 0-2 .9-2 2v4h2V6h14v12H5v-4H3v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z" />
                 </svg>
               </button>
             </div>
