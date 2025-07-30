@@ -88,14 +88,14 @@ const LandingPage = () => {
       <Admin signin={signin} signup={signup} />
 
       <div className="mt-[12vh]">
-        <div className="relative w-full h-[62vh] lg:h-[88vh] overflow-hidden">
+        <div className="relative w-full h-[88vh] overflow-hidden">
           {/* Background Image */}
           <img
             src="https://i.pinimg.com/736x/a6/a8/2c/a6a82cf20d2fb7cae922836a9ad79ff6.jpg"
             alt="background"
             className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-[rgba(4,14,25,0.95)]"></div>
+          <div className="absolute inset-0 bg-[rgba(4,14,25,0.99)]"></div>
 
           {/* Slides */}
           <div className="relative z-10 flex items-center justify-center h-full w-full overflow-hidden">
@@ -163,7 +163,7 @@ const LandingPage = () => {
           id="listFood"
           className="bg-[rgb(8,21,33)] w-full flex justify-center items-center h-[12vh]"
         >
-          <div className=" overflow-x-scroll no-scrollbar lg:w-[60%] w-[95%] flex justify-center items-center gap-6 h-full px-4">
+          <div className="w-full overflow-x-scroll no-scrollbar lg:w-[60%] flex justify-center items-center gap-6 h-full px-2">
             {[img1, img2, img3, img4, img1, img2, img3, img4].map((src, i) => (
               <motion.img
                 key={i}
