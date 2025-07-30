@@ -78,8 +78,12 @@ const AllProduct = () => {
         <div className="flex gap-4 overflow-x-auto custom-scrollbar pb-2">
           {specialProducts.map((product, index) => (
             <div
-              className="min-w-[250px] sm:min-w-[280px] md:min-w-[300px] transition-transform transform hover:scale-[1.02] hover:brightness-110 duration-300 ease-in-out"
               key={index}
+              className="min-w-[250px] sm:min-w-[280px] md:min-w-[300px] 
+            transition-all duration-300 ease-in-out 
+            motion-safe:hover:scale-[1.05] motion-safe:hover:-translate-y-1 
+            motion-safe:hover:brightness-125 motion-safe:hover:shadow-lg 
+            active:scale-90 active:brightness-90 active:shadow-inner rounded-lg"
             >
               <ProductCard product={product} />
             </div>
@@ -96,8 +100,12 @@ const AllProduct = () => {
           <div className="flex gap-4 overflow-x-auto custom-scrollbar pb-2">
             {newProducts.map((product, index) => (
               <div
-                className="min-w-[250px] sm:min-w-[280px] md:min-w-[300px] transition-transform transform hover:scale-[1.02] hover:brightness-110 duration-300 ease-in-out"
                 key={index}
+                className="min-w-[250px] sm:min-w-[280px] md:min-w-[300px] 
+              transition-all duration-300 ease-in-out 
+              motion-safe:hover:scale-[1.05] motion-safe:hover:-translate-y-1 
+              motion-safe:hover:brightness-125 motion-safe:hover:shadow-lg 
+              active:scale-90 active:brightness-90 active:shadow-inner rounded-lg"
               >
                 <ProductCard product={product} />
               </div>
