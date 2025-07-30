@@ -41,19 +41,23 @@ const AllProduct = () => {
   }, []);
 
   const ProductCard = ({ product }) => (
-    <div className="min-w-[250px] bg-[rgb(8,22,33)] rounded-lg shadow-md p-4">
+    <div className="min-w-[250px] sm:min-w-[280px] md:min-w-[300px] bg-[rgb(8,22,33)] rounded-lg shadow-md p-4 flex flex-col justify-between h-[360px]">
       <div className="relative" onClick={handleNavigation}>
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-40 object-cover"
+          className="w-full h-40 object-cover rounded"
         />
       </div>
-      <h3 className="font-semibold text-lg mt-2 text-[#E0E0E0]">
-        {product.name}
-      </h3>
-      <div className="flex items-center justify-between mt-2">
-        <span className="text-xl font-bold text-[#f65553]">
+
+      <div className="flex-1 mt-3">
+        <h3 className="font-semibold text-base sm:text-lg text-[#E0E0E0] leading-tight line-clamp-2">
+          {product.name}
+        </h3>
+      </div>
+
+      <div className="mt-4">
+        <span className="text-lg sm:text-xl font-bold text-[#f65553]">
           ₦
           {product.price.toLocaleString("en-NG", {
             minimumFractionDigits: 2,
@@ -65,34 +69,38 @@ const AllProduct = () => {
   );
 
   return (
-    <div className="bg-[rgb(4,14,25)] dflex items-center p-10" id="AllProduct">
+    <div
+      className="bg-[rgb(4,14,25)] py-12 px-4 sm:px-8 lg:px-16"
+      id="AllProduct"
+    >
       {/* Specials Section */}
-      <div className="products mx-auto mb-12">
-        <div className=" bg-[rgb(4,14,25)] p-0 z-10">
-          <h2 className="text-3xl  font-medium mb-10 text-[#E0E0E0]">
-            Specials
-          </h2>
-        </div>
-        <div className="flex space-x-4 custom-scrollbar ">
+      <section className="mb-20">
+        <h2 className="text-2xl sm:text-3xl font-semibold text-[#E0E0E0] mb-6 sm:mb-10 text-center sm:text-left">
+          Specials
+        </h2>
+        <div className="flex gap-4 overflow-x-auto custom-scrollbar pb-2">
           {specialProducts.map((product, index) => (
-            <ProductCard key={index} product={product} />
+            <div className="min-w-[250px] sm:min-w-[280px] md:min-w-[300px]">
+              <ProductCard key={index} product={product} />
+            </div>
           ))}
         </div>
-      </div>
+      </section>
 
+      {/* New Products Section */}
       {newProducts.length > 0 && (
-        <div className="products mt-3 mx-auto mb-12">
-          <div className=" bg-[rgb(4,14,25)] p-0 z-10">
-            <h2 className="text-3xl font-medium mb-10 text-[#E0E0E0]">
-              New Products
-            </h2>
-          </div>
-          <div className="flex space-x-4 custom-scrollbar">
+        <section className="mb-10">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-[#E0E0E0] mb-6 sm:mb-10 text-center sm:text-left">
+            New Products
+          </h2>
+          <div className="flex gap-4 overflow-x-auto custom-scrollbar pb-2">
             {newProducts.map((product, index) => (
-              <ProductCard key={index} product={product} />
+              <div className="min-w-[250px] sm:min-w-[280px] md:min-w-[300px]">
+                <ProductCard key={index} product={product} />
+              </div>
             ))}
           </div>
-        </div>
+        </section>
       )}
     </div>
   );
