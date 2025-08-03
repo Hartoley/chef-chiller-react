@@ -152,17 +152,15 @@ const CvLandingPage = () => {
 
   return (
     <div
-      className={`${
-        darkMode
-          ? "bg-purple-900 text-gray-100"
-          : "bg-purple-100 text-purple-700"
-      } min-h-screen transition-colors duration-500`}
+      className={`${darkMode
+        ? "bg-purple-900 text-gray-100"
+        : "bg-purple-100 text-purple-700"
+        } min-h-screen transition-colors duration-500`}
     >
       {/* Navbar */}
       <nav
-        className={`${
-          darkMode ? "bg-purple-800" : "bg-purple-300"
-        } sticky top-0 z-50 shadow-md transition-colors duration-500`}
+        className={`${darkMode ? "bg-purple-800" : "bg-purple-300"
+          } sticky top-0 z-50 shadow-md transition-colors duration-500`}
       >
         <div className="container mx-auto flex items-center justify-between p-4">
           <h1 className="text-2xl font-bold">Keena</h1>
@@ -193,9 +191,8 @@ const CvLandingPage = () => {
 
           {/* Desktop Navigation */}
           <div
-            className={`hidden lg:flex items-center space-x-6 ${
-              darkMode ? "text-gray-100" : "text-purple-700"
-            }`}
+            className={`hidden lg:flex items-center space-x-6 ${darkMode ? "text-gray-100" : "text-purple-700"
+              }`}
           >
             {["home", "about-me", "skills", "contact-me"].map((section) => (
               <button
@@ -214,7 +211,7 @@ const CvLandingPage = () => {
               {darkMode ? (
                 <SunIcon className="h-6 w-6 text-yellow-400" />
               ) : (
-                <MoonIcon className="h-6 w-6 text-purple-700 dark:text-purple-300" />
+                <MoonIcon className="h-6 w-6 text-purple-700 dark:text-purple-800" />
               )}
             </button>
           </div>
@@ -222,11 +219,10 @@ const CvLandingPage = () => {
 
         {/* Mobile Dropdown Menu */}
         <div
-          className={`lg:hidden fixed top-[12vh] right-0 h-[40vh] w-[40vw] py-4 shadow-md z-50 transform transition-transform duration-500 ease-in-out ${
-            darkMode
-              ? "bg-purple-800 text-gray-50"
-              : "bg-purple-200 text-purple-900"
-          } ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
+          className={`lg:hidden fixed top-[12vh] right-0 h-[40vh] w-[40vw] py-4 shadow-md z-50 transform transition-transform duration-500 ease-in-out ${darkMode
+            ? "bg-purple-800 text-gray-50"
+            : "bg-purple-200 text-purple-900"
+            } ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
         >
           <div className="container mx-auto flex flex-col space-y-6 items-start">
             {["home", "about-me", "skills", "contact-me"].map((section) => (
@@ -238,7 +234,19 @@ const CvLandingPage = () => {
                 {section.replace("-", " ").toUpperCase()}
               </button>
             ))}
+            <button
+              className="mr-4 p-2 rounded-md transition-all duration-300 focus:outline-none"
+              onClick={toggleDarkMode}
+              aria-label="Toggle Dark Mode"
+            >
+              {darkMode ? (
+                <SunIcon className="h-6 w-6 text-yellow-400" />
+              ) : (
+                <MoonIcon className="h-6 w-6 text-purple-700 dark:text-purple-700" />
+              )}
+            </button>
           </div>
+
         </div>
       </nav>
       {/* <div className=" z-50 bg-purple-950 w-full h-[100vh] fixed top-0 bg-opacity-50 left-0"></div> */}
@@ -297,11 +305,10 @@ const CvLandingPage = () => {
 
       <section
         id="home"
-        className={`${
-          darkMode
-            ? "bg-purple-900 text-gray-50"
-            : "bg-purple-100 text-purple-900"
-        } text-center py-10 md:py-20 transition-colors duration-500`}
+        className={`${darkMode
+          ? "bg-purple-900 text-gray-50"
+          : "bg-purple-100 text-purple-900"
+          } text-center py-10 md:py-20 transition-colors duration-500`}
       >
         <div className="container mx-auto px-4">
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4">
@@ -323,11 +330,10 @@ const CvLandingPage = () => {
                   section.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className={`${
-                darkMode
-                  ? "bg-pink-500 hover:bg-pink-600 text-white"
-                  : "bg-purple-500 hover:bg-purple-600 text-white"
-              } py-2 px-6 rounded-lg text-base sm:text-lg font-medium transition duration-300`}
+              className={`${darkMode
+                ? "bg-pink-500 hover:bg-pink-600 text-white"
+                : "bg-purple-500 hover:bg-purple-600 text-white"
+                } py-2 px-6 rounded-lg text-base sm:text-lg font-medium transition duration-300`}
             >
               Contact Me
             </p>
@@ -338,11 +344,10 @@ const CvLandingPage = () => {
                 link.download = "JIMOH SEKINAT TOLANI's RESUME.pdf";
                 link.click();
               }}
-              className={`${
-                darkMode
-                  ? "bg-gray-800 border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white"
-                  : "bg-purple-200 border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white"
-              } py-2 px-6 rounded-lg text-base sm:text-lg font-medium transition duration-300`}
+              className={`${darkMode
+                ? "bg-gray-800 border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white"
+                : "bg-purple-200 border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white"
+                } py-2 px-6 rounded-lg text-base sm:text-lg font-medium transition duration-300`}
             >
               Download CV
             </p>
@@ -352,11 +357,10 @@ const CvLandingPage = () => {
 
       <section
         id="about-me"
-        className={`${
-          darkMode
-            ? "bg-purple-900 text-gray-300"
-            : "bg-purple-100 text-purple-700"
-        } container mx-auto py-16 px-6 focus:outline-none`}
+        className={`${darkMode
+          ? "bg-purple-900 text-gray-300"
+          : "bg-purple-100 text-purple-700"
+          } container mx-auto py-16 px-6 focus:outline-none`}
       >
         <h2 className="text-4xl font-bold mb-6 text-center">About Me</h2>
         <div className="max-w-3xl mx-auto text-lg leading-relaxed hello">
@@ -392,27 +396,24 @@ const CvLandingPage = () => {
       {/* Skills Section */}
       <section
         id="skills"
-        className={`py-16 px-10 ${
-          darkMode
-            ? "bg-purple-800 text-white"
-            : "bg-purple-300 text-purple-700"
-        }`}
+        className={`py-16 px-10 ${darkMode
+          ? "bg-purple-800 text-white"
+          : "bg-purple-300 text-purple-700"
+          }`}
       >
         <h2 className="text-4xl font-bold mb-12 text-center">My Skills</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {skills.map((skillCategory, index) => (
             <div
               key={index}
-              className={`p-8 rounded-xl shadow-lg ${
-                darkMode
-                  ? "bg-purple-700 text-purple-200 hover:bg-purple-400"
-                  : "bg-white hover:bg-purple-100"
-              } transition-all duration-300`}
+              className={`p-8 rounded-xl shadow-lg ${darkMode
+                ? "bg-purple-700 text-purple-200 hover:bg-purple-400"
+                : "bg-white hover:bg-purple-100"
+                } transition-all duration-300`}
             >
               <h3
-                className={`text-2xl font-semibold mb-4 ${
-                  darkMode ? "text-purple-200" : "text-purple-900"
-                }`}
+                className={`text-2xl font-semibold mb-4 ${darkMode ? "text-purple-200" : "text-purple-900"
+                  }`}
               >
                 {skillCategory.category}
               </h3>
@@ -421,17 +422,15 @@ const CvLandingPage = () => {
                   <li key={i} className="flex items-center space-x-4">
                     {/* Icon can be added here */}
                     <div
-                      className={`w-12 h-12 flex items-center justify-center rounded-full ${
-                        darkMode
-                          ? "bg-purple-600 text-purple-200"
-                          : "bg-purple-200"
-                      }`}
+                      className={`w-12 h-12 flex items-center justify-center rounded-full ${darkMode
+                        ? "bg-purple-600 text-purple-200"
+                        : "bg-purple-200"
+                        }`}
                     >
                       {/* Replace with skill-specific icons */}
                       <span
-                        className={`text-lg font-bold ${
-                          darkMode ? " text-purple-200" : "text-purple-900"
-                        }`}
+                        className={`text-lg font-bold ${darkMode ? " text-purple-200" : "text-purple-900"
+                          }`}
                       >
                         {skill.slice(0, 1)}
                       </span>
@@ -439,10 +438,9 @@ const CvLandingPage = () => {
                     <div>
                       <h4 className="text-lg font-medium">{skill}</h4>
                       <p
-                        className={` className="text-sm ${
-                          darkMode ? " text-gray-300" : "text-gray-500"
-                        }`}
-                        // className="text-sm text-gray-500"
+                        className={` className="text-sm ${darkMode ? " text-gray-300" : "text-gray-500"
+                          }`}
+                      // className="text-sm text-gray-500"
                       >
                         Experienced
                       </p>
@@ -458,16 +456,14 @@ const CvLandingPage = () => {
       {/* Projects Section */}
       <section
         id="projects"
-        className={`py-16 px-6 ${
-          darkMode
-            ? "bg-purple-900 text-purple-200"
-            : "bg-purple-200 text-purple-700"
-        }`}
+        className={`py-16 px-6 ${darkMode
+          ? "bg-purple-900 text-purple-200"
+          : "bg-purple-200 text-purple-700"
+          }`}
       >
         <h2
-          className={`text-4xl font-bold mb-12 text-center ${
-            darkMode ? "text-purple-200" : "text-purple-700"
-          }`}
+          className={`text-4xl font-bold mb-12 text-center ${darkMode ? "text-purple-200" : "text-purple-700"
+            }`}
         >
           Projects
         </h2>
@@ -498,9 +494,8 @@ const CvLandingPage = () => {
 
                 {/* Overlay for Details */}
                 <div
-                  className={`absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-end p-4 ${
-                    darkMode ? "text-gray-300" : "text-white"
-                  }`}
+                  className={`absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-end p-4 ${darkMode ? "text-gray-300" : "text-white"
+                    }`}
                 >
                   {/* Project Title */}
                   <h3 className="text-lg font-semibold mb-2">
@@ -510,11 +505,10 @@ const CvLandingPage = () => {
                   {/* Button */}
                   <button
                     onClick={() => showProject(project._id)}
-                    className={`text-sm font-medium py-2 px-4 rounded bg-opacity-70 ${
-                      darkMode
-                        ? "bg-purple-600 hover:bg-purple-500"
-                        : "bg-purple-500 hover:bg-purple-400"
-                    } text-white`}
+                    className={`text-sm font-medium py-2 px-4 rounded bg-opacity-70 ${darkMode
+                      ? "bg-purple-600 hover:bg-purple-500"
+                      : "bg-purple-500 hover:bg-purple-400"
+                      } text-white`}
                   >
                     Click to view project info & link
                   </button>
@@ -534,11 +528,10 @@ const CvLandingPage = () => {
       {/* Contact Me */}
       <section
         id="contact-me"
-        className={`container mx-auto py-16 px-4 transition-all duration-300 ${
-          darkMode
-            ? "bg-purple-700 text-gray-200"
-            : "bg-purple-200 text-purple-700"
-        }`}
+        className={`container mx-auto py-16 px-4 transition-all duration-300 ${darkMode
+          ? "bg-purple-700 text-gray-200"
+          : "bg-purple-200 text-purple-700"
+          }`}
       >
         <h2 className="text-4xl font-semibold text-center mb-8">Contact Me</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -638,9 +631,8 @@ const CvLandingPage = () => {
           <div>
             <form
               onSubmit={handleSubmit}
-              className={`${
-                darkMode ? "text-gray-900" : "text-purple-700"
-              } text-center py-6 transition-colors duration-500 space-y-6`}
+              className={`${darkMode ? "text-gray-900" : "text-purple-700"
+                } text-center py-6 transition-colors duration-500 space-y-6`}
             >
               <input
                 type="text"
@@ -673,11 +665,9 @@ const CvLandingPage = () => {
               <button
                 type="submit"
                 disabled={!isFormValid || isSending}
-                className={`w-full text-white p-3 rounded-md shadow-md hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${
-                  darkMode ? "bg-purple-400 text-purple-900" : "bg-purple-700"
-                } ${
-                  (!isFormValid || isSending) && "opacity-50 cursor-not-allowed"
-                }`}
+                className={`w-full text-white p-3 rounded-md shadow-md hover:bg-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all ${darkMode ? "bg-purple-400 text-purple-900" : "bg-purple-700"
+                  } ${(!isFormValid || isSending) && "opacity-50 cursor-not-allowed"
+                  }`}
               >
                 {isSending ? "Sending..." : "Send Message"}
               </button>
@@ -688,11 +678,10 @@ const CvLandingPage = () => {
 
       {/* Footer */}
       <footer
-        className={`${
-          darkMode
-            ? "bg-purple-900 text-gray-400"
-            : "bg-purple-300 text-purple-700"
-        } text-center py-6 transition-colors duration-500`}
+        className={`${darkMode
+          ? "bg-purple-900 text-gray-400"
+          : "bg-purple-300 text-purple-700"
+          } text-center py-6 transition-colors duration-500`}
       >
         <p className="mb-2">Sekinat Tolani Jimoh</p>
         <div className="flex justify-center gap-4 mb-2">
