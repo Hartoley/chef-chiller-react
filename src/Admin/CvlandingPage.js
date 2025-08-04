@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
-import "./cv.css";
 import axios from "axios";
 import Titter from "../Images/twitter2-removebg-preview.png";
 import linkdin from "../Images/linkedin2-removebg-preview.png";
@@ -8,6 +7,9 @@ import whatsapp from "../Images/whatsapp-removebg-preview.png";
 import telegram from "../Images/images-removebg-preview.png";
 import io from "socket.io-client";
 import emailjs from "emailjs-com";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+
 
 const socket = io("https://chef-chiller-node.onrender.com");
 
@@ -21,6 +23,10 @@ const CvLandingPage = () => {
   const [isSending, setIsSending] = useState(false);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [loading, setLoading] = useState(true);
+
+  const { ref, inView } = useInView({
+    threshold: 0.1, // Trigger when 10% of the component is visible
+  });
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -163,7 +169,7 @@ const CvLandingPage = () => {
           } sticky top-0 z-50 shadow-md transition-colors duration-500`}
       >
         <div className="container mx-auto flex items-center justify-between p-4">
-          <h1 className="text-2xl font-bold">Keena</h1>
+          <h1 className="text-2xl font-bold">Build with Keenah</h1>
 
           {/* Dark Mode Toggle and Mobile Menu Toggle */}
           <div className="flex items-center lg:hidden">
@@ -311,14 +317,19 @@ const CvLandingPage = () => {
           } text-center py-10 md:py-20 transition-colors duration-500`}
       >
         <div className="container mx-auto px-4">
-          <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4">
+          <motion.h1
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4"
+          >
             Hello, I'm{" "}
             <span
               className={`${darkMode ? "text-pink-500" : "text-purple-600"}`}
             >
               Jimoh Sekinat Tolani
             </span>
-          </h1>
+          </motion.h1>
           <h2 className="text-xl sm:text-2xl md:text-3xl font-medium mb-6">
             Full-Stack Web Application Developer
           </h2>
@@ -357,11 +368,14 @@ const CvLandingPage = () => {
 
       <section
         id="about-me"
-        className={`${darkMode
-          ? "bg-purple-900 text-gray-300"
-          : "bg-purple-100 text-purple-700"
-          } container mx-auto py-16 px-6 focus:outline-none`}
+        ref={ref}
+        initial={{ opacity: 0, y: 50 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        // transition={{ duration: 0.8, ease: "easeOut" }}
+        className={`${darkMode ? "bg-purple-900 text-gray-300" : "bg-purple-100 w-full text-purple-700"} container mx-auto py-16 px-6`}
       >
+
+
         <h2 className="text-4xl font-bold mb-6 text-center">About Me</h2>
         <div className="max-w-3xl mx-auto text-lg leading-relaxed hello">
           <p className="mb-6">
@@ -404,12 +418,15 @@ const CvLandingPage = () => {
         <h2 className="text-4xl font-bold mb-12 text-center">My Skills</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {skills.map((skillCategory, index) => (
-            <div
+            <motion.div
               key={index}
-              className={`p-8 rounded-xl shadow-lg ${darkMode
-                ? "bg-purple-700 text-purple-200 hover:bg-purple-400"
-                : "bg-white hover:bg-purple-100"
-                } transition-all duration-300`}
+              whileHover={{ scale: 1.05 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              className={`p-8 rounded-xl shadow-lg transition-all duration-300 ${darkMode ? "bg-purple-700 text-purple-200 hover:bg-purple-400" : "bg-white hover:bg-purple-100"
+                }`}
             >
               <h3
                 className={`text-2xl font-semibold mb-4 ${darkMode ? "text-purple-200" : "text-purple-900"
@@ -448,7 +465,7 @@ const CvLandingPage = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -481,7 +498,10 @@ const CvLandingPage = () => {
         {!loading && projects.length > 0 ? (
           <div className="flex flex-wrap justify-center gap-8">
             {projects.map((project, index) => (
-              <div
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 300 }}
                 key={index}
                 className="relative w-full max-w-xs md:max-w-sm lg:max-w-md h-[300px] rounded-lg shadow-lg overflow-hidden"
               >
@@ -513,7 +533,7 @@ const CvLandingPage = () => {
                     Click to view project info & link
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         ) : (
