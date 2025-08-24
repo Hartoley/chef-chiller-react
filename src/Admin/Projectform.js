@@ -34,7 +34,6 @@ const ProjectForm = () => {
           "https://chef-chiller-node.onrender.com/getallproject"
         );
         setProjects(response.data);
-        console.log(response);
       } catch (err) {
         setError("Failed to load projects");
         console.error(err);
@@ -67,7 +66,6 @@ const ProjectForm = () => {
   const saveToLocalStorage = (data) => {
     localStorage.setItem("projects", JSON.stringify(data));
   };
-  console.log(projects);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -132,7 +130,6 @@ const ProjectForm = () => {
       );
 
       alert("Project submitted successfully!");
-      console.log(response.data);
 
       socket.emit("newProject", response.data);
       setProjectData({
