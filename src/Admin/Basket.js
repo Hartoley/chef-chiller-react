@@ -170,8 +170,8 @@ const Basket = () => {
       );
       alert(
         error.response?.data?.message ||
-          error.message ||
-          "Failed to make the order."
+        error.message ||
+        "Failed to make the order."
       );
     } finally {
       setIsUpdating(false);
@@ -183,8 +183,8 @@ const Basket = () => {
   const unapprovedOrders = orderItems.filter((order) => !order.approved);
 
   return (
-    <main className="child flex justify-center w-[63.65vw] p-4 bg-gray-100">
-      <div className="bg-white w-full md:w-[65vw] h-[89vh] overflow-y-scroll no-scrollbar rounded-lg shadow-lg foodDetails">
+    <main className="child flex min-h-screen justify-center w-[63.65vw] p-4 bg-gray-100">
+      <div className="bg-white w-full md:w-[65vw] h-[92vh]  overflow-y-scroll no-scrollbar rounded-lg shadow-lg foodDetails">
         <section className="p-4 w-full productSection1 h-auto">
           {/* Header */}
           <h1 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 text-center">

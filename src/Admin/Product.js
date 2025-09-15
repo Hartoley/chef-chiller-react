@@ -111,7 +111,7 @@ const Product = ({
   };
 
   return (
-    <main className="flex flex-col w-full items-center bg-gray-100 px-4 py-6 sm:px-6">
+    <main className="flex flex-col w-full items-center bg-gray-100 py-2 px-2  sm:px-2 min-h-screen">
       <section className="flex items-center justify-between w-full max-w-6xl mb-6">
         <button
           onClick={() => setActiveSection3("mainMenu1")}
@@ -125,20 +125,20 @@ const Product = ({
         <div />
       </section>
 
-      <section className="w-full max-w-6xl bg-white rounded-lg shadow-md overflow-hidden flex flex-col lg:flex-row gap-6 p-4">
+      <section className=" py-6 px-2 bg-white rounded-lg shadow-md overflow-hidden flex flex-col lg:flex-row gap-6 ">
         {isLoading ? (
-          <div className="p-6 text-center text-gray-500 animate-pulse w-full">
+          <div className="p-6 text-center text-gray-500 animate-pulse flex flex-col lg:w-1/2 gap-3">
             Loading product...
           </div>
         ) : products.length === 0 ? (
-          <div className="p-6 text-center text-gray-400 w-full">
+          <div className="p-6 text-center text-gray-400 w-[63.65vw] ">
             No product found.
           </div>
         ) : (
           products.map((product) => (
             <React.Fragment key={product._id}>
               {/* Image Section */}
-              <div className="flex flex-col lg:w-1/2 gap-3">
+              <div className="flex flex-col lg:w-full gap-3">
                 <div className="w-full h-[200px] sm:h-[260px] md:h-[360px] lg:h-[420px] bg-gray-100 rounded-lg overflow-hidden">
                   <img
                     src={product.image}
@@ -164,7 +164,7 @@ const Product = ({
               </div>
 
               {/* Info Section */}
-              <div className="lg:w-1/2 flex flex-col gap-4">
+              <div className="lg:w-1/2 flex flex-col gap-4 overflow-auto no-scrollbar ">
                 <h2 className="text-2xl font-bold text-gray-900">
                   {product.name}
                 </h2>

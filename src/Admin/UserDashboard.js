@@ -291,11 +291,9 @@ const UserDashboard = () => {
             </div>
           </div>
           <div
-            className={`sideNav4 mt-[85vh] ${
-              isSmallScreen ? "flex" : "hidden"
-            } ${
-              isVisible ? "" : "hidden"
-            } fixed w-full flex justify-center items-center`}
+            className={`sideNav4 mt-[85vh] ${isSmallScreen ? "flex" : "hidden"
+              } ${isVisible ? "" : "hidden"
+              } fixed w-full flex justify-center items-center`}
           >
             <nav className="flex items-center z-20 justify-evenly w-4/5 bg-transparent">
               <p
@@ -417,7 +415,7 @@ const UserDashboard = () => {
           />
         </div>
       </div>
-      <Footer />
+
     </>
   );
 };
