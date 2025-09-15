@@ -78,7 +78,7 @@ const Notifications = () => {
 
   return (
     <>
-      <main className="child flex-1 p-6 bg-gray-400 w-[63.65vw]">
+      <main className="child flex-1 p-6 bg-gray-400 w-[66vw]">
         <h1 className="text-xl md:text-2xl font-bold mb-4 text-center">
           Awaiting Delivery
         </h1>

@@ -26,7 +26,7 @@ const Messages = () => {
   };
 
   return (
-    <main className="child flex-1 p-6 bg-gray-200 w-[63.65vw]">
+    <main className="child flex-1 p-6 bg-gray-200 w-[66vw]">
       <section className="section1 flex items-center justify-between mb-6">
         <div className="settings w-full h-full rounded-lg p-4 flex flex-col bg-white shadow-md">
           <h2 className="text-lg font-semibold text-center mb-4">

@@ -111,7 +111,7 @@ const Product = ({
   };
 
   return (
-    <main className="flex flex-col w-full items-center bg-gray-100 py-2 px-2  sm:px-2 min-h-screen">
+    <main className="flex flex-col w-full max-w-screen md:w-[66vw] items-center bg-gray-100 py-2 px-2  sm:px-2 min-h-screen">
       <section className="flex items-center justify-between w-full max-w-6xl mb-6">
         <button
           onClick={() => setActiveSection3("mainMenu1")}
@@ -131,7 +131,7 @@ const Product = ({
             Loading product...
           </div>
         ) : products.length === 0 ? (
-          <div className="p-6 text-center text-gray-400 w-[63.65vw] ">
+          <div className="p-6 text-center text-gray-400 w-[66vw] ">
             No product found.
           </div>
         ) : (

@@ -206,7 +206,7 @@ const MainMenu = ({ activeSection3, setActiveSection3 }) => {
   )?.label;
 
   return (
-    <main className="child h-[100vh] flex-1 px-3 py-6 bg-gray-100 w-[63.65vw]">
+    <main className="child h-[100vh] flex-1 px-3 py-6 bg-gray-100 w-[66vw]">
       <section className="section1 flex gap-3 items-center justify-between">
         <h3 className="text-2xl flex-shrink-0 font-[12px]">Food & Drinks</h3>
         <div className="list overflow-x-scroll no-scrollbar flex space-x-2">
@@ -214,11 +214,10 @@ const MainMenu = ({ activeSection3, setActiveSection3 }) => {
             <button
               key={cat.value}
               onClick={() => setSelectedCategory(cat.value)}
-              className={`px-3 py-1 rounded-full flex-shrink-0 ${
-                selectedCategory === cat.value
+              className={`px-3 py-1 rounded-full flex-shrink-0 ${selectedCategory === cat.value
                   ? "bg-gray-800 text-white"
                   : "bg-gray-200 text-gray-800"
-              }`}
+                }`}
             >
               {cat.label}
             </button>

@@ -88,7 +88,7 @@ const Setting = ({ showCustomAlert }) => {
   }, [id, currentPage]);
 
   return (
-    <main className="flex-1 px-4 py-6 bg-gray-100 w-full max-w-screen md:w-[63.65vw] mx-auto">
+    <main className="flex-1 px-4 py-6 bg-gray-100 w-full max-w-screen md:w-[66vw] mx-auto">
       <h1 className="text-xl md:text-2xl font-bold mb-6 text-center text-gray-800">
         Order History
       </h1>

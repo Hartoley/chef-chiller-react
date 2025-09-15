@@ -177,7 +177,7 @@ const FoodsDrinks = ({ showCustomAlert }) => {
   }, [orders, totalOrders, currentPage, totalPages]);
 
   return (
-    <main className="child flex-1 p-4 bg-gray-600 w-[63.65vw]">
+    <main className="child flex-1 p-4 bg-gray-600 w-[66vw]">
       <h1 className="text-xl md:text-2xl font-bold flex flex-col items-center text-white mb-4 text-center">
         All Orders
       </h1>
