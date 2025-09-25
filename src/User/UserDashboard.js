@@ -257,7 +257,7 @@ const UserDashboard = () => {
 
   return (
     <>
-      <div className="mainContainer relative flex h-screen font-sans text-gray-800 bg-gray-900">
+      <div className="relative flex h-screen font-sans text-gray-800 bg-gray-900">
         <div
           style={{ position: showMore ? "fixed" : "static" }}
           className="mother relative flex h-screen font-sans text-gray-800 bg-gray-100"
