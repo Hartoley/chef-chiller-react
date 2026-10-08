@@ -68,9 +68,8 @@ function Hero() {
                 aria-selected={idx === i}
                 aria-label={d.name}
                 onClick={() => setI(idx)}
-                className={`overflow-hidden rounded-full transition ${
-                  idx === i ? "ring-4 ring-cobalt ring-offset-2 ring-offset-enamel" : "opacity-70 hover:opacity-100"
-                }`}
+                className={`overflow-hidden rounded-full transition ${idx === i ? "ring-4 ring-cobalt ring-offset-2 ring-offset-enamel" : "opacity-70 hover:opacity-100"
+                  }`}
               >
                 <img src={d.image} alt="" className="h-12 w-12 object-cover sm:h-14 sm:w-14" />
               </button>
@@ -119,9 +118,8 @@ function MenuPreview() {
                 <button
                   key={c}
                   onClick={() => setCat(c)}
-                  className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold ${
-                    cat === c ? "bg-ink text-white" : "bg-enamel text-ink-soft hover:text-ink"
-                  }`}
+                  className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold ${cat === c ? "bg-ink text-white" : "bg-enamel text-ink-soft hover:text-ink"
+                    }`}
                 >
                   {c}
                 </button>
@@ -145,7 +143,7 @@ function MenuPreview() {
               <li key={p._id}>
                 <button onClick={() => open(p)} className="group flex w-full flex-col items-center text-center">
                   <Bowl src={p.image} alt={p.name} rim="thin" size="h-32 w-32 sm:h-40 sm:w-40" className="transition-transform group-hover:-rotate-6" />
-                  <span className="mt-5 font-display text-lg font-bold leading-tight">{p.name}</span>
+                  <span className="mt-5 line-clamp-2 min-h-[2.6em] font-display text-lg font-bold leading-[1.3]">{p.name}</span>
                   <span className="mt-1 font-semibold text-ata">{naira(p.price)}</span>
                   {p.prepTime && <span className="mt-0.5 text-sm text-ink-faint">Ready in {p.prepTime}</span>}
                 </button>
@@ -157,7 +155,7 @@ function MenuPreview() {
             {showcase.map((d) => (
               <li key={d.name} className="flex flex-col items-center text-center">
                 <Bowl src={d.image} alt={d.name} rim="thin" size="h-32 w-32 sm:h-40 sm:w-40" />
-                <span className="mt-5 font-display text-lg font-bold leading-tight">{d.name}</span>
+                <span className="mt-5 line-clamp-2 min-h-[2.6em] font-display text-lg font-bold leading-[1.3]">{d.name}</span>
               </li>
             ))}
           </ul>
@@ -226,11 +224,11 @@ function Reviews() {
     <section className="py-16 sm:py-24">
       <div className="wrap">
         <h2 className="text-4xl font-extrabold sm:text-5xl">From our tables</h2>
-        <div className="mt-12 columns-1 gap-6 sm:columns-2 lg:columns-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {reviews.map((r) => (
-            <figure key={r.name} className="mb-6 break-inside-avoid rounded-3xl bg-white p-6 ring-1 ring-line">
+            <figure key={r.name} className="flex flex-col rounded-3xl bg-white p-6 ring-1 ring-line">
               <blockquote className="text-[17px] leading-relaxed">“{r.text}”</blockquote>
-              <figcaption className="mt-5 flex items-center gap-3">
+              <figcaption className="mt-auto flex items-center gap-3 pt-5">
                 <span className="grid h-10 w-10 place-items-center rounded-full bg-cobalt-soft font-display font-bold text-cobalt">
                   {r.name[0]}
                 </span>

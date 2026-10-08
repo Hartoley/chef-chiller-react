@@ -38,9 +38,8 @@ export default function MenuPage() {
             <button
               key={c}
               onClick={() => setCat(c)}
-              className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold ${
-                cat === c ? "bg-ink text-white" : "bg-white text-ink-soft ring-1 ring-line hover:text-ink"
-              }`}
+              className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold ${cat === c ? "bg-ink text-white" : "bg-white text-ink-soft ring-1 ring-line hover:text-ink"
+                }`}
             >
               {c}
             </button>
@@ -59,16 +58,16 @@ export default function MenuPage() {
           {shown.map((p) => {
             const inBasket = quantityOf(p._id);
             return (
-              <li key={p._id} className="flex flex-col items-center text-center">
+              <li key={p._id} className="flex h-full flex-col items-center text-center">
                 <Link to={`/app/dish/${p._id}`} className="group flex flex-col items-center">
                   <Bowl src={p.image} alt={p.name} rim="thin" size="h-32 w-32 sm:h-36 sm:w-36" className="transition-transform group-hover:-rotate-6" />
-                  <span className="mt-4 font-display text-lg font-bold leading-tight">{p.name}</span>
+                  <span className="mt-4 line-clamp-2 min-h-[2.6em] font-display text-lg font-bold leading-[1.3]">{p.name}</span>
                 </Link>
-                <span className="mt-1 font-semibold text-ata">{naira(p.price)}</span>
+                <span className="mb-3 mt-1 font-semibold text-ata">{naira(p.price)}</span>
                 <button
                   onClick={() => update(p, "add")}
                   disabled={busyId === p._id}
-                  className="btn-ghost mt-3 px-4 py-2 text-sm"
+                  className="btn-ghost mt-auto px-4 py-2 text-sm"
                 >
                   <Plus size={16} /> {inBasket ? `Add another (${inBasket})` : "Add to basket"}
                 </button>
