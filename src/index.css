@@ -1,17 +1,96 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+@import "@fontsource-variable/anybody/wdth.css";
+@import "@fontsource-variable/figtree";
+@import "react-toastify/dist/ReactToastify.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-enamel text-ink font-sans antialiased;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-ink;
+    font-stretch: 112%;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+  :focus-visible {
+    outline: 3px solid #1d3fa6;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: #f3a712;
+    color: #141826;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-[15px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-cobalt text-white hover:bg-cobalt-deep;
+  }
+  .btn-hot {
+    @apply btn bg-ata text-white hover:bg-ata-deep;
+  }
+  .btn-ghost {
+    @apply btn border border-line bg-white text-ink hover:border-ink;
+  }
+  .btn-quiet {
+    @apply btn px-3 text-ink-soft hover:bg-white hover:text-ink;
+  }
+  .field {
+    @apply w-full rounded-xl border border-line bg-white px-4 py-3 text-[15px] text-ink placeholder:text-ink-faint focus:border-cobalt focus:outline-none focus:ring-2 focus:ring-cobalt/20;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-semibold text-ink;
+  }
+  .panel {
+    @apply rounded-3xl border border-line bg-white;
+  }
+  .wrap {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+  }
+  .display-xl {
+    font-stretch: 125%;
+    @apply font-display font-extrabold;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.Toastify__toast {
+  @apply rounded-2xl font-sans text-[15px];
+}
+.Toastify__progress-bar--success {
+  background: #1f7a47;
+}

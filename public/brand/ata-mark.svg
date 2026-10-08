@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Ata Kitchen"><g transform="translate(0 0) scale(1.0)">
+  <path d="M60 31 C59 22 62 15 71 11" fill="none" stroke="#1F7A47" stroke-width="6" stroke-linecap="round"/>
+  <path d="M60 32 C64 25 72 25 76 30 C70 29 64 30 60 32 Z" fill="#1F7A47"/>
+  <path d="M33 62 C29 50 32 39 41 36 C42 29 50 27 55 32 C57 28 63 28 65 32 C70 27 78 29 79 36 C88 39 91 50 87 62 Z" fill="#D7261E"/>
+  <path d="M55 33 C52 42 51 51 52 60 M65 33 C68 42 69 51 68 60" fill="none" stroke="#A81A14" stroke-width="3" stroke-linecap="round"/>
+  <path d="M10 56 H110 C110 84 88 106 60 106 C32 106 10 84 10 56 Z" fill="#1D3FA6"/>
+  <path d="M19 67 H101" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+</g></svg>
